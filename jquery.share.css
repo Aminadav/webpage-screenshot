@@ -1,0 +1,217 @@
+.share {
+    
+}
+
+.share-affix {
+    position: fixed;
+    top:50px;
+    left:0px;
+}
+
+.share-icon {
+    background-repeat: no-repeat;
+    background-image:url('images/social-icons.png');
+    height:40px;
+    width:40px;
+    display: inline-block;
+    text-indent: -99999px;
+    margin:2px;
+    opacity: .9;
+    filter:Alpha(Opacity=90);
+}
+
+.share-icon:hover {
+    opacity: 1;
+    filter:Alpha(Opacity=100);
+}
+
+.share-icon-digg {
+    background-position: -526px 0;
+}
+.share-icon-email {
+    background-position: -614px 0;
+}
+.share-icon-flickr {
+    background-position: -261px 0;
+}
+.share-icon-foursquare {
+    background-position: 0 0;
+}
+.share-icon-rss {
+    background-position: -305px 0;
+}
+.share-icon-facebook {
+    background-position: -131px 0;
+}
+.share-icon-twitter {
+    background-position: -174px 0;
+}
+.share-icon-tumblr {
+    background-position: -87px 0;
+}
+.share-icon-linkedin {
+    background-position: -438px 0;
+}
+.share-icon-vimeo {
+    background-position: -393px 0;
+}
+.share-icon-instagram {
+    background-position: -44px 0;
+}
+.share-icon-pinterest {
+    background-position: -349px 0;
+}
+.share-icon-googleplus {
+    background-position: -218px 0;
+}
+.share-icon-in1 {
+    background-position: -482px 0;
+}
+.share-icon-stumbleupon {
+    background-position: -570px 0;
+}
+
+/**a.behance, a.delicious, a.deviantart, a.digg, a.dribbble, a.facebook, a.flickr, a.forrst, a.foursquare, a.googleplus, a.in1, a.instagram, a.lastfm, a.linkedin, a.pinterest, a.rss, a.skype, a.tumblr, a.twitter, a.vimeo, a.youtube {*/
+.share-square {
+    -moz-transition: all 0.2s linear 0s;
+    background: url("images/social-icons.png") no-repeat scroll left top transparent;
+    display: inline-block;
+    height: 32px;
+    line-height: 0;
+    margin: 2px;
+    width: 32px;
+}
+.share-square-behance {
+    background-position: -544px -44px;
+}
+.share-square-behance:hover {
+    background-position: -544px -77px;
+}
+.share-square-delicious {
+    background-position: -512px -44px;
+}
+.share-square-delicious:hover {
+    background-position: -512px -77px;
+}
+.share-square-deviantart {
+    background-position: -480px -44px;
+}
+.share-square-deviantart:hover {
+    background-position: -480px -77px;
+}
+.share-square-digg {
+    background-position: -448px -44px;
+}
+.share-square-digg:hover {
+    background-position: -448px -77px;
+}
+.share-square-dribbble {
+    background-position: -416px -44px;
+}
+.share-square-dribbble:hover {
+    background-position: -416px -77px;
+}
+.share-square-email {
+    background-position: -674px -44px;
+}
+.share-square-email:hover {
+    background-position: -674px -77px;
+}
+.share-square-facebook {
+    background-position: -384px -44px;
+}
+.share-square-facebook:hover {
+    background-position: -384px -77px;
+}
+.share-square-flickr {
+    background-position: -352px -44px;
+}
+.share-square-flickr:hover {
+    background-position: -352px -77px;
+}
+.share-square-forrst {
+    background-position: -320px -44px;
+}
+.share-square-forrst:hover {
+    background-position: -320px -77px;
+}
+.share-square-googleplus {
+    background-position: -288px -44px;
+}
+.share-square-googleplus:hover {
+    background-position: -288px -77px;
+}
+.share-square-in1 {
+    background-position: -576px -44px;
+}
+.share-square-in1:hover {
+    background-position: -576px -77px;
+}
+.share-square-instagram {
+    background-position: -608px -44px;
+}
+.share-square-instagram:hover {
+    background-position: -608px -77px;
+}
+.share-square-lastfm {
+    background-position: -256px -44px;
+}
+.share-square-lastfm:hover {
+    background-position: -256px -77px;
+}
+.share-square-linkedin {
+    background-position: -224px -44px;
+}
+.share-square-linkedin:hover {
+    background-position: -224px -77px;
+}
+.share-square-pinterest {
+    background-position: -192px -44px;
+}
+.share-square-pinterest:hover {
+    background-position: -192px -77px;
+}
+.share-square-rss {
+    background-position: -160px -44px;
+}
+.share-square-rss:hover {
+    background-position: -160px -77px;
+}
+.share-square-skype {
+    background-position: -128px -44px;
+}
+.share-square-skype:hover {
+    background-position: -128px -77px;
+}
+.share-square-stumbleupon {
+    background-position: -640px -44px;
+}
+.share-square-stumbleupon:hover {
+    background-position: -640px -77px;
+}
+.share-square-tumblr {
+    background-position: -96px -44px;
+}
+.share-square-tumblr:hover {
+    background-position: -96px -77px;
+}
+.share-square-twitter {
+    background-position: -64px -44px;
+}
+.share-square-twitter:hover {
+    background-position: -64px -77px;
+}
+.share-square-vimeo {
+    background-position: -32px -44px;
+}
+.share-square-vimeo:hover {
+    background-position: -32px -77px;
+}
+.share-square-youtube {
+    background-position: 0 -44px;
+}
+.share-square-youtube:hover {
+    background-position: 0 -77px;
+}
+
+

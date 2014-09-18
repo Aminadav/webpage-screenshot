@@ -1,0 +1,112 @@
+<html>
+<head>
+<script src=jquery.js></script>
+<script src=extension.js></script>
+<script src=options.js></script>
+<style>
+	input {padding:3px;font-size:120%}
+</style>
+</head>
+<body>
+	<table align=center style=width:800px;><tr><Td>
+	<div style="border:1px dashed skyblue;padding:20px;margin:20px;background-color:EBEFFA">
+	<img style=cursor:pointer onclick=window.close() title="Save & Close" src=/images/drawing/close.png align=right>
+	<center><h1>Webpage Screenshot</h1></center>
+	<hr>
+<table width=100%><tr><td>
+	<br>
+	<b>Save As:</b>
+	<br>
+	<input class=localStorage type=radio name=pngjpg value=png>PNG<br>
+	<input class=localStorage type=radio name=pngjpg value=jpg>JPG <span class=jpgshow>- <span style=color:red>Beta!</span> File name will be PNG but it is really jpg</span>
+	<br><br>
+	<!--<b>Auto Open (without save)</b>
+	<br>
+	<input class=localStorage type=radio name=auto value=open>Open<br>
+	<input class=localStorage type=radio name=auto value=edit>Edit<br>
+	<br>
+	<br>-->
+	<b>Image Header:</b><br>
+	<input type=text style=width:400px class=localStorage name=txtHeader><br>
+		<span style=font-size:80%;opacity:0.8>%U = URL,  %D = Date</span><br><br>
+	<b>Image Footer:</b><br>
+	<input type=text style=width:400px class=localStorage name=txtFotter><br>
+	<span style=font-size:80%;opacity:0.8>%U = URL,  %D = Date</span>
+	<br><br><br>
+	<input class=localStorage type=radio name=enableshortcuts value=yes>Enable shortcuts<br>
+	<div style=margin-left:20px>
+	Entire Page Screenshot:  <b>Alt + </b><select class=localStorage name=shortcut_full>
+		<option value=65>A</option><option value=66>B</option><option value=67>C</option><option value=68>D</option><option value=69>E</option><option value=70>F</option><option value=71>G</option><option value=72>H</option><option value=73>I</option><option value=74>J</option><option value=75>K</option><option value=76>L</option><option value=77>M</option><option value=78>N</option><option value=79>O</option><option value=80>P</option><option value=81>Q</option><option value=82>R</option><option value=83>S</option><option value=84>T</option><option value=85>U</option><option value=86>V</option><option value=87>W</option><option value=88>X</option><option value=89>Y</option><option value=90>Z</option><option value=48>0</option><option value=49>1</option><option value=50>2</option><option value=51>3</option><option value=52>4</option><option value=53>5</option><option value=54>6</option><option value=55>7</option><option value=56>8</option><option value=57>9</option>
+	</select><br>
+	Visible Region Screenshot : <b>Alt + </b><select class=localStorage name=shortcut_visible>
+		<option value=65>A</option><option value=66>B</option><option value=67>C</option><option value=68>D</option><option value=69>E</option><option value=70>F</option><option value=71>G</option><option value=72>H</option><option value=73>I</option><option value=74>J</option><option value=75>K</option><option value=76>L</option><option value=77>M</option><option value=78>N</option><option value=79>O</option><option value=80>P</option><option value=81>Q</option><option value=82>R</option><option value=83>S</option><option value=84>T</option><option value=85>U</option><option value=86>V</option><option value=87>W</option><option value=88>X</option><option value=89>Y</option><option value=90>Z</option><option value=48>0</option><option value=49>1</option><option value=50>2</option><option value=51>3</option><option value=52>4</option><option value=53>5</option><option value=54>6</option><option value=55>7</option><option value=56>8</option><option value=57>9</option>
+	</select><br>
+	Cancel Screenshot: <select><option>ESC</option></select>
+</div>
+	<input class=localStorage type=radio name=enableshortcuts value=no>Disable Shortcuts<br>
+	<small ><span class=msg tag="must_reload_tabs"></span></small><br><br>
+
+	<span class=msg tag="screenshot_delay"></span><br>
+	<span class=msg tag="wait"></span>
+	<select class=localStorage name=delay>
+		 <option value=0>0</option><option value=1>1</option><option value=2>2</option><option value=3>3</option><option value=4>4</option><option value=5>5</option><option value=6>6</option><option value=7>7</option><option value=8>8</option><option value=9>9</option><option value=10>10</option>		
+	</select>
+	<span class=msg tag="seconds"></span>&nbsp;<span class=msg tag="before_taking_screenshot"></span>
+	<br>
+	<br>
+	<!--<b>Webpage Screenshot Bar - Beta (WSB)</b>:<br>
+	<input class="sb_start localstorage" type=radio  name="sb_enable" value="yes"><span class=msg tag="enable"></span> WSB<br>
+	<input class="sb_pause localstorage" type=radio  name="sb_enable" value="no"><span class=msg tag="disable"></span> WSB
+	<br><br>-->
+	Add suggestions to "Page Not Found" messages<br> (<a target="_blank" href="404.html#http://webpagescreenshot.inf">See an Example</a>)<br>
+	<input class="localstorage" type=radio  name="notfound_check" value="yes"><span class=msg tag="enable"></span><br>
+	<input class="localstorage" type=radio  name="notfound_check" value="no"><span class=msg tag="disable"></span>
+
+<br>
+
+	<button onclick=window.close() style=padding:5px>Done</button>
+<td vAlign=top align=center>
+	<!--<iframe width=400 height=155px scrolling=no style=border:none src=http://www.webpagescreenshot.info/afterd.asp></iframe>-->
+	<a href="http://www.webpagescreenshot.info/?t=changelog">Please donate, so we can continue to develop this extension</a>
+	<br>
+		<a target=_new href=https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SXRJ4W4DGLTW4>
+			<img src="/paypal.gif" border=0>
+		</a>
+	</td></tr></table>
+</td>
+</tr>
+</table>
+<br><br>
+<div style=position:absolute;left:10px;top:10px>
+	<img src=/images/logo_twitter.png height=20 style=vertical-align:middle>&nbsp;<a target=_new href=http://twitter.com/home?status=Check%20out%20this%20Chrome%20extesnion%20%22Webpage%20Screenshot%22%2C%20http://bit.ly/cF6sYP%20save%20PNG%20screenshots%20of%20any%20webpage.>Tweet about it</a>
+	<br>
+	<img src=/images/logo_facebook.png height=20 style=vertical-align:middle>&nbsp;<a target=_new 
+	<a target=_new href="http://www.facebook.com/sharer.php?u=http://bit.ly/cF6sYP">
+	Facebook About it
+	</a><br>
+	<a 	target=_new class=msg tag=likeresult href="http://bit.ly/cF6sYP">Give 5 Start.</a><br>
+	<a 	target=_new class=msg tag=filebug href="http://code.google.com/p/webpageextension/issues/entry">Give 5 Start.</a>
+	</div>
+
+
+	</td></tr></table>
+
+<!--<center>
+	<form action="https://www.paypal.com/cgi-bin/webscr" method="post"> 
+    <input type="hidden" name="cmd" value="_s-xclick" /><input type="hidden" name="hosted_button_id" value="JM5Y59TJGALZU" /><input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" /><img alt="" border="0" width="1" height="1" src="https://www.paypal.com/en_US/i/scr/pixel.gif" /> 
+	</form>
+	<a href="http://www.webpagescreenshot.info/?t=Thank%20you%20for%20using">Why Donate?</a>
+	<br><br>
+
+	<div style=width:728;text-align:right>We Recommend<a href=# class=hide tag=afterd>(hide)</a></div>
+	<div class=afterd>
+	<!- -<iframe scrolling="no" frameborder="0" allowtransparency="true" height="172" width="728" style="border:0;" src="http://www.afterdownload.com/widget/render/hash/b10cb344020793acd97e56e6bc597645"></iframe>
+	</div>
+	<br/>
+	<br>
+	<div style=width:728;text-align:right>Other Extensions<a href=# class=hide tag=other>(hide)</a></div>
+	<div class=other>-->
+</center>
+</div>
+</body>
+</html>

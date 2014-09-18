@@ -1,0 +1,315 @@
+
+::-webkit-scrollbar 
+  {
+    width: 15px;
+
+    height: 15px;
+
+    zoom: reset;
+
+  }
+
+
+
+
+::-webkit-scrollbar-corner 
+  {
+
+    background-image: url(chrome-extension://hngfmkbjhlcbdgmppkpkdejbgmblalmi/sb-corner-piece.png);
+
+    background-position: 15px 0;
+
+    background-repeat: no-repeat;
+
+    background-position: 0 0;
+
+    zoom: reset;
+  
+}
+
+
+
+
+::-webkit-scrollbar-track 
+  {
+
+    margin: -12px;
+
+    zoom: reset;
+
+  }
+
+
+
+
+::-webkit-scrollbar:horizontal 
+  {
+    
+    background-image: url(chrome-extension://hngfmkbjhlcbdgmppkpkdejbgmblalmi/sb-h-track.png);
+
+    background-repeat: repeat-x;
+
+    zoom: reset;
+  }
+
+
+
+
+::-webkit-scrollbar-thumb:horizontal
+  {
+
+    -webkit-border-image: url(chrome-extension://hngfmkbjhlcbdgmppkpkdejbgmblalmi/sb-h-thumb-enabled.png) 0 8 0 8;
+
+    border-color: transparent;
+
+    border-width: 0 8px;
+ 
+    min-width: 24px;
+
+    zoom: reset;
+  
+}
+
+
+::-webkit-scrollbar-thumb:horizontal:hover
+  {
+
+    -webkit-border-image: url(chrome-extension://hngfmkbjhlcbdgmppkpkdejbgmblalmi/sb-h-thumb-hover.png) 0 8 0 8;
+
+    border-color: transparent;
+
+    border-width: 0 8px;
+ 
+    min-width: 24px;
+
+    zoom: reset;
+  
+}
+
+
+
+::-webkit-scrollbar-thumb:horizontal:active
+  {
+
+    -webkit-border-image: url(chrome-extension://hngfmkbjhlcbdgmppkpkdejbgmblalmi/sb-h-thumb-pressed.png) 0 8 0 8;
+
+    zoom: reset;
+
+  }
+
+
+
+::-webkit-scrollbar-thumb:horizontal:window-inactive
+  {
+
+    -webkit-border-image: url(chrome-extension://hngfmkbjhlcbdgmppkpkdejbgmblalmi/sb-h-thumb-disabled.png) 0 8 0 8;
+
+    zoom: reset;
+  
+}
+
+
+
+::-webkit-scrollbar-button:horizontal
+  {
+    width: 26px;
+
+    zoom: reset;
+
+  }
+
+
+
+
+
+
+::-webkit-scrollbar-button:horizontal:decrement
+ {
+
+    background-image: url(chrome-extension://hngfmkbjhlcbdgmppkpkdejbgmblalmi/sb-h-apart-left.png);
+
+    background-position: -26px 0;
+
+    background-repeat: no-repeat;
+
+    zoom: reset;
+
+ }
+
+
+
+::-webkit-scrollbar-button:horizontal:decrement:active
+  {
+
+    background-position: -52px 0;
+
+    zoom: reset;
+
+  }
+
+
+
+::-webkit-scrollbar-button:horizontal:decrement:window-inactive
+  {
+
+    background-position: 0 0;
+
+    zoom: reset;
+
+  }
+
+
+
+
+::-webkit-scrollbar-button:horizontal:increment
+  {
+
+    background-image: url(chrome-extension://hngfmkbjhlcbdgmppkpkdejbgmblalmi/sb-h-apart-right.png);
+
+    background-position: -26px 0;
+
+    background-repeat: no-repeat;
+
+    zoom: reset;
+  
+} 
+
+
+
+::-webkit-scrollbar-button:horizontal:increment:active {
+    background-position: -52px 0;
+    zoom: reset;
+}
+
+::-webkit-scrollbar-button:horizontal:increment:window-inactive {
+    background-position: 0 0;
+    zoom: reset;
+}
+
+/* Vertical Scrollbar Styles */
+
+/* verical track background */
+::-webkit-scrollbar:vertical {
+    background-image: url(chrome-extension://hngfmkbjhlcbdgmppkpkdejbgmblalmi/sb-v-track.png);
+    background-repeat: repeat-y;
+    zoom: reset;
+}
+
+/* vertical thumb */
+/* image is 24 pixels high, with the end-caps comprising 8 pixels on each end */
+::-webkit-scrollbar-thumb:vertical {
+    -webkit-border-image: url(chrome-extension://hngfmkbjhlcbdgmppkpkdejbgmblalmi/sb-v-thumb-enabled.png) 8 0 8 0;
+    border-color: transparent;
+    border-width: 8px 0;
+    min-height: 24px;
+    zoom: reset;
+}
+
+
+::-webkit-scrollbar-thumb:vertical:hover {
+    -webkit-border-image: url(chrome-extension://hngfmkbjhlcbdgmppkpkdejbgmblalmi/sb-v-thumb-hover.png) 8 0 8 0;
+    border-color: transparent;
+    border-width: 8px 0;
+    min-height: 24px;
+    zoom: reset;
+}
+
+
+
+::-webkit-scrollbar-thumb:vertical:active {
+    -webkit-border-image: url(chrome-extension://hngfmkbjhlcbdgmppkpkdejbgmblalmi/sb-v-thumb-pressed.png) 8 0 8 0;
+    zoom: reset;
+}
+
+::-webkit-scrollbar-thumb:vertical:window-inactive {
+    -webkit-border-image: url(chrome-extension://hngfmkbjhlcbdgmppkpkdejbgmblalmi/sb-v-thumb-disabled.png) 8 0 8 0;
+    zoom: reset;
+}
+
+/* vertical arrows */
+::-webkit-scrollbar-button:vertical {
+    height: 26px;
+    zoom: reset;
+}
+
+/* vertical up arrow */
+/* all images are in a strip in v-apart-top.png, order is disabled/enabled/pressed (aka active) */
+::-webkit-scrollbar-button:vertical:decrement {
+    background-image: url(chrome-extension://hngfmkbjhlcbdgmppkpkdejbgmblalmi/sb-v-apart-top.png);
+    background-position: -15px 0;
+    background-repeat: no-repeat;
+    zoom: reset;
+}
+
+::-webkit-scrollbar-button:vertical:decrement:active {
+    background-position: -30px 0;
+    zoom: reset;
+}
+
+::-webkit-scrollbar-button:vertical:decrement:window-inactive {
+    background-position: 0 0;
+    zoom: reset;
+}
+
+/* vertical down arrow */
+/* all images are in a strip in v-apart-bottom.png, order is disabled/enabled/pressed (aka active) */
+::-webkit-scrollbar-button:vertical:increment {
+    background-image:url('chrome-extension://hngfmkbjhlcbdgmppkpkdejbgmblalmi/sb-v-apart-bottom.png');
+    background-position: -15px 0;
+    background-repeat: no-repeat;
+    zoom: reset;
+}
+
+::-webkit-scrollbar-button:vertical:increment:active {
+    background-position: -30px 0;
+    zoom: reset;
+}
+
+::-webkit-scrollbar-button:vertical:increment:window-inactive {
+    background-position: 0 0;
+    zoom: reset;
+}
+
+/* Forced Scrollbar Mode Styles */
+
+.single::-webkit-scrollbar-button:start:decrement,
+.single::-webkit-scrollbar-button:end:increment {
+    display: block;
+    zoom: reset;
+}
+
+.single::-webkit-scrollbar-button:start:increment,
+.single::-webkit-scrollbar-button:end:decrement {
+    display: none;
+    zoom: reset;
+}
+
+.double-end::-webkit-scrollbar-button:start {
+    display: none;
+    zoom: reset;
+}
+
+.double-end::-webkit-scrollbar-button:end {
+    display: block;
+    zoom: reset;
+}
+
+.double-start::-webkit-scrollbar-button:start {
+    display: block;
+    zoom: reset;
+}
+
+.double-start::-webkit-scrollbar-button:end {
+    display: none;
+    zoom: reset;
+}
+
+.double-both::-webkit-scrollbar-button {
+    display: block;
+    zoom: reset;
+}
+
+.none::-webkit-scrollbar-button {
+    display: none;
+    zoom: reset;
+}

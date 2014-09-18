@@ -1,0 +1,357 @@
+<html>
+<head>
+<intent
+      action=”http://webintents.org/edit”
+      type=”image/*”
+      href=”memeit.html”
+      title="" />
+</intent>
+<LINK REL=StyleSheet HREF="window.css" TYPE="text/css" MEDIA=screen>
+<LINK REL=StyleSheet HREF="jquery.windows-engine.css" TYPE="text/css" MEDIA=screen>
+<LINK REL=StyleSheet HREF="colors.css" TYPE="text/css" MEDIA=screen>
+	<link href="jquery-ui-1.9.2.custom/css/dot-luv/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+<title>Editor</title>
+<style>
+#old #zoom span {padding:5px;color:blue;text-decoration:underline;color:blue;cursor:pointer}
+#old #zoom span.a {color:black;font-weight:bolder;cursor:default;text-decoration:none}
+#new canvas {}
+#new #misgeret {border:2px solid skyblue;left:5;top:5}
+#new #top {height:60px;background-color:wheat}
+
+#new,#old {display:none}
+body {font-family:arial;padding:0px;margin:0px}
+old#serviceButtons button {cursor:hand;margin:0px;border:none;}
+old#serviceButtons button:hover {border:1px solid gray}
+old#serviceButtons button img {vertical-align:middle;width:20px;height:20px;}
+canvas.moshe {border:1px gray dashed}
+nvas.moshe {cursor:move}
+
+
+* {
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+}
+
+
+
+@media screen{
+.toPrint {display:none}
+}
+
+
+
+
+
+  @media print {
+    #header { display:none }
+    #fotter { display:none }
+	#divCanvasData {display:none}
+	{.toPrint {display:block}
+  }
+
+
+</style>
+<style>
+.toolbar{
+	margin:0px;
+	padding:0px;
+	list-style:none;
+	border:1px solid #8b8b8b;
+	display:inline-block;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f8f8f8), color-stop(100%,#cfcfcf));
+	background: -webkit-linear-gradient(top, #f8f8f8 0%,#cfcfcf 100%);
+}
+.toolbar li{
+	margin:0px;
+	padding:0px;
+	list-style:none;
+	height:24px;
+	width:24px;
+	float:left;
+	border-right:1px solid #8b8b8b;
+	border-left:1px solid #FFF;
+	background-position:center;
+	background-size:100% 100%;
+	background-repeat:no-repeat;
+	cursor:pointer;
+}
+.toolbar li:hover:not(#border1),.toolbar li.on{background-color:#f8f8f8 !important;}
+.toolbar li:first-child{
+	border-left: none !important;
+}
+.toolbar li:last-child{
+	border-right: none !important;
+}
+
+.line{background-image:url(nd/toolbar_line.png)}
+.curved-line{background-image:url(nd/toolbar_curveline.png)}
+.spray{background-image:url(nd/toolbar_spray.png)}
+.text{background-image:url(nd/toolbar_text.png)}
+.square{background-image:url(nd/toolbar_square.png)}
+.square-fill{background-image:url(nd/toolbar_square_fill.png)}
+.oval{background-image:url(nd/toolbar_oval.png)}
+.arrow{background-image:url(nd/toolbar_arrow.png)}
+
+.star{background-image:url(nd/star.png);background-size:100% 100%;}
+.house{background-image:url(nd/house.png);background-size:100% 100%;}
+
+.crop{background-image:url(nd/toolbar_crop.png)}
+.undo{background-image:url(nd/toolbar_undo.png)}
+.redo{background-image:url(nd/toolbar_redo.png)}
+.border1{background-image:url(nd/border1.png)}
+
+.button.disable{opacity:0.3;}
+
+.btnd {
+	border:1px solid #8b8b8b;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	height:32px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f8f8f8), color-stop(100%,#cfcfcf));
+	background: -webkit-linear-gradient(top, #f8f8f8 0%,#cfcfcf 100%);
+	padding:0px 20px 0px 20px;
+	font-weight:bold;
+	cursor:pointer;
+}
+.btnd.save{
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e0e3f6), color-stop(100%,#b8bacd));
+	background: -webkit-linear-gradient(top, #e0e3f6 0%,#b8bacd 100%);
+}
+.btnd img{
+	display:block;
+	float:right;
+	padding:0px;
+	padding-left:5px;
+	margin-right:-10px;
+	width:16px;
+	height:16px;
+}
+.btnd:hover{background-color:#f8f8f8 !important;}
+
+.listicon{
+	display:block;
+	width:24px;
+	white-space:nowrap;
+	height:24px;
+	background:#FFF;
+	border:1px solid #eaeaea;
+	background-position:center;
+	padding:3px;
+	text-indent:30px;
+	background-repeat:no-repeat;
+	vertical-align: middle;
+}
+
+
+@media (max-width:1200){
+	.hideLessThan1000 {display:none}
+}
+
+.listicon:hover{
+	border:1px solid #888;
+}
+.listicon:hover div{
+	width:100%;
+}
+.icon-gallery{background-image:url(nd/icon_addto_gallery.png);}
+.icon-evernote{background-image:url(nd/icon_addto_evernote.png);}
+.icon-gdrive{background-image:url(nd/icon_addto_gdrive.png);}
+.icon-dropbox{background-image:url(nd/icon_addto_dropbox.png);}
+
+.icon-facebook{background-image:url(nd/icon_share_fb.png);}
+.icon-twitter{background-image:url(nd/icon_share_twitter.png);}
+.icon-gplus{background-image:url(nd/gplus.png);}
+.icon-vk{background-image:url(nd/vk.png);}
+.icon-email{background-image:url(nd/icon_email.png);}
+.icon-print{background-image:url(nd/icon_print.png);}
+.icon-link{background-image:url(nd/icon_link.png);}
+</style>
+
+
+	<script src="pluginDev/jquery.js"></script>
+	<script src="jquery-ui-1.9.2.custom.min.js"></script>
+
+<script src="pluginDev/pluginLib.js"></script>
+<script src="pluginDev/plugin.js"></script>
+<script src="pluginDev/pluginsBuiltIn.js"></script>
+
+<script src="pluginDev/jquery-ui-1.9.2.custom.min.js"></script>
+<link rel="stylesheet" href="pluginDev/jquery-ui-1.9.2.custom.min.css"></script>
+
+<script src=extension.js></script>
+<script src=jquery.more.js></script>
+<script src=blobbuilder.js></script>
+<script src=canvastoblob.js></script>
+<script src=filesaver.js></script>
+<script src=editor.js></script>
+<script src=jquery.mywindows-engine.js></script>
+<script src="intent.js"></script>
+<script src=winnis.js></script>
+<script src="oauth2/oauth2.js"></script>
+<script src="colors.js"></script>
+</head>
+<body style=font-family:arial;background-color:#ef>
+<div id=header style="background:#f7f7f7;border-bottom:1px solid #cccccc; position:absolute;top:0px;">
+  <table dir=ltr style=width:100% ellPadding=20>
+	<tr>
+			<td>
+					<table id="toolbar" cellSpacing=0 cellPadding=0 align=left>
+					<tr>
+					<td>
+						<a href="http://www.webpagescreenshot.info" target="_new" style=float:left><img style=vertical:align:middle src=images/icon48.png></a>
+						&nbsp;&nbsp;
+					</td>
+					<td>
+					<button  class="btnd hovermenu down-icon  hideLessThan1000">Donate <img src=nd/ui_dropdown.png>
+						<div class=menu style="width:250px;text-align:left">
+							<!--<a target=_new href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YMRHA3MGYVUN2">Donate</a>
+							Donate $5
+							</a>-->
+							<a target=_new href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5QZKMF65QLJK6">
+							<img src="http://www.webpagescreenshot.info/10dollar.png" style=float:left;vertical-align:middle>&nbsp;&nbsp; Donate $10
+							</a><br><br>
+							 <a target=_new href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SXRJ4W4DGLTW4">
+							 <img src="http://www.webpagescreenshot.info/otherdollar.png"  style=float:left;vertical-align:middle>&nbsp;&nbsp;
+							Other Amount
+							</a>
+							<style>
+							.menu a {font-size:14px;color:838383;text-decoration:none;}
+							.menu a:hover {color:333;}
+							</style>
+						</div>
+					</button>
+					&nbsp;
+					</td>
+					<td>
+						<div id="wColorPicker2_3" style="float:left;margin-right:10px;"></div>
+
+						<ul class="toolbar">
+						<li tag=line class="button line" status=on></li>
+						<li tag=free class="button curved-line" status=on></li>
+						<li tag=spray class="button spray" status=on></li>
+						<li tag=text class="button text" status=on></li>
+						<li tag=rectangle class="button square" status=on></li>
+						<li tag=full class="button square-fill" status=on></li>
+						<li tag=ellipsis class="button oval" status=on></li>
+						<li tag=arrow class="button arrow" status=on></li>
+						
+						<li tag=star class="button star" status=on></li>
+						<li tag=house class="button house" status=on></li>
+
+						<li tag=crop class="button crop" status=on></li>
+						</ul>&nbsp;
+						<ul class="toolbar">
+						<li tag=undo class="undo button disable"></li>
+						<li tag=redo class="redo button disable"></li>
+						</ul>
+						&nbsp;
+						<ul class="toolbar">
+							<li id=border1 class="button border1"></li>
+						</ul>
+					</td>
+<!--						<iframe width=100px border=0  height=30px scrolling=no frameBorder=0 style="border:none;overflow:hidden;padding:0px;margin:0px" src=http://www.webpagescreenshot.info/badge.html></iframe>-->
+					</td>
+					</tr>
+				</table>
+			</td>
+			<td align=right nowrap=true>
+			<div id="topText"></div>
+			</td>
+			<style>
+					.hovermenu .menu{
+					display:none;
+					position:absolute;
+					color:#838383;
+					background-color:#fff;
+					border:1px solid #8b8b8b;
+					padding:5px;
+
+				}
+				.down-icon{
+				border-width: 1 1 3 1;
+				}
+				.down-icon img{
+					float:none!important;
+					vertical-align:middle;
+					display:inline
+				}
+			</style>
+
+			<td valign=top align=right nowrap=true>
+				<!--<a href=options.html target=_new style=font-size:80%>Options</a>-->
+				<table id="serviceButtons">
+				<tr>
+				<td>
+				<div style=float:left;zoom:1.2 id="toolbarContainer"></div>&nbsp;&nbsp;
+				</td>
+				<td width=1>
+					<button i="save" style=padding:5 class="btnd save ">Save</button>
+					<!--<div style=line-height:5px>&nbsp;</div>-->
+					<button id="Share" style=padding:5 class="btnd share ">Share</button>
+					<!-- <img  src=/images/btnfb.png id="UploadToFrameBench" class="btnd fbUpload" style=idth:200px;display:none;padding:0> -->
+				</td>
+				</tr>
+				</table>
+			</td>
+			</tr>
+			</table>
+</div>
+<style>
+#fotter table {font-size:12px;color:white}
+#fotter  a {color:white;text-decoration:none;}
+#fotter a:hover {color:#fdd;text-decoration:underline;}
+#fotter span {color:white}
+</style>
+<div id="fotter" dir=ltr style="background:#5e5e5e;border-bottom:4px solid #fff;font-size:8px;width:100%;position:absolute;bottom:0px">
+<div style="margin:5px">
+<table width=100%>
+	<tr>
+	<td align=left>
+		<a target=_new href=http://www.webpagescreenshot.info>Webpage Screenshot </a><span class=ver></span>
+	<td>
+	<td align=right>
+		<script src=jquery.share.js></script>
+		<LINK REL=StyleSheet HREF="jquery.share.css" TYPE="text/css" MEDIA=screen />	    
+		<a target=_new href="http://bit.ly/cF6sYP" class=msg tag="likeresult"></a>
+		<span style=color:#111 class=msg tag="or"></span> <a target=_new href="http://code.google.com/p/webpageextension/issues/entry" class=msg tag=filebug></a></span>
+		&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a target=_new href=options.html>Settings</a>
+		&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a target=_new href=http://www.webpagescreenshot.info/?t=credits>Credits</a>
+		<br>
+		<table><tr><td>Share Extension:</td><td><div id="sharediv"></div></td></tr></table>
+	</td>
+	</tr>
+	</table>
+	<!--	<div class="shr-bookmarks shr-bookmarks-expand shr-bookmarks-center shr-bookmarks-bg-shr">
+					<ul class="socials">
+				<li class="shr-facebook"><a ref="http://www.webpagescreenshot.info/" alt="Webpage Screenshot" href="http://www.facebook.com/share.php" rel="nofollow" class="external" title="Share this on Facebook">Share this on Facebook</a></li>
+		</ul>
+		</div>-->
+</div>
+</div>
+<div dir=ltr id=divCanvasData style="position:absolute;top:120px;border:1px solid #ccc">
+	<div id="clipper">
+	<img id="imgFixForLong" >
+	<canvas style=position:absolute id=cborder></canvas>
+		<canvas style="background:ur(images/trans.png) repeat;display:none" id="canvasId"></canvas>
+	</div>
+	<!--<textarea style=width:100%;height:100%></textarea>-->
+</div>
+<style>
+.cArrow {position:fixed;z-index:65535;color:red;bottom:40px;display:none}
+.arrow_ltr {left:300px;}
+.arrow_rtl {right:300px}
+</style>
+<div class="cArrow arrow_ltr"><img src=images/arrow_down.png height=200px></div>
+<div class="cArrow arrow_rtl"><img src=images/arrow_down.png height=200px></div>
+<div class=toPrint><center><img id="toPrintImage" style=width:100%></center></div>
+
+</body>
+</html>
+

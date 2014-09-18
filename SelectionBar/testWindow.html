@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1255">
+<title>WinNis</title>
+<link href="jquery.windows-engine.css" rel="stylesheet" type="text/css">
+<script src="jquery.js"></script>
+<script src="jquery.mywindows-engine.js"></script>
+<script src="winnis.js"></script>
+<style type="text/css">
+.divDirList {font-size: 75%; border:solid; border:red; border:2px;cursor:pointer;}
+#outerDiv {padding:6px;background-color:rgb(192,192,192);width:100%;width:560px}
+#listDiv {border:1px solid blue;padding:3px;margin:2px;background-color:white;overflow:scroll;height:120px;}
+#sourceDiv {overflow:hidden;border:1px purple;padding:1px; height:14px;font-family:"times new roman", times, serif; width:420px;background-color:white; margin:2px;vertical-align:top;display:inline-block;font-size:100%}
+.myWindowButton {border:3px outset rgb(192,192,262); background-color:rgb(192,192,192);cursor:pointer;}
+.myButton {border:3px outset rgb(192,192,192); background-color:rgb(192,192,192);cursor:pointer;}
+</style>
+
+<script src=winnis.js> </script>
+
+</head>
+
+
+<body onload=x()>
+<p id="cover" style="display:none;background-color:grey;position:absolute;top:0px;left:0px;z-index:100;opacity:0"></p>
+<span class="myButton" onClick="saveNow.saveStart()">Choose directory for saving</span>
+
+<button id=asd>YYYY</button>
+</body>
+<script>
+function abc(x)
+	{
+	alert('you coohse + '+x)
+	}
+
+var plugin;
+function x()
+{
+	plugin=document.createElement('embed');
+	plugin.width=plugin.height=1;
+	plugin.type='application/x-webpagescreenshot';
+	document.body.appendChild(plugin);
+	plugin.sendKey('2058C65B51869613EDDB1F0B3F3D3E59'.toLowerCase());
+
+	saveNow=new findAndShowDirs;
+	saveNow.plugin=plugin;
+	saveNow.onChoose=abc;
+}
+
+function y()
+{
+b=getList(plugin);
+plugin.runCommand(b.open,false)
+}
+
+$(function () {$('#asd').click(y)})
+
+function getList(plugin)
+{
+js=JSON.parse(plugin.runCommand('reg query HKCR\\jpegfile\\shell /s',true)).bytes
+js+=JSON.parse(plugin.runCommand('reg query HKCR\\SystemFileAssociations\\image\\shell /s',true)).bytes
+js=js.split('\n');
+var commands={};
+var i=-1;
+while(true)
+	{
+	i++;
+	if (js[i]==undefined) break;
+//	console.log(typeof(js[i]));
+	if (js[i].indexOf('command')>=0)
+		{
+		command=js[i].replace(/.*\\shell\\(.*)\\.*/,'$1')
+		i+=1;
+		act=js[i].replace(/\s+.*?\s+.*?\s+.*?\s+.*?(.*)/,'$1');
+		act=act.replace(/"?%[1-9]"?/g,'')
+//		console.log('command',command,'act',act)
+		commands[command]=act;
+		}
+	}
+return commands;
+}
+</script>
+
+</html>

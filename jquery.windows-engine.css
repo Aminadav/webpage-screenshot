@@ -1,0 +1,112 @@
+.window-container
+{
+	width:350px;
+	position:absolute;
+	left:350;
+	top:200;
+	font-size:13px;
+	font-family:verdana;
+}
+
+.window-titleBar
+{
+    height:23px;
+    margin:0 9px 0 9px;
+    text-align:center;
+}
+
+.window-titleBar-content
+{
+    height:23px;
+    text-align:center;
+    padding-top:5px;
+    background: transparent url(images/default-top_mid.gif) repeat-x;
+	cursor: move;
+}
+
+.window-titleBar-leftCorner
+{
+	background: transparent url(images/default-top_left.gif) no-repeat;			
+    width:9px;
+    height:23px;
+    position: absolute;
+	left: 0px;
+	top: 0px;
+}
+
+.window-titleBar-rightCorner
+{
+	background: transparent url(images/default-top_right.gif) no-repeat;			
+    width:9px;
+    height:23px;
+    position: absolute;
+	right: 0px;
+	top: 0px;
+}
+
+.window-minimizeButton
+{
+    width: 14px;
+	height: 14px;
+	background: transparent url(images/default-minimize.gif) no-repeat 0 0;
+	position: absolute;
+	left: 35px;
+	top: 5px;
+	cursor: pointer;
+}
+
+.window-maximizeButton
+{
+    width: 14px;
+	height: 14px;
+    background: transparent url(images/default-maximize.gif) no-repeat 0 0;
+	position: absolute;
+	left: 55px;
+	top: 5px;
+	cursor: pointer;
+}
+
+.window-closeButton
+{
+    width: 14px;
+	height: 14px;
+	background: transparent url(images/default-close.gif) no-repeat 0 0;	
+	position: absolute;
+	left: 15px;
+	top: 5px;
+	cursor: pointer;
+}
+
+
+.window-content
+{
+	height:100%;
+	background-color:rgb(192,192,192);
+	font-size:13px;
+	font-family:verdana;
+	color:#000000;
+    border-left:1px solid #AAA;
+    border-right:1px solid #AAA;
+    overflow:auto;
+}
+
+
+.window-statusBar
+{
+	height:19px;
+    position: relative;
+    border-left:1px solid #AAA;
+	overflow: hidden;
+    background: transparent url(images/default-bottom_mid.gif) repeat-x;
+}
+
+.window-resizeIcon
+{
+    width: 9px;
+	height: 19px;
+    background: transparent url(images/default-sizer.gif) no-repeat;
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	cursor: se-resize;
+}

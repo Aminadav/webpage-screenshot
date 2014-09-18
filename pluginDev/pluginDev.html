@@ -1,0 +1,51 @@
+<!--"jquery-ui-1.9.2.custom.min.js","rangy.js","Cropper.js","tb.js"-->
+<html>
+<head>
+<script src="../oauth2/oauth2.js"></script>
+
+	<script src="jquery.js"></script>
+	<script src="jquery-ui-1.9.2.custom.min.js"></script>
+	<script src="pluginLib.js"></script>
+	<script src="codeMirror.js"></script>
+	<script src="plugin.js"></script>
+	<script src="pluginDev.js"></script>
+	<script src="pluginsBuiltIn.js"></script>
+	<link href="jquery-ui-1.9.2.custom.min.css" rel="stylesheet">
+	<link href="codeMirror.css" rel="stylesheet">
+	<link href="pluginCss.css" rel="stylesheet">
+</head>
+
+	<body>
+
+<table width=100% style=height:80%>
+<tr>
+<td valign=top width=60%>
+<textarea style=width:100%;height:100% id="textarea">{
+}
+</textarea>
+</td>
+<td valign=top>
+<div style=width:20%;height:100% style=overflow:scroll>
+	*name <br>,
+	onselection function(),<br>
+	onclick = function({text/imageUrl/imageEncoded}) <br>
+	dataType = text / imageUrl / imageEncoded<br>
+
+	<h2>Functions</h2>
+	selectionBar.showDialog( htmlelement/ jQuery/ doc Elements )<br>
+
+	Ajax: showProgress: boolean<br>
+	<br>
+	$.fn.inputLoadAndRemember
+</div>
+</td>
+</tr>
+</table>
+<div id="debug"></div><br>
+		<input type=text placeholder="text for testing. Cannot be empty" value="Text for testing" id="txtText">
+		<button id="btnTestText" disabled>Test for Text</button>
+		<button id="btnTest" >Test for Nothing</button>
+		<button id="btnTestImage" disabled>Test for image</button>
+		<img src="icon128.png" id="imgTest" style=display:none>
+</body>
+</html>

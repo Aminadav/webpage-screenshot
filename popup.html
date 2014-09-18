@@ -1,0 +1,163 @@
+<html>
+<head>
+</head>
+<!--chrome-extension://moleilmbcjipiocmiedbmboflnaaanfe/popup2.html-->
+<script type="text/javascript" src=pluginDev/jquery.js></script>
+<script type="text/javascript" src=extension.js></script>
+<script type="text/javascript" src=popup.js></script>
+<style>
+@font-face {
+	font-family: 'Helvetica';
+	src:    url('fonts/Helvetica.ttf');
+	}
+ody {font-family:Helvetica;}
+body {font-family:Helvetica}
+
+.button {background-color:#fff;order:1px solid #ccf;margin:2px;cursor:pointer;white-space:nowrap}
+.button.hover {background-color:#d3d3d3;order:1px solid #000}
+.button img {margin:3px}
+
+.thisLink {color:#838383;text-decoration:none;font-size:18px;line-height:2px}
+.thisLink:hover {color:#333;text-decoration:underline}
+.window {padding:5px}
+table a,table {color:#a6a6a6}
+table a:hover {color:#333}
+</style>
+<style>
+.listicon{
+	d-isplay:inline-block;
+	width:24px;
+	height:24px;
+	background:#FFF;
+	border:1px solid #eaeaea;
+	background-position:center;
+	background-repeat:no-repeat;
+	text-indent:32px;
+	color:#646464;
+}
+.listicon:hover{
+	border:1px solid #888;
+}
+.icon-quickshot{background-image:url(nd/icon_quick_shot.png);}
+.icon-visibleshot{background-image:url(nd/icon_visible_screenshot.png);}
+.icon-fullshot{background-image:url(nd/icon_full_screenshot.png);}
+.icon-webcam{background-image:url(nd/icon_webcam.png);}
+.icon-mhtml{background-image:url(nd/icon_save_as_mhtml.png);}
+.icon-edit{background-image:url(nd/icon_edit.png);}
+.icon-opengallery{background-image:url(nd/icon_gallery.png);}
+
+.icon-gallery{background-image:url(nd/icon_addto_gallery.png);}
+.icon-evernote{background-image:url(nd/icon_addto_evernote.png);}
+.icon-gdrive{background-image:url(nd/icon_addto_gdrive.png);}
+.icon-dropbox{background-image:url(nd/icon_addto_dropbox.png);}
+
+.icon-facebook{background-image:url(nd/icon_share_fb.png);}
+.icon-twitter{background-image:url(nd/icon_share_twitter.png);}
+.icon-email{background-image:url(nd/icon_email.png);}
+.icon-print{background-image:url(nd/icon_print.png);}
+.icon-link{background-image:url(nd/icon_link.png);}
+
+hr {color:#c7c7c7}
+.windows {display:none}
+</style>
+
+
+<body style="padding:0; margin:0; ;color:#111;background-color:#fff;width:350px">
+	  <div STYLE="width:100%;white-space:nowrap;background-color:#fff;padding:5px">
+	  	&nbsp;&nbsp;&nbsp;&nbsp;
+	  	<a  class="msg thisLink"  target=_new tag="name" href="http://www.webpagescreenshot.info"></a><br>
+	  	&nbsp;&nbsp;&nbsp;&nbsp;
+	  	<a  class="thisLink"  style=font-size:12px;text-decoration:underline target=_new tag="name" href="http://www.webpagescreenshot.info">http://www.webpagescreenshot.info</a></span>
+	  <br>
+	  </div>
+	  <hr>
+	<div class=window tag=working style=display:none>
+		<br/>
+		<br/>
+		<center>
+		<img src=images/ajaxLoader.gif>
+		<div class="msg" tag="wait"></div>
+		<h3 class=workStatus></h3>
+		<a  href='#' class="cancel msg" tag="cancel"></a><br>
+		</center>
+		<br/>
+		<br/>
+	</div>
+<div class=window tag=start>
+	<div class="startVisible button" ><div class="listicon icon-quickshot"><span class=msg tag="visiblescreenshot"></span></div></div>
+	<div class="startWhole button" ><div class="listicon icon-fullshot"><span class=msg tag="allpage"></span></div></div>
+	<div style=display:none; id=noall class=msg tag="noall"></div>
+	<div style=display:none; id=nolocal>
+		<a target=_new href=""><div class=msg tag="nolocal"></div></a>
+	</div><!--
+	<div class="webcam button" ><div class="listicon icon-webcam">Web Camera! </div></div>
+-->
+	<!--<div class="mhtml button" ><div class="listicon icon-mhtml">Save as MHTML</div></div>-->
+	<div class="editcontent button"><div class="listicon icon-edit">Edit content</div></div>
+
+	<div style=display:none>
+
+		<div class=windows>
+
+		<small>Preview:</small><br>
+		<img style=cursor:hand height=100px id=asd>-->
+		<br>
+		<div class="button justsave"><img src=images/justsave.png valign=middle><input type=checkbox id="autosave"> Just Save</div>
+
+		<div style="cursor:pointer" class="resizer button"><img src=images/resize.png valign=middle><span class=msg tag="resizebefore"></span></div>
+		</div>
+	</div>
+
+	<div style="display:none;background-color:#dde;border:1px solid #ccd;padding:0 10 0 10" class=resizers>
+	<input type=radio name=resize checked value=0><span class=msg tag="noresize"></span></option><br/>
+	<input type=radio name=resize value=1>800X600</option><br/>
+	<input type=radio name=resize value=2>1024X768</option><br/>
+	<input type=radio name=resize value=3><span class=msg tag="width"></span>:<input name=width style=width:50px type=text>, <span class=msg tag="height"></span>: <input style=width:50px name=height type=text></option>
+	<button id=justresize>Just Resize</button>
+	</div>
+	<!--<span style="cursor:pointer" onclick="$('.headers').toggle()"><span style=color:blue class=headers>+ </span><span class=headers style=display:none;color:blue>- </span><span style=text-decoration:underline class=msg tag="changeheaders"></span></span></span><br/>
+	<span style="display:none" class=headers>
+		<span class=msg tag=header></span>: <input type=text id="txtHeader"><br/>
+		<span class=msg tag=footer></span>: <input type=text id="txtFotter"><br/>
+		<span style=color:gray><b/>%U</b>-<span class=msg tag=url></span>, <b>%D</b>-<span class=msg tag=Date></span></span>
+	</span>-->	
+<!--		<div class=prom><br><br></div>-->
+	<small><div id="installedby">&nbsp;</div></small>
+	<hr>
+	<div id="transarea" style="font-size:12px;"></div>
+
+	<!--<a target=_blank href="http://www.freelancer.com/affiliates/AminaDev/?l=/contest/URGENT-Design-a-Icon-for-chrome-extension--35808.html">We need new icon? join the contest</a>-->
+	<br>	
+	<!--<hr>
+	<div class="sb_enable">
+		<button class="showONSBenable" id="btnSBonPageDisable"><span class=msg tag="disable"></span>&nbsp;WSB <span class=msg tag="on_this_page"></span></button><br>
+		<button class="showONSBenable" id="btnSBonPageEnable"><span class="msg" tag="enable"></span>&nbsp;WSB <span class=msg tag="on_this_page"></span></button>
+	</div>-->
+<br>
+<!--<center id="thisismyad">
+	<script TYPE="text/javascript" SRC="https://ad.yieldmanager.com/st?ad_type=ad&ad_size=234x60&section=4892881"></script>
+</center>-->
+<table style=font-size:12px; border=0 cellspacing=0 cellpadding=0 width=100%>
+	<tr><td align=left>
+		<a target=_new href=http://www.webpagescreenshot.info>Visit web site</a>
+		&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a target=_blank href="http://www.webpagescreenshot.info/?t=changelog">change log (01/09/2013)</a><br>
+		<a target=_new href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SXRJ4W4DGLTW4">Donate</a>
+		&nbsp;&nbsp;|&nbsp;&nbsp;
+		<a target=_new href="options.html" class=msg tag=settings>Settings</a>
+		<br>
+		<a target=_new href="https://chrome.google.com/webstore/detail/webpage-screenshot-captur/ckibcdccnfeookdmbahgiakhnjcddpki/reviews"><a target=_new href="http://bit.ly/cF6sYP" class=msg tag="likeresult"></a><br>
+		 <a target=_new style=color:red href="http://code.google.com/p/webpageextension/issues/entry" class=msg tag=filebug></a></span>
+	</td>
+	<td align=right>
+		Version: <span class="ver"></span>
+	</td>
+	</tr>
+</table>
+<!--	<hr>
+	Beta:<br>
+	<button class="showONSBdisable" id="btnSBenable">Enable WSB on this page</button>
+	<button class="showONSBenable" id="btnSBdisable">Disable WSB on this page</button>-->
+</table>
+</body>
+</html>

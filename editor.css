@@ -1,0 +1,43 @@
+ .addthis_toolbox
+{
+    width: 284px;
+    padding: 10px 0 6px 10px;
+    border: 3px solid #eee;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+ .hover_effect div
+{
+    float: left;
+}
+
+ .hover_effect a
+{
+    border: 2px solid #fff;
+    padding: 2px 2px 2px 16px;
+    position: relative;
+    text-decoration: none;
+}
+
+ .hover_effect a:hover
+{
+    border: 2px solid #105CB6;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    background: #B4D3F8;
+    color: #105CB6;
+    text-decoration: none;
+}
+
+ .hover_effect span
+{
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 2px;
+    left: 1px;
+}
+
+
+canvas {border:1px solid black}

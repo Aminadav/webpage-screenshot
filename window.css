@@ -1,0 +1,6 @@
+.divDirList {font-size: 75%; border:solid; border:red; border:2px;cursor:pointer;}
+#outerDiv {padding:6px;background-color:rgb(192,192,192);width:100%;width:560px}
+#listDiv {border:1px solid blue;padding:3px;margin:2px;background-color:white;overflow:scroll;height:120px;}
+#sourceDiv {overflow:hidden;border:1px purple;padding:1px; height:14px;font-family:"times new roman", times, serif; width:420px;background-color:white; margin:2px;vertical-align:top;display:inline-block;font-size:100%}
+.myWindowButton {border:3px outset rgb(192,192,262); background-color:rgb(192,192,192);cursor:pointer;}
+.myButton {border:3px outset rgb(192,192,192); background-color:rgb(192,192,192);cursor:pointer;}

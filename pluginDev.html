@@ -1,0 +1,38 @@
+<html>
+<head>
+	<script src=jquery.js></script>
+	<script src=jquery-ui-1.9.2.custom.min.js></script>
+	<script src="mimic.js"></script>
+	<script src="plugin.js"></script>
+	<link href="jquery-ui-1.9.2.custom/css/dot-luv/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+</head>
+
+	<body>
+
+<table width=100% style=height:80%>
+<tr>
+<td valign=top width=60%>
+<textarea style=width:100%;height:100% id="textarea">{
+}
+</textarea>
+</td>
+<td valign=top>
+<div style=width:20%;height:100% style=overflow:scroll>
+	*name <br>,
+	onselection function(),<br>
+	onclick = function({text/imageUrl/imageEncoded}) <br>
+	dataType = text / imageUrl / imageEncoded
+</div>
+</td>
+</tr>
+</table>
+<div id="debug"></div><br>
+		<input type=text placeholder="text for testing. Cannot be empty" value="Text for testing" id="txtText">
+		<button id="btnTestText" disabled>Test for Text</button>
+		<button id="btnTestImage" disabled>Test for image</button>
+		<img src="images/icon128.png" id="imgTest" style=display:none>
+<script>
+
+</script>
+</body>
+</html>

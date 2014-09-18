@@ -1,0 +1,6 @@
+div.noCss,
+div.noCss *,
+div.noCss *{
+	color:gray ;
+	padding:0px ;
+}
