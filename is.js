@@ -1,7 +1,7 @@
 //true=ws
 //false=sb
 
-if (false) {
+if (true) {
     isWs = true;
     isSb = false;
     is = 'ws';
