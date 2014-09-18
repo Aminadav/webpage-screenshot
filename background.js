@@ -136,7 +136,6 @@ daysToRl=0
 if(!localStorage['button_size']) localStorage['button_size']=20
 if(!localStorage['sb_opacity']) localStorage['sb_opacity']=0.7
 
-//example
 
 // if(isSb) localStorage['notfound_check']='no'
 
