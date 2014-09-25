@@ -11,11 +11,11 @@ Grunt tasks:
 
  * Switch to selection bar extension:
 
-    grunt switch-sb
+    gulp switch-sb
 
  * Switch to website screenshot extension:
 
-    grunt switch-ws
+    gulp switch-ws
 
 ## Popup features:
  * Capture visible page.
