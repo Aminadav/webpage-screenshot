@@ -1,6 +1,9 @@
 # Editors
 .idea
 
+# manifest
+src/manifest.json
+
 # Node
 node_modules
 

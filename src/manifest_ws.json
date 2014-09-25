@@ -71,7 +71,7 @@
         "pluginDev/icons/digg.png",
         "pluginDev/icons/dropbox.png",
         "pluginDev/icons/save.png",
-        "gapi.js",
+        "libs/gapi.js",
 
         "pluginDev/icons/fast.png",
         "pluginDev/icons/pitch.png",
