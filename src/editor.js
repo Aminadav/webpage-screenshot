@@ -7,10 +7,9 @@
 
 String.prototype.twoDigits=function () {return this.replace(/^(.)$/,'0$1')}
 var canvasToDataURL;
-if (extension.online)
-	{
-	background=chrome.extension.getBackgroundPage().background;
-	}
+if (extension.online) {
+	var screenshot = chrome.extension.getBackgroundPage().screenshot;
+}
 var shadowDistance=5;
 var imageURL,imageId;
 if (!localStorage['lastTool']) localStorage['lastTool']='crop';
@@ -253,7 +252,7 @@ function editor_obj()
 					url=URL.createObjectURL(x)
 
 				var filename;
-				filename=background.title || background.url;
+				filename=screenshot.title || screenshot.url;
 				filename=filename.replace(/[%&\(\)\\\/\:\*\?\"\<\>\|\/\]]/g,' ');
 				// filename+='-' + (new Date).getHours().toString().twoDigits() + (new Date).getMinutes().toString().twoDigits() + (new Date).getSeconds().toString().twoDigits()
 				filename+=localStorage['pngjpg']=='png' ? '.png' : '.jpg';
@@ -325,7 +324,7 @@ function editor_obj()
 
 	this.reloadCanvas=function()
 		{
-		if(background.url) $('title').html(background.url);
+		if(screenshot.url) $('title').html(screenshot.url);
 		//document.getElementById('divCanvasData').appendChild(canvasData);
 		clipReload();
 		onResize();
@@ -469,7 +468,7 @@ function editor_obj()
 		$canvasData=$(canvasData);
 		binds();
 		resetButtons();
-		if(background.webcam){
+		if(screenshot.webcam){
 			editor.webcam=true;
 			ctx=$('canvas')[0].getContext('2d')
 			canvas=$('canvas')[0];
@@ -480,11 +479,11 @@ function editor_obj()
 				firstImage=this;
 				ctx.drawImage(this,0,0)
 				editor.reloadCanvas();
-				background.webcam=null;
+        screenshot.webcam=null;
 			}
-			img.src=background.webcam
+			img.src=screenshot.webcam
 		}
-		if(background.apppick){
+		if(screenshot.apppick){
 			editor.apppick=true;
 			ctx=$('canvas')[0].getContext('2d')
 			canvas=$('canvas')[0];
@@ -495,9 +494,9 @@ function editor_obj()
 				firstImage=this;
 				ctx.drawImage(this,0,0)
 				editor.reloadCanvas();
-				background.apppick=null;
+				screenshot.apppick=null;
 			}
-			img.src=background.apppick
+			img.src=screenshot.apppick
 		}
 
 		if(location.hash=='#last')
@@ -515,14 +514,14 @@ function editor_obj()
 						// })
 						editor.reloadCanvas();
 					}
-					img.src=background.canvas.toDataURL()
-					background.callback=null
-					delete background.callback
-					background.canvas.width=background.canvas.height=1
-					background.callback=null
-					background.canvas.remove()
-					background.canvas=null
-					delete background.canvas
+					img.src=screenshot.canvas.toDataURL()
+					screenshot.callback=null
+					delete screenshot.callback
+					screenshot.canvas.width=screenshot.canvas.height=1
+					screenshot.callback=null
+					screenshot.canvas.remove()
+					screenshot.canvas=null
+					delete screenshot.canvas
 		}
 
 		 if(!!window.webkitIntent) {
@@ -1529,11 +1528,11 @@ if (tool.current)
 			$('#topText').html('uploading <a href="#" id=a_cancel>Cancel</a>');
 
 			var canvas=$('canvas.done')[0];
-			var url= background.url;
+			var url= screenshot.url;
 			var options= localStorage['options'];
 
 			//canvasToDataURL; //.replace(/^data:image\/(png|jpg);base64,/, "")
-			hr=$.ajax({url:'http://www.webpagescreenshot.info/upload3.asp',type:'post',data:{type:localStorage['pngjpg'],title:background.title,description:background.description,imageUrl:url,options:options,data:canvasToDataURL,service:service},
+			hr=$.ajax({url:'http://www.webpagescreenshot.info/upload3.asp',type:'post',data:{type:localStorage['pngjpg'],title:screenshot.title,description:screenshot.description,imageUrl:url,options:options,data:canvasToDataURL,service:service},
 				complete:
 				function (a,b,c) {
 						if(cancel) {$('#topText').html('Canceled!');$('#save').add('#toGoogleDrive').add('#print').attr('disabled',null); return;}
@@ -1670,7 +1669,7 @@ $(function ()
 	//here
 	if(extension.online) {
 		if (!editor.appick && !editor.webcam && !editor.intent){
-			 window.setTimeout( background.createScreenShot,0 )
+			 window.setTimeout( screenshot.createScreenShot,0 )
 		}
 	}
 });
@@ -1678,7 +1677,7 @@ $(function ()
 createFile=function(callback)
 	{
 	var filename;
-	filename=background.title || background.url;
+	filename=screenshot.title || screenshot.url;
 	filename=filename.replace(/[%&\(\)\\\/\:\*\?\"\<\>\|\/\]]/g,' ');
 	filename+='-' + (new Date).getHours().toString().twoDigits() + (new Date).getMinutes().toString().twoDigits() + (new Date).getSeconds().toString().twoDigits()
 	filename+=localStorage['pngjpg']=='png' ? '.png' : '.jpg';
@@ -1909,7 +1908,7 @@ function gDrive(){
 			xhr.open("POST", "https://www.googleapis.com/upload/drive/v2/files?uploadType=multipart", true);
 		 xhr.setRequestHeader('Authorization', 'OAuth ' + googleAuth.getAccessToken())
 			var meta = {
-			"title": background.title,
+			"title": screenshot.title,
 			"mimeType": "image/png",
 			"description": 'Taken by Webpage Screenshot. http://www.webpagescreenshot.info'
 			};
@@ -2160,9 +2159,9 @@ $(function(){
 		enlargable:true,
 		'lines':2,
 		min_buttons_num:6,
-		page_title:background.title,
-		page_description:background.description,
-		page_url:background.url,
+		page_title:screenshot.title,
+		page_description:screenshot.description,
+		page_url:screenshot.url,
 		'icon_base':'/pluginDev/icons/',
 		'position':'static',
 		'type':'image',
