@@ -1,6 +1,3 @@
-function popupChange(x) {
-
-}
 var screenshot = {
 
   init: function () {
@@ -93,7 +90,7 @@ var screenshot = {
       var realCallback = callback;
       screenshot.screens = [];
       screenshot.description = '';
-      popupChange('working');
+      api.callPopup({type: 'working'});
       callback = function () {
         window.setTimeout(realCallback, (parseInt(localStorage['delay'], 10) || 0) * 1000)
       }

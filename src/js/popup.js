@@ -12,6 +12,19 @@ var popup = {
     $('.capture-clipboard').click(popup.captureClipboard);
     $('.edit-content').click(popup.editContent);
   },
+  /**
+   * Function execution from remote scripts such as background.js
+   * @param data
+   */
+  exec: function (data) {
+    switch (data.type) {
+      case 'working':
+        $('#working').fadeIn();
+        break;
+      default:
+        console.warn('Invalid message', data);
+    }
+  },
   checkPermissions: function (cb) {
     chrome.permissions.contains(popup.permissions, function (contains) {
       if (contains) {

@@ -22,6 +22,12 @@ var api = {
       }
     })
   },
+  callPopup: function (data) {
+    var views = chrome.extension.getViews({type: "popup"});
+    for (var i = 0; i < views.length; i++) {
+      views[i].popup.exec(data);
+    }
+  },
   listenMessages: function () {
     chrome.runtime.onMessage.addListener(function (data, sender, callback) {
       api.stop = false;
