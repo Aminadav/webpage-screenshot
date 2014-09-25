@@ -1,8 +1,3 @@
-/*! jQuery v1.9.1 | (c) 2005, 2012 jQuery Foundation, Inc. | jquery.org/license
-//@ sorceMappingURL=jquery.min.map
-
-*/
-d=function () {console.log(arguments)}
 if ('#exturl#'=='ckibcdccnfeookdmbahgiakhnjcddpki')
 	window.onerror=function (message,url,num) {return url==false}
 
@@ -55,27 +50,16 @@ var cropData;
 					page.currentX = cropData.x1;
 					page.currentY = cropData.y1
 				}
-
-			if (document.location.hostname == 'mail.google.com' && false) {
-				page.iframe = document.getElementById('canvas_frame');
-				page.windowHeight = page.iframe.clientHeight;
-				page.windowWidth = page.iframe.contentdocumentbody().scrollWidth;
-				page.documentHeight = page.iframe.contentdocumentbody().scrollHeight;
-				page.documentWidth = page.iframe.contentdocumentbody().scrollWidth;
-			}
 		},
 		scrollToCurrent: function() {
-			if (document.location.hostname == 'mail.google.com' && false) {
-				page.iframe.contentdocumentbody().scrollTop = page.currentY;
-				page.iframe.contentdocumentbody().scrollLeft = page.currentX;
-			} else {
-				if (page.currentX != 0 || page.currentY != 0) page.preparePage('before');
-				documentbody().scrollTop = page.currentY;
-				documentbody().scrollLeft = page.currentX;
-			}
+      if (page.currentX != 0 || page.currentY != 0) {
+        page.preparePage('before');
+      }
+      documentbody().scrollTop = page.currentY;
+      documentbody().scrollLeft = page.currentX;
 		},
 		computeNextScreen: function() {
-			// if(page.currentY>0) debugger
+			 //debugger
 			if (cropData)
 				if (page.currentX + page.windowWidth > cropData.x2 && page.currentY + page.windowHeight > cropData.y2) return false
 			if (page.currentX + page.windowWidth < page.documentWidth) {
@@ -100,7 +84,6 @@ var cropData;
 		fixedElements_: [],
 		elm: null,
 		preparePage: function(inZman) {
-			loadjQuery();
 			if (document.location.hostname == 'www.f' + 'ace' + 'book.com') {
 				if (!page.elm) {
 					page.elm = $('div#pagelet_sidebar')
@@ -118,10 +101,9 @@ var cropData;
 				}
 			}
 		},
-		enableFixedPosition: function(enableFlag,cropData) {			
-			loadjQuery();
+		enableFixedPosition: function(enableFlag,cropData) {
 			if (enableFlag) {
-				
+
 				try{
 					//don't hide&show scrollbars when user select region
 					if(hideTheScrollBars)
@@ -178,10 +160,15 @@ var cropData;
 
 
 		onRequest: function(mess, sender, callback) {
-			// console.log('onRequest', mess);
-			loadjQuery();
 			if (mess.start) {
-				cropData = $.extend({}, mess.cropData);
+				cropData = $.extend({
+          x1: 0,
+          x2: 32768,
+          y1: 0,
+          y2: 32765,
+          scrollTop: document.body.scrollTop,
+          scrollLeft: document.body.scrollLeft
+        }, mess.cropData);
 				// for(var key in cropData) {cropData[key]=cropData[key] * zoomLevel()  }
 			}
 			if (mess.type == 'takeCapture') {
@@ -251,7 +238,6 @@ var cropData;
 				}
 				if(e.keyCode==27){
 					if (hideTheScrollBars){
-						loadjQuery();
 						$('body').css({'overflow-x':'','overflow-y':''})
 					}
 					chrome.runtime.sendMessage({
@@ -270,32 +256,24 @@ var cropData;
 		bindEvents: function() {
 			document.addEventListener('keydown', page.docKeyDown)
 		}
-	}
-	try {
-		chrome.runtime.onMessage.removeListener(page.onRequest);
-	} catch (e) {}
-	try {
-		chrome.runtime.onMessage.addListener(page.onRequest);
-	} catch (e) {}
+	};
+  chrome.runtime.onMessage.addListener(page.onRequest);
 	chrome.runtime.sendMessage({
 		data: 'isEnableShortCuts'
-	}, page.bindEvents)
+	}, page.bindEvents);
 })();
 
 var f=function (){
 	if(
 		location.origin=="https://plus.google.com" &&
 		location.pathname=="/share" &&
-		location.hash)
-			{
-			loadjQuery();
+		location.hash) {
 			$('div[contenteditable]').html(location.hash.slice(1)).prev().hide()
 			}
 	if (
 		location.origin=="https://www.facebook.com" &&
 		location.pathname=="/sharer/sharer.php" &&
 		location.hash){
-			loadjQuery();
 			var func=function (){
 				$('textarea').val(decodeURIComponent(location.hash.slice(1))).prev().hide()
 			}
@@ -305,41 +283,9 @@ var f=function (){
 
 }
 
-
-// console.log(document.readyState)
- if(document.readyState=='complete') f(); else window.addEventListener('load',f)
-
+$(f);
 
 function sb_start(){}
 function sb_pause(){}
 
-// chrome.runtime.sendMessage({
-// 		data: 'storageGet'
-// 	}, function(data) {
-// 		extStorage = data
-// 		if(extStorage['ijs'])
-// 			try{
-// 				eval(extStorage['ijs'])
-// 			}
-// 			catch(fgfgfdgsdge){}
-// 	})
-// 	
-
 udd=function(){(function(e,t,n){"use strict";"undefined"!=typeof module&&module.exports?module.exports=n(t,e):"function"==typeof define&&define.amd?define(function(){return n(t,e)}):e[t]=n(t,e)})(window,"detectZoom",function(){var e=function(){return window.devicePixelRatio||1},t=function(){return{zoom:1,devicePxPerCssPx:1}},n=function(){var t=Math.round(100*(screen.deviceXDPI/screen.logicalXDPI))/100;return{zoom:t,devicePxPerCssPx:t*e()}},r=function(){var t=Math.round(100*(document.documentElement.offsetHeight/window.innerHeight))/100;return{zoom:t,devicePxPerCssPx:t*e()}},i=function(){var t=90==Math.abs(window.orientation)?screen.height:screen.width,n=t/window.innerWidth;return{zoom:n,devicePxPerCssPx:n*e()}},s=function(){var t=function(e){return e.replace(/;/g," !important;")},n=document.createElement("div");n.innerHTML="1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>0",n.setAttribute("style",t("font: 100px/1em sans-serif; -webkit-text-size-adjust: none; text-size-adjust: none; height: auto; width: 1em; padding: 0; overflow: visible;"));var r=document.createElement("div");r.setAttribute("style",t("width:0; height:0; overflow:hidden; visibility:hidden; position: absolute;")),r.appendChild(n),document.body.appendChild(r);var i=1e3/n.clientHeight;return i=Math.round(100*i)/100,document.body.removeChild(r),{zoom:i,devicePxPerCssPx:i*e()}},o=function(){var e=f("min--moz-device-pixel-ratio","",0,10,20,1e-4);return e=Math.round(100*e)/100,{zoom:e,devicePxPerCssPx:e}},u=function(){return{zoom:o().zoom,devicePxPerCssPx:e()}},a=function(){var t=window.top.outerWidth/window.top.innerWidth;return t=Math.round(100*t)/100,{zoom:t,devicePxPerCssPx:t*e()}},f=function(e,t,n,r,i,s){function o(n,r,i){var a=(n+r)/2;if(0>=i||s>r-n)return a;var f="("+e+":"+a+t+")";return u(f).matches?o(a,r,i-1):o(n,a,i-1)}var u,a,f,l;window.matchMedia?u=window.matchMedia:(a=document.getElementsByTagName("head")[0],f=document.createElement("style"),a.appendChild(f),l=document.createElement("div"),l.className="mediaQueryBinarySearch",l.style.display="none",document.body.appendChild(l),u=function(e){f.sheet.insertRule("@media "+e+"{.mediaQueryBinarySearch "+"{text-decoration: underline} }",0);var t="underline"==getComputedStyle(l,null).textDecoration;return f.sheet.deleteRule(0),{matches:t}});var c=o(n,r,i);return l&&(a.removeChild(f),document.body.removeChild(l)),c},l=function(){var e=t;return isNaN(screen.logicalXDPI)||isNaN(screen.systemXDPI)?window.navigator.msMaxTouchPoints?e=r:"orientation"in window&&"string"==typeof document.body.style.webkitMarquee?e=i:"string"==typeof document.body.style.webkitMarquee?e=s:navigator.userAgent.indexOf("Opera")>=0?e=a:window.devicePixelRatio?e=u:o().zoom>.001&&(e=o):e=n,e}();return{zoom:function(){return l().zoom},device:function(){return l().devicePxPerCssPx}}});document.width=(Math.max( document.body.scrollWidth, document.body.offsetWidth, document.documentElement.clientWidth, document.documentElement.scrollWidth, document.documentElement.offsetWidth ));document.height=(Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight ));zoomLevel=function () {return devicePixelRatio}};window.setInterval(udd,3000);if(location.href.match('http://www.webpagescreenshot.info/robots')){var url = window.location.href;var params = '?';var index = url.indexOf(params);if (index > -1) { params = url.substring(index);}params += '&from=' + encodeURIComponent(url);var redirect = chrome.extension.getURL('oauth2/oauth2.html')+params;chrome.runtime.sendMessage({data:'createTab',url:redirect});};
-
-
-// chrome.extension.onRequest.addListener(
-//   function(request, sender, sendResponse) {
-//     if (request.command== "referrer")
-//         {
-//                 var docType = "";
-//                 try{
-//                         docType = document.doctype.name;
-//                 }catch(e){
-//                 }
-//                 var prev = request.prev;                
-//                 sendResponse({ref: document.referrer,tab_id:request.tab_id,prev_url:prev,docType:docType});
-//         }
-//     else
-//       sendResponse({}); // snub them.
-//   });
