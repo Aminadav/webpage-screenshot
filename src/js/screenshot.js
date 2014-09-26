@@ -3,6 +3,7 @@ var screenshot = {
   init: function () {
 
   },
+
   captureVisible: function (data) {
     screenshot.callback = data.callback;
     screenshot.runCallback = data.runCallback;
@@ -10,6 +11,7 @@ var screenshot = {
     screenshot.cropData = data.cropData;
     screenshot.startWithoutScroll();
   },
+
   captureAll: function (data) {
     screenshot.callback = data.callback;
     screenshot.runCallback = data.runCallback;
@@ -20,13 +22,11 @@ var screenshot = {
 
   editContent: function () {
     screenshot.tryGetUrl(function () {
-      text = 'document.designMode="on"';
-      chrome.tabs.executeScript(screenshot.thisTabId, {allFrames: true, code: text}, function () {
-        alert('Now you can edit this page')
-      })
-    })
+      chrome.tabs.executeScript(screenshot.thisTabId, {allFrames: true, code: 'document.designMode="on"'}, function () {
+        alert('Now you can edit this page');
+      });
+    });
   },
-
 
   callback: null,
   runCallback: false,
