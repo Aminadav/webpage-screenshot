@@ -33,19 +33,23 @@ var api = {
       api.stop = false;
       switch (data.data) {
         case 'captureVisible':
-          screenshot.captureVisible({
-            callback: callback,
-            runCallback: data.runCallback,
-            keepIt: data.keepIt,
-            cropData: data.cropData
+          premissions.checkPermissions(function () {
+            screenshot.captureVisible({
+              callback: callback,
+              runCallback: data.runCallback,
+              keepIt: data.keepIt,
+              cropData: data.cropData
+            });
           });
           break;
         case 'captureAll':
-          screenshot.captureAll({
-            callback: callback,
-            runCallback: data.runCallback,
-            keepIt: data.keepIt,
-            cropData: data.cropData
+          premissions.checkPermissions(function () {
+            screenshot.captureAll({
+              callback: callback,
+              runCallback: data.runCallback,
+              keepIt: data.keepIt,
+              cropData: data.cropData
+            });
           });
           break;
         case 'captureRegion':

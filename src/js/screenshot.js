@@ -46,22 +46,6 @@ var screenshot = {
   title: '',
   canvas: '',
   canvasToDataURL: '',
-  executeIfPermission: function (callback) {
-    chrome.permissions.contains({permissions: ['tabs']}, function (a) {
-      if (a) {
-        callback();
-      }
-    })
-  },
-  executeOnPermission: function (callback) {
-    chrome.permissions.contains({permissions: ['tabs']}, function (a) {
-      if (a) {
-        callback();
-      } else {
-        chrome.permissions.onAdded.addListener(callback)
-      }
-    })
-  },
   tryGetUrl: function (callback) {
     // var x;
     screenshot.description = '';
@@ -176,6 +160,9 @@ var screenshot = {
       upCrop = screenshot.cropData.x1
     }
     var cb = function (data) {
+      if (chrome.runtime.lastError) {
+        console.error(chrome.runtime.lastError);
+      }
       if (api.stop) return ;
       if ((mess.top || parseInt(mess.top) == 0 ))
         screenshot.screens.push({left: parseInt(mess.left), top: parseInt(mess.top), data: data});
@@ -193,6 +180,9 @@ var screenshot = {
     setTimeout(function () {
       chrome.windows.update(screenshot.thisWindowId, {focused: true}, function () {
         chrome.tabs.update(screenshot.thisTabId, {active: true}, function () {
+          if (chrome.runtime.lastError) {
+            console.error(chrome.runtime.lastError);
+          }
           chrome.tabs.captureVisibleTab(null, {
             format: 'png'
           }, cb);

@@ -1,8 +1,4 @@
 var popup = {
-  permissions: {
-    permissions: ["web" + "Navigation", "web" + "Request", "tabs"],
-    origins: ["http://*/*", "https://*/*"]
-  },
   ready: function () {
     $('.capture-visible').click(popup.captureVisible);
     $('.capture-all').click(popup.captureAll);
@@ -15,7 +11,35 @@ var popup = {
       $(this).fadeOut();
     });
     $('.ver').text(extension.version);
+    popup.checkSupport();
   },
+
+  checkSupport: function () {
+    chrome.tabs.getSelected(function(t) {
+      var url=t.url;
+      if (url.indexOf('chrome://') >= 0 || url.indexOf('chrome-extension:') >= 0 || url.indexOf('https://chrome.google.com') >= 0) {
+        popup.disableScrollSupport();
+      }
+      if (url.indexOf('file:') == 0) {
+        var scriptNotLoaded = setTimeout(popup.disableScrollSupport, 500);
+        chrome.runtime.sendMessage(t.id, {
+            type: 'checkExist'
+          },
+          function() {
+            clearTimeout(scriptNotLoaded)
+          }
+        );
+      }
+    });
+  },
+
+  disableScrollSupport: function () {
+    $('.capture-all').hide();
+    $('.capture-region').hide();
+    $('.edit-content').hide();
+    $('#noall').show();
+  },
+
   translationBar: function () {
     var did=',en,';
     chrome.i18n.getAcceptLanguages(function(lang) {
@@ -49,74 +73,50 @@ var popup = {
         console.warn('Invalid message', data);
     }
   },
-  checkPermissions: function (cb) {
-    chrome.permissions.contains(popup.permissions, function (contains) {
-      if (contains) {
-        cb();
-      } else {
-        popup.requestPermissions(cb);
-      }
-    });
-  },
-  requestPermissions: function (cb) {
-    chrome.permissions.request(popup.permissions, function (granted) {
-      if (granted) {
-        cb();
-      } else {
-        popup.requestPermissionsFailed();
-      }
-    });
-  },
-  removePermissions: function () {
-    chrome.permissions.remove(popup.permissions);
-  },
-  requestPermissionsFailed: function () {
-    chrome.tabs.create({url:'http://www.webpagescreenshot.info/?t=deny'});
-  },
   captureVisible: function () {
-    popup.checkPermissions(function () {
+    premissions.checkPermissions(function () {
       popup.sendMessage({
         data: 'captureVisible'
       });
     });
   },
   captureAll: function () {
-    popup.checkPermissions(function () {
+    premissions.checkPermissions(function () {
       popup.sendMessage({
         data: 'captureAll'
       });
     });
   },
   captureRegion: function () {
-    popup.checkPermissions(function () {
+    premissions.checkPermissions(function () {
       popup.sendMessage({
         data: 'captureRegion'
       });
     });
   },
   captureWebcam: function () {
-    popup.checkPermissions(function () {
+    premissions.checkPermissions(function () {
       popup.sendMessage({
         data: 'captureWebcam'
       });
     });
   },
   captureDesktop: function () {
-    popup.checkPermissions(function () {
+    premissions.checkPermissions(function () {
       popup.sendMessage({
         data: 'captureDesktop'
       });
     });
   },
   captureClipboard: function () {
-    popup.checkPermissions(function () {
+    premissions.checkPermissions(function () {
       popup.sendMessage({
         data: 'captureClipboard'
       });
     });
   },
   editContent: function () {
-    popup.checkPermissions(function () {
+    premissions.checkPermissions(function () {
       popup.sendMessage({
         data: 'editContent'
       });

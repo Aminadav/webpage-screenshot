@@ -1,7 +1,6 @@
 if ('#exturl#'=='ckibcdccnfeookdmbahgiakhnjcddpki')
 	window.onerror=function (message,url,num) {return url==false}
 
-
 function zoomLevel() {
 	return document.width / jQuery(document).width()
 }
@@ -12,7 +11,7 @@ function documentbody() {
 	return document.getElementsByTagName('body')[0]
 }
 
-var hideTheScrollBars
+var hideTheScrollBars;
 var cropData;
 (function() {
 	var page = {
@@ -106,8 +105,9 @@ var cropData;
 
 				try{
 					//don't hide&show scrollbars when user select region
-					if(hideTheScrollBars)
-					$('body').css({'overflow-x':'','overflow-y':''})
+					if(hideTheScrollBars){
+            $('body').css({'overflow-x':'','overflow-y':''})
+          }
 				}catch(e){}
 
 				for (var i = 0, l = this.fixedElements_.length; i < l; ++i) {
@@ -116,9 +116,11 @@ var cropData;
 			} else {
 				try{
 					if(cropData.x1==0){
-						$('body').css({'overflow-x':'hidden','overflow-y':'hidden'})
-						hideTheScrollBars=true
-					} else hideTheScrollBars=false
+						$('body').css({'overflow-x':'hidden','overflow-y':'hidden'});
+						hideTheScrollBars=true;
+					} else {
+            hideTheScrollBars=false;
+          }
 				}catch(e){}
 				this.fixedElements_ = [];
 				var nodeIterator = document.createNodeIterator(
@@ -160,6 +162,10 @@ var cropData;
 
 
 		onRequest: function(mess, sender, callback) {
+      if (mess.type == 'checkExist') {
+        callback();
+        return ;
+      }
 			if (mess.start) {
 				cropData = $.extend({
           x1: 0,
@@ -220,38 +226,27 @@ var cropData;
 			}
 		},
 		docKeyDown: function(e) {
-			//		console.log(e.keyCode);
-			if('#isWs#'){
-				if (e.altKey && e.keyCode == special_shortcut_full) {
-					chrome.runtime.sendMessage({
-										data: 'startCapture',
-										type: 'scroll',
-										cropData: {
-											x1: 0,
-											x2: 32768,
-											y1: 0,
-											y2: 32765,
-											scrollTop: document.body.scrollTop,
-											scrollLeft: document.body.scrollLeft
-										}})
-					return (false)
-				}
-				if(e.keyCode==27){
-					if (hideTheScrollBars){
-						$('body').css({'overflow-x':'','overflow-y':''})
-					}
-					chrome.runtime.sendMessage({
-						data:'stopNow'
-					})
-				}
-				if (e.altKey && e.keyCode == special_shortcut_visible) {
-					chrome.runtime.sendMessage({
-						data: 'startCapture',
-						type: 'current'
-					});
-					return (false)
-				}
-			}
+      if (e.altKey && e.keyCode == data.special_shortcut_full) {
+        chrome.runtime.sendMessage({
+          data: 'captureAll'
+        });
+        return false;
+      }
+      // ESC key
+      if(e.keyCode==27){
+        if (hideTheScrollBars){
+          $('body').css({'overflow-x':'','overflow-y':''})
+        }
+        chrome.runtime.sendMessage({
+          data:'stopNow'
+        })
+      }
+      if (e.altKey && e.keyCode == data.special_shortcut_visible) {
+        chrome.runtime.sendMessage({
+          data: 'captureVisible'
+        });
+        return false;
+      }
 		},
 		bindEvents: function() {
 			document.addEventListener('keydown', page.docKeyDown)

@@ -31,7 +31,6 @@ var codeinjector = {
 
     codeinjector.lastRunOnTab[tid] = {'time': new Date(), 'url': cleanHash(url)};
     var runIt = function () {
-      //chrome.tabs.executeScript(tid, {code: 'alreadyRun=true', runAt: 'document_start'});
       chrome.tabs.executeScript(tid, {code: code, runAt: 'document_start'}, callback);
     };
 
@@ -91,7 +90,7 @@ var codeinjector = {
     }
     var code = codeinjector.getCode();
     if (tab.url.match('http://www.webpagescreenshot.info')) {
-      code += $.ajax({url: 'inmysite.js', async: false}).responseText + ';'
+      code += $.ajax({url: 'js/inmysite.js', async: false}).responseText + ';'
     }
     codeinjector.executeCodeOnTabId(tab.url, tid, code, function () {
     }, true);
