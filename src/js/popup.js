@@ -11,6 +11,30 @@ var popup = {
     $('.capture-desktop').click(popup.captureDesktop);
     $('.capture-clipboard').click(popup.captureClipboard);
     $('.edit-content').click(popup.editContent);
+    $('#working').click(function () {
+      $(this).fadeOut();
+    });
+    $('.ver').text(extension.version);
+  },
+  translationBar: function () {
+    var did=',en,';
+    chrome.i18n.getAcceptLanguages(function(lang) {
+      var ht = '';
+      for (var i = 0; i < lang.length; i++) {
+        if (did.indexOf(',' + lang[i].substring(0, 2) + ',') >= 0) {
+          continue;
+        }
+        var $e = $('<a lang="' + lang[i] + '" class="btn">' + lang[i] + '</a>');
+        $e.on('click', function () {
+          var t=this;
+          chrome.tabs.create({url:
+            'https://docs.google.com/forms/d/1PxQumU94cpqjz_p9mQpNIIdW4WBIL-SRARIkk2I4grA/viewform?entry.893813915&entry.1011219305&entry.510290200=' +
+            t.getAttribute('lang')
+          });
+        });
+        $('.window_translate').show().append($e);
+      }
+    });
   },
   /**
    * Function execution from remote scripts such as background.js
@@ -93,14 +117,14 @@ var popup = {
   },
   editContent: function () {
     popup.checkPermissions(function () {
-    popup.sendMessage({
-      data: 'editContent'
-    });
+      popup.sendMessage({
+        data: 'editContent'
+      });
     });
   },
   sendMessage: function (data) {
     chrome.runtime.sendMessage(data, function(x) {
-      console.log('popup_fail', x);
+      console.warn('popup_fail', x);
     });
   }
 };
