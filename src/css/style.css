@@ -1,6 +1,7 @@
 body {
 	font-family: 'Open Sans', sans-serif;
 	margin: 0;
+    min-height: 0;
 }
 #working {
     position: fixed;
@@ -118,6 +119,11 @@ body {
 	background: url(../images/icon7.png) no-repeat center;
 }
 .window_translate {
+	padding: 10px 10px;
+	font-size: 13px;
+	border-bottom: 1px #e4e4e4 solid;
+}
+.window_message {
 	padding: 10px 10px;
 	font-size: 13px;
 	border-bottom: 1px #e4e4e4 solid;
