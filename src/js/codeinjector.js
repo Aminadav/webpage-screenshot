@@ -40,8 +40,8 @@ var codeinjector = {
         code: 'window.alreadyRun',
         runAt: 'document_start'
       }, function (alreadyRun) {
-        alreadyRun = alreadyRun[0];
-        if (!alreadyRun) {
+        // If script was executed but variable is not declared
+        if (alreadyRun && !alreadyRun[0]) {
           runIt();
         }
       });
