@@ -663,6 +663,11 @@ function editor_obj()
 		};
 	tool.crop.up=function ()
 		{
+			// currentLevel.type='crop';
+		if( ry2-ry1 + rx2-rx1<100) {
+			tool.crop.draw()
+			return
+		}
 		clip.rx1=rx1;
 		clip.rx2=rx2;
 		clip.ry1=ry1;
