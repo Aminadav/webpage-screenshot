@@ -1430,6 +1430,7 @@ function editor_obj()
 		lineWidth=parseInt(this.style.height)
 	})
 	$('#pdf').click(createPDF)
+	$('#thumbnail').click(createThumbnails)
 	$('#LineWidthPicker').mouseenter(function(){
 		$('.linePickerOverlay').slideDown();
 	})
