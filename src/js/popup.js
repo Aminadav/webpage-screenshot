@@ -12,8 +12,64 @@ var popup = {
     });
     $('.ver').text(extension.version);
     popup.checkSupport();
+    
+    if(is=='sb'){
+      popup.showSelectionBarStatus()
+      popup.bindSelectionBar()
+    }
   },
 
+  showSelectionBarStatus:function(){
+    $('.show_toolbar').attr('checked',localStorage['show_toolbar']=='yes')
+    $('.show_toolbar_on_this_domain')[localStorage['show_toolbar']=='yes' ? 'show' : 'hide']()
+    $('.show_selectionbar').attr('checked',localStorage['show_selectionbar']=='yes')
+    $('.show_selectionbar_on_this_domain')[localStorage['show_selectionbar']=='yes' ? 'show' : 'hide']()
+    $('#sb_opacity').val(localStorage.sb_opacity)
+    $('#button_size').val(localStorage.button_size)
+    chrome.tabs.getSelected(function(t) {
+      var url=t.url;
+      debugger
+      var thisDomain = cleanUp(url)
+      var toolbar_disabledURLs = localStorage['toolbar_disableURLs'] || '{}'
+      var toolbar_disabledURLs = JSON.parse(toolbar_disabledURLs) || {};
+      var selectionbar_disabledURLs = localStorage['selectionbar_disableURLs'] || '{}'
+      var selectionbar_disabledURLs = JSON.parse(selectionbar_disabledURLs) || {};
+
+      $('.show_toolbar_on_this_domain').attr('checked', toolbar_disabledURLs[thisDomain] != 'disabled')
+      $('.show_selectionbar_on_this_domain').attr('checked', selectionbar_disabledURLs[thisDomain] != 'disabled')
+    })
+    function cleanUp(url) {
+      if (!url) return url
+      var url = $.trim(url);
+      if (url.search(/^https?\:\/\//) != -1)
+        url = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i, "");
+      else
+        url = url.match(/^([^\/?#]+)(?:[\/?#]|$)/i, "");
+      return url[1];
+    }
+  },
+
+  bindSelectionBar:function(){
+    $('.show_toolbar').on('change',function(){
+      localStorage['show_toolbar']=this.checked ? 'yes' : 'no'
+      location.reload()
+    })
+    $('.show_selectionbar').on('change',function(){
+      localStorage['show_selectionbar']=this.checked ? 'yes' : 'no'
+      location.reload()
+    })
+    $('#sb_opacity').on('change',function (){
+          localStorage['sb_opacity']=$(this).val()
+          chrome.extension.getBackgroundPage().executeCodeOnAllTabs('extStorageUpdate()');
+        })
+    $('#button_size').on('change',function (){
+      localStorage['button_size']=$(this).val()
+      chrome.extension.getBackgroundPage().executeCodeOnAllTabs('extStorageUpdate()');
+    })
+    // $('show_toolbar_on_this_domain').on('change',function(){
+
+    // })
+  },
   checkSupport: function () {
     chrome.tabs.getSelected(function(t) {
       var url=t.url;

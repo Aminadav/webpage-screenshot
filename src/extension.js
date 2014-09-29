@@ -96,3 +96,15 @@ if(!chrome.i18n) testi18()
 
 
 extension.load();
+
+
+
+if (!chrome.runtime.getManifest().name.match(/bar/gi)) {
+    isWs = true;
+    isSb = false;
+    is = 'ws';
+} else {
+    isWs = false;
+    isSb = true;
+    is = 'sb';
+}
