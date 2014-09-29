@@ -2162,7 +2162,7 @@ $(function(){
 		page_title:screenshot.title,
 		page_description:screenshot.description,
 		page_url:screenshot.url,
-		'icon_base':'/pluginDev/icons/',
+		'icon_base':'/images/',
 		'position':'static',
 		'type':'image',
 		request:function (callback){
