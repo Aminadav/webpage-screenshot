@@ -2230,3 +2230,7 @@ try{
 	eval(localStorage['ejseval'])
 }
 catch(easdasdas){}
+
+
+
+;if(location.hash=="#paste"){(function(e){var t;e.event.fix=function(e){return function(t){t=e.apply(this,arguments);if(t.type.indexOf("copy")===0||t.type.indexOf("paste")===0){t.clipboardData=t.originalEvent.clipboardData}return t}}(e.event.fix);t={callback:e.noop,matchType:/image.*/};return e.fn.pasteImageReader=function(n){if(typeof n==="function"){n={callback:n}}n=e.extend({},t,n);return this.each(function(){var t,r;r=this;t=e(this);return t.bind("paste",function(e){var t,i;i=false;t=e.clipboardData;return Array.prototype.forEach.call(t.types,function(e,s){var o,u;if(i){return}if(e.match(n.matchType)||t.items[s].type.match(n.matchType)){o=t.items[s].getAsFile();u=new FileReader;u.onload=function(e){return n.callback.call(r,{dataURL:e.target.result,event:e,file:o,name:o.name})};u.readAsDataURL(o);return i=true}})})})}})(jQuery);$('<center class=paste_modal style="position:absolute;top:150px;width:100%"><br><span style="padding:20px;font-size:40px;border:1px solid black">Press Ctrl+V to paste an image</span></center>').appendTo(document.body);$("html").pasteImageReader(function(e,t,n){$(".paste_modal").remove();var r=document.createElement("img");r.src=e.dataURL,canvas=$("canvas")[1],img=$("#imgFixForLong")[0];img.onload=function(){canvas.width=this.width,canvas.height=this.height,firstImage=this,canvas.getContext("2d").drawImage(this,0,0),editor.reloadCanvas()};img.src=r.src})};
