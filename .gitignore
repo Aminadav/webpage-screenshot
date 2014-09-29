@@ -6,6 +6,7 @@ src/manifest.json
 
 # Node
 node_modules
+sublime.*
 
 # Windows image file caches
 Thumbs.db
