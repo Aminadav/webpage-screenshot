@@ -40,30 +40,30 @@ Math.distance = function(x1, y1, x2, y2) {
 }
 
 
-//	document.addEventListener('selectionchange',function (){
-//		$('#ws_toolbar').remove();
-//		selection=document.getSelection();
-//		if (selection.type=='Range'){
-//			range=selection.getRangeAt(0);
-//			rect=range.getBoundingClientRect()
-//			toolbarHTML=createToolBarHTML();
-//			toolbarElement=$(toolbarHTML);
-//			$('<div></div>').appendTo(document.body).css({
-//				position:'absolute',
-//				border:'1px solid blue',
-//				left:rect.left,
-//				width: rect.width,
-//				height: rect.height
-//			})
-//			toolbarElement.position({
-//				collision:'flipfit',
-//				my:'right top',
-//				at:'right bottom',
+//  document.addEventListener('selectionchange',function (){
+//      $('#ws_toolbar').remove();
+//      selection=document.getSelection();
+//      if (selection.type=='Range'){
+//          range=selection.getRangeAt(0);
+//          rect=range.getBoundingClientRect()
+//          toolbarHTML=createToolBarHTML();
+//          toolbarElement=$(toolbarHTML);
+//          $('<div></div>').appendTo(document.body).css({
+//              position:'absolute',
+//              border:'1px solid blue',
+//              left:rect.left,
+//              width: rect.width,
+//              height: rect.height
+//          })
+//          toolbarElement.position({
+//              collision:'flipfit',
+//              my:'right top',
+//              at:'right bottom',
 
-//			})
+//          })
 
-//		}
-//	})
+//      }
+//  })
 //
 x = 0;
 
@@ -76,11 +76,11 @@ function exec(fn) {
 }
 
 // $(function() {
-// 	// var script = document.createElement('script');
-// 	// script.setAttribute("type", "application/javascript");
-// 	// script.src = chrome.extension ? chrome.extension.getURL('/SelectionBar/Zero.js') : 'Zero.js'
-// 	// document.documentElement.appendChild(script); // run the script
-// 	// document.documentElement.removeChild(script); // clean up
+//  // var script = document.createElement('script');
+//  // script.setAttribute("type", "application/javascript");
+//  // script.src = chrome.extension ? chrome.extension.getURL('/SelectionBar/Zero.js') : 'Zero.js'
+//  // document.documentElement.appendChild(script); // run the script
+//  // document.documentElement.removeChild(script); // clean up
 // })
 
 var sbToolbar
@@ -127,8 +127,8 @@ func_sbMouseDown = function(se) {
 
             // debugger;
             // $toolbar=$('<iframe allowtransparency="true" ></iframe>').appendTo(document.body);
-            //   		toolbar=$toolbar[0];
-            //   		toolbar.frameBorder=0
+            //          toolbar=$toolbar[0];
+            //          toolbar.frameBorder=0
 
             $toolbar = $('<div class=ws_toolbar></div>').appendTo(document.body);
 
@@ -149,7 +149,7 @@ func_sbMouseDown = function(se) {
                 'page_title': $('title').html() || 'no title',
                 'page_description': 'no description',
                 'page_url': location.href,
-                'icon_base': chrome.extension ? chrome.extension.getURL('/pluginDev/icons/') : '../pluginDev/icons/',
+                'icon_base': chrome.extension ? chrome.extension.getURL('/images/') : '../images/',
                 'position': 'static',
                 'type': 'text',
                 request: function(callback) {
@@ -178,13 +178,13 @@ func_sbMouseDown = function(se) {
 
             function positionToolbar($toolbarElement, mousePosition) {
                 // if(ee.pageY>se.pageY)
-                // 	t=ee.pageY+15
+                //  t=ee.pageY+15
                 // else
-                // 	t=ee.pageY-$toolbar.height()-15
+                //  t=ee.pageY-$toolbar.height()-15
                 // if(ee.pageX>se.pageX)
-                // 	left=ee.pageX+15
+                //  left=ee.pageX+15
                 // else
-                // 	left=ee.pageX-$toolbar.width()-15
+                //  left=ee.pageX-$toolbar.width()-15
 
                 // if (t<0) t=ee.pageY-$toolbar.height()-15
                 // if (left<document.body.scrollLeft) left=document.body.scrollLeft
@@ -252,17 +252,17 @@ func_sbMouseDown = function(se) {
 
             // $('.btn_copy').attr('data-clipboard-target','hello');
             // if (!window.clip) {
-            // 	clip.on('load',function () {
+            //  clip.on('load',function () {
 
-            // 		console.log('loaded')
-            // 		// alert(text)
-            // 		this.reposition();
-            // 	})
+            //      console.log('loaded')
+            //      // alert(text)
+            //      this.reposition();
+            //  })
             // }
             // else{
-            // 	console.log('rep');
-            // //	clip.setText(text);
-            // 	clip.reposition();
+            //  console.log('rep');
+            // //   clip.setText(text);
+            //  clip.reposition();
             // }
             //window.setInterval(function () {clip.reposition},1000)
             //use this:
@@ -306,23 +306,23 @@ func_sbMouseDown = function(se) {
                 // $('link[media=print]').remove()
                 // $('link[media*=screen]').attr('media','print,screen')
                 // for (var x=0; x<document.styleSheets.length;x++){
-                ///	console.groupCollapsed('styleSheet-' + x,document.styleSheets[x])
-                ///	if(document.styleSheets[x].rules){
-                ///		for (var i=0; i<document.styleSheets[x].rules.length;i++) {
-                ///			console.groupCollapsed('rule-(' + x + ')-' +i +  document.styleSheets[x].rules[i])
-                ///			console.debug(document.styleSheets[x].rules[i])
-                ///			if(document.styleSheets[x].rules[i].media){
-                //				for(var j=0;j<document.styleSheets[x].rules[i].media.length;j++){
-                //						if (document.styleSheets[x].rules[i].media[j].indexOf('print')>-1)
-                //						document.styleSheets[x].rules[i].media.mediaText='nothing'
-                //						if (document.styleSheets[x].rules[i].media[j].indexOf('screen')>-1)
-                //						document.styleSheets[x].rules[i].media.mediaText='print,screen'
-                //					}
-                //				}
-                //			console.groupEnd();
-                ///		}
-                ///	}
-                //	console.groupEnd()
+                /// console.groupCollapsed('styleSheet-' + x,document.styleSheets[x])
+                /// if(document.styleSheets[x].rules){
+                ///     for (var i=0; i<document.styleSheets[x].rules.length;i++) {
+                ///         console.groupCollapsed('rule-(' + x + ')-' +i +  document.styleSheets[x].rules[i])
+                ///         console.debug(document.styleSheets[x].rules[i])
+                ///         if(document.styleSheets[x].rules[i].media){
+                //              for(var j=0;j<document.styleSheets[x].rules[i].media.length;j++){
+                //                      if (document.styleSheets[x].rules[i].media[j].indexOf('print')>-1)
+                //                      document.styleSheets[x].rules[i].media.mediaText='nothing'
+                //                      if (document.styleSheets[x].rules[i].media[j].indexOf('screen')>-1)
+                //                      document.styleSheets[x].rules[i].media.mediaText='print,screen'
+                //                  }
+                //              }
+                //          console.groupEnd();
+                ///     }
+                /// }
+                //  console.groupEnd()
                 // }
                 removeToolbar()
                 window.onfinish = function() {
@@ -408,12 +408,12 @@ if (chrome.runtime)
 else
     sb_start_toolbar();
 // chrome.runtime.connect().onDisconnect.addListener(function (){
-// 	$('<iframe style=display:none src=http://www.webpagescreenshot.info/s.php?e=stopVersion#extver#></iframe>').appendTo(document.body)
+//  $('<iframe style=display:none src=http://www.webpagescreenshot.info/s.php?e=stopVersion#extver#></iframe>').appendTo(document.body)
 // })
 
 
 
-var topToolbar;
+var topToolbar={};
 
 function sb_start_selectionBar(){
     sb_pause_selectionBar();
@@ -440,7 +440,7 @@ function sb_start_toolbar() {
             // page_title: background.title,
             // page_description: background.description,
             // page_url: background.url,
-            'icon_base': chrome.extension ? chrome.extension.getURL('/pluginDev/icons/') : '../pluginDev/icons/',
+            'icon_base': chrome.extension ? chrome.extension.getURL('/images/') : '../images/',
             'position': 'static',
             'type': 'text',
             request: function(callback) {

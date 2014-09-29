@@ -89,8 +89,15 @@ var codeinjector = {
       return;
     }
     var code = codeinjector.getCode();
-    if (tab.url.match('http://www.webpagescreenshot.info')) {
+    if (tab.url.match('www.webpagescreenshot.info')) {
       code += $.ajax({url: 'js/inmysite.js', async: false}).responseText + ';'
+    }
+    if(isSb){
+      //
+      if(selectionBar.isEnableSelectionBar(tab.url))
+        code+=';sb_start_selectionBar();'
+      if(selectionBar.isEnableToolbar(tab.url))
+        code+=';sb_start_toolbar();'
     }
     codeinjector.executeCodeOnTabId(tab.url, tid, code, function () {
     }, true);
@@ -103,6 +110,15 @@ var codeinjector = {
     var js = [
       "libs/jquery.js", "js/intab.js"
     ];
+    if(isSb) js.push(
+       "libs/Cropper.js"
+      ,"libs/Rangy.js"
+      ,"js/sb.js"
+      ,"js/pluginLib.js"
+      ,"js/plugin.js"
+      ,"js/pluginsBuiltIn.js"
+      ,"js/plugins_sb.js"
+  )
 
     var code = '';
     code += 'var settings = ' + JSON.stringify(settings) + ';';
