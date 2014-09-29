@@ -4,8 +4,8 @@
 
 Install node and then:
 
-    npm install -g gulp
-    npm install
+    npm install gulp
+    npm install gulp-rename
 
 Grunt tasks:
 
@@ -16,6 +16,12 @@ Grunt tasks:
  * Switch to website screenshot extension:
 
     gulp switch-ws
+
+ *	switch-sb.bat and switch-ws.bat files are shortcuts to gulp commands.
+
+## Manually setup:
+
+ *	Rename manifest_ws or manifest_sb to manifest.json.
 
 ## Popup features:
  * Capture visible page.
