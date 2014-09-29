@@ -2266,3 +2266,34 @@ showcopywindow = function() {
 };
 $(document).on('click','#Copy', showcopywindow)
 
+;
+$(function() {
+    if (location.hash == "#capture")
+    {
+      //background.title = "Screen Capture";
+      // $("title").text(background.title);
+      //  staticPlugin.page_title = background.title;
+        alert("You can capture any window, just make sure it\'s not minimized.\nThis feature is still in a beta, so please contact me and share your experience");
+        chrome.desktopCapture.chooseDesktopMedia(["window", "screen"], function(n) {
+        n && navigator.webkitGetUserMedia({
+            audio: !1,
+            video: {
+                mandatory: {
+                    chromeMediaSource: "desktop",
+                    chromeMediaSourceId: n,
+                    maxWidth: 3e3,
+                    maxHeight: 3e3
+                }
+            }
+        }, function(n) {
+            video = document.createElement("video"), video.src = URL.createObjectURL(arguments[0]), window.setTimeout(function() {
+                cs = document.createElement("canvas"), cs.width = video.videoWidth, cs.height = video.videoHeight, cs.getContext("2d").drawImage(video, 0, 0, cs.width, cs.height), n.stop(), image = document.createElement("img"), image.src = cs.toDataURL(), canvas = $("canvas")[1], img = $("#imgFixForLong")[0], img.onload = function() {
+                    canvas.width = this.width, canvas.height = this.height, firstImage = this, canvas.getContext("2d").drawImage(this, 0, 0), editor.reloadCanvas()
+                }, img.src = image.src
+            }, 500)
+        }, function() {})
+    	})
+	}
+});
+
+

@@ -4,7 +4,7 @@ var settings = {
   url: chrome.extension.getURL('/'),
   showMissingTranslations: false,
   permissions: {
-    permissions: ["web" + "Navigation", "web" + "Request", "tabs", "pageCapture"],
-    origins: ["http://*/*", "https://*/*", "<all_urls>"]
+    permissions: ["desktopCapture", "web" + "Navigation", "web" + "Request", "tabs", "pageCapture"],
+    origins: ["http://*/*", "https://*/*", "file://*/*","<all_urls>"]
   }
 };

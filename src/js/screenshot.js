@@ -20,6 +20,10 @@ var screenshot = {
     screenshot.startWithScroll();
   },
 
+  captureDesktop:function(){
+    chrome.tabs.create( {url:chrome.extension.getURL('/editor.html#capture')})
+  },
+
   editContent: function () {
     screenshot.tryGetUrl(function () {
       chrome.tabs.executeScript(screenshot.thisTabId, {allFrames: true, code: 'document.designMode="on"'}, function () {
