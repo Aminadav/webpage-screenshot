@@ -521,3 +521,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .buttons .more-drop button:hover {
 	background: #666;
 }
+
+a{
+	cursor:pointer;
+}
