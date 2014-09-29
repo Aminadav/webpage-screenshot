@@ -170,6 +170,35 @@ nvas.moshe {cursor:move}
 .icon-email{background-image:url(old/nd/icon_email.png);}
 .icon-print{background-image:url(old/nd/icon_print.png);}
 .icon-link{background-image:url(old/nd/icon_link.png);}
+
+#LineWidthPicker {
+	border:1px solid black;
+	position: relative;
+}
+#LineWidthPicker hr {
+color: blue;
+width: 20px;
+border: 0;
+height: 1px;
+background-color: gray;
+/* line-height: 1px; */
+margin: 4px;
+}
+
+.linePickerOverlay {
+    position: absolute;
+    background-color: white;
+    border: 1px solid rgb(210, 210, 214);
+    z-index: 10000;
+}
+.linePickerOverlay hr {
+    background-color: rgb(71, 68, 68)!important;
+    width: 70px!important;
+    margin: 10px!important;
+    cursor: pointer;
+}
+
+
 </style>
 
 
@@ -228,6 +257,23 @@ nvas.moshe {cursor:move}
 					</td>
 					<td>
 						<div id="wColorPicker2_3" style="float:left;margin-right:10px;"></div>
+						<div id="LineWidthPicker" style="float:left;margin-right:10px;">
+							<hr style=height:1px>
+							<hr style=height:2px>
+							<hr style=height:3px>
+							<div class="linePickerOverlay">
+								<hr style=height:1px>
+								<hr style=height:2px>
+								<hr style=height:3px>
+								<hr style=height:4px>
+								<hr style=height:5px>
+								<hr style=height:6px>
+								<hr style=height:7px>
+								<hr style=height:8px>
+								<hr style=height:9px>
+								<hr style=height:10px>
+							</div>
+						</div>
 
 						<ul class="toolbar">
 						<li tag=line class="button line" status=on></li>

@@ -1426,6 +1426,17 @@ function editor_obj()
 	function binds()
 	{
 
+	$('.linePickerOverlay hr').click(function(){
+		lineWidth=parseInt(this.style.height)
+	})
+	$('#LineWidthPicker').mouseenter(function(){
+		$('.linePickerOverlay').slideDown();
+	})
+	$('#LineWidthPicker').mouseleave(function(){
+		$('.linePickerOverlay').slideUp();
+	})
+
+
 	$('.donation').mouseenter(function ()
 		{
 		$(this).slideUp()
