@@ -4,6 +4,15 @@ var api = {
     screenshot.init();
     codeinjector.init();
     api.listenMessages();
+    api.setDefaultSettings();
+  },
+  setDefaultSettings: function () {
+    if (!localStorage['shortcut_full']) {
+      localStorage['shortcut_full'] = 90;
+    }
+    if (!localStorage['shortcut_visible']) {
+      localStorage['shortcut_visible'] = 88;
+    }
   },
   isEnableURL: function (url){
     if (localStorage['sb_enable']!='yes') return false
