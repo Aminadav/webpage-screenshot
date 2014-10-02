@@ -519,14 +519,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     height: 32px;
     line-height: 22px;
     font-size: 12px;
-    padding: 5px 10px;
+    padding: 5px 26px 5px 10px;
     box-sizing: border-box;
     width: 240px;
     margin-right: -240px;
-    border-bottom-right-radius: 3px;
-    border-top-right-radius: 3px;
     border: 1px solid #a8a8a8;
     border-left: 0;
+    outline: none;
+    background: url(../images/clipboard-paste.png) no-repeat 218px center #fff;
+    cursor: pointer;
 }
 .buttons .elements-group {
     float: left;

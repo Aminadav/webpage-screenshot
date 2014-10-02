@@ -112,17 +112,17 @@ var defaultPlugins = [
 
             var $input = $button.siblings('.url-share');
             if (!$input.length) {
-              $input = $("<input class='url-share' type='text'/>");
+              $input = $("<input class='url-share' readonly type='text'/>");
               $button.after($input);
             }
             $input.val(shareUrl);
             $input.animate({"margin-right": '0'});
-            $input.focus();
             $input.select();
             document.execCommand('copy');
             clearSelection();
             $input.click(function () {
               $input.select();
+              document.execCommand('copy');
             });
             return ;
           }
