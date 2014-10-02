@@ -64,12 +64,20 @@ function Dialog(inX) {
 	// 	async: false
 	// }).responseText  + '</style>' //.replace(/images\//g, 'http://code.jquery.com/ui/1.9.2/themes/dark-hive/images/') + ' ody {color:white;}' 
 	
-	div.innerHTML='<style>@media screen {body {background-color:white;border:1px solid gray;margin:0px;font-family:arial;font-size:0.8em;padding:10px;}} @media print { .onlyDisplay{display:none}}</style>';
-	this.iframe.contentDocument.body.appendChild(div)
+	div.innerHTML = '<link href="css/dialog.css" rel="stylesheet"/>';
+	this.iframe.contentDocument.body.appendChild(div);
+
+  var scripts = ['libs/jquery.js', 'libs/ZeroClipboard.min.js', 'js/clipboard.js', 'js/dialog.js'];
+  for (var i=0; i< scripts.length; i++) {
+    var script = this.iframe.contentWindow.document.createElement("script");
+    script.src = scripts[i];
+    this.iframe.contentWindow.document.body.appendChild(script);
+  }
+
 	if (instance.options.ui == 'dialog') {
-		div = $('<div style=idth:95%;olor:white class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable">' +
+		div = $('<div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable">' +
 			'<div style=cursor:default;margin-bottom:5px>' +
-			'<div style=float:right;font-weight:bolder;font-size:1.2em;cursor:pointer title=close class=onlyDisplay>X</div> <span id=title  style=font-size:1.5em></span>' +
+			'<div title=close class="onlyDisplay ui-close">&times;</div> <span id=title  style=font-size:1.5em></span>' +
 			'</div>' +
 			'<div id=content class="ui-dialog-content ui-widget-content">' +
 			'</div>' +

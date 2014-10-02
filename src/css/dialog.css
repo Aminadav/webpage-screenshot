@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: arial, helvetica, sans-serif;
+    font-size: 12px;
+}
+.input-block {
+    width: 100%;
+}
+.ui-dialog {
+    background-color: #fff;
+    border: 1px solid #a8a8a8;
+    border-radius: 5px;
+    padding: 10px;
+}
+.ui-close {
+    float:right;
+    font-weight:bolder;
+    font-size: 18px;
+    cursor:pointer;
+    height: 18px;
+    width: 18px;
+    line-height: 18px;
+    color: #fff;
+    text-align: center;
+    display: block;
+    background: #666;
+    border-radius: 12px;
+}
+.ui-close:hover {
+    background: #333;
+}
+.success-message {
+    font-size: 14px;
+    margin: 10px 0;
+    text-align: center;
+}
+textarea {
+    margin: 5px 0 10px;
+}
+
+@media print {
+    .onlyDisplay {
+        display: none
+    }
+}
