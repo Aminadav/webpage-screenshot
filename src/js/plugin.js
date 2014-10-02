@@ -90,12 +90,12 @@ var sizes = {
                     if (chrome.runtime) {
                         chrome.runtime.sendMessage({
                             data: 'ana',
-                            array: ['_setCustomVar', 'pluginClicks', extStorageGet(thisKey), 1],
-                        })
+                            array: ['_setCustomVar', 'pluginClicks', extStorageGet(thisKey), 1]
+                        });
                         chrome.runtime.sendMessage({
                             data: 'ana',
                             array: ['_trackEvent', 'pluginRun', this.name /*,e.url*/ ]
-                        })
+                        });
                     }
 
                 }
@@ -438,7 +438,10 @@ function Toolbar(options) {
     this.obj_plugins = {};
     var $toolbar = ''
     var dataTypes = []
-    $toolbar = $('<div style="border:1px solid #8b8b8b;;-webkit-border-radius: 3px;display: inline-block; background:-webkit-linear-gradient(top, #f8f8f8 0%,#cfcfcf 100%);"></div>')
+    $toolbar = $('<div class="plugin-toolbar"></div>');
+    if (!options.theme) {
+      $toolbar.attr('style', "border:1px solid #8b8b8b;;-webkit-border-radius: 3px;display: inline-block; background:-webkit-linear-gradient(top, #f8f8f8 0%,#cfcfcf 100%);");
+    }
     var toolbar = this;
 
     function create$toolbar() {
@@ -457,13 +460,16 @@ function Toolbar(options) {
 
         var thisIndex = -1
         $.each(toolbar.obj_plugins, function(a, b, c) {
+            if (options.doNotRenderDefaults && this.editorDefault) {
+                return ;
+            }
             var found = false
             for (var d1 in dataTypes)
                 for (var d2 in this.dataTypes)
                     if (dataTypes[d1] == this.dataTypes[d2]) found = true
             if (!found) return;
-            if (!toolbar.theme) {
-                html = $('<div style=float:left><img class=tb_button plugin-key="' + this.key + '"src=' + toolbar.icon_base + (this.key + '.png') + ' ></div>')
+            if (options.theme) {
+                html = $('<div class="tb_button" plugin-key="' + this.key + '"><img src=' + toolbar.icon_base + (this.key + '.png') + ' ></div>')
             } else {
                 html = $('<div style=padding:5px;float:left><div style=display:none;font-size:10px;font-family:arial;text-align:center>' + this.name + '</div><img class=tb_button plugin-key="' + this.key + '"src=' + toolbar.icon_base + (this.key + '.png') + ' ></div>')
                 options.button_size = 15
@@ -477,7 +483,7 @@ function Toolbar(options) {
                 'height': options.button_size + 'px',
                 'border-right': 'none',
                 'border-left': 'none',
-                'border-bottom': 'none',
+                'border-bottom': 'none'
             })
             html.attr('title', this.name)
             var plugin = this;
@@ -586,9 +592,8 @@ function Toolbar(options) {
 
     this.addPlugins = function(object) {
         if (!Array.isArray(object)) object = [object];
-        $.each(object, function() {
-            var object = this;
-            newPlugin = createPluginFromObject(object);
+        $.each(object, function(key, cfg) {
+            var newPlugin = createPluginFromObject(cfg);
             if (newPlugin.error) {
                 console.log('cannot add plugin, error', newPlugin.error, newPlugin);
                 return
