@@ -12,8 +12,8 @@ $(function ()
 	$('input[type=text].localStorage,select.localstorage').on('change keyup',function() {
 			localStorage[this.name]=this.value;
 		}).each(function (){
-			this.value=localStorage[this.name];
-		})
+			$(this).val(localStorage[this.name]);
+		});
 
 	$('.hide').click(function ()
 		{

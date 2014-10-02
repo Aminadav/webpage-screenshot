@@ -7,11 +7,24 @@ var api = {
     api.setDefaultSettings();
   },
   setDefaultSettings: function () {
-    if (!localStorage['shortcut_full']) {
-      localStorage['shortcut_full'] = 90;
-    }
-    if (!localStorage['shortcut_visible']) {
-      localStorage['shortcut_visible'] = 88;
+    var defaults = {
+      pngjpg: 'png',
+      delay: 0,
+      shortcut_full: 90,
+      shortcut_visible: 88,
+      enableshortcuts: 'yes',
+      created: new Date,
+      captureWithScroll: 0,
+      captureWithoutScroll: 0,
+      color: '#FF0000',
+      captureCount: 0,
+      txtHeader: 'Webpage Screenshot',
+      txtFotter: '%U %D'
+    };
+    for (var i in defaults) {
+      if (defaults.hasOwnProperty(i) && !localStorage.hasOwnProperty(i)) {
+        localStorage[i] = defaults[i];
+      }
     }
   },
   isEnableURL: function (url){
