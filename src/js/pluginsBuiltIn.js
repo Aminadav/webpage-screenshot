@@ -3,9 +3,10 @@ var defaultPlugins = [
 		name: 'Save To Disk',
 		key: 'save',
 		dataType: 'image',
+    editorDefault: true,
 		onclick: function(scope) {
 			String.prototype.twoDigits=function () {return this.replace(/^(.)$/,'0$1')}			
-	        scope.image_base64(function(dataUrl){
+      scope.image_base64(function(dataUrl){
 				dataURItoBlob=function(dataURI) {
 					var binary = atob(dataURI);
 					var array = [];
@@ -27,20 +28,18 @@ var defaultPlugins = [
 				a.attr({'href':url,'download':filename})[0].dispatchEvent(evt)
 			})
         }
-	}
-
-,
-
-{
-		name: 'Share with Webpage Screenshot',
-		key: 'webpagescreenshot',
-		dataType: 'image',
-		url: '%s'
 	},
 
-		{
+  {
+  name: 'Share with Webpage Screenshot',
+  key: 'webpagescreenshot',
+  dataType: 'image',
+  url: '%s'
+  },
+  {
 		name: 'Print',
 		key: 'print',
+    editorDefault: true,
 		onclick: function(scope) {
 			var image = scope.image_base64()
 			var x = new Dialog({
@@ -48,19 +47,125 @@ var defaultPlugins = [
 				// ,ui: 'dialog'
 			});
 			x.print();
-
-
 		},
 		dataType: 'image'
 	},
-
-
-	 {
+  {
 			name: 'gmail',
 			key: 'gmail',
 			dataType: 'image',
+      editorDefault: true,
 			url: "https://mail.google.com/mail/?view=cm&tf=0&fs=1&body=%s" + encodeURIComponent(' Captured by http://bit.ly/cF6sYP')
-		},
+  },
+  {
+    name: 'Save online',
+    key: 'uploady',
+    dataType: 'image',
+    editorDefault: true,
+    onclick: function (scope) {
+      var uploadUrl= 'https://content.uploady.com/v1/api/upload';
+      var accessToken = '7MURi9qo4ysOJs9O-gD3VZKWuY_hrh7wPBM4Uf6ecM3uIsKABY8~m48Ai';
+      var folderId = 'NZ~sRJG3bHz';
+      var $button = $(scope.event.delegateTarget);
+      if ($button.hasClass('loading')) {
+          return ;
+      }
+      $button.prop('disabled');
+      $button.addClass('loading');
+      String.prototype.twoDigits = function () {
+        return this.replace(/^(.)$/, '0$1')
+      };
+      scope.image_base64(function (dataUrl) {
+        var dataURItoBlob = function (dataURI) {
+          var binary = atob(dataURI);
+          var array = [];
+          for (var i = 0; i < binary.length; i++) {
+            array.push(binary.charCodeAt(i));
+          }
+          return new Blob([new Uint8Array(array)], {type: 'image/png'})
+        };
+        var blob = dataURItoBlob(dataUrl);
+        var filename;
+        filename = scope.page_title || scope.page_url;
+        filename = filename.replace(/[%&\(\)\\\/\:\*\?\"\<\>\|\/\]]/g, ' ');
+        filename += '.png';
+
+        var data = new FormData();
+        data.append('file', blob, filename);
+        data.append('share_link_enabled', true);
+        data.append('folder_id', folderId);
+        var request = $.ajax({
+          type: "POST",
+          url: uploadUrl,
+          headers: {
+            'Authorization': 'Bearer ' + accessToken
+          },
+          processData: false,
+          contentType: false,
+          dataType: 'json',
+          data: data
+        });
+        request.done(function(data) {
+          var file = data.files.pop();
+          var shareUrl = file.share_url;
+          if ($button.hasClass('expand-url')) {
+
+            var $input = $button.siblings('.url-share');
+            if (!$input.length) {
+              $input = $("<input class='url-share' type='text'/>");
+              $button.after($input);
+            }
+            $input.val(shareUrl);
+            $input.animate({"margin-right": '0'});
+            $input.focus();
+            $input.select();
+            document.execCommand('copy');
+            clearSelection();
+            $input.click(function () {
+              $input.select();
+            });
+            return ;
+          }
+          var x = new Dialog({
+            html:
+            '<p class="success-message">Link is already in your clipboard. Go ahead, share it!</p>' +
+            '<textarea autoselect autocopy class="input-block">' + shareUrl +
+            '</textarea>' +
+            '<br/> ' +
+            '<textarea autoselect class="input-block"><a href="' +
+            shareUrl + '">' + shareUrl +
+            '</a></textarea>',
+            title: 'Screenshot is ready to be shared online',
+            ui: 'dialog'
+          });
+          x.show();
+        });
+        request.fail(function(jqXHR, textStatus) {
+          alert(
+            "Upload request failed \n" +
+            jqXHR.status
+            + ":"
+            + jqXHR.statusText
+            + "\n"
+            + jqXHR.responseText
+          );
+        });
+        request.always(function () {
+          $button.addClass('done');
+          $button.removeClass('loading');
+          $button.prop('disabled', false);
+        });
+      });
+
+      function clearSelection() {
+        if (document.selection) {
+          document.selection.empty();
+        } else if (window.getSelection) {
+          window.getSelection().removeAllRanges();
+        }
+      }
+    }
+  },
 		 {
 				name: 'drive',
 				key: "googledrive",
