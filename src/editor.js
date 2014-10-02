@@ -1466,6 +1466,9 @@ function editor_obj()
       if (dime && tool.status == 'ready') {
         tool[tool.current].begin(dime);
       }
+      if (e.delegateTarget.id == "page-editor") {
+        return false;
+      }
     }
   });
 	$(document.body).bind('mousemove',function (e)
