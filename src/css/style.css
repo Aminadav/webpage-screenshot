@@ -238,14 +238,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 #divCanvasData .myClose {
     position: absolute;
     display: block;
-    height: 15px;
-    width: 15px;
-    background: #e03f49;
+    height: 17px;
+    width: 17px;
+    background: #ff0000;
     color: #fff;
     line-height: 15px;
     font-size: 12px;
     border-radius: 15px;
     text-align: center;
+    border: 1px solid #fff;
+    opacity: 0.7;
+    box-sizing: border-box;
+    font-weight: bold;
 }
 #toolbarContainer .tb_button {
     padding: 4px 3px;

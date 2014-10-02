@@ -351,27 +351,26 @@ function editor_obj()
 
 		//Dragable and deleteable
 		(function(){
-		var myClose;
 		var notRemove=false;
 		var myInt;
 		var	$this;
-		removeFunction=function ()
-    {
-					myClose.remove();
-					$this.removeClass('moshe')
-    };
-		$('#divCanvasData').on('mousemove',function (e){
-			if(tool.status!='ready' && tool.current!='text') return;
+		$('#divCanvasData').on('mousemove',function (e) {
+			if(tool.status!='ready' && tool.current!='text') {
+        return;
+      }
 
       var pos = $('#divCanvasData').position();
-			for (var j=2;j<$('canvas').length;j++){
-				cc=$('canvas').eq(j);
+      $('canvas').each(function (key, canvas) {
+        if (key < 2) {
+          return ;
+        }
+				var cc=$(canvas);
 				gc=cc[0].getContext('2d');
 				x=e.offsetX + e.target.offsetLeft - cc.position().left+clip.rx1;
 				y=e.offsetY + e.target.offsetTop - cc.position().top+clip.ry1;
-				doIt=false;
+				var doIt=false;
 
-				if (x>0 && y>0)	{
+				if (x>0 && y>0 && x < canvas.width && y < canvas.height && canvas.style.display != "none")	{
 					id=gc.getImageData(x,y,1,1).data;
 					doIt=0
 					for(var i=0;i<4;i++){
@@ -380,45 +379,55 @@ function editor_obj()
 						}
 					}
 				}
-				if (doIt){
-					$('.myClose').remove();
-					$('canvas').css({border:'none'})
-//					window.clearTimeout(cc.data('myInt'));
-					cc.css({border:'2px dahed gray'})
-					tcc=cc;
-					myClose=$('<div class="myClose">X</div>').css({
-						left:cc.position().left+cc.width()-10-clip.rx1
-						,top:cc.position().top-clip.ry1
-						,zIndex:1000
-					});
-					myClose.appendTo('#divCanvasData').click(function (e){
-						e.stopImmediatePropagation()
-						tcc.add(tcc.data('img')).fadeOut();
-						$('.myClose').remove();
-          }).mousedown(function (e){
-						e.stopImmediatePropagation()
-						newLevel();
-						currentLevel.type='delete';
-						currentLevel.item=tcc
-						tcc.data('deleted',true)
-						tcc.data('level').hide=true
-          });
-
-					if (myClose.position().left>clip.rx2-clip.rx1) myClose.css('left', clip.rx2-clip.rx1-30)
-					if (myClose.position().top<0) myClose.css('top', 0)
-					cc.data('myClose',myClose);
-					window.clearTimeout(cc.data('myInt'))
-					a=setTimeout(function(){
-						tcc.css({border:'none'})
-						$('.myClose').remove();
-					},3000);
-					cc.data('myInt',a);
-          break;
+				if (!doIt) {
+          return ;
         }
+        cc.css({border:'2px dahed gray'});
+        var tcc=cc;
 
-			}
 
-		})
+
+        var closeFn = cc.data('close') || function() {
+          tcc.css({border:'none'});
+          cc.data('myClose').remove();
+          cc.data('myClose', false);
+          cc.data('close', false);
+        };
+        clearTimeout(cc.data('time'));
+        var a = setTimeout(closeFn, 3000);
+        cc.data('close', closeFn);
+        cc.data('time', a);
+        if (cc.data('myClose')) {
+          return false;
+        }
+        var $myClose = $('<div class="myClose">&times;</div>').css({
+          left:cc.position().left+cc.width()-10-clip.rx1
+          ,top:cc.position().top-clip.ry1
+          ,zIndex:1000
+        });
+        $myClose = $myClose.appendTo('#divCanvasData').click(function (e){
+          e.stopImmediatePropagation();
+          tcc.add(tcc.data('img')).fadeOut();
+          $myClose.remove();
+        }).mousedown(function (e) {
+          e.stopImmediatePropagation();
+          newLevel();
+          currentLevel.type='delete';
+          currentLevel.item=tcc;
+          tcc.data('deleted', true);
+          tcc.data('level').hide=true
+        });
+
+        if ($myClose.position().left>clip.rx2-clip.rx1) {
+          $myClose.css('left', clip.rx2-clip.rx1-30);
+        }
+        if ($myClose.position().top<0) {
+          $myClose.css('top', 0);
+        }
+        cc.data('myClose', $myClose);
+        return false;
+			});
+		});
 		$('anvas.tool').on('mousemove',
 			function (e) {
 				$this=$(this);
