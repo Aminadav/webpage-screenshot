@@ -22,65 +22,73 @@
   <script src="js/plugin.js"></script>
   <script src="js/pluginsBuiltIn.js"></script>
   <script src="libs/jquery-ui-1.9.2.custom.min.js"></script>
+  <script src="libs/jquery.share.js"></script>
 
   <script src="extension.js"></script>
   <script src="js/pdf.js"></script>
   <script src="js/thumbnail.js"></script>
   <script src="editor.js"></script>
 </head>
-<body>
-<div class="toolbar">
-  <a href="http://www.webpagescreenshot.info" target="_blank" class="logo">
-    <img src="images/icon48.png" alt="Webpage Screenshot" />
-  </a>
-  <a href="#" class="buy"><span>Donate</span></a>
-  <div class="tools">
-    <button><span class="line"></span></button>
-    <button><span class="sline"></span></button>
-    <button><span class="brush"></span></button>
-    <button><span class="text"></span></button>
-    <button><span class="square-empty"></span></button>
-    <button><span class="square"></span></button>
-    <button><span class="oval"></span></button>
-    <button><span class="arrow"></span></button>
-    <button><span class="star"></span></button>
-    <button><span class="home"></span></button>
-    <button class="last"><span class="cut"></span></button>
+<body id="page-editor">
+<div id="header">
+  <div class="editor-toolbar" id="toolbar">
+    <a href="http://www.webpagescreenshot.info" target="_blank" class="logo">
+      <img src="images/icon48.png" alt="Webpage Screenshot" />
+    </a>
+    <div class="donation-bar">
+      <a class="donation"><span>Donate</span></a>
+      <div class="donation-drop" style="display: none;">
+        <div class="arrow-drop"></div>
+
+        <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5QZKMF65QLJK6">
+          Donate $10
+        </a>
+        <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SXRJ4W4DGLTW4">
+          Other Amount
+        </a>
+      </div>
+    </div>
+    <div class="tools">
+      <button tag="line" class="button line" status="on"><span></span></button>
+      <button tag="free" class="button curved-line" status="on"><span></span></button>
+      <button tag="spray" class="button spray" status="on"><span></span></button>
+      <button tag="text" class="button text" status="on"><span></span></button>
+      <button tag="rectangle" class="button square-empty" status="on"><span></span></button>
+      <button tag="full" class="button square-fill" status="on"><span></span></button>
+      <button tag="ellipsis" class="button oval" status="on"><span></span></button>
+      <button tag="arrow" class="button arrow" status="on"><span></span></button>
+      <button tag="star" class="button star" status="on"><span></span></button>
+      <button tag="house" class="button house" status="on"><span></span></button>
+      <button tag="crop" class="button crop last" status="on"><span></span></button>
+    </div>
+    <div class="tools">
+      <button tag="undo" class="button undo disable"><span></span></button>
+      <button tag="redo" class="button last redo disable"><span></span></button>
+    </div>
+    <div class="tools" id="wColorPicker2_3">
+    </div>
+    <div class="buttons">
+      <div class="elements-group">
+        <button title="Save online" class="online save-to-url expand-url"><span class="icon"></span> Save to URL</button>
+      </div>
+      <button title="Save Local" class="save"><span class="icon"></span> Save local</button>
+      <button title="Save to PDF" class="pdf save-to-pdf"><span class="icon"></span></button>
+      <button title="Copy" class="copy save-to-clipboard"><span class="icon"></span></button>
+      <button title="Print" class="print save-to-printer"><span class="icon"></span></button>
+      <button class="more-plugins">More</button>
+      <div class="more-plugins-drop" style="display: none;">
+        <div class="arrow-drop"></div>
+        <div id="toolbarContainer"></div>
+      </div>
+    </div>
   </div>
-  <div class="tools">
-    <button><span class="undo"></span></button>
-    <button class="last"><span class="redo"></span></button>
-  </div>
-  <div class="tools">
-    <button><span class="color" style="background: #C00;"></span></button>
-  </div>
-  <div class="buttons">
-    <button title="Save Local"><span class="save"></span> SAVE</button>
-    <button title="Save online"><span class="online"></span> SAVE ONLINE</button>
-    <button title="Save to PDF"><span class="pdf"></span></button>
-    <button title="Copy"><span class="copy"></span></button>
-    <button title="Print"><span class="print"></span></button>
-    <button class="more">More</button>
-  	<div class="more-drop" style="display: block;">
-    	<div class="arrow-drop"></div>
-    	<button title="Google Drive"><span class="gdrive"></span></button>
-    	<button title="Gmail"><span class="gmail"></span></button>
-    	<button title="Dropbox"><span class="dropbox"></span></button>
-        <button title="Facebook"><span class="facebook"></span></button>
-    	<button title="Evernote"><span class="evernote"></span></button>
-    	<button title="Wordpress"><span class="wordpress"></span></button>
-        <button title="Email"><span class="email"></span></button>
-        <button title="Vkontakte"><span class="vk"></span></button>
-        <button title="Twitter"><span class="twitter"></span></button>
-        <button title="Gplus"><span class="gplus"></span></button>
-        <button title="Microsoft"><span class="microsoft"></span></button>
-        <button title="Blogger"><span class="blogger"></span></button>
-        <button title="Pinterest"><span class="pinterest"></span></button>
-        <button title="QR code"><span class="qrcode"></span></button>
-        <button title="Icio"><span class="icio"></span></button>
-        <button title="Digg"><span class="digg"></span></button>
-        <button title="Frame Bench"><span class="framebench"></span></button>
-        <button title="Reddit"><span class="reddit"></span></button>
+</div>
+<div id="screenshot-area">
+  <div dir="ltr" id="divCanvasData">
+    <div id="clipper">
+      <img id="imgFixForLong" />
+      <canvas style="position:absolute" id="cborder"></canvas>
+      <canvas style="background:url(images/editor-background.png) repeat;display:none" id="canvasId"></canvas>
     </div>
   </div>
 </div>

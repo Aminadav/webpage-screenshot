@@ -3,6 +3,9 @@ body {
 	margin: 0;
     min-height: 0;
 }
+a {
+    cursor:pointer;
+}
 #working {
     position: fixed;
     top: 0;
@@ -208,7 +211,62 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	background: url(../images/settings.png) no-repeat left;
 	padding-left: 16px;
 }
-.toolbar {
+#page-editor {
+    background: #eaeaea;
+}
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    width: 100%;
+}
+#screenshot-area {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+}
+#divCanvasData {
+    position: absolute;
+    border:1px solid #ccc;
+    background: #fff url('../images/editor-background.png') repeat;
+    overflow: auto;
+}
+#divCanvasData .myClose {
+    position: absolute;
+    display: block;
+    height: 15px;
+    width: 15px;
+    background: #e03f49;
+    color: #fff;
+    line-height: 15px;
+    font-size: 12px;
+    border-radius: 15px;
+    text-align: center;
+}
+#toolbarContainer .tb_button {
+    padding: 4px 3px;
+    margin-bottom: 3px;
+    margin-left: 3px;
+    margin-right: 2px;
+    background: #777;
+    float: left;
+    border: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+    text-shadow: 0 1px 0 rgba(0,0,0,0.1);
+    height: 20px;
+    line-height: 20px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.editor-toolbar {
 	background: #ffffff;
 	background: -moz-linear-gradient(top, #ffffff 0%, #eaeaea 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #eaeaea));
@@ -222,12 +280,39 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	padding: 10px 20px;
 	height: 61px;
 }
-.toolbar .logo {
+.editor-toolbar .logo {
 	float: left;
 	margin-right: 15px;
 }
-.toolbar .buy {
-	float: left;
+.editor-toolbar .donation-bar {
+    position: relative;
+    float: left;
+    margin: 13px 10px 0 0;
+}
+.editor-toolbar .donation-drop {
+    position: absolute;
+    right: 7px;
+    top: 41px;
+    background: #fff;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.15);
+    border: 1px #aaaaab solid;
+    border-radius: 4px;
+    padding: 5px 0;
+    width: 150px;
+}
+.editor-toolbar .donation-drop a {
+    display: block;
+    width: 100%;
+    padding: 4px 8px;
+    text-decoration: none;
+    color: #333;
+    box-sizing: border-box;
+    font-size: 13px;
+}
+.editor-toolbar .donation-drop a:hover {
+    background: #f1f1f1;
+}
+.editor-toolbar .donation {
 	display: block;
 	background: #64be2d;
 	text-decoration: none;
@@ -238,18 +323,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	padding: 0 0 0 8px;
 	font-weight: bold;
 	font-size: 15px;
-	margin: 13px 10px 0 0;
 	box-shadow: 0 1px 0 rgba(255,255,255,0.4);
 }
-.toolbar .buy:hover {
+.editor-toolbar .donation:hover {
 	background: #57a825;
 }
-.toolbar .buy span {
+.editor-toolbar .donation span {
 	display: block;
 	background: url(../images/cards.png) no-repeat left;
 	padding: 0 20px 0 40px;
 }
-.toolbar .tools {
+.editor-toolbar .tools {
 	float: left;
 	margin: 13px 0 0 7px;
 	height: 30px;
@@ -265,7 +349,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	background: linear-gradient(to bottom, #ffffff 0%, #ededed 100%);
  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=0 );
 }
-.toolbar .tools button {
+.editor-toolbar .tools button {
 	display: block;
 	float: left;
 	height: 30px;
@@ -279,16 +363,23 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	cursor: pointer;
 	box-shadow: inset 1px 0 0 rgba(255,255,255,0.2);
 }
-.toolbar .tools button.last {
+.editor-toolbar .tools button.last {
 	border-right: none;
 }
-.toolbar .tools button:hover {
+.editor-toolbar .tools button.disable {
+    background: rgba(0,0,0,0.05)!important;
+    cursor: not-allowed;
+}
+.editor-toolbar .tools button.on {
+    background: rgba(0,0,0,0.1);
+}
+.editor-toolbar .tools button:hover {
 	background: rgba(0,0,0,0.05);
 }
-.toolbar .tools button:active {
+.editor-toolbar .tools button:active {
 	background: rgba(0,0,0,0.1);
 }
-.toolbar .tools button span {
+.editor-toolbar .tools button span {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -298,56 +389,56 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	background-position: center;
 	background-repeat: no-repeat;
 }
-.toolbar .tools button .line {
+.editor-toolbar .tools button.line span {
 	background-image: url(../images/line-icon.png);
 }
-.toolbar .tools button .sline {
-	background-image: url(../images/sline-icon.png);
+.editor-toolbar .tools button.curved-line span {
+	background-image: url(../images/curved-line-icon.png);
 }
-.toolbar .tools button .brush {
-	background-image: url(../images/brush-icon.png);
+.editor-toolbar .tools button.spray span {
+	background-image: url(../images/spray-icon.png);
 }
-.toolbar .tools button .text {
+.editor-toolbar .tools button.text span {
 	background-image: url(../images/text-icon.png);
 }
-.toolbar .tools button .square-empty {
+.editor-toolbar .tools button.square-empty span {
 	background-image: url(../images/square-empty-icon.png);
 }
-.toolbar .tools button .square {
-	background-image: url(../images/square-icon.png);
+.editor-toolbar .tools button.square-fill span {
+	background-image: url(../images/square-fill-icon.png);
 }
-.toolbar .tools button .oval {
+.editor-toolbar .tools button.oval span {
 	background-image: url(../images/oval-icon.png);
 }
-.toolbar .tools button .arrow {
+.editor-toolbar .tools button.arrow span {
 	background-image: url(../images/arrow-icon.png);
 }
-.toolbar .tools button .star {
+.editor-toolbar .tools button.star span {
 	background-image: url(../images/star-icon.png);
 }
-.toolbar .tools button .home {
-	background-image: url(../images/home-icon.png);
+.editor-toolbar .tools button.house span {
+	background-image: url(../images/house-icon.png);
 }
-.toolbar .tools button .cut {
-	background-image: url(../images/cut-icon.png);
+.editor-toolbar .tools button.crop span {
+	background-image: url(../images/crop-icon.png);
 }
-.toolbar .tools button .undo {
+.editor-toolbar .tools button.undo span {
 	background-image: url(../images/undo-icon.png);
 }
-.toolbar .tools button .redo {
+.editor-toolbar .tools button.redo span {
 	background-image: url(../images/redo-icon.png);
 }
-.toolbar .tools button .color {
+.editor-toolbar .tools button .color {
 	height: 24px;
 	width: 24px;
 	border: 3px #fff solid;
 	border-radius: 3px;
 }
-.toolbar .url {
+.editor-toolbar .url {
 	float: left;
 	margin: 14px 0 0 20px;
 }
-.toolbar .url .input {
+.editor-toolbar .url .input {
 	height: 18px;
 	padding: 5px 7px;
 	font-size: 12px;
@@ -360,7 +451,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	border-radius: 2px;
 	border: 1px #ccc solid;
 }
-.toolbar .url button {
+.editor-toolbar .url button {
 	height: 30px;
 	margin: 0 0 0 2px;
 	display: block;
@@ -413,11 +504,44 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .buttons button:hover {
 	background: #2674df;
 }
-.buttons button.more {
+.buttons button.more-plugins {
 	background: #a8a8a8;
 }
-.buttons button.more:hover {
+.buttons button.more-plugins:hover {
 	background: #a2a2a2;
+}
+.buttons .url-share {
+    float: left;
+    height: 32px;
+    line-height: 22px;
+    font-size: 12px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    width: 240px;
+    margin-right: -240px;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+    border: 1px solid #a8a8a8;
+    border-left: 0;
+}
+.buttons .elements-group {
+    float: left;
+    margin-left: 4px;
+    overflow: hidden;
+}
+.buttons .elements-group button {
+    margin: 0;
+}
+.buttons .elements-group > * {
+    border-radius: 0;
+}
+.buttons .elements-group *:last-child {
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.buttons .elements-group *:first-child {
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
 }
 .buttons button span {
 	display: inline-block;
@@ -427,79 +551,82 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	background-repeat: no-repeat;
 	float: left;
 }
-.buttons button span.save {
+.buttons button.loading .icon {
+    background-image: url(../images/ajax-20.gif) !important;
+}
+.buttons button.loading {
+    background-color: #a8a8a8!important;
+}
+.buttons button.save .icon {
 	background-image: url(../images/save.png);
 	margin-right: 5px;
 }
-.buttons button span.online {
+.buttons button.online .icon {
 	background-image: url(../images/online.png);
 	margin-right: 5px;
 }
-.buttons button span.pdf {
+.buttons button.pdf .icon {
 	background-image: url(../images/pdf.png);
 }
-.buttons button span.copy {
+.buttons button.copy .icon {
 	background-image: url(../images/copy.png);
 }
-.buttons button span.print {
+.buttons button.print .icon {
 	background-image: url(../images/print.png);
 }
-.buttons button span.gdrive {
-	background-image: url(../images/gdrive.png);
+.buttons button.gdrive .icon {
+	background-image: url(../images/googledrive.png);
 }
-.buttons button span.gmail {
+.buttons button.gmail .icon {
 	background-image: url(../images/gmail.png);
 }
-.buttons button span.dropbox {
+.buttons button.dropbox .icon {
 	background-image: url(../images/dropbox.png);
 }
-.buttons button span.facebook {
+.buttons button.facebook .icon {
 	background-image: url(../images/facebook.png);
 }
-.buttons button span.evernote {
+.buttons button.evernote .icon {
 	background-image: url(../images/evernote.png);
 }
-.buttons button span.wordpress {
+.buttons button.wordpress .icon {
 	background-image: url(../images/wordpress.png);
 }
-.buttons button span.email {
+.buttons button.email .icon {
 	background-image: url(../images/email.png);
 }
-.buttons button span.vk {
+.buttons button.vk .icon {
 	background-image: url(../images/vk.png);
 }
-.buttons button span.twitter {
+.buttons button.twitter .icon {
 	background-image: url(../images/twitter.png);
 }
-.buttons button span.gplus {
+.buttons button.gplus .icon {
 	background-image: url(../images/gplus.png);
 }
-.buttons button span.microsoft {
+.buttons button.microsoft .icon {
 	background-image: url(../images/microsoft.png);
 }
-.buttons button span.blogger {
+.buttons button.blogger .icon {
 	background-image: url(../images/blogger.png);
 }
-.buttons button span.pinterest {
+.buttons button.pinterest .icon {
 	background-image: url(../images/pinterest.png);
 }
-.buttons button span.qrcode {
+.buttons button.qrcode .icon {
 	background-image: url(../images/qrcode.png);
 }
-.buttons button span.icio {
-	background-image: url(../images/icio.png);
-}
-.buttons button span.digg {
+.buttons button.digg .icon {
 	background-image: url(../images/digg.png);
 }
-.buttons button span.framebench {
+.buttons button.framebench .icon {
 	background-image: url(../images/framebench.png);
 }
-.buttons button span.reddit {
+.buttons button.reddit .icon {
 	background-image: url(../images/reddit.png);
 }
 
-.more-drop {
+.more-plugins-drop {
 	position: absolute;
 	right: 7px;
 	top: 41px;
@@ -511,17 +638,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	width: 315px;
 }
 
-.buttons .more-drop button {
+.buttons .more-plugins-drop button {
 	padding: 0 2px;
 	height: 28px;
 	margin-bottom: 3px;
 	margin-left: 3px;
 	background: #777;
 }
-.buttons .more-drop button:hover {
+.buttons .more-plugins-drop button:hover {
 	background: #666;
-}
-
-a{
-	cursor:pointer;
 }

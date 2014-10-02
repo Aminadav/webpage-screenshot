@@ -341,12 +341,11 @@ function editor_obj()
 			mode: "hover",
 			showSpeed: 300,
 			hideSpeed: 300,
-			buttonSize: 28,
+			buttonSize: 26,
 			initColor:localStorage['color'] || '#FF0000',
 			onSelect:function (a) {
-				localStorage['color']=a
-				console.log(a);
-				theColor=a
+				localStorage['color']=a;
+				theColor=a;
 			}
 		}).on('mousedown',function (e) {e.stopPropagation(); return false});;
 
@@ -357,24 +356,27 @@ function editor_obj()
 		var myInt;
 		var	$this;
 		removeFunction=function ()
-					{
+    {
 					myClose.remove();
 					$this.removeClass('moshe')
-					}
+    };
 		$('#divCanvasData').on('mousemove',function (e){
 			if(tool.status!='ready' && tool.current!='text') return;
+
+      var pos = $('#divCanvasData').position();
 			for (var j=2;j<$('canvas').length;j++){
 				cc=$('canvas').eq(j);
 				gc=cc[0].getContext('2d');
-				x=e.pageX  - $('#divCanvasData').position().left - cc.position().left+clip.rx1;
-				y=e.pageY  - $('#divCanvasData').position().top - cc.position().top+clip.ry1;
-				doIt=false
+				x=e.offsetX + e.target.offsetLeft - cc.position().left+clip.rx1;
+				y=e.offsetY + e.target.offsetTop - cc.position().top+clip.ry1;
+				doIt=false;
+
 				if (x>0 && y>0)	{
 					id=gc.getImageData(x,y,1,1).data;
 					doIt=0
 					for(var i=0;i<4;i++){
 						if (id[i]!=0){
-							doIt=true
+							doIt=true;
 						}
 					}
 				}
@@ -384,23 +386,23 @@ function editor_obj()
 //					window.clearTimeout(cc.data('myInt'));
 					cc.css({border:'2px dahed gray'})
 					tcc=cc;
-					myClose=$('<div class=myClose style=background-color:red;position:absolute;cursor:pointer>X</div>').css({
-						left:cc.position().left+cc.width()-10-clip.rx1 +  $('#divCanvasData').scrollLeft()
-						,top:cc.position().top-clip.ry1+  $('#divCanvasData').scrollTop()
+					myClose=$('<div class="myClose">X</div>').css({
+						left:cc.position().left+cc.width()-10-clip.rx1
+						,top:cc.position().top-clip.ry1
 						,zIndex:1000
-					})
+					});
 					myClose.appendTo('#divCanvasData').click(function (e){
 						e.stopImmediatePropagation()
 						tcc.add(tcc.data('img')).fadeOut();
 						$('.myClose').remove();
-						}).mousedown(function (e){
+          }).mousedown(function (e){
 						e.stopImmediatePropagation()
 						newLevel();
 						currentLevel.type='delete';
 						currentLevel.item=tcc
 						tcc.data('deleted',true)
 						tcc.data('level').hide=true
-						})
+          });
 
 					if (myClose.position().left>clip.rx2-clip.rx1) myClose.css('left', clip.rx2-clip.rx1-30)
 					if (myClose.position().top<0) myClose.css('top', 0)
@@ -409,12 +411,10 @@ function editor_obj()
 					a=setTimeout(function(){
 						tcc.css({border:'none'})
 						$('.myClose').remove();
-					},3000)
-					cc.data('myInt',a)
-					}
-				else {
-//					console.log(cc.data('myInt'));
-				}
+					},3000);
+					cc.data('myInt',a);
+          break;
+        }
 
 			}
 
@@ -499,7 +499,7 @@ function editor_obj()
 			img.src=screenshot.apppick
 		}
 
-		if(location.hash=='#last')
+		if(location.hash=='#last' && screenshot.canvas)
 		{
 		canvas=$('canvas')[1];
 					img=$('#imgFixForLong')[0];
@@ -575,7 +575,6 @@ function editor_obj()
 			{'background-color':'transparent',
 			padding:0,
 			margin:0,
-			border:'none',
 			border:'none',
 			color:theColor,
 			'font-size':'15pt',
@@ -1352,20 +1351,25 @@ function editor_obj()
 					$(this).css({'margin':0});
 					});
 			}
-		maxWidth=window.innerWidth-6;
-		maxHeight=window.innerHeight- $('#header').height()- $('#fotter').height()-12;
+		maxWidth=window.innerWidth;
+		maxHeight=window.innerHeight- $('#header').height()- $('#fotter').height();
 
 		$('#header').add('#fotter').width(maxWidth);
 
-		divCanvasData=$('#divCanvasData')
+		divCanvasData=$('#divCanvasData');
+    var height = canvasHeight>maxHeight ? maxHeight:canvasHeight;
+    if (height > maxHeight) {
+      height = maxHeight;
+    }
 		divCanvasData.css(
 				{
-					top: $('#header').height()+5,
 					left:canvasWidth>maxWidth ? 0 : (maxWidth/2)-(canvasWidth/2) ,
 					width:canvasWidth>maxWidth ? maxWidth : canvasWidth,
-					height:canvasHeight>maxHeight ? maxHeight:canvasHeight,
-					'overflow-x' : canvasWidth<maxWidth ?'hidden' : 'scroll',
-					'overflow-Y' : canvasHeight<maxHeight ?'hidden' : 'scroll'
+					height:height,
+					'overflow-x' : canvasWidth<maxWidth ?'hidden' : 'auto',
+					'overflow-Y' : canvasHeight<maxHeight ?'hidden' : 'auto',
+          'top': '50%',
+          'margin-top': ($('#header').height()/2 - height/2) + 'px'
 				});
 		scrollBarHeight= canvasWidth<maxWidth ? 0 : 16;
 		scrollBarWidth= canvasHeight<maxHeight  ? 0 : 16;
@@ -1412,7 +1416,7 @@ function editor_obj()
 				}
 			else
 				$(this).attr({'src':'images/drawing/' + $(this).attr('tag')+ 'Disable.png'})
-						.css({'cursor':'default'});
+						.css({'cursor':'not-allowed'});
 			});
 
 		}
@@ -1429,38 +1433,41 @@ function editor_obj()
 	$('.linePickerOverlay hr').click(function(){
 		lineWidth=parseInt(this.style.height)
 	})
-	$('#pdf').click(createPDF)
+	$('.save-to-pdf').click(createPDF)
 	$('#thumbnail').click(createThumbnails)
 	$('#LineWidthPicker').mouseenter(function(){
 		$('.linePickerOverlay').slideDown();
 	})
 	$('#LineWidthPicker').mouseleave(function(){
 		$('.linePickerOverlay').slideUp();
-	})
+	});
 
+	$('.donation').click(function (e) {
+    e.preventDefault();
+    $('.donation-drop').toggle();
+  });
+  $('.more-plugins').click(function (e) {
+    e.preventDefault();
+    $('.more-plugins-drop').toggle();
+  });
+  $('body').click(function (e) {
+    if (!e.isDefaultPrevented()) {
+      $('.donation-drop, .more-plugins-drop').hide();
+    }
+  });
 
-	$('.donation').mouseenter(function ()
-		{
-		$(this).slideUp()
-		$('.insidedon').slideDown();
-		})
-	$(document.body).bind('mousedown',function(e)
-		{
-		if(e.button==0){
-		dime=pos(e);
-		if (!dime)
-			{
-			stopTool();
-			}
-		if (dime && tool.current=='text') stopTool()
-		if (dime && tool.status=='ready')
-			{
-			tool[tool.current].begin( dime);
-			}
-//		$(document.body).trigger('mousemove');
-		return(false);
-		}
-		});
+  $(document.body).bind('mousedown', function (e) {
+    if (e.button == 0) {
+      var dime = pos(e);
+      if (!dime) {
+        stopTool();
+      }
+      if (dime && tool.current == 'text') stopTool()
+      if (dime && tool.status == 'ready') {
+        tool[tool.current].begin(dime);
+      }
+    }
+  });
 	$(document.body).bind('mousemove',function (e)
 		{
 		dime=pos(e);
@@ -2168,21 +2175,21 @@ $(function(){
 		key:'reddit',
 		url:'reddit.com/submit?url=?%s',
 		dataType:'image'
-	})
+	});
 
 	staticPlugin=new Toolbar({
 		'plugins':plugins_to_show,
 		'element': document.getElementById('toolbarContainer'),
 		'namespace':'editor',
-		enlargable:true,
-		'lines':2,
-		min_buttons_num:6,
+		enlargable:false,
 		page_title:screenshot.title,
 		page_description:screenshot.description,
 		page_url:screenshot.url,
+        doNotRenderDefaults: true,
 		'icon_base':'/images/',
 		'position':'static',
 		'type':'image',
+        'theme': true,
 		request:function (callback){
 			editor.createLastCanvas('toolbar',function (data){
 				callback(data)
@@ -2192,28 +2199,42 @@ $(function(){
 			alert('you asked to get the text');
 			callback();
 		}
-		})
+  });
 
 	$('.share').on('click',function (){
 		var x=staticPlugin.getPluginByKey('webpagescreenshot')
 		editor.createLastCanvas('toolbar',function (data){
-			x.run(data)
-		})
-	})
+			x.run(data, e);
+		});
+	});
 	
-	$('.save').on('click',function (){
+	$('.save').on('click',function (e){
 		var x=staticPlugin.getPluginByKey('save')
 		editor.createLastCanvas('toolbar',function (data){
-			x.run(data)
+			x.run(data, e)
 		})
-	})	
+	});
 
-	$('.fbUpload').on('click',function (){
+	$('.save-to-printer').on('click',function (e){
+		var x=staticPlugin.getPluginByKey('print')
+		editor.createLastCanvas('toolbar',function (data){
+			x.run(data, e)
+		})
+	});
+
+	$('.save-to-url').on('click',function (e){
+		var x=staticPlugin.getPluginByKey('uploady');
+		editor.createLastCanvas('toolbar', function (data){
+			x.run(data, e)
+		})
+	});
+
+	$('.fbUpload').on('click',function (e){
 		var x=staticPlugin.getPluginByKey('framebench')
 		editor.createLastCanvas('toolbar',function (data){
-			x.run(data)
-		})
-	})
+			x.run(data, e);
+		});
+	});
 
 	if(lj_get('settings','framebench_button')=='yes') {
 		// $('#toolbarContainer').hide();
@@ -2266,7 +2287,7 @@ showcopywindow = function() {
         })
     }, 0)
 };
-$(document).on('click','#Copy', showcopywindow)
+$(document).on('click','.save-to-clipboard', showcopywindow)
 
 ;
 $(function() {
