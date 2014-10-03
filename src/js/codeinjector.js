@@ -21,7 +21,6 @@ var codeinjector = {
   },
 
   executeCodeOnTabId: function (url, tid, code, callback, onlyIfNotRun) {
-    console.log(tid);
     if (codeinjector.lastRunOnTab[tid] &&
       (new Date()) - codeinjector.lastRunOnTab[tid].time < 4000 &&
       codeinjector.lastRunOnTab[tid].url == cleanHash(url)
@@ -147,7 +146,7 @@ var codeinjector = {
     if (settings.dev) {
       console.timeEnd("getCode");
     }
-    code = 'if(!window.alreadyRun) {window.alreadyRun=true;' + code + '} else {console.log("norun")}';
+    code = 'if(!window.alreadyRun) {window.alreadyRun=true;' + code + '}';
     codeinjector.cache = code;
     return code
   }

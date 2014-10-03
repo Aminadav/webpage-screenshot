@@ -1366,7 +1366,7 @@ function editor_obj()
 		$('#header').add('#fotter').width(maxWidth);
 
 		divCanvasData=$('#divCanvasData');
-    var height = canvasHeight>maxHeight ? maxHeight:canvasHeight;
+    var height = canvasHeight;
     if (height > maxHeight) {
       height = maxHeight;
     }

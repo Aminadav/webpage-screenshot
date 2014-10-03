@@ -82,10 +82,7 @@ var screenshot = {
       callback = function () {
         window.setTimeout(realCallback, (parseInt(localStorage['delay'], 10) || 0) * 1000)
       }
-      if (!localStorage['color']) localStorage['color'] = 'f00';
       if (!localStorage['captureCount']) localStorage['captureCount'] = 0;
-      if (typeof localStorage['txtHeader'] == 'undefined' || localStorage['txtHeader'] == 'undefined') localStorage['txtHeader'] = 'Webpage Screenshot';
-      if (typeof localStorage['txtFotter'] == 'undefined' || localStorage['txtFotter'] == 'undefined') localStorage['txtFotter'] = '%U %D';
       callback();
     })
   },
@@ -93,12 +90,12 @@ var screenshot = {
 
   startWithoutScroll: function (e) {
     localStorage['captureWithoutScroll']++;
-    screenshot.isWithoutScroll = true
+    screenshot.isWithoutScroll = true;
     screenshot.isWithScroll = false;
     screenshot.load(screenshot.startWithoutScroll_continue);
   },
   startWithoutScroll_continue: function () {
-    screenshot.ans({finish: true, top: 0, left: 0});
+    screenshot.addScreen(true);
   },
   startWithScroll: function () {
     localStorage['captureWithScroll']++;
@@ -106,6 +103,9 @@ var screenshot = {
     screenshot.isWithoutScroll = false;
     screenshot.load(screenshot.startWithScroll_continue);
 
+  },
+  startWithScroll_continue: function () {
+    screenshot.addScreen();
   },
   webcamfn: function () {
     chrome.tabs.create({url: 'videocap.html'})
@@ -136,15 +136,13 @@ var screenshot = {
         })
       })
   },
-  startWithScroll_continue: function () {
-    screenshot.addScreen();
-  },
-  addScreen: function () {
+  addScreen: function (noScroll) {
     if (api.stop) return;
     chrome.tabs.sendMessage(screenshot.thisTabId, {
       cropData: screenshot.cropData,
       type: 'takeCapture',
-      start: true
+      start: true,
+      noScroll: noScroll
     }, screenshot.ans);
   },
   ans: function (mess, b, c) {
@@ -158,7 +156,7 @@ var screenshot = {
     if (mess && mess.description) {
       screenshot.description = mess.description
     }
-    var upCrop = 0, leftCrop = 0
+    var upCrop = 0, leftCrop = 0;
     if (screenshot.cropData) {
       upCrop = screenshot.cropData.x1
       upCrop = screenshot.cropData.x1
@@ -180,7 +178,7 @@ var screenshot = {
         }, screenshot.ans);
       }
     };
-    var timeoutInterval = screenshot.isWithoutScroll ? 0 : 100;
+    var timeoutInterval = 100;
     setTimeout(function () {
       chrome.windows.update(screenshot.thisWindowId, {focused: true}, function () {
         chrome.tabs.update(screenshot.thisTabId, {active: true}, function () {
@@ -226,7 +224,7 @@ var screenshot = {
     var firstTime = true;
     var i = 0;
     loadImage = function (i) {
-      if (api.stop) return
+      if (api.stop) return;
       ctx = screenshot.canvas.getContext('2d');
       img[i] = $('<img tag=' + i + '/>');
       img[i].load(function () {

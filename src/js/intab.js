@@ -14,11 +14,14 @@ function documentbody() {
 }
 
 var hideTheScrollBars;
+var enableFixedPosition = false;
 var cropData;
 (function () {
   var page = {
     isWidthScroll: false,
     isHeightScroll: false,
+    scrollLeft: 0,
+    scrollTop: 0,
     windowWidth: 0,
     windowHeight: 0,
     documentWidth: 0,
@@ -28,7 +31,7 @@ var cropData;
     currentY: 0,
     scrollBarWidth: 0,
     iframe: null,
-    setVars: function () {
+    setVars: function (cropData) {
       if (cropData.y2 > document.height) cropData.y2 = document.height;
       if (cropData.x2 > document.width) cropData.x2 = document.width;
 
@@ -43,14 +46,13 @@ var cropData;
       page.currentX = 0;
       page.currentY = 0;
 
-      if (cropData)
-        if (cropData.y1 > documentbody().scrollTop && cropData.x1 > documentbody().scrollLeft) {
-          page.currentY = documentbody().scrollTop
-          page.currentX = documentbody().scrollLeft
-        } else {
-          page.currentX = cropData.x1;
-          page.currentY = cropData.y1
-        }
+      if (cropData && cropData.y1 > documentbody().scrollTop && cropData.x1 > documentbody().scrollLeft) {
+        page.currentY = documentbody().scrollTop
+        page.currentX = documentbody().scrollLeft
+      } else {
+        page.currentX = cropData.x1;
+        page.currentY = cropData.y1
+      }
     },
     scrollToCurrent: function () {
       if (page.currentX != 0 || page.currentY != 0) {
@@ -58,6 +60,15 @@ var cropData;
       }
       documentbody().scrollTop = page.currentY;
       documentbody().scrollLeft = page.currentX;
+    },
+    saveScrollPos: function () {
+      page.scrollLeft = documentbody().scrollLeft;
+      page.scrollTop = documentbody().scrollTop;
+    },
+    restoreScrollPos: function () {
+      page.currentX = page.scrollLeft;
+      page.currentY = page.scrollTop;
+      page.scrollToCurrent();
     },
     computeNextScreen: function () {
       //debugger
@@ -102,9 +113,9 @@ var cropData;
         }
       }
     },
-    enableFixedPosition: function (enableFlag, cropData) {
-      if (enableFlag) {
 
+    enableScrollbar: function (enableFlag) {
+      if (enableFlag) {
         try {
           //don't hide&show scrollbars when user select region
           if (hideTheScrollBars) {
@@ -112,20 +123,22 @@ var cropData;
           }
         } catch (e) {
         }
-
+      } else {
+        try {
+          $('body').css({'overflow-x': 'hidden', 'overflow-y': 'hidden'});
+          hideTheScrollBars = true;
+        } catch (e) {
+        }
+      }
+    },
+    enableFixedPosition: function (enableFlag, cropData) {
+      if (enableFixedPosition && enableFlag) {
+        enableFixedPosition = false;
         for (var i = 0, l = this.fixedElements_.length; i < l; ++i) {
           this.fixedElements_[i].style.position = "fixed";
         }
       } else {
-        try {
-          if (cropData.x1 == 0) {
-            $('body').css({'overflow-x': 'hidden', 'overflow-y': 'hidden'});
-            hideTheScrollBars = true;
-          } else {
-            hideTheScrollBars = false;
-          }
-        } catch (e) {
-        }
+        enableFixedPosition = true;
         this.fixedElements_ = [];
         var nodeIterator = document.createNodeIterator(
           document.documentElement,
@@ -171,14 +184,22 @@ var cropData;
         return;
       }
       if (mess.start) {
-        cropData = $.extend({
+        page.saveScrollPos();
+        var defaults = {
           x1: 0,
           x2: 32768,
           y1: 0,
           y2: 32765,
           scrollTop: document.body.scrollTop,
           scrollLeft: document.body.scrollLeft
-        }, mess.cropData);
+        };
+        if (mess.noScroll) {
+          defaults.x1 = window.scrollX;
+          defaults.y1 = window.scrollY;
+          defaults.x2 = window.innerWidth + defaults.x1;
+          defaults.y2 = window.innerHeight + defaults.y1;
+        }
+        cropData = $.extend(defaults, mess.cropData);
         // for(var key in cropData) {cropData[key]=cropData[key] * zoomLevel()  }
       }
       if (mess.type == 'takeCapture') {
@@ -188,14 +209,16 @@ var cropData;
           if ((a.getAttribute('name') && a.getAttribute('name').toLowerCase() == 'description')) ans.description = a.getAttribute('content')
         }
         if (mess.start) {
-          page.setVars();
-          page.enableFixedPosition(false, mess.cropData);
+          page.setVars(cropData);
+          page.enableScrollbar(false);
+          if (!mess.noScroll) {
+            page.enableFixedPosition(false, cropData);
+          }
           try {
             document.getElementById('presence').style.display = 'none';
             window.setTimeout('document.getElementById(\'presence\').style.display=\'\'', 10000);
           } catch (e) {
           }
-          ;
           try {
             document.getElementById('navi-bar').style.display = 'none';
             window.setTimeout('document.getElementById(\'navi-bar\').style.display=\'\'', 10000);
@@ -212,25 +235,23 @@ var cropData;
           ans.top = parseInt(documentbody().scrollTop * zoomLevel() - cropData.y1 * zoomLevel(), 10)
           ans.left = parseInt(documentbody().scrollLeft * zoomLevel() - cropData.x1 * zoomLevel(), 10)
         }
-        ans.finish = !page.computeNextScreen();
+        ans.finish = mess.noScroll || !page.computeNextScreen();
         if (ans.finish) {
-          ans.width = parseInt((cropData.x2 - cropData.x1), 10) * zoomLevel()
-          ans.height = parseInt((cropData.y2 - cropData.y1), 10) * zoomLevel()
+          ans.width = parseInt((cropData.x2 - cropData.x1), 10) * zoomLevel();
+          ans.height = parseInt((cropData.y2 - cropData.y1), 10) * zoomLevel();
           ans.url = document.location.toString();
           ans.title = document.title;
-          ans.description = $('meta[name=description]').attr('content')
-          // console.log(ans)
+          ans.description = $('meta[name=description]').attr('content');
           if (window.onfinish)
             window.onfinish()
         }
         callback(ans);
       }
       if (mess.type == 'finish') {
+        page.enableScrollbar(true);
         page.enableFixedPosition(true, mess.cropData);
         page.preparePage('after');
-        page.currentX = 0;
-        page.currentY = 0;
-        page.scrollToCurrent();
+        page.restoreScrollPos();
       }
     },
     docKeyDown: function (e) {
