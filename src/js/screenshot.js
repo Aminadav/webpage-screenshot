@@ -24,6 +24,18 @@ var screenshot = {
     chrome.tabs.create( {url:chrome.extension.getURL('/editor.html#capture')})
   },
 
+  captureRegion:function(){
+    debugger;
+    screenshot.tryGetUrl(function () {
+      var code=$.ajax({async:false,url: chrome.extension.getURL('libs/jquery.js')}).responseText +';'
+      code+=$.ajax({async:false,url: chrome.extension.getURL('libs/cropper.js')}).responseText  +';'
+      code+=$.ajax({async:false,url: chrome.extension.getURL('js/pluginsBuiltIn.js')}).responseText  +';'
+      code+=$.ajax({async:false,url: chrome.extension.getURL('js/plugin.js')}).responseText  +';'
+      code+=';load_cropper_without_selection();'
+      chrome.tabs.executeScript(screenshot.thisTabId,{code:code})
+      })
+    }
+  ,
   editContent: function () {
     screenshot.tryGetUrl(function () {
       chrome.tabs.executeScript(screenshot.thisTabId, {allFrames: true, code: 'document.designMode="on"'}, function () {

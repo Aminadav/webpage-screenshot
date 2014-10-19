@@ -1,7 +1,7 @@
 
 var cropperLoaded=false
 loadCropper=function(){
-		loadjQuery();
+		// loadjQuery();
 		if(cropperLoaded) return;
 		cropperLoaded=true;
 
@@ -293,4 +293,107 @@ loadCropper=function(){
 			return false
 		})
 
+}
+
+
+function load_cropper_without_selection(){
+	loadCropper();
+	window.crop = {x1:document.body.scrollLeft+300,x2:document.body.scrollLeft+600,y1:document.body.scrollTop+300,y2:document.body.scrollTop+600}
+	var $toolbar = $('<div class=ws-styles><table border=0><tr><td valign=top><button class="open msg" style="margin:1px;color:black;background-color:white;cursor:pointer;vertical-align:top;font-size:1em;padding:2px;border:2px outset" tag=open></button>' +
+	    '<button class="save msg" style="margin:1px;color:black;background-color:white;cursor:pointer;vertical-align:top;font-size:1em;padding:2px;border:2px outset" tag=save></button>' +
+	    '<button class="share msg" tag=share style="margin:1px;color:black;background-color:white;cursor:pointer;vertical-align:top;font-size:1em;padding:2px;border:2px outset"></button></td><td valign=top><div style=isplay:none; class=realToolbar></div></td></tr></table></div>')
+
+
+	jQuery('.msg', $toolbar).each(function() {
+	    jQuery(this).html(chrome.i18n.getMessage(jQuery(this).attr('tag')));
+	});
+	var $realToolbar = $('.realToolbar', $toolbar)
+
+
+	window.crop.icons = $toolbar;
+	plugins_to_show = defaultPlugins.slice();
+	plugins_to_show = $.grep(plugins_to_show, function(o) {
+	    return (
+	        // o.key!='webpagescreenshot' &&
+	        o.key != 'googledrive'
+	    )
+	})
+	$('button.open', $toolbar).on('click', function() {
+	    removeClip();
+	    // console.log('you asked for text');
+	    chrome.runtime.sendMessage({
+	        data: 'captureAll',
+	        type: 'scroll',
+	        cropData: {
+	            x1: x1,
+	            x2: x2,
+	            y1: y1,
+	            y2: y2,
+	            scrollTop: document.body.scrollTop,
+	            scrollLeft: document.body.scrollLeft
+	        }
+	    })
+	})
+	$('button.save', $toolbar).on('click', function() {
+	    $('[plugin-key=save]').trigger($.Event({
+	        type: 'click'
+	    }))
+	})
+
+	// $('button.open',$toolbar).on('click',function (){
+	// 	$('[plugin-key=open]').trigger($.Event({type:'click'}))
+	// })			
+
+	$('button.share', $toolbar).on('click', function() {
+	    $('[plugin-key=webpagescreenshot]').trigger($.Event({
+	        type: 'click'
+	    }))
+	})
+
+	plugins_to_show.unshift({
+	    name: 'annotate',
+	    key: 'webpagescreenshot',
+	    dataType: 'image',
+	    iconAspectRatio: 2,
+	    onclick: function(scope) {
+	        window.open(chrome.extension.getURL('editor.html') + '#last', '_blank')
+	    }
+	})
+
+	var staticPlugin = new Toolbar({
+	    'plugins': plugins_to_show,
+	    'element': $realToolbar,
+	    'namespace': 'imageToolbar',
+	    'button_size': '24',
+	    'lines': 2,
+	    page_title: $('title').html() || 'no title',
+	    page_description: 'no description',
+	    page_url: location.href,
+	    'icon_base': chrome.extension ? chrome.extension.getURL('/pluginDev/icons/') : '../pluginDev/icons/',
+	    'position': 'static',
+	    'type': 'image',
+	    'zIndex': 11000,
+	    request: function(callback) {
+	        removeClip();
+	        console.log('you asked for text');
+	        chrome.runtime.sendMessage({
+	            data: 'startCapture',
+	            runCallback: true,
+	            keepIt: true,
+	            type: 'scroll',
+	            cropData: {
+	                x1: x1,
+	                x2: x2,
+	                y1: y1,
+	                y2: y2,
+	                scrollTop: document.body.scrollTop,
+	                scrollLeft: document.body.scrollLeft
+	            }
+	        }, function(x) {
+	            // console.log('plugins_sb,callback', x);
+	            callback(x);
+	        })
+	    }
+	})
+	showCropOverFlow()
 }
