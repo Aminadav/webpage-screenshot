@@ -433,7 +433,7 @@ function sb_start_toolbar() {
             'namespace': 'editor',
             // enlargable: true,
             'lines': 1,
-            'theme': 'large',
+            // 'theme': 'large',
             'keepDown': true,
             'pushDown': true,
             min_buttons_num: 20,

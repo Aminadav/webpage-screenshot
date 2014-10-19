@@ -28,7 +28,6 @@ var popup = {
     $('#button_size').val(localStorage.button_size)
     chrome.tabs.getSelected(function(t) {
       var url=t.url;
-      debugger
       var thisDomain = cleanUp(url)
       var toolbar_disabledURLs = localStorage['toolbar_disableURLs'] || '{}'
       var toolbar_disabledURLs = JSON.parse(toolbar_disabledURLs) || {};

@@ -41,7 +41,6 @@ function Dialog(inX) {
 		{closeOnClick:true},
 		instance.options
 	)
-
 	if (!window.iframeZindex) iframeZindex = 100000
 	iframeZindex++
 	this.iframe = document.createElement('iframe')
@@ -66,6 +65,7 @@ function Dialog(inX) {
 	
 	div.innerHTML = '<link href="css/dialog.css" rel="stylesheet"/>';
 	this.iframe.contentDocument.body.appendChild(div);
+	this.iframe.contentDocument.body.style.cssText="background-color: white;border: 1px solid rgba(0, 0, 0, 0.28);padding: 10px;"
 
   var scripts = ['libs/jquery.js', 'libs/ZeroClipboard.min.js', 'js/clipboard.js', 'js/dialog.js'];
   for (var i=0; i< scripts.length; i++) {

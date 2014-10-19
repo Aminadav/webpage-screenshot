@@ -19,7 +19,6 @@ var plugins_sb = [{
         name: 'Share',
         key: 'share',
         onclick: function(scope) {
-            debugger
             var asd = [{
                 name: 'Facebook',
                 key: 'facebook',
@@ -80,7 +79,6 @@ var plugins_sb = [{
         key: 'crop',
         onclick: function() {
             var plugins_to_show;
-            debugger;
             $('html').css('position','inherit');
             if (window.getSelection().rangeCount == 0) return;
             rect = window.getSelection().getRangeAt(0).getBoundingClientRect();
