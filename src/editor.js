@@ -2360,6 +2360,7 @@ showcopywindow = function() {
     }, 0)
 };
 $(document).on('click','.save-to-clipboard', showcopywindow)
+$(document).on('click','.save-to-thumbnail', createThumbnails)
 
 ;
 $(function() {

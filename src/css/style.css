@@ -576,6 +576,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .buttons button.copy .icon {
 	background-image: url(../images/copy.png);
 }
+
+.buttons button.thumbnail .icon {
+	background-image: url(../images/thumbnail.png);
+	background-size:cover;
+}
 .buttons button.print .icon {
 	background-image: url(../images/print.png);
 }
