@@ -309,7 +309,6 @@ function load_cropper_without_selection(){
 	});
 	var $realToolbar = $('.realToolbar', $toolbar)
 
-
 	window.crop.icons = $toolbar;
 	plugins_to_show = defaultPlugins.slice();
 	plugins_to_show = $.grep(plugins_to_show, function(o) {
@@ -369,15 +368,16 @@ function load_cropper_without_selection(){
 	    page_title: $('title').html() || 'no title',
 	    page_description: 'no description',
 	    page_url: location.href,
-	    'icon_base': chrome.extension ? chrome.extension.getURL('/pluginDev/icons/') : '../pluginDev/icons/',
+	    'icon_base': chrome.extension ? chrome.extension.getURL('/images/') : '/images/',
 	    'position': 'static',
 	    'type': 'image',
 	    'zIndex': 11000,
 	    request: function(callback) {
 	        removeClip();
+	        debugger
 	        console.log('you asked for text');
 	        chrome.runtime.sendMessage({
-	            data: 'startCapture',
+	            data: 'captureAll',
 	            runCallback: true,
 	            keepIt: true,
 	            type: 'scroll',
@@ -391,9 +391,11 @@ function load_cropper_without_selection(){
 	            }
 	        }, function(x) {
 	            // console.log('plugins_sb,callback', x);
+	            debugger
 	            callback(x);
 	        })
 	    }
 	})
+	$('div',$realToolbar).first().css('background-color','#777');
 	showCropOverFlow()
 }

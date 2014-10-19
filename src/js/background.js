@@ -103,6 +103,7 @@ var api = {
         default:
           console.warn('Invalid message', data);
       }
+      return true;
     });
   }
 };

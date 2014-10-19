@@ -25,7 +25,6 @@ var screenshot = {
   },
 
   captureRegion:function(){
-    debugger;
     screenshot.tryGetUrl(function () {
       var code=$.ajax({async:false,url: chrome.extension.getURL('libs/jquery.js')}).responseText +';'
       code+=$.ajax({async:false,url: chrome.extension.getURL('libs/cropper.js')}).responseText  +';'
@@ -113,7 +112,6 @@ var screenshot = {
     localStorage['captureWithScroll']++;
     screenshot.isWithScroll = true;
     screenshot.isWithoutScroll = false;
-    debugger
     screenshot.load(screenshot.startWithScroll_continue);
 
   },
@@ -299,7 +297,7 @@ var screenshot = {
             //Last One, run callback
             console.log('screenshot.js, cb, try to run callback from cb function');
             // chrome.tabs.create('editor.html#last')
-
+debugger
             screenshot.callback(screenshot.canvas.toDataURL())
 
             screenshot.callback = null
