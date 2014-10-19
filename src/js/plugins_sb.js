@@ -111,7 +111,7 @@ var plugins_sb = [{
                 removeClip();
                 // console.log('you asked for text');
                 chrome.runtime.sendMessage({
-                    data: 'startCapture',
+                    data: 'captureAll',
                     type: 'scroll',
                     cropData: {
                         x1: x1,

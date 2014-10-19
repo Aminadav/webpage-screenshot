@@ -101,6 +101,7 @@ var screenshot = {
     localStorage['captureWithScroll']++;
     screenshot.isWithScroll = true;
     screenshot.isWithoutScroll = false;
+    debugger
     screenshot.load(screenshot.startWithScroll_continue);
 
   },
