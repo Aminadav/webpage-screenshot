@@ -1,8 +1,11 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
+html {
 
+}
 body {
     font-family: arial, helvetica, sans-serif;
     font-size: 12px;
@@ -12,9 +15,12 @@ body {
 }
 .ui-dialog {
     background-color: #fff;
-    border: 1px solid #a8a8a8;
-    border-radius: 5px;
-    padding: 10px;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.15);
+    border: 1px #aaaaab solid;
+    border-radius: 4px;
+    margin: 0 2px 2px 0px;
+    position: relative;
+    height: 100%;
 }
 .ui-close {
     float:right;
@@ -28,7 +34,7 @@ body {
     text-align: center;
     display: block;
     background: #666;
-    border-radius: 12px;
+    border-radius: 4px;
 }
 .ui-close:hover {
     background: #333;
@@ -37,6 +43,23 @@ body {
     font-size: 14px;
     margin: 10px 0;
     text-align: center;
+}
+.ui-dialog-content {
+    position: absolute;
+    top:40px;
+    bottom:10px;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    /*min-height: 200px;*/
+    padding: 0 10px 10px;
+}
+.ui-title {
+    font-size: 14px;
+    font-weight: bold;
+}
+.ui-header {
+    padding: 10px;
 }
 textarea {
     margin: 5px 0 10px;

@@ -228,6 +228,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     right: 0;
     bottom: 0;
     top: 0;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	user-select: none;
 }
 #divCanvasData {
     position: absolute;

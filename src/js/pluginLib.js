@@ -34,7 +34,8 @@ function objects_show(){
 
 function Dialog(inX) {
 	if (window.loadjQuery) loadjQuery();
-	var instance = this
+	var instance = this;
+	var content;
 	instance.options = inX
 
 	instance.options=$.extend(
@@ -50,11 +51,12 @@ function Dialog(inX) {
 	// $(this.iframe).css({
 	// 	'box-shadow': 'black 1px 1px'
 	// })
-	this.iframe.frameBorder = 0
-	this.contentDocument = this.iframe.contentDocument
-	document.body.appendChild(this.iframe)
-	this.frameDocument = this.iframe.contentDocument
-	var div = document.createElement('div')
+	this.iframe.frameBorder = 0;
+	this.iframe.scrolling = 'no';
+	this.contentDocument = this.iframe.contentDocument;
+	document.body.appendChild(this.iframe);
+	this.frameDocument = this.iframe.contentDocument;
+	var div = document.createElement('div');
 	//http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/dark-hive/images/
 	// div.innerHTML = '<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/dark-hive/jquery-ui.min.css"></link><style>body {color:white;}</style>'
 	// div.innerHTML = '<style>' + $.ajax({
@@ -65,7 +67,7 @@ function Dialog(inX) {
 	
 	div.innerHTML = '<link href="css/dialog.css" rel="stylesheet"/>';
 	this.iframe.contentDocument.body.appendChild(div);
-	this.iframe.contentDocument.body.style.cssText="background-color: white;border: 1px solid rgba(0, 0, 0, 0.28);padding: 10px;"
+	//this.iframe.contentDocument.body.style.cssText="background-color: white;border: 1px solid rgba(0, 0, 0, 0.28);padding: 10px;"
 
   var scripts = ['libs/jquery.js', 'libs/ZeroClipboard.min.js', 'js/clipboard.js', 'js/dialog.js'];
   for (var i=0; i< scripts.length; i++) {
@@ -76,20 +78,20 @@ function Dialog(inX) {
 
 	if (instance.options.ui == 'dialog') {
 		div = $('<div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable">' +
-			'<div style=cursor:default;margin-bottom:5px>' +
-			'<div title=close class="onlyDisplay ui-close">&times;</div> <span id=title  style=font-size:1.5em></span>' +
+			'<div class="ui-header">' +
+			'<div title=close class="onlyDisplay ui-close">&times;</div> <span id="title" class="ui-title" ></span>' +
 			'</div>' +
 			'<div id=content class="ui-dialog-content ui-widget-content">' +
 			'</div>' +
-			'</div>')
-			$('[title=close]', div).click(function() {
+			'</div>');
+		$('[title=close]', div).click(function() {
 			askToClose();
-		})
-		var content = div
-		$('#title', content).html(instance.options.title)
+		});
+		$('#title', div).html(instance.options.title);
+		content = div.find('#content');
 	} else {
-		var div = $('<div>')
-		content = div
+		div = $('<div>');
+		content = div;
 	}
 	var askToClose = function(callback) {
 		instance.close();
@@ -104,19 +106,12 @@ function Dialog(inX) {
 	if(instance.options.closeOnClick)
 	window.setTimeout(function (){
 		$(document).on('click',askToClose)
-	},0)
+	}, 0);
 
 	document.addEventListener('keyup', closeOnEsc)
-	this.iframe.contentDocument.addEventListener('keyup', closeOnEsc)
-
-	var resizeFrame = function() {
-		this.iframe.style.width = '85%'
-		iframe.style.height = iframe.contentDocument.height + 'px'
-		iframe.style.width = iframe.contentDocument.width + 'px'
-	}
+	this.iframe.contentDocument.addEventListener('keyup', closeOnEsc);
 
 	this.iframe.contentDocument.body.appendChild(div[0])
-	// resizeFrame();
 	if (instance.options.html) {
 		content.append(instance.options.html)
 	} else {
@@ -128,9 +123,9 @@ function Dialog(inX) {
 		this.resize();
 		// this.iframe.style.display = ''
 		this.iframe.style.visibility='visible'
-		this.timeOut = window.setInterval(this.resize.bind(this), 100)
+		this.timeOut = window.setInterval(this.resize.bind(this), 100);
 		return this;
-	}
+	};
 	this.resize = function() {
 		// this.iframe.style.height=this.frameDocument.height + 'px'
 		// this.iframe.style.width=this.frameDocument.width + 'px'
@@ -150,16 +145,17 @@ function Dialog(inX) {
 		// $(this.iframe).css({
 		// 	width: width + 'px'
 		// })
-		this.iframe.style.width = '70%'
+		this.iframe.style.width = '70%';
 
-		maxHeight = window.innerHeight * 0.8;
-		minHeight = 30;
-		height = $(this.iframe.contentDocument).outerHeight(true)
+		var maxHeight = window.innerHeight * 0.8;
+		var minHeight = 30;
+		var hasVerticalScrollbar = content[0].scrollHeight > content[0].clientHeight;
+		var height = content[0].scrollHeight + 52;
 		if (height < minHeight) height = minHeight;
-		if (height > maxHeight) height = maxHeight
+		if (height > maxHeight) height = maxHeight;
 		$(this.iframe).css({
 			height: height + 'px'
-		})
+		});
 		// console.log(window.innerHeight, this.iframe.contentWindow.innerHeight);
 		
 		this.iframe.style.top = (window.innerHeight - this.iframe.contentWindow.innerHeight) / 2 + 'px';
@@ -169,7 +165,7 @@ function Dialog(inX) {
 		// this.iframe.style.left='10%'
 
 		return this;
-	}
+	};
 	this.close = function() {
 		if (this.timeOut) window.clearTimeout(this.timeOut)
 		if (instance.options.onClose) instance.options.onClose();

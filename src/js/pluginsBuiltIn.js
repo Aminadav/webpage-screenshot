@@ -56,7 +56,6 @@ var defaultPlugins = [
 	dataType:'image',
 	// editorDefault:true,
 	onclick:function(scope){
-		debugger
 		var image=scope.image_base64()
 		mod = $('<div style=z-index:100000;position:absolute;width:100%;top:5%><center><span style="display:inline-block;background-color:white;padding:10px;border:1px solid black"><h2>Right click the image and choose "Copy Image"</h2><img style="max-width:80%;max-height:80%"></span></center></div>');
 		$("img", mod).attr("src", 'data:image/png;base64,' + image);
@@ -129,7 +128,6 @@ var defaultPlugins = [
           var file = data.files.pop();
           var shareUrl = file.share_url;
           if ($button.hasClass('expand-url')) {
-
             var $input = $button.siblings('.url-share');
             if (!$input.length) {
               $input = $("<input class='url-share' readonly type='text'/>");
