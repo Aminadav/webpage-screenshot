@@ -432,6 +432,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .editor-toolbar .tools button.redo span {
 	background-image: url(../images/redo-icon.png);
 }
+.editor-toolbar .tools button.line-size span {
+	background-image: url(../images/line-size-icon.png);
+}
+.editor-toolbar .tools button.line-size.on {
+	background: none;
+}
 .editor-toolbar .tools button .color {
 	height: 24px;
 	width: 24px;
@@ -657,4 +663,35 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 .buttons .more-plugins-drop button:hover {
 	background: #666;
+}
+
+
+#LineWidthPicker {
+	position: relative;
+}
+#LineWidthPicker hr {
+	width: 20px;
+	border: 0;
+	height: 1px;
+	background-color: gray;
+	/* line-height: 1px; */
+	margin: 4px;
+}
+
+.linePickerOverlay {
+	display:none;
+	position: absolute;
+	background: #fff;
+	box-shadow: 0 2px 2px rgba(0,0,0,0.15);
+	border: 1px #aaaaab solid;
+	border-radius: 4px;
+	padding: 5px 0;
+	z-index: 10000;
+	top: 30px;
+}
+.linePickerOverlay hr {
+	background-color: rgb(71, 68, 68)!important;
+	width: 70px!important;
+	margin: 10px!important;
+	cursor: pointer;
 }

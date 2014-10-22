@@ -69,9 +69,7 @@
     <div class="tools" id="wColorPicker2_3">
     </div>
     <div id="LineWidthPicker" class="tools" style="float:left;margin-right:10px;">
-      <hr style=height:1px>
-      <hr style=height:2px>
-      <hr style=height:3px>
+      <button class="button line-size" status="on"><span></span></button>
       <div class="linePickerOverlay">
         <hr style=height:1px>
         <hr style=height:2px>
@@ -84,35 +82,6 @@
         <hr style=height:30px>
       </div>
     </div>
-<style>
-#LineWidthPicker {
-      border:1px solid black;
-      position: relative;
-    }
-    #LineWidthPicker hr {
-      color: blue;
-      width: 20px;
-      border: 0;
-      height: 1px;
-      background-color: gray;
-      /* line-height: 1px; */
-      margin: 4px;
-    }
-
-    .linePickerOverlay {
-      display:none;
-      position: absolute;
-      background-color: white;
-      border: 1px solid rgb(210, 210, 214);
-      z-index: 10000;
-    }
-    .linePickerOverlay hr {
-      background-color: rgb(71, 68, 68)!important;
-      width: 70px!important;
-      margin: 10px!important;
-      cursor: pointer;
-    }
-    </style>
     <div class="buttons">
       <div class="elements-group">
         <button title="Save online" class="online save-to-url expand-url"><span class="icon"></span> Save to URL</button>

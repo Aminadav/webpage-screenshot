@@ -1430,18 +1430,19 @@ function editor_obj()
 
 		}
 	function onScroll()
-		{
+	{
 		scrollLeft=$('#divCanvasData').scrollLeft();
 		scrollTop=$('#divCanvasData').scrollTop();
-		};
+	};
 
 //************Binds****************
 	function binds()
 	{
 
 	$('.linePickerOverlay hr').click(function(){
-		lineWidth=parseInt(this.style.height)
-	})
+		lineWidth = parseInt(this.style.height);
+		$('.linePickerOverlay').slideUp();
+	});
 	$('.save-to-pdf').click(createPDF)
 	$('#thumbnail').click(createThumbnails)
 	$('#LineWidthPicker').mouseenter(function(){
