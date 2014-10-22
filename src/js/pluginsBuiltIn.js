@@ -82,9 +82,6 @@ var defaultPlugins = [
     dataType: 'image',
     editorDefault: true,
     onclick: function (scope) {
-      var uploadUrl= 'https://content.uploady.com/v1/api/upload';
-      var accessToken = '7MURi9qo4ysOJs9O-gD3VZKWuY_hrh7wPBM4Uf6ecM3uIsKABY8~m48Ai';
-      var folderId = 'NZ~sRJG3bHz';
       var $button = $(scope.event.delegateTarget);
       if ($button.hasClass('loading')) {
           return ;
@@ -109,70 +106,52 @@ var defaultPlugins = [
         filename = filename.replace(/[%&\(\)\\\/\:\*\?\"\<\>\|\/\]]/g, ' ');
         filename += '.png';
 
-        var data = new FormData();
-        data.append('file', blob, filename);
-        data.append('share_link_enabled', true);
-        data.append('folder_id', folderId);
-        var request = $.ajax({
-          type: "POST",
-          url: uploadUrl,
-          headers: {
-            'Authorization': 'Bearer ' + accessToken
-          },
-          processData: false,
-          contentType: false,
-          dataType: 'json',
-          data: data
-        });
-        request.done(function(data) {
-          var file = data.files.pop();
-          var shareUrl = file.share_url;
-          if ($button.hasClass('expand-url')) {
-            var $input = $button.siblings('.url-share');
-            if (!$input.length) {
-              $input = $("<input class='url-share' readonly type='text'/>");
-              $button.after($input);
-            }
-            $input.val(shareUrl);
-            $input.animate({"margin-right": '0'});
-            $input.select();
-            document.execCommand('copy');
-            clearSelection();
-            $input.click(function () {
-              $input.select();
-              document.execCommand('copy');
-            });
-            return ;
-          }
-          var x = new Dialog({
-            html:
-            '<p class="success-message">Link is already in your clipboard. Go ahead, share it!</p>' +
-            '<textarea autoselect autocopy class="input-block">' + shareUrl +
-            '</textarea>' +
-            '<br/> ' +
-            '<textarea autoselect class="input-block"><a href="' +
-            shareUrl + '">' + shareUrl +
-            '</a></textarea>',
-            title: 'Screenshot is ready to be shared online',
-            ui: 'dialog'
-          });
-          x.show();
-        });
-        request.fail(function(jqXHR, textStatus) {
-          alert(
-            "Upload request failed \n" +
-            jqXHR.status
-            + ":"
-            + jqXHR.statusText
-            + "\n"
-            + jqXHR.responseText
-          );
-        });
-        request.always(function () {
+				chrome.runtime.sendMessage({
+					data: 'upload',
+					filename: filename,
+					objectURL: URL.createObjectURL(blob)
+				}, function (data) {
+					complete();
+					if (!data) {
+						return ;
+					}
+					var file = data.files.pop();
+					var shareUrl = file.share_url;
+					if ($button.hasClass('expand-url')) {
+						var $input = $button.siblings('.url-share');
+						if (!$input.length) {
+							$input = $("<input class='url-share' readonly type='text'/>");
+							$button.after($input);
+						}
+						$input.val(shareUrl);
+						$input.animate({"margin-right": '0'});
+						$input.select();
+						document.execCommand('copy');
+						clearSelection();
+						$input.click(function () {
+							$input.select();
+							document.execCommand('copy');
+						});
+						return ;
+					}
+					var x = new Dialog({
+						html:
+						'<textarea autoselect autocopy class="input-block">' + shareUrl +
+						'</textarea>' +
+						'<br/> ' +
+						'<textarea autoselect class="input-block"><a href="' +
+						shareUrl + '">' + shareUrl +
+						'</a></textarea>',
+						title: 'Screenshot is ready to be shared online. Go ahead, share it!',
+						ui: 'dialog'
+					});
+					x.show();
+				});
+       	function complete() {
           $button.addClass('done');
           $button.removeClass('loading');
           $button.prop('disabled', false);
-        });
+       	}
       });
 
       function clearSelection() {

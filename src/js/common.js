@@ -8,3 +8,14 @@ function cleanUp(url) {
     url = url.match(/^([^\/?#]+)(?:[\/?#]|$)/i, "");
   return url[1];
 }
+function objectUrlToBlob(url, callback) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.responseType = 'blob';
+  xhr.onload = function(e) {
+    if (this.status == 200) {
+      callback(this.response)
+    }
+  };
+  xhr.send()
+}

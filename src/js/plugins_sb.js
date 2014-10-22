@@ -60,6 +60,7 @@ var plugins_sb = [{
                 'button_size': 32,
                 'lines': 1,
                 closeOnClick: true,
+                'whiteIcons': true,
                 // page_title: $('title').html() || 'no title',
                 // page_description: 'no description',
                 // page_url: location.href,
@@ -88,9 +89,9 @@ var plugins_sb = [{
             window.crop.y1 = rect.top + document.body.scrollTop
             window.crop.x2 = rect.width + window.crop.x1
             window.crop.y2 = rect.height + window.crop.y1
-            var $toolbar = $('<div class=ws-styles><table border=0><tr><td style="vertical-align: middle"><button class="open msg" style="margin:1px;color:black;background-color:white;cursor:pointer;font-size:1em;border: 1px solid #999; border-radius: 4px;padding: 3px 9px;" tag=open></button>' +
+            var $toolbar = $('<div class=ws-styles><table style="border: 0;"><tr style="border: 0;vertical-align: middle"><td style="border: 0;vertical-align: middle"><button class="open msg" style="margin:1px;color:black;background-color:white;cursor:pointer;font-size:1em;border: 1px solid #999; border-radius: 4px;padding: 3px 9px;" tag=open></button>' +
                 '<button class="save msg" style="margin:1px;color:black;background-color:white;cursor:pointer;font-size:1em;border: 1px solid #999; border-radius: 4px;padding: 3px 9px;" tag=save></button>' +
-                '<button class="share msg" tag=share style="margin:1px;color:black;background-color:white;cursor:pointer;font-size:1em;border: 1px solid #999; border-radius: 4px;padding: 3px 9px;"></button></td><td valign=middle><div class=realToolbar></div></td></tr></table></div>')
+                '<button class="share msg" tag=share style="margin:1px;color:black;background-color:white;cursor:pointer;font-size:1em;border: 1px solid #999; border-radius: 4px;padding: 3px 9px;"></button></td><td style="border: 0;vertical-align: middle"><div class=realToolbar></div></td></tr></table></div>')
 
 
             jQuery('.msg', $toolbar).each(function() {
@@ -134,7 +135,7 @@ var plugins_sb = [{
             // })			
 
             $('button.share', $toolbar).on('click', function() {
-                $('[plugin-key=webpagescreenshot]').trigger($.Event({
+                $('[plugin-key=uploady]').trigger($.Event({
                     type: 'click'
                 }));
             });
@@ -159,15 +160,14 @@ var plugins_sb = [{
                 page_description: 'no description',
                 page_url: location.href,
                 'icon_base': chrome.extension ? chrome.extension.getURL('/images/') : '../images/',
-                'iconStyle': 'padding: 4px 3px;margin-bottom: 3px;margin-left: 3px;margin-right: 2px;background: #777;float: left;border: none;color: #fff;height: 17px;line-height: 17px;border-radius: 3px;cursor: pointer;box-sizing: content-box;',
+                whiteIcons: true,
                 'position': 'static',
                 'type': 'image',
                 'zIndex': 11000,
                 request: function(callback) {
                     removeClip();
-                    console.log('you asked for text');
                     chrome.runtime.sendMessage({
-                        data: 'startCapture',
+                        data: 'captureVisible',
                         runCallback: true,
                         keepIt: true,
                         type: 'scroll',
@@ -180,7 +180,6 @@ var plugins_sb = [{
                             scrollLeft: document.body.scrollLeft
                         }
                     }, function(x) {
-                        // console.log('plugins_sb,callback', x);
                         callback(x);
                     })
                 }

@@ -69,10 +69,10 @@ function Dialog(inX) {
 	this.iframe.contentDocument.body.appendChild(div);
 	//this.iframe.contentDocument.body.style.cssText="background-color: white;border: 1px solid rgba(0, 0, 0, 0.28);padding: 10px;"
 
-  var scripts = ['libs/jquery.js', 'libs/ZeroClipboard.min.js', 'js/clipboard.js', 'js/dialog.js'];
+  var scripts = ['libs/jquery.js', 'js/dialog.js'];
   for (var i=0; i< scripts.length; i++) {
     var script = this.iframe.contentWindow.document.createElement("script");
-    script.src = scripts[i];
+    script.src = chrome.extension.getURL(scripts[i]);
     this.iframe.contentWindow.document.body.appendChild(script);
   }
 

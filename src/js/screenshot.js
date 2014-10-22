@@ -297,7 +297,6 @@ var screenshot = {
             //Last One, run callback
             console.log('screenshot.js, cb, try to run callback from cb function');
             // chrome.tabs.create('editor.html#last')
-debugger
             screenshot.callback(screenshot.canvas.toDataURL())
 
             screenshot.callback = null

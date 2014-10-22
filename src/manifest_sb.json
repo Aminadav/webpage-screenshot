@@ -19,8 +19,8 @@
     },
 
     "web_accessible_resources": [
-        "/images/googleimages.png", "/images/copy.png",
-
+        "/images/googleimages.png",
+        "/images/copy.png",
         "/images/blogger.png",
         "/images/email.png",
         "/images/evernote.png",
@@ -61,13 +61,16 @@
         "/images/digg.png",
         "/images/dropbox.png",
         "/images/save.png",
-        "libs/gapi.js",
+        "/libs/gapi.js",
 
         "/images/fast.png",
         "/images/pitch.png",
         "/libs/jquery-ui-1.9.2.custom.min.css",
         "/css/pagestyles.css",
-        "/css/dialog.css"
+        "/css/dialog.css",
+
+        "/libs/jquery.js",
+        "/js/dialog.js"
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.googleapis.com https://ad.yieldmanager.com https://cdn.extensionanalytics.com https://ssl.google-analytics.com; object-src 'self'",
     "default_locale": "en",
