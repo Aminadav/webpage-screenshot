@@ -190,7 +190,7 @@ func_sbMouseDown = function(se) {
                 // if(t<document.body.scrollTop) document.body.scrollTop-=30
                 // $toolbar.css({left:left,top:t,position:'absolute'});
                 var top, left
-                var distanceY = 34
+                var distanceY = 4
                 distanceX = 0
                 if (ee.pageY > $toolbarElement.height() + distanceY)
                     top = ee.pageY - ($toolbarElement.height() + distanceY)
@@ -199,7 +199,7 @@ func_sbMouseDown = function(se) {
                 if (ee.pageX > $toolbarElement.width() + distanceX)
                     left = ee.pageX - ($toolbarElement.width() + distanceX)
                 else
-                    top = ee.pageX + distanceX
+                    left = ee.pageX + distanceX
                 $toolbar.css({
                     left: left,
                     top: top,
