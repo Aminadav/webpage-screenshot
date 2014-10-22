@@ -93,6 +93,9 @@ a {
 .window_nav ul li a:hover {
 	background: #f6f6f6;
 }
+.window_nav ul li.plain {
+	padding: 2px 12px;
+}
 .window_nav ul li .icon {
 	display: block;
 	width: 20px;

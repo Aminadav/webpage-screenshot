@@ -95,6 +95,9 @@ var api = {
         case 'ana':
           // @todo: analytics tracking
           break;
+        case 'storageGet':
+          callback(localStorage);
+          break;
         case 'isEnableShortCuts':
           if (localStorage['enableshortcuts']=='yes')	{
             callback();

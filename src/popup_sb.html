@@ -7,6 +7,7 @@
         type='text/css'>
   <link href="css/style.css" rel="stylesheet"/>
   <script type="text/javascript" src="libs/jquery.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
   <script type="text/javascript" src="settings.js"></script>
   <script type="text/javascript" src="extension.js"></script>
   <script type="text/javascript" src="js/permissions.js"></script>
@@ -22,30 +23,29 @@
 </div>
 <div class="window_nav">
   <ul>
-    <li>
-        <input type=checkbox class=show_toolbar> <span>Show toolbar</span>
+    <li class="plain">
+      <label><input type=checkbox class=show_toolbar> Show toolbar</label>
     </li>
-    <li class=show_toolbar_on_this_domain>
-        <input type=checkbox class=show_toolbar_on_this_domain> <span>Show toolbar on this domain</span>
+    <li class="plain show_toolbar_on_this_domain">
+      <label><input type=checkbox class="show_toolbar_on_this_domain"> Show toolbar on this domain</label>
     </li>
-    <li>
-        <input type=checkbox class=show_selectionbar> <span>Show SelectionBar</span>
+    <li class="plain">
+      <label><input type=checkbox class=show_selectionbar> Show SelectionBar</label>
     </li>
-    <li class=show_selectionbar_on_this_domain>
-        <input type=checkbox class=show_selectionbar_on_this_domain> <span>Show SelectionBar on this domain</span>
+    <li class="plain show_selectionbar_on_this_domain">
+      <label><input type=checkbox class=show_selectionbar_on_this_domain> Show SelectionBar on this domain</label>
     </li>
-
-    <li>
+    <li class="plain">
       Icon size:
       <select id="button_size">
         <option value=16>Small</option>
         <option value=20>Medium</option>
         <option value=24>Large</option>
       </select>
-   </li>
-    <li>
+    </li>
+    <li class="plain">
       SelectionBar Opacity:
-        <select id="sb_opacity">
+      <select id="sb_opacity">
         <option value=1>100%</option>
         <option value=0.7>70%</option>
         <option value=0.3>30%</option>

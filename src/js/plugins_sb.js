@@ -4,7 +4,7 @@ var plugins_sb = [{
         dataType: 'text',
         // url: 'http://search.conduit.com/Results.aspx?q={text}&SearchSource=67&ctid=CT3302431'
         onclick: function(scope) {
-            $html = $('<iframe style=width:100%;height:670px;border:0 src="//www.webpagescreenshot.info/search.php?q=' + encodeURIComponent(scope.text) + '""></iframe>')
+            $html = $('<iframe style=width:100%;height:600px;border:0 src="//www.webpagescreenshot.info/search.php?q=' + encodeURIComponent(scope.text) + '""></iframe>')
             var d = new Dialog({
                 html: $html,
                 title: 'Search Results',

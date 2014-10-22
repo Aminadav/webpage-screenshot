@@ -64,10 +64,35 @@ var popup = {
     $('#button_size').on('change',function (){
       localStorage['button_size']=$(this).val()
       chrome.extension.getBackgroundPage().executeCodeOnAllTabs('extStorageUpdate()');
-    })
-    // $('show_toolbar_on_this_domain').on('change',function(){
-
-    // })
+    });
+    $('input.show_toolbar_on_this_domain').on('change',function() {
+      var toolbar_disabledURLs = JSON.parse(localStorage['toolbar_disableURLs'] || '{}') || {};
+      var enabled = this.checked;
+      chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+        var url = cleanUp(tabs[0].url);
+        if (enabled) {
+          delete toolbar_disabledURLs[url];
+        } else {
+          toolbar_disabledURLs[url] = 'disabled';
+        }
+        localStorage['toolbar_disableURLs'] = JSON.stringify(toolbar_disabledURLs);
+        chrome.extension.getBackgroundPage().executeCodeOnAllTabs('extStorageUpdate()');
+      });
+    });
+    $('input.show_selectionbar_on_this_domain').on('change', function() {
+      var disabledURLs = JSON.parse(localStorage['selectionbar_disableURLs'] || '{}') || {};
+      var enabled = this.checked;
+      chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+        var url = cleanUp(tabs[0].url);
+        if (enabled) {
+          delete disabledURLs[url];
+        } else {
+          disabledURLs[url] = 'disabled';
+        }
+        localStorage['selectionbar_disableURLs'] = JSON.stringify(disabledURLs);
+        chrome.extension.getBackgroundPage().executeCodeOnAllTabs('extStorageUpdate()');
+      });
+    });
   },
   checkSupport: function () {
     chrome.tabs.getSelected(function(t) {
