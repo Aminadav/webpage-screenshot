@@ -59,6 +59,7 @@
         "/images/speak.png",
         "/images/share.png",
         "/images/tumblr.png",
+        "/images/uploady.png",
 
 
 
@@ -79,7 +80,8 @@
         "/images/fast.png",
         "/images/pitch.png",
         "/libs/jquery-ui-1.9.2.custom.min.css",
-        "/css/pagestyles.css"
+        "/css/pagestyles.css",
+        "/css/dialog.css"
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.googleapis.com https://cdn.extensionanalytics.com https://ssl.google-analytics.com; object-src 'self'",
     "default_locale": "en",

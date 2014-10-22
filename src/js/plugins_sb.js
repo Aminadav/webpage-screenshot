@@ -63,7 +63,7 @@ var plugins_sb = [{
                 // page_title: $('title').html() || 'no title',
                 // page_description: 'no description',
                 // page_url: location.href,
-                'icon_base': chrome.extension ? chrome.extension.getURL('/pluginDev/icons/') : '../pluginDev/icons/',
+                'icon_base': chrome.extension.getURL('/images/'),
                 'position': 'static',
                 'type': 'text',
                 'zIndex': 11100,
@@ -158,7 +158,7 @@ var plugins_sb = [{
                 page_title: $('title').html() || 'no title',
                 page_description: 'no description',
                 page_url: location.href,
-                'icon_base': chrome.extension ? chrome.extension.getURL('/pluginDev/icons/') : '../pluginDev/icons/',
+                'icon_base': chrome.extension ? chrome.extension.getURL('/images/') : '../images/',
                 'position': 'static',
                 'type': 'image',
                 'zIndex': 11000,
@@ -482,11 +482,11 @@ var plugins_sb = [{
             var init = function() {
                 $html = $('<div><div class=buttons></div><div style=clear:both class=text></div></div>');
                 $speedButton = $('<div class=speedButton style="background-size:cover;width:24px;height:24px;background-image:url(' +
-                    chrome.extension.getURL('/pluginDev/icons/') + 'fast.png);"></div>');
+                    chrome.extension.getURL('/images/') + 'fast.png);"></div>');
                 $speedButton.on('click', speedButtonClick)
 
                 $pitchButton = $('<div class=pitchButton style="background-size:cover;width:24px;height:24px;background-image:url(' +
-                    chrome.extension.getURL('/pluginDev/icons/') + 'pitch.png);"></div>');
+                    chrome.extension.getURL('/images/') + 'pitch.png);"></div>');
 
                 $speedButton.add($pitchButton).css({
                     'float': 'left',

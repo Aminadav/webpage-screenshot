@@ -64,8 +64,8 @@ function Dialog(inX) {
 	// 	showProgress: false,
 	// 	async: false
 	// }).responseText  + '</style>' //.replace(/images\//g, 'http://code.jquery.com/ui/1.9.2/themes/dark-hive/images/') + ' ody {color:white;}' 
-	
-	div.innerHTML = '<link href="css/dialog.css" rel="stylesheet"/>';
+	div.innerHTML = '<link href="' + chrome.extension.getURL('/css/dialog.css') +
+	'" rel="stylesheet"/>';
 	this.iframe.contentDocument.body.appendChild(div);
 	//this.iframe.contentDocument.body.style.cssText="background-color: white;border: 1px solid rgba(0, 0, 0, 0.28);padding: 10px;"
 
