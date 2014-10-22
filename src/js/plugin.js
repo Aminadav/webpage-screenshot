@@ -440,7 +440,7 @@ function Toolbar(options) {
     var dataTypes = []
     $toolbar = $('<div class="plugin-toolbar"></div>');
     if (!options.theme) {
-      $toolbar.attr('style', "border:1px solid #8b8b8b;;-webkit-border-radius: 3px;display: inline-block; background:-webkit-linear-gradient(top, #f8f8f8 0%,#cfcfcf 100%);");
+      $toolbar.attr('style', "background: #fff;box-shadow: 0 2px 2px rgba(0,0,0,0.15);border: 1px #aaaaab solid;border-radius: 4px;display:inline-block");
     }
     var toolbar = this;
 
@@ -471,7 +471,9 @@ function Toolbar(options) {
             if (options.theme) {
                 html = $('<div class="tb_button" plugin-key="' + this.key + '"><img src=' + toolbar.icon_base + (this.key + '.png') + ' ></div>')
             } else {
-                html = $('<div style=padding:5px;float:left><div style=display:none;font-size:10px;font-family:arial;text-align:center>' + this.name + '</div><img class=tb_button plugin-key="' + this.key + '"src=' + toolbar.icon_base + (this.key + '.png') + ' ></div>')
+                var style = options.iconStyle || "padding:5px;float:left";
+                html = $('<div style="' + style +
+                '"><div style=display:none;font-size:10px;font-family:arial;text-align:center>' + this.name + '</div><img class=tb_button plugin-key="' + this.key + '"src=' + toolbar.icon_base + (this.key + '.png') + ' ></div>')
                 options.button_size = 15
             }
             index++;

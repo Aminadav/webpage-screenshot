@@ -130,8 +130,7 @@ func_sbMouseDown = function(se) {
             //          toolbar=$toolbar[0];
             //          toolbar.frameBorder=0
 
-            $toolbar = $('<div class=ws_toolbar></div>').appendTo(document.body);
-
+            var $toolbar = $('<div class=ws_toolbar></div>').appendTo(document.body);
             //Select buttons to Show
             $('.btn_search', $toolbar)[numOfWords < 10 ? 'show' : 'hide']();
 
@@ -191,7 +190,7 @@ func_sbMouseDown = function(se) {
                 // if(t<document.body.scrollTop) document.body.scrollTop-=30
                 // $toolbar.css({left:left,top:t,position:'absolute'});
                 var top, left
-                var distanceY = 20
+                var distanceY = 34
                 distanceX = 0
                 if (ee.pageY > $toolbarElement.height() + distanceY)
                     top = ee.pageY - ($toolbarElement.height() + distanceY)
@@ -426,7 +425,10 @@ function sb_start_toolbar() {
     loadjQuery();
     $(function() {
         plugins_to_show = plugins_sb.slice()
-        $toolbar = $('<div class=ws_toolbar_top></div>').prependTo(document.body);
+        var $toolbar = $('<div class=ws_toolbar_top></div>').prependTo(document.body);
+        $toolbar.css('position','fixed');
+        $toolbar.css('top','0');
+        //debugger;
         topToolbar = new Toolbar({
             'plugins': plugins_to_show,
             'element': $toolbar,
@@ -435,7 +437,7 @@ function sb_start_toolbar() {
             'lines': 1,
             // 'theme': 'large',
             'keepDown': true,
-            'pushDown': true,
+            //'pushDown': true,
             min_buttons_num: 20,
             // page_title: background.title,
             // page_description: background.description,

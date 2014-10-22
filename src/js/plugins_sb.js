@@ -88,9 +88,9 @@ var plugins_sb = [{
             window.crop.y1 = rect.top + document.body.scrollTop
             window.crop.x2 = rect.width + window.crop.x1
             window.crop.y2 = rect.height + window.crop.y1
-            var $toolbar = $('<div class=ws-styles><table border=0><tr><td valign=top><button class="open msg" style="margin:1px;color:black;background-color:white;cursor:pointer;vertical-align:top;font-size:1em;padding:2px;border:2px outset" tag=open></button>' +
-                '<button class="save msg" style="margin:1px;color:black;background-color:white;cursor:pointer;vertical-align:top;font-size:1em;padding:2px;border:2px outset" tag=save></button>' +
-                '<button class="share msg" tag=share style="margin:1px;color:black;background-color:white;cursor:pointer;vertical-align:top;font-size:1em;padding:2px;border:2px outset"></button></td><td valign=top><div style=isplay:none; class=realToolbar></div></td></tr></table></div>')
+            var $toolbar = $('<div class=ws-styles><table border=0><tr><td style="vertical-align: middle"><button class="open msg" style="margin:1px;color:black;background-color:white;cursor:pointer;font-size:1em;border: 1px solid #999; border-radius: 4px;padding: 3px 9px;" tag=open></button>' +
+                '<button class="save msg" style="margin:1px;color:black;background-color:white;cursor:pointer;font-size:1em;border: 1px solid #999; border-radius: 4px;padding: 3px 9px;" tag=save></button>' +
+                '<button class="share msg" tag=share style="margin:1px;color:black;background-color:white;cursor:pointer;font-size:1em;border: 1px solid #999; border-radius: 4px;padding: 3px 9px;"></button></td><td valign=middle><div class=realToolbar></div></td></tr></table></div>')
 
 
             jQuery('.msg', $toolbar).each(function() {
@@ -136,8 +136,8 @@ var plugins_sb = [{
             $('button.share', $toolbar).on('click', function() {
                 $('[plugin-key=webpagescreenshot]').trigger($.Event({
                     type: 'click'
-                }))
-            })
+                }));
+            });
 
             plugins_to_show.unshift({
                 name: 'annotate',
@@ -147,7 +147,7 @@ var plugins_sb = [{
                 onclick: function(scope) {
                     window.open(chrome.extension.getURL('editor.html') + '#last', '_blank')
                 }
-            })
+            });
 
             var staticPlugin = new Toolbar({
                 'plugins': plugins_to_show,
@@ -159,6 +159,7 @@ var plugins_sb = [{
                 page_description: 'no description',
                 page_url: location.href,
                 'icon_base': chrome.extension ? chrome.extension.getURL('/images/') : '../images/',
+                'iconStyle': 'padding: 4px 3px;margin-bottom: 3px;margin-left: 3px;margin-right: 2px;background: #777;float: left;border: none;color: #fff;height: 17px;line-height: 17px;border-radius: 3px;cursor: pointer;',
                 'position': 'static',
                 'type': 'image',
                 'zIndex': 11000,
@@ -454,22 +455,6 @@ var plugins_sb = [{
             }
             init();
         }
-    },
-
-    {
-        name: 'Copy',
-        key: 'copy',
-        onclick: function(scope) {
-            // chrome.permissions.request({
-            // permissions:['clipboardWrite']
-            // }, function (){
-            chrome.runtime.sendMessage({
-                'data': 'copyText',
-                'text': scope.text
-            })
-            // })
-        }
-
     },
 
     {

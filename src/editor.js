@@ -2198,11 +2198,11 @@ $(function(){
 		page_title:screenshot.title,
 		page_description:screenshot.description,
 		page_url:screenshot.url,
-        doNotRenderDefaults: true,
+		doNotRenderDefaults: true,
 		'icon_base':'/images/',
 		'position':'static',
 		'type':'image',
-        'theme': true,
+		'theme': true,
 		request:function (callback){
 			editor.createLastCanvas('toolbar',function (data){
 				callback(data)
