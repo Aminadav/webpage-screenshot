@@ -428,6 +428,8 @@ function sb_start_toolbar() {
         var $toolbar = $('<div class=ws_toolbar_top></div>').prependTo(document.body);
         $toolbar.css('position','fixed');
         $toolbar.css('top','0');
+        $toolbar.css('z-index','999999');
+        $toolbar.css('opacity', extStorageGet('sb_opacity'));
         //debugger;
         topToolbar = new Toolbar({
             'plugins': plugins_to_show,

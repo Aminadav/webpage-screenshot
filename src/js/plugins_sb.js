@@ -159,7 +159,7 @@ var plugins_sb = [{
                 page_description: 'no description',
                 page_url: location.href,
                 'icon_base': chrome.extension ? chrome.extension.getURL('/images/') : '../images/',
-                'iconStyle': 'padding: 4px 3px;margin-bottom: 3px;margin-left: 3px;margin-right: 2px;background: #777;float: left;border: none;color: #fff;height: 17px;line-height: 17px;border-radius: 3px;cursor: pointer;',
+                'iconStyle': 'padding: 4px 3px;margin-bottom: 3px;margin-left: 3px;margin-right: 2px;background: #777;float: left;border: none;color: #fff;height: 17px;line-height: 17px;border-radius: 3px;cursor: pointer;box-sizing: content-box;',
                 'position': 'static',
                 'type': 'image',
                 'zIndex': 11000,

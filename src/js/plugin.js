@@ -495,7 +495,7 @@ function Toolbar(options) {
                     // console.log(plugin);
                 },
                 'mouseenter': function() {
-                    $(this).addClass('hover')
+                    //$(this).addClass('hover')
                 },
                 'mouseleave': function() {
                     if (plugin.state != 'down')
