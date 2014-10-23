@@ -13,6 +13,17 @@ body {
 .input-block {
     width: 100%;
 }
+.link-go {
+    position: absolute;
+    background: url(../images/link-go.png) center;
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin-top: -33px;
+    right: 25px;
+    text-indent: -9999px;
+    font-size: 0;
+}
 .ui-dialog {
     background-color: #fff;
     box-shadow: 0 2px 2px rgba(0,0,0,0.15);

@@ -138,6 +138,7 @@ var defaultPlugins = [
 						html:
 						'<textarea autoselect autocopy class="input-block">' + shareUrl +
 						'</textarea>' +
+						'<a href="' + shareUrl + '" class="link-go" target="_blank">Go</a>' +
 						'<br/> ' +
 						'<textarea autoselect class="input-block"><a href="' +
 						shareUrl + '">' + shareUrl +
@@ -146,6 +147,10 @@ var defaultPlugins = [
 						ui: 'dialog'
 					});
 					x.show();
+					chrome.runtime.sendMessage({
+						'data': 'copyText',
+						'text': shareUrl
+					});
 				});
        	function complete() {
           $button.addClass('done');
