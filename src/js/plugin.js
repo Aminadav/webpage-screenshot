@@ -437,7 +437,11 @@ function Toolbar(options) {
     var dataTypes = []
     $toolbar = $('<div class="plugin-toolbar"></div>');
     if (!options.theme) {
-      $toolbar.attr('style', "background: #fff;box-shadow: 0 2px 2px rgba(0,0,0,0.15);border: 1px #aaaaab solid;border-radius: 4px;display:inline-block");
+        var style = "background: #fff;box-shadow: 0 2px 2px rgba(0,0,0,0.15);border: 1px #aaaaab solid;border-radius: 4px;display:inline-block;";
+        if (options.whiteIcons) {
+            style += 'padding-top:3px;';
+        }
+        $toolbar.attr('style', style);
     }
     var toolbar = this;
 
@@ -468,7 +472,7 @@ function Toolbar(options) {
             if (options.theme) {
                 html = $('<div class="tb_button" plugin-key="' + this.key + '"><img src=' + toolbar.icon_base + (this.key + '.png') + ' ></div>')
             } else {
-                var style = options.whiteIcons && 'padding: 4px 3px;margin-bottom: 3px;margin-left: 3px;margin-right: 2px;background: #777;float: left;border: none;color: #fff;height: 17px;line-height: 17px;border-radius: 3px;cursor: pointer;box-sizing: content-box;' || "padding:5px;float:left";
+                var style = options.whiteIcons && 'padding: 4px 3px;margin-bottom: 3px;margin-left: 3px;margin-right: 2px;background: #777;float: left;border: none;color: #fff;height: 17px;line-height: 17px;border-radius: 3px;cursor: pointer;box-sizing: content-box;' || "float:left";
                 html = $('<div style="' + style +
                 '"><div style=display:none;font-size:10px;font-family:arial;text-align:center>' + this.name + '</div><img class=tb_button plugin-key="' + this.key + '"src=' + toolbar.icon_base + (this.key + '.png') + ' ></div>')
                 options.button_size = 15
@@ -482,12 +486,14 @@ function Toolbar(options) {
                 'height': options.button_size + 'px',
                 'border-right': 'none',
                 'border-left': 'none',
-                'border-bottom': 'none'
+                'border-bottom': 'none',
+                'box-sizing': 'content-box',
+                'padding': options.whiteIcons ? '0' : '5px'
             })
             html.attr('title', this.name)
             var plugin = this;
             plugin.$ = html;
-            $('img', html).on({
+            var img = $('img', html).on({
                 'error': function() {
                     // console.log(plugin);
                 },
@@ -507,26 +513,25 @@ function Toolbar(options) {
                         text = window.getSelection().getRangeAt(0).toString()
                     }
                     if (toolbar.keepDown && plugin.state != 'down') {
-                        $.each(toolbar.obj_plugins, function(i) {
-                            console.log(this);
-                            i = this
-                            if (i.state == 'down') {
-                                i.state = 'up'
-                                i.$.find('img').trigger('mouseleave')
+                        $.each(toolbar.obj_plugins, function(k, plugin) {
+                            if (plugin.state == 'down') {
+                                plugin.state = 'up';
                             }
-                        })
-                        plugin.state = 'down'
-                        toolbar.active = plugin
-                    } else
-                    if (toolbar.keepDown && plugin.state == 'down') {
-                        plugin.state = 'up'
-                        toolbar.active = null
+                        });
+                        $toolbar.find('img').css('background', '#fff');
+                        img.css('background', '#4BBAFF');
+                        plugin.state = 'down';
+                        toolbar.active = plugin;
+                    } else if (toolbar.keepDown && plugin.state == 'down') {
+                        plugin.state = 'up';
+                        toolbar.active = null;
+                        img.css('background', '#fff');
                     }
 
                     toolbar.request(function(img) {
                         if (plugin.closeOnClick === false) e.stopPropagation()
                         plugin.run(img, e)
-                    })
+                    }, plugin);
                 }
 
             })
@@ -550,7 +555,7 @@ function Toolbar(options) {
         //Enlarge Button
         if (options.enlargable) {
             $rightButton = $('<div style=cursor:pointer;float:left><img style="margin:-5px"  src=' + toolbar.icon_base + 'right.png' + '></div>')
-            $leftButton = $('<div style=cursor:pointer;float:left><img style="margin:-5px" src=' + toolbar.icon_base + 'left.png' + '></div>')
+            $leftButton = $('<div style=cursor:pointer;float:left><img style="width:15px; height:15px;padding: 5px; box-sizing: content-box;" src=' + toolbar.icon_base + 'left.png' + '></div>')
             $toolbar.append($rightButton).append($leftButton);
             updateMinMax();
             $rightButton.add($leftButton).find('img')

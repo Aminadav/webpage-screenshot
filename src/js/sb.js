@@ -480,11 +480,11 @@ function sb_start_toolbar() {
             'icon_base': chrome.extension ? chrome.extension.getURL('/images/') : '../images/',
             'position': 'static',
             'type': 'text',
-            request: function(callback) {
+            request: function(callback, plugin) {
                 if (window.getSelection().type == 'Range') {
                     text = window.getSelection().getRangeAt(0).toString()
                     callback(text)
-                } else {
+                } else if (plugin.key == 'help') {
                     callback()
                 }
             },
