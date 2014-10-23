@@ -457,6 +457,17 @@ var plugins_sb = [{
     },
 
     {
+        name: 'Copy',
+        key: 'copy-text',
+        onclick: function(scope) {
+            chrome.runtime.sendMessage({
+                'data': 'copyText',
+                'text': scope.text
+            });
+        }
+    },
+
+    {
         name: 'Speak',
         key: 'speak',
         onclick: function(scope) {
@@ -525,13 +536,7 @@ var plugins_sb = [{
             }
             init()
         }
-    }
-
-
-
-
-    ,
-
+    },
 
     {
         name: 'Edit text',

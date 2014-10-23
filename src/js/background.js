@@ -50,6 +50,14 @@ var api = {
       views[i].popup.exec(data);
     }
   },
+  copyTextToClipboard: function (text) {
+    var copyFrom = $('<textarea/>');
+    copyFrom.text(text);
+    $('body').append(copyFrom);
+    copyFrom.select();
+    document.execCommand('copy', true);
+    copyFrom.remove();
+  },
   listenMessages: function () {
     chrome.runtime.onMessage.addListener(function (data, sender, callback) {
       api.stop = false;
@@ -94,6 +102,9 @@ var api = {
           break;
         case 'ana':
           _gaq.push(data.array)
+          break;
+        case 'copyText':
+          api.copyTextToClipboard(data.text);
           break;
         case 'storageGet':
           callback(localStorage);
