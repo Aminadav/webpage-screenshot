@@ -93,7 +93,7 @@ var api = {
           api.stop = true;
           break;
         case 'ana':
-          // @todo: analytics tracking
+          _gaq.push(data.array)
           break;
         case 'storageGet':
           callback(localStorage);

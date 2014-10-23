@@ -154,8 +154,8 @@ loadCropper=function(){
 				'e': {
 					y: y1 + (y2 - y1) / 2,
 					x: x2 - hw
-				},
-			}
+				}
+			};
 			var icons = window.crop.icons;
 			// icons.hide();
 			icons.css({

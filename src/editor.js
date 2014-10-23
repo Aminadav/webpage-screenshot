@@ -1,9 +1,4 @@
-
-	// chrome.i18n={
-	// 	getMessage:function(ina){
-	// 		return 'm(' + ina + ')';
-	// 	}}
-
+_gaq.push(['_trackPageview']);
 
 String.prototype.twoDigits=function () {return this.replace(/^(.)$/,'0$1')}
 var canvasToDataURL;
@@ -2254,20 +2249,7 @@ $(function(){
 		// $('.share').hide()
 		$('.fbUpload').show()
 	}
-})
-
-
-
-_gaq = window._gaq || [];
-_gaq.push(['_setAccount', 'UA-2368233-11']);
-_gaq.push(["_set", "title", "untitled"]);
-_gaq.push(['_trackPageview']);
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = 'https://ssl.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})()
-
+});
 
 $(function (){
 	 $('#sharediv').share({

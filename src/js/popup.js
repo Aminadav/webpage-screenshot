@@ -1,5 +1,7 @@
 var popup = {
   ready: function () {
+    _gaq.push(['_trackPageview']);
+
     $('.capture-visible').click(popup.captureVisible);
     $('.capture-all').click(popup.captureAll);
     $('.capture-region').click(popup.captureRegion);

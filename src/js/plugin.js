@@ -1,6 +1,3 @@
-_gaq = window._gaq || [];
-
-
 var buttons_colors = [
     '#F3B200',
     '#77B900',
