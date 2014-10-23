@@ -57,7 +57,7 @@ var defaultPlugins = [
 	// editorDefault:true,
 	onclick:function(scope){
 		var image=scope.image_base64()
-		mod = $('<div style=z-index:100000;position:absolute;width:100%;top:5%><center><span style="display:inline-block;background-color:white;padding:10px;border:1px solid black"><h2>Right click the image and choose "Copy Image"</h2><img style="max-width:80%;max-height:80%"></span></center></div>');
+		mod = $('<div style=z-index:100000;position:fixed;width:100%;top:5%><center><span style="display:inline-block;background-color:white;padding:10px;border:1px solid black"><h2>Right click the image and choose "Copy Image"</h2><img style="max-width:80%;max-height:80%"></span></center></div>');
 		$("img", mod).attr("src", 'data:image/png;base64,' + image);
 		mod.appendTo(document.body);
 		window.setTimeout(function() {
