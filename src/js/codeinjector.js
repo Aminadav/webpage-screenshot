@@ -12,41 +12,26 @@ var codeinjector = {
     });
     codeinjector.addListeners();
   },
+
   addListeners: function () {
     chrome.tabs.onUpdated.addListener(function (tid, status, tab) {
-      api.executeIfPermission(function () {
-        if (status.status == 'loading') codeinjector.executeOnTabUpdate(tid, status, tab)
-      })
+      if (status.status == 'complete') {
+        api.executeIfPermission(function () {
+          codeinjector.executeOnTabUpdate(tid, status, tab)
+        });
+      }
     });
   },
 
-  executeCodeOnTabId: function (url, tid, code, callback, onlyIfNotRun) {
-    if (codeinjector.lastRunOnTab[tid] &&
-      (new Date()) - codeinjector.lastRunOnTab[tid].time < 4000 &&
-      codeinjector.lastRunOnTab[tid].url == cleanHash(url)
-    ) {
-      return;
-    }
-
+  executeCodeOnTabId: function (url, tid, code, cb) {
+    //if (codeinjector.lastRunOnTab[tid] &&
+    //  (new Date()) - codeinjector.lastRunOnTab[tid].time < 1000 &&
+    //  codeinjector.lastRunOnTab[tid].url == cleanHash(url)
+    //) {
+    //  return;
+    //}
     codeinjector.lastRunOnTab[tid] = {'time': new Date(), 'url': cleanHash(url)};
-    var runIt = function () {
-      chrome.tabs.executeScript(tid, {code: code, runAt: 'document_start'}, callback);
-    };
-
-    if (onlyIfNotRun) {
-      chrome.tabs.executeScript(tid, {
-        code: 'window.alreadyRun',
-        runAt: 'document_start'
-      }, function (alreadyRun) {
-        // If script was executed but variable is not declared
-        if (alreadyRun && !alreadyRun[0]) {
-          runIt();
-        }
-      });
-    } else {
-      runIt();
-    }
-
+    chrome.tabs.executeScript(tid, {code: code}, cb);
     function cleanHash(url) {
       return url.replace(/(.*)#.*/, '$1')
     }
@@ -91,15 +76,7 @@ var codeinjector = {
     if (tab.url.match('www.webpagescreenshot.info')) {
       code += $.ajax({url: 'js/inmysite.js', async: false}).responseText + ';'
     }
-    if(isSb){
-      //
-      if(selectionBar.isEnableSelectionBar(tab.url))
-        code+=';sb_start_selectionBar();'
-      if(selectionBar.isEnableToolbar(tab.url))
-        code+=';sb_start_toolbar();'
-    }
-    codeinjector.executeCodeOnTabId(tab.url, tid, code, function () {
-    }, true);
+    codeinjector.executeCodeOnTabId(tab.url, tid, code);
   },
 
   getCode: function () {
@@ -107,17 +84,19 @@ var codeinjector = {
       return codeinjector.cache;
     }
     var js = [
-      "libs/jquery.js", "js/intab.js"
+      "libs/jquery.js", "js/common.js", "js/intab.js"
     ];
-    if(isSb) js.push(
-       "libs/Cropper.js"
-      ,"libs/Rangy.js"
-      ,"js/sb.js"
-      ,"js/pluginLib.js"
-      ,"js/plugin.js"
-      ,"js/pluginsBuiltIn.js"
-      ,"js/plugins_sb.js"
-  )
+    if (isSb) {
+      js.push(
+        "libs/Cropper.js"
+        ,"libs/Rangy.js"
+        ,"js/sb.js"
+        ,"js/pluginLib.js"
+        ,"js/plugin.js"
+        ,"js/pluginsBuiltIn.js"
+        ,"js/plugins_sb.js"
+      );
+    }
 
     var code = '';
     code += 'var settings = ' + JSON.stringify(settings) + ';';

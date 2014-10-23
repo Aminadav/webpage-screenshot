@@ -1,6 +1,22 @@
 //chrome-extension://moleilmbcjipiocmiedbmboflnaaanfe/SelectionBar/testSelectionBar.html
 var extStorage = {};
 
+function isEnableSelectionBar() {
+    if (extStorage['show_selectionbar']!='yes') return false;
+    var url=cleanUp(window.location.href);
+    if(!url) return false;
+    var j= JSON.parse(extStorage['selectionbar_disableURLs'] || '{}');
+    return j[url] != 'disabled';
+
+}
+function isEnableToolbar() {
+    if (extStorage['show_toolbar']!='yes') return false;
+    var url=cleanUp(window.location.href);
+    if(!url) return false;
+    var j= JSON.parse(extStorage['toolbar_disableURLs'] || '{}');
+    return j[url] != 'disabled';
+}
+
 function extStorageGet(k) {
     return extStorage[k]
 }
@@ -16,14 +32,25 @@ function extStorageSet(k, v) {
 }
 
 function extStorageUpdate() {
-    if (!chrome.extension) return
+    if (!chrome.extension) return;
     chrome.runtime.sendMessage({
         data: 'storageGet'
     }, function(data) {
-        extStorage = data
+        extStorage = data;
+        if (isEnableSelectionBar()) {
+            sb_start_selectionBar();
+        } else {
+            sb_pause_selectionBar();
+        }
+        if (isEnableToolbar()) {
+            sb_start_toolbar();
+        } else {
+            sb_pause_toolbar();
+        }
+        $('.ws_toolbar_top').css('opacity', extStorage['sb_opacity']);
     })
 }
-extStorageUpdate()
+extStorageUpdate();
 
 applyClass = function(inClass) {
     var classApplier = rangy.createCssClassApplier(inClass, true);
@@ -83,12 +110,12 @@ function exec(fn) {
 //  // document.documentElement.removeChild(script); // clean up
 // })
 
-var sbToolbar
+var sbToolbar;
 func_sbMouseDown = function(se) {
     loadjQuery();
     loadRangy();
     loadCropper();
-    removeToolbar = function() {
+    var removeToolbar = function() {
         $('.ws_toolbar').remove();
         if (sbToolbar) sbToolbar.removeToolbar();
         sbToolbar = null
@@ -154,7 +181,7 @@ func_sbMouseDown = function(se) {
                 request: function(callback) {
                     callback(text);
                 }
-            })
+            });
 
             if (ee.ctrlKey) {
                 var thisPlugin = $.grep(plugins_sb, function(a, b) {
@@ -398,10 +425,10 @@ func_sbMouseDown = function(se) {
         }
     }
 
-    function sb_pause_selectionBar() {
-        document.removeEventListener('mousedown', func_sbMouseDown)
-        document.removeEventListener('keydown', func_sbKeyDown)
-    }
+function sb_pause_selectionBar() {
+    document.removeEventListener('mousedown', func_sbMouseDown)
+    document.removeEventListener('keydown', func_sbKeyDown)
+}
 if (chrome.runtime)
     chrome.runtime.connect().onDisconnect.addListener(sb_pause)
 else
@@ -416,20 +443,26 @@ var topToolbar={};
 
 function sb_start_selectionBar(){
     sb_pause_selectionBar();
-    document.addEventListener('mousedown', func_sbMouseDown)
-    document.addEventListener('keydown', func_sbKeyDown)
+    document.addEventListener('mousedown', func_sbMouseDown);
+    document.addEventListener('keydown', func_sbKeyDown);
 }
 
+function sb_pause_toolbar() {
+    $('.ws_toolbar_top').remove();
+}
 function sb_start_toolbar() {
-    if (document.getElementsByClassName('ws_toolbar_top').length>0) return
+    if (document.getElementsByClassName('ws_toolbar_top').length>0) return;
     loadjQuery();
+    loadRangy();
+    loadCropper();
     $(function() {
-        plugins_to_show = plugins_sb.slice()
+        plugins_to_show = plugins_sb.slice();
         var $toolbar = $('<div class=ws_toolbar_top></div>').prependTo(document.body);
-        $toolbar.css('position','fixed');
-        $toolbar.css('top','0');
-        $toolbar.css('z-index','999999');
-        $toolbar.css('opacity', extStorageGet('sb_opacity'));
+        $toolbar.css({
+            'position': 'fixed',
+            'top': '0',
+            'z-index': '999999'
+        });
         //debugger;
         topToolbar = new Toolbar({
             'plugins': plugins_to_show,
@@ -451,6 +484,8 @@ function sb_start_toolbar() {
                 if (window.getSelection().type == 'Range') {
                     text = window.getSelection().getRangeAt(0).toString()
                     callback(text)
+                } else {
+                    callback()
                 }
             },
             requestText: function(callback) {

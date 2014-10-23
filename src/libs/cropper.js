@@ -1,5 +1,5 @@
 
-var cropperLoaded=false
+var cropperLoaded=false,
 loadCropper=function(){
 		// loadjQuery();
 		if(cropperLoaded) return;
@@ -293,10 +293,10 @@ loadCropper=function(){
 			return false
 		})
 
-}
+};
 
 
-function load_cropper_without_selection(){
+function load_cropper_without_selection() {
 	loadCropper();
 	window.crop = {x1:document.body.scrollLeft+300,x2:document.body.scrollLeft+600,y1:document.body.scrollTop+300,y2:document.body.scrollTop+600}
 	var $toolbar = $('<div class=ws-styles><table border=0><tr><td valign=top><button class="open msg" style="margin:1px;color:black;background-color:white;cursor:pointer;vertical-align:top;font-size:1em;padding:2px;border:2px outset" tag=open></button>' +
@@ -374,8 +374,6 @@ function load_cropper_without_selection(){
 	    'zIndex': 11000,
 	    request: function(callback) {
 	        removeClip();
-	        debugger
-	        console.log('you asked for text');
 	        chrome.runtime.sendMessage({
 	            data: 'captureAll',
 	            runCallback: true,
@@ -390,8 +388,6 @@ function load_cropper_without_selection(){
 	                scrollLeft: document.body.scrollLeft
 	            }
 	        }, function(x) {
-	            // console.log('plugins_sb,callback', x);
-	            debugger
 	            callback(x);
 	        })
 	    }
