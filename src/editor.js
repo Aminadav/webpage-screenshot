@@ -2194,6 +2194,8 @@ $(function(){
 		page_description:screenshot.description,
 		page_url:screenshot.url,
 		doNotRenderDefaults: true,
+		whiteIcons: true,
+		button_size: 20,
 		'icon_base':'/images/',
 		'position':'static',
 		'type':'image',
