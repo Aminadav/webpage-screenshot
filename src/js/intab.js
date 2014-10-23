@@ -132,7 +132,7 @@ var cropData;
       }
     },
     enableFixedPosition: function (enableFlag, cropData) {
-      if (enableFixedPosition && enableFlag) {
+      if (enableFixedPosition || enableFlag) {
         enableFixedPosition = false;
         for (var i = 0, l = this.fixedElements_.length; i < l; ++i) {
           this.fixedElements_[i].style.position = "fixed";
@@ -159,6 +159,14 @@ var cropData;
           }
         }
       }
+    },
+
+    hideSb: function () {
+      $('.ws_toolbar_top').hide();
+    },
+
+    showSb: function () {
+      $('.ws_toolbar_top').show();
     },
 
     checkPageIsOnlyEmbedElement: function () {
@@ -211,6 +219,7 @@ var cropData;
         if (mess.start) {
           page.setVars(cropData);
           page.enableScrollbar(false);
+          page.hideSb();
           if (!mess.noScroll) {
             page.enableFixedPosition(false, cropData);
           }
@@ -251,6 +260,7 @@ var cropData;
         page.enableScrollbar(true);
         page.enableFixedPosition(true, mess.cropData);
         page.preparePage('after');
+        page.showSb();
         page.restoreScrollPos();
       }
     },

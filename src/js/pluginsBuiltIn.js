@@ -7,15 +7,15 @@ var defaultPlugins = [
 		onclick: function(scope) {
 			String.prototype.twoDigits=function () {return this.replace(/^(.)$/,'0$1')}			
       scope.image_base64(function(dataUrl){
-				dataURItoBlob=function(dataURI) {
+				function dataURItoBlob (dataURI) {
 					var binary = atob(dataURI);
 					var array = [];
 					for(var i = 0; i < binary.length; i++) {
 						array.push(binary.charCodeAt(i));
 					}
-					return new Blob([new Uint8Array(array)], {type: 'image/jpeg'})
+					return new Blob([new Uint8Array(array)], {type: 'image/png'})
 				}
-				var x=dataURItoBlob(dataUrl)
+				var x=dataURItoBlob(dataUrl);
 				var url=URL.createObjectURL(x)
 				var filename;
 				filename=scope.page_title || scope.page_url;
@@ -27,7 +27,7 @@ var defaultPlugins = [
 				var a=$('<a></a>').appendTo(document.body);
 				a.attr({'href':url,'download':filename})[0].dispatchEvent(evt)
 			})
-        }
+		}
 	},
 
   {
@@ -39,6 +39,7 @@ var defaultPlugins = [
   {
 		name: 'Print',
 		key: 'print',
+		dataType: 'image',
     // editorDefault: true,
 		onclick: function(scope) {
 			var image = scope.image_base64()
@@ -47,8 +48,7 @@ var defaultPlugins = [
 				// ,ui: 'dialog'
 			});
 			x.print();
-		},
-		dataType: 'image'
+		}
 	},
 {
 	name:'Copy',

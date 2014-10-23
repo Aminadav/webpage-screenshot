@@ -258,11 +258,6 @@ var screenshot = {
         ctx.drawImage(img[i][0], screenshot.screens[i].left, theTop);
         screenshot.screens[i].data = null
         // screenshot.screens=null
-        if (!screenshot.runCallback && false) {
-          alert('what is this?')
-          //no editor on SelectionBar
-          editor.reloadCanvas();
-        }
         img[i][0].src = '';
         img[i].off('load')
         img[i][0] = null;
@@ -294,12 +289,8 @@ var screenshot = {
           ctx = null
 
           if (screenshot.runCallback) {
-            //Last One, run callback
-            console.log('screenshot.js, cb, try to run callback from cb function');
-            // chrome.tabs.create('editor.html#last')
-            screenshot.callback(screenshot.canvas.toDataURL())
-
-            screenshot.callback = null
+            screenshot.callback(screenshot.canvas.toDataURL());
+            screenshot.callback = null;
             if (!screenshot.keepIt) {
               delete screenshot.callback
               screenshot.canvas.width = screenshot.canvas.height = 1
@@ -310,8 +301,7 @@ var screenshot = {
             }
 
             //TODO: Remove Canvas
-          }
-          else {
+          } else {
 
             //*Fix for long pages. only when editor live.
             //

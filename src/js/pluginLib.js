@@ -174,10 +174,14 @@ function Dialog(inX) {
 		$(iframe).remove();
 		delete this.timeOut
 		return this
-	}
-	this.remove = this.close
+	};
+	this.remove = this.close;
 	this.print = function() {
-		this.iframe.contentWindow.print()
+		$(this.iframe).css({
+			height: content.height() + 'px'
+		});
+		this.iframe.contentWindow.print();
+		this.close();
 		return this
 	}
 }

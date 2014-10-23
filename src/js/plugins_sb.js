@@ -110,7 +110,6 @@ var plugins_sb = [{
             })
             $('button.open', $toolbar).on('click', function() {
                 removeClip();
-                // console.log('you asked for text');
                 chrome.runtime.sendMessage({
                     data: 'captureAll',
                     type: 'scroll',
@@ -170,7 +169,8 @@ var plugins_sb = [{
                         data: 'captureVisible',
                         runCallback: true,
                         keepIt: true,
-                        type: 'scroll',
+                        noScroll: true,
+                        //type: 'scroll',
                         cropData: {
                             x1: x1,
                             x2: x2,
