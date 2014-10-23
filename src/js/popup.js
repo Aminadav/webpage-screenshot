@@ -57,7 +57,7 @@ var popup = {
       popup.notifyTabsForStorageUpdate();
     });
     $('#button_size').on('change',function (){
-      localStorage['button_size']=$(this).val();
+      localStorage['button_size'] = $(this).val();
       popup.notifyTabsForStorageUpdate();
     });
     $('input.show_toolbar_on_this_domain').on('change',function() {

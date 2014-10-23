@@ -228,8 +228,7 @@ sb = {
         newUrl = newUrl.replace(/{page_title}/g, encodeURIComponent(this.page_title))
         newUrl = newUrl.replace(/{page_description}/g, encodeURIComponent(this.page_description))
         newUrl = newUrl.replace(/{text}/g, encodeURIComponent(this.text));
-        newUrl = newUrl.replace(/%s/g, s).replace('%c', encodeURIComponent(s.replace('img', 'i3'))).replace(/%t/g, encodeURIComponent(moreData.title))
-        console.log(newUrl);
+        newUrl = newUrl.replace(/%s/g, s).replace('%c', encodeURIComponent(s.replace('img', 'i3'))).replace(/%t/g, encodeURIComponent(moreData.title));
         this.createTab(newUrl)
     },
     createTab: function(url) {
@@ -475,10 +474,9 @@ function Toolbar(options) {
                 var style = options.whiteIcons && 'padding: 4px 3px;margin-bottom: 3px;margin-left: 3px;margin-right: 2px;background: #777;float: left;border: none;color: #fff;height: 17px;line-height: 17px;border-radius: 3px;cursor: pointer;box-sizing: content-box;float:left;' || "float:left";
                 html = $('<div style="' + style +
                 '"><div style=display:none;font-size:10px;font-family:arial;text-align:center>' + this.name + '</div><img class=tb_button plugin-key="' + this.key + '"src=' + toolbar.icon_base + (this.key + '.png') + ' ></div>')
-                options.button_size = 15
+                //options.button_size = 15
             }
             index++;
-
             $('img,div', html).attr('width', options.button_size + 'px')
             $('img,div', html).attr('height', options.button_size + 'px')
             $('img,div', html).css({
@@ -626,7 +624,7 @@ function Toolbar(options) {
             lines: 1,
             min_buttons_num: 2,
             zIndex: 20000,
-            button_size: 20
+            button_size: 15
         }, options)
         for (var x in options) {
             this[x] = options[x]
