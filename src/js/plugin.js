@@ -472,7 +472,7 @@ function Toolbar(options) {
             if (options.theme) {
                 html = $('<div class="tb_button" plugin-key="' + this.key + '"><img src=' + toolbar.icon_base + (this.key + '.png') + ' ></div>')
             } else {
-                var style = options.whiteIcons && 'padding: 4px 3px;margin-bottom: 3px;margin-left: 3px;margin-right: 2px;background: #777;float: left;border: none;color: #fff;height: 17px;line-height: 17px;border-radius: 3px;cursor: pointer;box-sizing: content-box;' || "float:left";
+                var style = options.whiteIcons && 'padding: 4px 3px;margin-bottom: 3px;margin-left: 3px;margin-right: 2px;background: #777;float: left;border: none;color: #fff;height: 17px;line-height: 17px;border-radius: 3px;cursor: pointer;box-sizing: content-box;float:left;' || "float:left";
                 html = $('<div style="' + style +
                 '"><div style=display:none;font-size:10px;font-family:arial;text-align:center>' + this.name + '</div><img class=tb_button plugin-key="' + this.key + '"src=' + toolbar.icon_base + (this.key + '.png') + ' ></div>')
                 options.button_size = 15
@@ -488,8 +488,9 @@ function Toolbar(options) {
                 'border-left': 'none',
                 'border-bottom': 'none',
                 'box-sizing': 'content-box',
-                'padding': options.whiteIcons ? '0' : '5px'
-            })
+                'padding': options.whiteIcons ? '0' : '5px',
+                'float': 'left'
+            });
             html.attr('title', this.name)
             var plugin = this;
             plugin.$ = html;
@@ -555,7 +556,7 @@ function Toolbar(options) {
         //Enlarge Button
         if (options.enlargable) {
             $rightButton = $('<div style=cursor:pointer;float:left><img style="margin:-5px"  src=' + toolbar.icon_base + 'right.png' + '></div>')
-            $leftButton = $('<div style=cursor:pointer;float:left><img style="width:15px; height:15px;padding: 5px; box-sizing: content-box;" src=' + toolbar.icon_base + 'left.png' + '></div>')
+            $leftButton = $('<div style=cursor:pointer;float:left><img style="width:15px; height:15px;padding: 5px; box-sizing: content-box;float: left" src=' + toolbar.icon_base + 'left.png' + '></div>')
             $toolbar.append($rightButton).append($leftButton);
             updateMinMax();
             $rightButton.add($leftButton).find('img')
