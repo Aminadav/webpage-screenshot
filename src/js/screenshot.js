@@ -24,17 +24,11 @@ var screenshot = {
     chrome.tabs.create( {url:chrome.extension.getURL('/editor.html#capture')})
   },
 
-  captureRegion:function(){
+  captureRegion:function() {
     screenshot.tryGetUrl(function () {
-      var code=$.ajax({async:false,url: chrome.extension.getURL('libs/jquery.js')}).responseText +';'
-      code+=$.ajax({async:false,url: chrome.extension.getURL('libs/cropper.js')}).responseText  +';'
-      code+=$.ajax({async:false,url: chrome.extension.getURL('js/pluginsBuiltIn.js')}).responseText  +';'
-      code+=$.ajax({async:false,url: chrome.extension.getURL('js/plugin.js')}).responseText  +';'
-      code+=';load_cropper_without_selection();'
-      chrome.tabs.executeScript(screenshot.thisTabId,{code:code})
-      })
-    }
-  ,
+      chrome.tabs.executeScript(screenshot.thisTabId, {code:'load_cropper_without_selection()'})
+    });
+  },
   editContent: function () {
     screenshot.tryGetUrl(function () {
       chrome.tabs.executeScript(screenshot.thisTabId, {allFrames: true, code: 'document.designMode="on"'}, function () {
@@ -52,7 +46,6 @@ var screenshot = {
   webcam: null,
   apppick: null,
   screenShotParams: null,
-  isWithScroll: false, isWithoutScroll: false,
   screens: [],
   lastImg: '',
   thisTabId: '',
@@ -101,8 +94,6 @@ var screenshot = {
 
   startWithoutScroll: function (e) {
     localStorage['captureWithoutScroll']++;
-    screenshot.isWithoutScroll = true;
-    screenshot.isWithScroll = false;
     screenshot.load(screenshot.startWithoutScroll_continue);
   },
   startWithoutScroll_continue: function () {
@@ -110,8 +101,6 @@ var screenshot = {
   },
   startWithScroll: function () {
     localStorage['captureWithScroll']++;
-    screenshot.isWithScroll = true;
-    screenshot.isWithoutScroll = false;
     screenshot.load(screenshot.startWithScroll_continue);
 
   },

@@ -63,7 +63,6 @@
         "/images/save.png",
         "/images/copy-text.png",
         "/images/link-go.png",
-        "/libs/gapi.js",
 
         "/images/fast.png",
         "/images/pitch.png",
@@ -71,6 +70,7 @@
         "/css/pagestyles.css",
         "/css/dialog.css",
 
+        "/libs/gapi.js",
         "/libs/jquery.js",
         "/js/dialog.js"
     ],

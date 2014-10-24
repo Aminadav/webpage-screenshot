@@ -141,9 +141,9 @@ var defaultPlugins = [
 						'<a href="' + shareUrl + '" class="link-go" target="_blank">Go</a>' +
 						'<br/> ' +
 						'<textarea autoselect class="input-block"><a href="' +
-						shareUrl + '">' + shareUrl +
+						shareUrl + '">' + scope.page_title.replace(/[\"&<>]/g, function (a) { return chr[a]; }) +
 						'</a></textarea>',
-						title: 'Screenshot is ready to be shared online. Go ahead, share it!',
+						title: 'Screenshot is in your clipboard. Go ahead, share it!',
 						ui: 'dialog'
 					});
 					x.show();

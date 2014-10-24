@@ -80,115 +80,19 @@ var plugins_sb = [{
         key: 'crop',
         onclick: function() {
             var plugins_to_show;
-            $('html').css('position','inherit');
-            if (window.getSelection().rangeCount == 0) return;
-            rect = window.getSelection().getRangeAt(0).getBoundingClientRect();
-            window.getSelection().empty()
-            window.crop = {}
-            window.crop.x1 = rect.left + document.body.scrollLeft
-            window.crop.y1 = rect.top + document.body.scrollTop
-            window.crop.x2 = rect.width + window.crop.x1
-            window.crop.y2 = rect.height + window.crop.y1
-            var $toolbar = $('<div class=ws-styles><table style="border: 0;"><tr style="border: 0;vertical-align: middle"><td style="border: 0;vertical-align: middle"><button class="open msg" style="margin:1px;color:black;background-color:white;cursor:pointer;font-size:1em;border: 1px solid #999; border-radius: 4px;padding: 3px 9px;" tag=open></button>' +
-                '<button class="save msg" style="margin:1px;color:black;background-color:white;cursor:pointer;font-size:1em;border: 1px solid #999; border-radius: 4px;padding: 3px 9px;" tag=save></button>' +
-                '<button class="share msg" tag=share style="margin:1px;color:black;background-color:white;cursor:pointer;font-size:1em;border: 1px solid #999; border-radius: 4px;padding: 3px 9px;"></button></td><td style="border: 0;vertical-align: middle"><div class=realToolbar></div></td></tr></table></div>')
-
-
-            jQuery('.msg', $toolbar).each(function() {
-                jQuery(this).html(chrome.i18n.getMessage(jQuery(this).attr('tag')));
-            });
-            var $realToolbar = $('.realToolbar', $toolbar)
-
-
-            window.crop.icons = $toolbar;
-            plugins_to_show = defaultPlugins.slice();
-            plugins_to_show = $.grep(plugins_to_show, function(o) {
-                return (
-                    // o.key!='webpagescreenshot' &&
-                    o.key != 'googledrive'
-                )
-            })
-            $('button.open', $toolbar).on('click', function() {
-                removeClip();
-                chrome.runtime.sendMessage({
-                    data: 'captureAll',
-                    type: 'scroll',
-                    cropData: {
-                        x1: x1,
-                        x2: x2,
-                        y1: y1,
-                        y2: y2,
-                        scrollTop: document.body.scrollTop,
-                        scrollLeft: document.body.scrollLeft
-                    }
-                })
-            })
-            $('button.save', $toolbar).on('click', function() {
-                $('[plugin-key=save]').trigger($.Event({
-                    type: 'click'
-                }))
-            })
-
-            // $('button.open',$toolbar).on('click',function (){
-            // 	$('[plugin-key=open]').trigger($.Event({type:'click'}))
-            // })			
-
-            $('button.share', $toolbar).on('click', function() {
-                $('[plugin-key=uploady]').trigger($.Event({
-                    type: 'click'
-                }));
-            });
-
-            plugins_to_show.unshift({
-                name: 'annotate',
-                key: 'webpagescreenshot',
-                dataType: 'image',
-                iconAspectRatio: 2,
-                onclick: function(scope) {
-                    window.open(chrome.extension.getURL('editor.html') + '#last', '_blank')
-                }
-            });
-
-            var staticPlugin = new Toolbar({
-                'plugins': plugins_to_show,
-                'element': $realToolbar,
-                'namespace': 'imageToolbar',
-                'button_size': '20',
-                'lines': 2,
-                page_title: $('title').html() || 'no title',
-                page_description: 'no description',
-                page_url: location.href,
-                'icon_base': chrome.extension ? chrome.extension.getURL('/images/') : '../images/',
-                whiteIcons: true,
-                'position': 'static',
-                'type': 'image',
-                'zIndex': 11000,
-                request: function(callback) {
-                    removeClip();
-                    chrome.runtime.sendMessage({
-                        data: 'captureVisible',
-                        runCallback: true,
-                        keepIt: true,
-                        noScroll: true,
-                        //type: 'scroll',
-                        cropData: {
-                            x1: x1,
-                            x2: x2,
-                            y1: y1,
-                            y2: y2,
-                            scrollTop: document.body.scrollTop,
-                            scrollLeft: document.body.scrollLeft
-                        }
-                    }, function(x) {
-                        callback(x);
-                    })
-                }
-            })
-            showCropOverFlow()
+            if (window.getSelection().rangeCount == 0) {
+                return;
+            }
+            var rect = window.getSelection().getRangeAt(0).getBoundingClientRect();
+            window.getSelection().empty();
+            var crop = {};
+            crop.x1 = rect.left + document.body.scrollLeft;
+            crop.y1 = rect.top + document.body.scrollTop;
+            crop.x2 = rect.width + crop.x1;
+            crop.y2 = rect.height + crop.y1;
+            load_cropper_without_selection(crop);
         }
-    }
-
-    ,
+    },
 
     {
         name: 'Translate',

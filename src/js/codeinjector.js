@@ -84,17 +84,19 @@ var codeinjector = {
       return codeinjector.cache;
     }
     var js = [
-      "libs/jquery.js", "js/common.js", "js/intab.js"
+      "libs/jquery.js",
+      "js/common.js",
+      "libs/cropper.js",
+      "js/pluginsBuiltIn.js",
+      "js/pluginLib.js",
+      "js/plugin.js",
+      "js/intab.js"
     ];
     if (isSb) {
       js.push(
-        "libs/Cropper.js"
-        ,"libs/Rangy.js"
-        ,"js/sb.js"
-        ,"js/pluginLib.js"
-        ,"js/plugin.js"
-        ,"js/pluginsBuiltIn.js"
-        ,"js/plugins_sb.js"
+        "libs/rangy.js",
+        "js/sb.js",
+        "js/plugins_sb.js"
       );
     }
 
@@ -103,7 +105,8 @@ var codeinjector = {
     code += 'var data = ' + JSON.stringify({
       version: extension.version,
       special_shortcut_full: localStorage['shortcut_full'],
-      special_shortcut_visible: localStorage['shortcut_visible']
+      special_shortcut_visible: localStorage['shortcut_visible'],
+      special_shortcut_region: localStorage['shortcut_region']
     }) + ';';
 
     if (settings.dev) {

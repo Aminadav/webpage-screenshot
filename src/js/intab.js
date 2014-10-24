@@ -218,9 +218,9 @@ var cropData;
         }
         if (mess.start) {
           page.setVars(cropData);
-          page.enableScrollbar(false);
           page.hideSb();
           if (!mess.noScroll) {
+            page.enableScrollbar(false);
             page.enableFixedPosition(false, cropData);
           }
           try {
@@ -268,6 +268,12 @@ var cropData;
       if (e.altKey && e.keyCode == data.special_shortcut_full) {
         chrome.runtime.sendMessage({
           data: 'captureAll'
+        });
+        return false;
+      }
+      if (e.altKey && e.keyCode == data.special_shortcut_region) {
+        chrome.runtime.sendMessage({
+          data: 'captureRegion'
         });
         return false;
       }

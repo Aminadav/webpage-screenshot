@@ -1,21 +1,28 @@
 
-var cropperLoaded=false,
-loadCropper=function(){
-		// loadjQuery();
-		if(cropperLoaded) return;
+var cropperLoaded=false;
+var removeClip;
+var cropperLoadTime = Date.now();
+var cropperOpen = false;
+function loadCropper () {
+		if (cropperLoaded) {
+			return;
+		}
 		cropperLoaded=true;
 
-		removeClip=function() {
-			// objects_show();
-			if(window.crop)
-				if(window.crop.icons){
-				window.crop.icons.detach();
-				$('#crop_helper').add('.crop_handle').remove();
-				$(document).off('.removeCrop');
+		removeClip = function() {
+			if (window.crop && window.crop.icons && Date.now() - cropperLoadTime > 1000 ) {
+				removeClipInstant();
+				cropperOpen = false;
 			}
+		};
+		function removeClipInstant() {
+			window.crop.icons.detach();
+			$('#crop_helper').add('.crop_handle').remove();
+			$(document).off('.removeCrop');
 		}
 
 		showCropOverFlow=function() {
+			removeClipInstant();
 			var minWidth = 60
 			var minHeight = minWidth
 			if (window.crop.y2 - window.crop.y1 < minHeight) window.crop.y2 = window.crop.y1 + minHeight
@@ -31,7 +38,7 @@ loadCropper=function(){
 			x2 = window.crop.x2
 			y1 = window.crop.y1
 			y2 = window.crop.y2
-			removeClip()
+
 			// objects_hide();
 			if (x1 < x2) {
 				rx1 = x1;
@@ -198,9 +205,8 @@ loadCropper=function(){
 				}).appendTo( $('#crop_helper') );
 		}
 		$(document).on('keyup', function(e) {
-			//if (e.keyCode == 27)
 			removeClip()
-		})
+		});
 		$(document).on('click', 'div[id*=crop_helper_]', function() {
 			removeClip()
 		})
@@ -291,107 +297,105 @@ loadCropper=function(){
 			})
 			e.stopPropagation();
 			return false
-		})
+		});
+}
 
-};
 
-
-function load_cropper_without_selection() {
+function load_cropper_without_selection(rect) {
 	loadCropper();
-	window.crop = {x1:document.body.scrollLeft+300,x2:document.body.scrollLeft+600,y1:document.body.scrollTop+300,y2:document.body.scrollTop+600}
-	var $toolbar = $('<div class=ws-styles><table border=0><tr><td valign=top><button class="open msg" style="margin:1px;color:black;background-color:white;cursor:pointer;vertical-align:top;font-size:1em;padding:2px;border:2px outset" tag=open></button>' +
-	    '<button class="save msg" style="margin:1px;color:black;background-color:white;cursor:pointer;vertical-align:top;font-size:1em;padding:2px;border:2px outset" tag=save></button>' +
-	    '<button class="share msg" tag=share style="margin:1px;color:black;background-color:white;cursor:pointer;vertical-align:top;font-size:1em;padding:2px;border:2px outset"></button></td><td valign=top><div style=isplay:none; class=realToolbar></div></td></tr></table></div>')
+	if (cropperOpen) {
+		return ;
+	}
+	removeClip();
+	cropperOpen = true;
+	cropperLoadTime = Date.now();
+	window.crop = rect || {
+		x1:document.body.scrollLeft+300,
+		x2:document.body.scrollLeft+600,
+		y1:document.body.scrollTop+300,
+		y2:document.body.scrollTop+600
+	};
 
+	$('html').css('position','inherit');
+	var $toolbar = $('<div class=ws-styles><table style="border: 0;"><tr style="border: 0;vertical-align: middle"><td style="border: 0;vertical-align: middle"><button class="open msg" style="margin:1px;color:black;background-color:white;cursor:pointer;font-size:1em;border: 1px solid #999; border-radius: 4px;padding: 3px 9px;" tag=open></button>' +
+	'<button class="save msg" style="margin:1px;color:black;background-color:white;cursor:pointer;font-size:1em;border: 1px solid #999; border-radius: 4px;padding: 3px 9px;" tag=save></button>' +
+	'<button class="share msg" tag=share style="margin:1px;color:black;background-color:white;cursor:pointer;font-size:1em;border: 1px solid #999; border-radius: 4px;padding: 3px 9px;"></button></td><td style="border: 0;vertical-align: middle"><div class=realToolbar></div></td></tr></table></div>');
 
 	jQuery('.msg', $toolbar).each(function() {
-	    jQuery(this).html(chrome.i18n.getMessage(jQuery(this).attr('tag')));
+		jQuery(this).html(chrome.i18n.getMessage(jQuery(this).attr('tag')));
 	});
-	var $realToolbar = $('.realToolbar', $toolbar)
+	var $realToolbar = $('.realToolbar', $toolbar);
 
 	window.crop.icons = $toolbar;
 	plugins_to_show = defaultPlugins.slice();
 	plugins_to_show = $.grep(plugins_to_show, function(o) {
-	    return (
-	        // o.key!='webpagescreenshot' &&
-	        o.key != 'googledrive'
-	    )
+		return (
+			// o.key!='webpagescreenshot' &&
+		o.key != 'googledrive'
+		)
 	})
 	$('button.open', $toolbar).on('click', function() {
-	    removeClip();
-	    // console.log('you asked for text');
-	    chrome.runtime.sendMessage({
-	        data: 'captureAll',
-	        type: 'scroll',
-	        cropData: {
-	            x1: x1,
-	            x2: x2,
-	            y1: y1,
-	            y2: y2,
-	            scrollTop: document.body.scrollTop,
-	            scrollLeft: document.body.scrollLeft
-	        }
-	    })
-	})
+		removeClip();
+		chrome.runtime.sendMessage({
+			data: 'captureVisible',
+			cropData: {
+				x1: x1,
+				x2: x2,
+				y1: y1,
+				y2: y2,
+				scrollTop: document.body.scrollTop,
+				scrollLeft: document.body.scrollLeft
+			}
+		})
+	});
 	$('button.save', $toolbar).on('click', function() {
-	    $('[plugin-key=save]').trigger($.Event({
-	        type: 'click'
-	    }))
-	})
+		$('[plugin-key=save]').trigger($.Event({
+			type: 'click'
+		}))
+	});
 
 	// $('button.open',$toolbar).on('click',function (){
 	// 	$('[plugin-key=open]').trigger($.Event({type:'click'}))
-	// })			
+	// })
 
 	$('button.share', $toolbar).on('click', function() {
-	    $('[plugin-key=webpagescreenshot]').trigger($.Event({
-	        type: 'click'
-	    }))
-	})
-
-	plugins_to_show.unshift({
-	    name: 'annotate',
-	    key: 'webpagescreenshot',
-	    dataType: 'image',
-	    iconAspectRatio: 2,
-	    onclick: function(scope) {
-	        window.open(chrome.extension.getURL('editor.html') + '#last', '_blank')
-	    }
-	})
+		$('[plugin-key=uploady]').trigger($.Event({
+			type: 'click'
+		}));
+	});
 
 	var staticPlugin = new Toolbar({
-	    'plugins': plugins_to_show,
-	    'element': $realToolbar,
-	    'namespace': 'imageToolbar',
-	    'button_size': '24',
-	    'lines': 2,
-	    page_title: $('title').html() || 'no title',
-	    page_description: 'no description',
-	    page_url: location.href,
-	    'icon_base': chrome.extension ? chrome.extension.getURL('/images/') : '/images/',
-	    'position': 'static',
-	    'type': 'image',
-	    'zIndex': 11000,
-	    request: function(callback) {
-	        removeClip();
-	        chrome.runtime.sendMessage({
-	            data: 'captureAll',
-	            runCallback: true,
-	            keepIt: true,
-	            type: 'scroll',
-	            cropData: {
-	                x1: x1,
-	                x2: x2,
-	                y1: y1,
-	                y2: y2,
-	                scrollTop: document.body.scrollTop,
-	                scrollLeft: document.body.scrollLeft
-	            }
-	        }, function(x) {
-	            callback(x);
-	        })
-	    }
-	})
-	$('div',$realToolbar).first().css('background-color','#777');
-	showCropOverFlow()
+		'plugins': plugins_to_show,
+		'element': $realToolbar,
+		'namespace': 'imageToolbar',
+		'button_size': '20',
+		'lines': 2,
+		page_title: $('title').html() || 'no title',
+		page_description: 'no description',
+		page_url: location.href,
+		'icon_base': chrome.extension ? chrome.extension.getURL('/images/') : '../images/',
+		whiteIcons: true,
+		'position': 'static',
+		'type': 'image',
+		'zIndex': 11000,
+		request: function(callback) {
+			removeClip();
+			chrome.runtime.sendMessage({
+				data: 'captureVisible',
+				runCallback: true,
+				keepIt: true,
+				cropData: {
+					x1: x1,
+					x2: x2,
+					y1: y1,
+					y2: y2,
+					scrollTop: document.body.scrollTop,
+					scrollLeft: document.body.scrollLeft
+				}
+			}, function(x) {
+				callback(x);
+			})
+		}
+	});
+	showCropOverFlow();
 }

@@ -12,6 +12,7 @@ var api = {
       delay: 0,
       shortcut_full: 90,
       shortcut_visible: 88,
+      shortcut_region: 82,
       enableshortcuts: 'yes',
       created: new Date,
       captureWithScroll: 0,
