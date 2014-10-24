@@ -39,8 +39,6 @@ function extStorageUpdate() {
         extStorage = data;
         if (isEnableSelectionBar()) {
             sb_start_selectionBar();
-        } else {
-            sb_pause_selectionBar();
         }
         if (isEnableToolbar()) {
             sb_start_toolbar();
@@ -141,9 +139,13 @@ func_sbMouseDown = function(se) {
             numOfWords = text.replace(/\t|\n|\r|\-/g, ' ').replace(/ {2,100}/g, ' ').trim().split(' ').length;
 
             if (topToolbar.active) {
-                topToolbar.active.run(text, ee)
-                return
+                topToolbar.active.run(text, ee);
+                return ;
             }
+            if (!isEnableSelectionBar()) {
+                return ;
+            }
+
 
             plugins_to_show = plugins_sb.slice()
 
@@ -335,7 +337,7 @@ else
 
 var topToolbar={};
 
-function sb_start_selectionBar(){
+function sb_start_selectionBar() {
     sb_pause_selectionBar();
     document.addEventListener('mousedown', func_sbMouseDown);
     document.addEventListener('keydown', func_sbKeyDown);
@@ -349,6 +351,7 @@ function sb_start_toolbar() {
     loadjQuery();
     loadRangy();
     loadCropper();
+    sb_start_selectionBar();
     $(function() {
         plugins_to_show = plugins_sb.slice();
         var $toolbar = $('<div class=ws_toolbar_top></div>').prependTo(document.body);
