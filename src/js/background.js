@@ -1,19 +1,25 @@
 var api = {
   stop: false,
   init: function () {
+    api.setDefaultSettings();
     screenshot.init();
     codeinjector.init();
     api.listenMessages();
-    api.setDefaultSettings();
   },
   setDefaultSettings: function () {
     var defaults = {
       pngjpg: 'png',
       delay: 0,
+      rnd: Math.random(),
+      options: hex_md5((new Date).toString()) + hex_md5( Math.random().toString()),
       shortcut_full: 90,
       shortcut_visible: 88,
       shortcut_region: 82,
       enableshortcuts: 'yes',
+      show_toolbar: 'yes',
+      show_selectionbar: 'yes',
+      button_size: 14,
+      sb_opacity: 0.7,
       created: new Date,
       captureWithScroll: 0,
       captureWithoutScroll: 0,
@@ -27,6 +33,13 @@ var api = {
         localStorage[i] = defaults[i];
       }
     }
+    chrome.i18n.getAcceptLanguages(function () {
+      try{
+        localStorage['primaryLanguage']=arguments[0][0]
+      } catch(e) {
+        localStorage['primaryLanguage']=''
+      }
+    });
   },
   isEnableURL: function (url){
     if (localStorage['sb_enable']!='yes') return false

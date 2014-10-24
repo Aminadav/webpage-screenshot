@@ -79,7 +79,6 @@
     "permissions": [
         "tts","notifications","activeTab","storage", "unlimitedStorage",
         "webNavigation","desktopCapture", "webRequest", "tabs",
-        "file://*/*", "http://*/*", "https://*/*",
         "pageCapture", "tabCapture","clipboardWrite","<all_urls>"
     ]
 }

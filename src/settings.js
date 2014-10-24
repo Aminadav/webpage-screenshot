@@ -5,6 +5,6 @@ var settings = {
   showMissingTranslations: false,
   permissions: {
     permissions: ["desktopCapture", "web" + "Navigation", "web" + "Request", "tabs", "pageCapture", "clipboardWrite"],
-    origins: ["http://*/*", "https://*/*", "file://*/*","<all_urls>"]
+    origins: ["<all_urls>"]
   }
 };
