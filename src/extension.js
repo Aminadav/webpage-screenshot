@@ -27,8 +27,6 @@ var extension={
 	load : function ()
 		{
 		try{extension.dir=chrome.i18n.getMessage('dir');} catch (e) {extension.dir='ltr';extension.online=false}
-		if(window.jQuery)
-			{
 			if (extension.online)
 				{
 				extension.manifest=JSON.parse( jQuery.ajax( {url:'manifest.json',async:false }).responseText);
@@ -38,41 +36,10 @@ var extension={
 				jQuery('.msg').each(function () {jQuery(this).html(chrome.i18n.getMessage(jQuery(this).attr('tag'))); });
 				jQuery('.ver').each(function () {jQuery(this).html(extension.manifest.version); });
 				jQuery(document.body).attr('dir', extension.dir) ;
-				var prom=[];
-				prom.push({
-					title:'Server Ping',
-					href:'https://chrome.google.com/webstore/detail/kkhikhabhkibcmceifbkcddldcbachpn',
-					img:'https://chrome.google.com/webstore/img/kkhikhabhkibcmceifbkcddldcbachpn/1291646755.31/thumb72?itemtype=app'
-					});
-				prom.push({
-					title:'Hash',
-					href:'https://chrome.google.com/webstore/detail/dhakammohmlhhhbcmjhcngkkpjbnakih',
-					img:'https://chrome.google.com/webstore/img/dhakammohmlhhhbcmjhcngkkpjbnakih/1287601891.05/thumb72?itemtype=app'
-					});
-				prom.push({
-					title:'DNS Lookup',
-					href:'https://chrome.google.com/webstore/detail/odhajmgdndjhboghafonbfafhklgjgnc',
-					img:'https://chrome.google.com/webstore/img/odhajmgdndjhboghafonbfafhklgjgnc/1291644139.45/thumb72?itemtype=app'
-					});
-				prom.push({
-					title:'Send Anonymous Email',
-					href:'https://chrome.google.com/webstore/detail/hmhilnpniljpeembobdnlmdmcmllbhll',
-					img:'https://chrome.google.com/webstore/img/hmhilnpniljpeembobdnlmdmcmllbhll/1291635877.15/thumb72?itemtype=app'
-					});
-				jQuery(".prom").each(function(){
-					var i=Math.round( Math.random()* (prom.length-1))
-					$(this).html(
-						'Try: <a class=pophref href="' + prom[i].href + '"><img valign=middle width=22px src="' + prom[i].img + '">' + prom[i].title + '</a>'
-						);
-					})
 				jQuery('a.pophref').on('click',document.body,function () {window.open(this.href,'_new')})
+
 				});
 				}
-			}
-		else
-			{
-			console.log('extension.js cannot work without jQuery');
-			}
 		}
 	}
 
@@ -130,3 +97,14 @@ if(!chrome.i18n) testi18()
 
 extension.load();
 
+
+
+if (!chrome.runtime.getManifest().name.match(/bar/gi)) {
+    isWs = true;
+    isSb = false;
+    is = 'ws';
+} else {
+    isWs = false;
+    isSb = true;
+    is = 'sb';
+}

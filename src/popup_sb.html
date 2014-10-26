@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Website Screenshot</title>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet'
+        type='text/css'>
+  <link href="css/style.css" rel="stylesheet"/>
+  <script type="text/javascript" src="libs/jquery.js"></script>
+  <script type="text/javascript" src="js/analytics.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <script type="text/javascript" src="settings.js"></script>
+  <script type="text/javascript" src="extension.js"></script>
+  <script type="text/javascript" src="js/permissions.js"></script>
+  <script type="text/javascript" src="js/translate.js"></script>
+  <script type="text/javascript" src="js/popup.js"></script>
+</head>
+<body class="popup-box">
+<div id="working" style="display: none"></div>
+<div class="window_header">
+  <h2><a href="http://www.webpagescreenshot.info" target="_blank">Webpage Screenshot</a></h2>
+
+  <p><a href="http://www.webpagescreenshot.info" target="_blank">www.webpagescreenshot.info</a></p>
+</div>
+<div class="window_nav">
+  <ul>
+    <li class="plain">
+      <label><input type=checkbox class=show_toolbar> Show toolbar</label>
+    </li>
+    <li class="plain show_toolbar_on_this_domain">
+      <label><input type=checkbox class="show_toolbar_on_this_domain"> Show toolbar on this domain</label>
+    </li>
+    <li class="plain">
+      <label><input type=checkbox class=show_selectionbar> Show SelectionBar</label>
+    </li>
+    <li class="plain show_selectionbar_on_this_domain">
+      <label><input type=checkbox class=show_selectionbar_on_this_domain> Show SelectionBar on this domain</label>
+    </li>
+    <li class="plain">
+      Icon size:
+      <select id="button_size">
+        <option value=14>Small</option>
+        <option value=18>Medium</option>
+        <option value=24>Large</option>
+      </select>
+    </li>
+    <li class="plain">
+      SelectionBar Opacity:
+      <select id="sb_opacity">
+        <option value=1>100%</option>
+        <option value=0.7>70%</option>
+        <option value=0.3>30%</option>
+      </select>
+   </li>
+  </ul>
+</div>
+<div class="window_translate" style="display: none">
+  Translate to:
+</div>
+<div class="window_footer">
+  <div class="window_footer_left">
+    <a href="http://www.webpagescreenshot.info" target="_blank">Visit web site</a>
+    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SXRJ4W4DGLTW4" target="_blank" tr="donate">Donate</a>
+    <a href="http://code.google.com/p/webpageextension/issues/entry" target="_blank" tr="filebug">Report bug</a>
+    <br/>
+    <span class="muted">
+      Version: <span class="ver"></span> |
+      <a href="http://www.webpagescreenshot.info/?t=changelog" target="_blank">change log (01/09/2014)</a>
+    </span>
+  </div>
+  <div class="window_footer_btns">
+    <a href="https://chrome.google.com/webstore/detail/webpage-screenshot-captur/ckibcdccnfeookdmbahgiakhnjcddpki/reviews" class="btn rate" target="_blank"><span tr="rate5star">Rate 5 star</span></a>
+    <a href="options.html" target="_blank" class="btn settings">
+      <span tr="settings">Settings</span>
+    </a>
+  </div>
+</div>
+</body>
+</html>

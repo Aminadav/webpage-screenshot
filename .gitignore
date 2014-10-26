@@ -1,8 +1,14 @@
 # Editors
 .idea
+subilme.*
+
+# manifest
+src/manifest.json
 
 # Node
 node_modules
+
+
 
 # Windows image file caches
 Thumbs.db

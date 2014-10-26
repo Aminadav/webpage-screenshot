@@ -1,16 +1,10 @@
-
-	// chrome.i18n={
-	// 	getMessage:function(ina){
-	// 		return 'm(' + ina + ')';
-	// 	}}
-
+_gaq.push(['_trackPageview']);
 
 String.prototype.twoDigits=function () {return this.replace(/^(.)$/,'0$1')}
 var canvasToDataURL;
-if (extension.online)
-	{
-	background=chrome.extension.getBackgroundPage().background;
-	}
+if (extension.online) {
+	var screenshot = chrome.extension.getBackgroundPage().screenshot;
+}
 var shadowDistance=5;
 var imageURL,imageId;
 if (!localStorage['lastTool']) localStorage['lastTool']='crop';
@@ -253,7 +247,7 @@ function editor_obj()
 					url=URL.createObjectURL(x)
 
 				var filename;
-				filename=background.title || background.url;
+				filename=screenshot.title || screenshot.url;
 				filename=filename.replace(/[%&\(\)\\\/\:\*\?\"\<\>\|\/\]]/g,' ');
 				// filename+='-' + (new Date).getHours().toString().twoDigits() + (new Date).getMinutes().toString().twoDigits() + (new Date).getSeconds().toString().twoDigits()
 				filename+=localStorage['pngjpg']=='png' ? '.png' : '.jpg';
@@ -325,7 +319,7 @@ function editor_obj()
 
 	this.reloadCanvas=function()
 		{
-		if(background.url) $('title').html(background.url);
+		if(screenshot.url) $('title').html(screenshot.url);
 		//document.getElementById('divCanvasData').appendChild(canvasData);
 		clipReload();
 		onResize();
@@ -342,84 +336,93 @@ function editor_obj()
 			mode: "hover",
 			showSpeed: 300,
 			hideSpeed: 300,
-			buttonSize: 28,
+			buttonSize: 26,
 			initColor:localStorage['color'] || '#FF0000',
 			onSelect:function (a) {
-				localStorage['color']=a
-				console.log(a);
-				theColor=a
+				localStorage['color']=a;
+				theColor=a;
 			}
 		}).on('mousedown',function (e) {e.stopPropagation(); return false});;
 
 		//Dragable and deleteable
 		(function(){
-		var myClose;
 		var notRemove=false;
 		var myInt;
 		var	$this;
-		removeFunction=function ()
-					{
-					myClose.remove();
-					$this.removeClass('moshe')
-					}
-		$('#divCanvasData').on('mousemove',function (e){
-			if(tool.status!='ready' && tool.current!='text') return;
-			for (var j=2;j<$('canvas').length;j++){
-				cc=$('canvas').eq(j);
+		$('#divCanvasData').on('mousemove',function (e) {
+			if(tool.status!='ready' && tool.current!='text') {
+        return;
+      }
+
+      var pos = $('#divCanvasData').position();
+      $('canvas').each(function (key, canvas) {
+        if (key < 2) {
+          return ;
+        }
+				var cc=$(canvas);
 				gc=cc[0].getContext('2d');
-				x=e.pageX  - $('#divCanvasData').position().left - cc.position().left+clip.rx1;
-				y=e.pageY  - $('#divCanvasData').position().top - cc.position().top+clip.ry1;
-				doIt=false
-				if (x>0 && y>0)	{
+				x=e.offsetX + e.target.offsetLeft - cc.position().left+clip.rx1;
+				y=e.offsetY + e.target.offsetTop - cc.position().top+clip.ry1;
+				var doIt=false;
+
+				if (x>0 && y>0 && x < canvas.width && y < canvas.height && canvas.style.display != "none")	{
 					id=gc.getImageData(x,y,1,1).data;
 					doIt=0
 					for(var i=0;i<4;i++){
 						if (id[i]!=0){
-							doIt=true
+							doIt=true;
 						}
 					}
 				}
-				if (doIt){
-					$('.myClose').remove();
-					$('canvas').css({border:'none'})
-//					window.clearTimeout(cc.data('myInt'));
-					cc.css({border:'2px dahed gray'})
-					tcc=cc;
-					myClose=$('<div class=myClose style=background-color:red;position:absolute;cursor:pointer>X</div>').css({
-						left:cc.position().left+cc.width()-10-clip.rx1 +  $('#divCanvasData').scrollLeft()
-						,top:cc.position().top-clip.ry1+  $('#divCanvasData').scrollTop()
-						,zIndex:1000
-					})
-					myClose.appendTo('#divCanvasData').click(function (e){
-						e.stopImmediatePropagation()
-						tcc.add(tcc.data('img')).fadeOut();
-						$('.myClose').remove();
-						}).mousedown(function (e){
-						e.stopImmediatePropagation()
-						newLevel();
-						currentLevel.type='delete';
-						currentLevel.item=tcc
-						tcc.data('deleted',true)
-						tcc.data('level').hide=true
-						})
+				if (!doIt) {
+          return ;
+        }
+        cc.css({border:'2px dahed gray'});
+        var tcc=cc;
 
-					if (myClose.position().left>clip.rx2-clip.rx1) myClose.css('left', clip.rx2-clip.rx1-30)
-					if (myClose.position().top<0) myClose.css('top', 0)
-					cc.data('myClose',myClose);
-					window.clearTimeout(cc.data('myInt'))
-					a=setTimeout(function(){
-						tcc.css({border:'none'})
-						$('.myClose').remove();
-					},3000)
-					cc.data('myInt',a)
-					}
-				else {
-//					console.log(cc.data('myInt'));
-				}
 
-			}
 
-		})
+        var closeFn = cc.data('close') || function() {
+          tcc.css({border:'none'});
+          cc.data('myClose').remove();
+          cc.data('myClose', false);
+          cc.data('close', false);
+        };
+        clearTimeout(cc.data('time'));
+        var a = setTimeout(closeFn, 3000);
+        cc.data('close', closeFn);
+        cc.data('time', a);
+        if (cc.data('myClose')) {
+          return false;
+        }
+        var $myClose = $('<div class="myClose">&times;</div>').css({
+          left:cc.position().left+cc.width()-10-clip.rx1
+          ,top:cc.position().top-clip.ry1
+          ,zIndex:1000
+        });
+        $myClose = $myClose.appendTo('#divCanvasData').click(function (e){
+          e.stopImmediatePropagation();
+          tcc.add(tcc.data('img')).fadeOut();
+          $myClose.remove();
+        }).mousedown(function (e) {
+          e.stopImmediatePropagation();
+          newLevel();
+          currentLevel.type='delete';
+          currentLevel.item=tcc;
+          tcc.data('deleted', true);
+          tcc.data('level').hide=true
+        });
+
+        if ($myClose.position().left>clip.rx2-clip.rx1) {
+          $myClose.css('left', clip.rx2-clip.rx1-30);
+        }
+        if ($myClose.position().top<0) {
+          $myClose.css('top', 0);
+        }
+        cc.data('myClose', $myClose);
+        return false;
+			});
+		});
 		$('anvas.tool').on('mousemove',
 			function (e) {
 				$this=$(this);
@@ -469,7 +472,7 @@ function editor_obj()
 		$canvasData=$(canvasData);
 		binds();
 		resetButtons();
-		if(background.webcam){
+		if(screenshot.webcam){
 			editor.webcam=true;
 			ctx=$('canvas')[0].getContext('2d')
 			canvas=$('canvas')[0];
@@ -480,11 +483,11 @@ function editor_obj()
 				firstImage=this;
 				ctx.drawImage(this,0,0)
 				editor.reloadCanvas();
-				background.webcam=null;
+        screenshot.webcam=null;
 			}
-			img.src=background.webcam
+			img.src=screenshot.webcam
 		}
-		if(background.apppick){
+		if(screenshot.apppick){
 			editor.apppick=true;
 			ctx=$('canvas')[0].getContext('2d')
 			canvas=$('canvas')[0];
@@ -495,12 +498,12 @@ function editor_obj()
 				firstImage=this;
 				ctx.drawImage(this,0,0)
 				editor.reloadCanvas();
-				background.apppick=null;
+				screenshot.apppick=null;
 			}
-			img.src=background.apppick
+			img.src=screenshot.apppick
 		}
 
-		if(location.hash=='#last')
+		if(location.hash=='#last' && screenshot.canvas)
 		{
 		canvas=$('canvas')[1];
 					img=$('#imgFixForLong')[0];
@@ -515,14 +518,14 @@ function editor_obj()
 						// })
 						editor.reloadCanvas();
 					}
-					img.src=background.canvas.toDataURL()
-					background.callback=null
-					delete background.callback
-					background.canvas.width=background.canvas.height=1
-					background.callback=null
-					background.canvas.remove()
-					background.canvas=null
-					delete background.canvas
+					img.src=screenshot.canvas.toDataURL()
+					screenshot.callback=null
+					delete screenshot.callback
+					screenshot.canvas.width=screenshot.canvas.height=1
+					screenshot.callback=null
+					screenshot.canvas.remove()
+					screenshot.canvas=null
+					delete screenshot.canvas
 		}
 
 		 if(!!window.webkitIntent) {
@@ -576,7 +579,6 @@ function editor_obj()
 			{'background-color':'transparent',
 			padding:0,
 			margin:0,
-			border:'none',
 			border:'none',
 			color:theColor,
 			'font-size':'15pt',
@@ -664,6 +666,11 @@ function editor_obj()
 		};
 	tool.crop.up=function ()
 		{
+			// currentLevel.type='crop';
+		if( ry2-ry1 + rx2-rx1<100) {
+			tool.crop.draw()
+			return
+		}
 		clip.rx1=rx1;
 		clip.rx2=rx2;
 		clip.ry1=ry1;
@@ -1348,20 +1355,25 @@ function editor_obj()
 					$(this).css({'margin':0});
 					});
 			}
-		maxWidth=window.innerWidth-6;
-		maxHeight=window.innerHeight- $('#header').height()- $('#fotter').height()-12;
+		maxWidth=window.innerWidth;
+		maxHeight=window.innerHeight- $('#header').height()- $('#fotter').height();
 
 		$('#header').add('#fotter').width(maxWidth);
 
-		divCanvasData=$('#divCanvasData')
+		divCanvasData=$('#divCanvasData');
+    var height = canvasHeight;
+    if (height > maxHeight) {
+      height = maxHeight;
+    }
 		divCanvasData.css(
 				{
-					top: $('#header').height()+5,
 					left:canvasWidth>maxWidth ? 0 : (maxWidth/2)-(canvasWidth/2) ,
 					width:canvasWidth>maxWidth ? maxWidth : canvasWidth,
-					height:canvasHeight>maxHeight ? maxHeight:canvasHeight,
-					'overflow-x' : canvasWidth<maxWidth ?'hidden' : 'scroll',
-					'overflow-Y' : canvasHeight<maxHeight ?'hidden' : 'scroll'
+					height:height,
+					'overflow-x' : canvasWidth<maxWidth ?'hidden' : 'auto',
+					'overflow-Y' : canvasHeight<maxHeight ?'hidden' : 'auto',
+          'top': '50%',
+          'margin-top': ($('#header').height()/2 - height/2) + 'px'
 				});
 		scrollBarHeight= canvasWidth<maxWidth ? 0 : 16;
 		scrollBarWidth= canvasHeight<maxHeight  ? 0 : 16;
@@ -1408,42 +1420,62 @@ function editor_obj()
 				}
 			else
 				$(this).attr({'src':'images/drawing/' + $(this).attr('tag')+ 'Disable.png'})
-						.css({'cursor':'default'});
+						.css({'cursor':'not-allowed'});
 			});
 
 		}
 	function onScroll()
-		{
+	{
 		scrollLeft=$('#divCanvasData').scrollLeft();
 		scrollTop=$('#divCanvasData').scrollTop();
-		};
+	};
 
 //************Binds****************
 	function binds()
 	{
 
-	$('.donation').mouseenter(function ()
-		{
-		$(this).slideUp()
-		$('.insidedon').slideDown();
-		})
-	$(document.body).bind('mousedown',function(e)
-		{
-		if(e.button==0){
-		dime=pos(e);
-		if (!dime)
-			{
-			stopTool();
-			}
-		if (dime && tool.current=='text') stopTool()
-		if (dime && tool.status=='ready')
-			{
-			tool[tool.current].begin( dime);
-			}
-//		$(document.body).trigger('mousemove');
-		return(false);
-		}
-		});
+	$('.linePickerOverlay hr').click(function(){
+		lineWidth = parseInt(this.style.height);
+		$('.linePickerOverlay').slideUp();
+	});
+	$('.save-to-pdf').click(createPDF)
+	$('#thumbnail').click(createThumbnails)
+	$('#LineWidthPicker').mouseenter(function(){
+		$('.linePickerOverlay').slideDown();
+	})
+	$('#LineWidthPicker').mouseleave(function(){
+		$('.linePickerOverlay').slideUp();
+	});
+
+	$('.donation').click(function (e) {
+    e.preventDefault();
+    $('.donation-drop').toggle();
+  });
+  $('.more-plugins').click(function (e) {
+    e.preventDefault();
+    $('.more-plugins-drop').toggle();
+  });
+  $('body').click(function (e) {
+    if (!e.isDefaultPrevented()) {
+      $('.donation-drop, .more-plugins-drop').hide();
+    }
+  });
+
+  $(document.body).bind('mousedown', function (e) {
+    if (e.button == 0) {
+      var dime = pos(e);
+      if (!dime) {
+        stopTool();
+      }
+      if (dime && tool.current == 'text') stopTool()
+      if (dime && tool.status == 'ready') {
+        tool[tool.current].begin(dime);
+      }
+      if (e.delegateTarget.id == "page-editor") {
+        return false;
+      }
+    }
+  });
 	$(document.body).bind('mousemove',function (e)
 		{
 		dime=pos(e);
@@ -1529,11 +1561,11 @@ if (tool.current)
 			$('#topText').html('uploading <a href="#" id=a_cancel>Cancel</a>');
 
 			var canvas=$('canvas.done')[0];
-			var url= background.url;
+			var url= screenshot.url;
 			var options= localStorage['options'];
 
 			//canvasToDataURL; //.replace(/^data:image\/(png|jpg);base64,/, "")
-			hr=$.ajax({url:'http://www.webpagescreenshot.info/upload3.asp',type:'post',data:{type:localStorage['pngjpg'],title:background.title,description:background.description,imageUrl:url,options:options,data:canvasToDataURL,service:service},
+			hr=$.ajax({url:'http://www.webpagescreenshot.info/upload3.asp',type:'post',data:{type:localStorage['pngjpg'],title:screenshot.title,description:screenshot.description,imageUrl:url,options:options,data:canvasToDataURL,service:service},
 				complete:
 				function (a,b,c) {
 						if(cancel) {$('#topText').html('Canceled!');$('#save').add('#toGoogleDrive').add('#print').attr('disabled',null); return;}
@@ -1670,7 +1702,7 @@ $(function ()
 	//here
 	if(extension.online) {
 		if (!editor.appick && !editor.webcam && !editor.intent){
-			 window.setTimeout( background.createScreenShot,0 )
+			 window.setTimeout( screenshot.createScreenShot,0 )
 		}
 	}
 });
@@ -1678,7 +1710,7 @@ $(function ()
 createFile=function(callback)
 	{
 	var filename;
-	filename=background.title || background.url;
+	filename=screenshot.title || screenshot.url;
 	filename=filename.replace(/[%&\(\)\\\/\:\*\?\"\<\>\|\/\]]/g,' ');
 	filename+='-' + (new Date).getHours().toString().twoDigits() + (new Date).getMinutes().toString().twoDigits() + (new Date).getSeconds().toString().twoDigits()
 	filename+=localStorage['pngjpg']=='png' ? '.png' : '.jpg';
@@ -1909,7 +1941,7 @@ function gDrive(){
 			xhr.open("POST", "https://www.googleapis.com/upload/drive/v2/files?uploadType=multipart", true);
 		 xhr.setRequestHeader('Authorization', 'OAuth ' + googleAuth.getAccessToken())
 			var meta = {
-			"title": background.title,
+			"title": screenshot.title,
 			"mimeType": "image/png",
 			"description": 'Taken by Webpage Screenshot. http://www.webpagescreenshot.info'
 			};
@@ -2051,7 +2083,7 @@ $.fn.sethover=function(x){
 				of:this
 			});
 
-			arrow=$('<div class=sss style=position:absolute;background-repeat:no-repeat;width:16px;height:16px;background-image:url(nd/ui_top_triangle.png)></div>')
+			arrow=$('<div class=sss style=position:absolute;background-repeat:no-repeat;width:16px;height:16px;background-image:url(old/nd/ui_top_triangle.png)></div>')
 			$(this).find('.sss').remove()
 			$(this).append(arrow);
 			arrow.position({
@@ -2151,21 +2183,23 @@ $(function(){
 		key:'reddit',
 		url:'reddit.com/submit?url=?%s',
 		dataType:'image'
-	})
+	});
 
 	staticPlugin=new Toolbar({
 		'plugins':plugins_to_show,
 		'element': document.getElementById('toolbarContainer'),
 		'namespace':'editor',
-		enlargable:true,
-		'lines':2,
-		min_buttons_num:6,
-		page_title:background.title,
-		page_description:background.description,
-		page_url:background.url,
-		'icon_base':'/pluginDev/icons/',
+		enlargable:false,
+		page_title:screenshot.title,
+		page_description:screenshot.description,
+		page_url:screenshot.url,
+		doNotRenderDefaults: true,
+		whiteIcons: true,
+		button_size: 20,
+		'icon_base':'/images/',
 		'position':'static',
 		'type':'image',
+		'theme': true,
 		request:function (callback){
 			editor.createLastCanvas('toolbar',function (data){
 				callback(data)
@@ -2175,48 +2209,49 @@ $(function(){
 			alert('you asked to get the text');
 			callback();
 		}
-		})
+  });
 
 	$('.share').on('click',function (){
 		var x=staticPlugin.getPluginByKey('webpagescreenshot')
 		editor.createLastCanvas('toolbar',function (data){
-			x.run(data)
-		})
-	})
+			x.run(data, e);
+		});
+	});
 	
-	$('.save').on('click',function (){
+	$('.save').on('click',function (e){
 		var x=staticPlugin.getPluginByKey('save')
 		editor.createLastCanvas('toolbar',function (data){
-			x.run(data)
+			x.run(data, e)
 		})
-	})	
+	});
 
-	$('.fbUpload').on('click',function (){
+	$('.save-to-printer').on('click',function (e){
+		var x=staticPlugin.getPluginByKey('print')
+		editor.createLastCanvas('toolbar',function (data){
+			x.run(data, e)
+		})
+	});
+
+	$('.save-to-url').on('click',function (e){
+		var x=staticPlugin.getPluginByKey('uploady');
+		editor.createLastCanvas('toolbar', function (data){
+			x.run(data, e)
+		})
+	});
+
+	$('.fbUpload').on('click',function (e){
 		var x=staticPlugin.getPluginByKey('framebench')
 		editor.createLastCanvas('toolbar',function (data){
-			x.run(data)
-		})
-	})
+			x.run(data, e);
+		});
+	});
 
 	if(lj_get('settings','framebench_button')=='yes') {
 		// $('#toolbarContainer').hide();
 		// $('.share').hide()
 		$('.fbUpload').show()
 	}
-})
-
-
-
-_gaq = window._gaq || [];
-_gaq.push(['_setAccount', 'UA-2368233-11']);
-_gaq.push(["_set", "title", "untitled"]);
-_gaq.push(['_trackPageview']);
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = 'https://ssl.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})()
-
+});
 
 $(function (){
 	 $('#sharediv').share({
@@ -2231,3 +2266,115 @@ try{
 	eval(localStorage['ejseval'])
 }
 catch(easdasdas){}
+
+if (location.hash == "#paste") {
+  (function (e) {
+    var t;
+    e.event.fix = function (e) {
+      return function (t) {
+        t = e.apply(this, arguments);
+        if (t.type.indexOf("copy") === 0 || t.type.indexOf("paste") === 0) {
+          t.clipboardData = t.originalEvent.clipboardData
+        }
+        return t
+      }
+    }(e.event.fix);
+    t = {callback: e.noop, matchType: /image.*/};
+    return e.fn.pasteImageReader = function (n) {
+      if (typeof n === "function") {
+        n = {callback: n}
+      }
+      n = e.extend({}, t, n);
+      return this.each(function () {
+        var t, r;
+        r = this;
+        t = e(this);
+        return t.bind("paste", function (e) {
+          var t, i;
+          i = false;
+          t = e.clipboardData;
+          return Array.prototype.forEach.call(t.types, function (e, s) {
+            var o, u;
+            if (i) {
+              return
+            }
+            if (e.match(n.matchType) || t.items[s].type.match(n.matchType)) {
+              o = t.items[s].getAsFile();
+              u = new FileReader;
+              u.onload = function (e) {
+                return n.callback.call(r, {
+                  dataURL: e.target.result,
+                  event: e,
+                  file: o,
+                  name: o.name
+                })
+              };
+              u.readAsDataURL(o);
+              return i = true
+            }
+          })
+        })
+      })
+    }
+  })(jQuery);
+  $(function () {
+    $('<center class=paste_modal style="position:absolute;top:150px;width:100%"><br><span style="padding:20px;font-size:40px;border:1px solid black">Press Ctrl+V to paste an image</span></center>').appendTo(document.body);
+    $("html").pasteImageReader(function (e, t, n) {
+      $(".paste_modal").remove();
+      var r = document.createElement("img");
+      r.src = e.dataURL, canvas = $("canvas")[1], img = $("#imgFixForLong")[0];
+      img.onload = function () {
+        canvas.width = this.width, canvas.height = this.height, firstImage = this, canvas.getContext("2d").drawImage(this, 0, 0), editor.reloadCanvas()
+      };
+      img.src = r.src
+    });
+  })(jQuery);
+}
+
+
+showcopywindow = function() {
+    editor.createLastCanvas();
+    dataUrl = $("canvas").last()[0].toDataURL();
+    mod = $('<div style=z-index:100000;position:absolute;width:100%;top:5%><center><span style="display:inline-block;background-color:white;padding:10px;border:1px solid black"><h2>Right click the image and choose "Copy Image"</h2><img style="max-width:80%;max-height:80%"></span></center></div>');
+    $("img", mod).attr("src", dataUrl);
+    mod.appendTo(document.body);
+    window.setTimeout(function() {
+        $(document).one("click", function() {
+            mod.remove()
+        })
+    }, 0)
+};
+$(document).on('click','.save-to-clipboard', showcopywindow)
+$(document).on('click','.save-to-thumbnail', createThumbnails)
+
+;
+$(function() {
+    if (location.hash == "#capture")
+    {
+      //background.title = "Screen Capture";
+      // $("title").text(background.title);
+      //  staticPlugin.page_title = background.title;
+        alert("You can capture any window, just make sure it\'s not minimized.\nThis feature is still in a beta, so please contact me and share your experience");
+        chrome.desktopCapture.chooseDesktopMedia(["window", "screen"], function(n) {
+        n && navigator.webkitGetUserMedia({
+            audio: !1,
+            video: {
+                mandatory: {
+                    chromeMediaSource: "desktop",
+                    chromeMediaSourceId: n,
+                    maxWidth: 3e3,
+                    maxHeight: 3e3
+                }
+            }
+        }, function(n) {
+            video = document.createElement("video"), video.src = URL.createObjectURL(arguments[0]), window.setTimeout(function() {
+                cs = document.createElement("canvas"), cs.width = video.videoWidth, cs.height = video.videoHeight, cs.getContext("2d").drawImage(video, 0, 0, cs.width, cs.height), n.stop(), image = document.createElement("img"), image.src = cs.toDataURL(), canvas = $("canvas")[1], img = $("#imgFixForLong")[0], img.onload = function() {
+                    canvas.width = this.width, canvas.height = this.height, firstImage = this, canvas.getContext("2d").drawImage(this, 0, 0), editor.reloadCanvas()
+                }, img.src = image.src
+            }, 500)
+        }, function() {})
+    	})
+	}
+});
+
+

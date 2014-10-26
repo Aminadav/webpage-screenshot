@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+
+}
+body {
+    font-family: arial, helvetica, sans-serif;
+    font-size: 12px;
+}
+.input-block {
+    width: 100%;
+}
+.link-go {
+    position: absolute;
+    background: url(../images/link-go.png) center;
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin-top: -33px;
+    right: 25px;
+    text-indent: -9999px;
+    font-size: 0;
+}
+.ui-dialog {
+    background-color: #fff;
+    box-shadow: 0 2px 2px rgba(0,0,0,0.15);
+    border: 1px #aaaaab solid;
+    border-radius: 4px;
+    margin: 0 2px 2px 0px;
+    position: relative;
+    height: 100%;
+}
+.ui-close {
+    float:right;
+    font-weight:bolder;
+    font-size: 18px;
+    cursor:pointer;
+    height: 18px;
+    width: 18px;
+    line-height: 18px;
+    color: #fff;
+    text-align: center;
+    display: block;
+    background: #666;
+    border-radius: 4px;
+}
+.ui-close:hover {
+    background: #333;
+}
+.success-message {
+    font-size: 14px;
+    margin: 10px 0;
+    text-align: center;
+}
+.ui-dialog-content {
+    position: absolute;
+    top:40px;
+    bottom:10px;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    /*min-height: 200px;*/
+    padding: 0 10px 10px;
+}
+.ui-title {
+    font-size: 14px;
+    font-weight: bold;
+}
+.ui-header {
+    padding: 10px;
+}
+textarea {
+    margin: 5px 0 10px;
+}
+
+@media print {
+    .onlyDisplay {
+        display: none
+    }
+}
