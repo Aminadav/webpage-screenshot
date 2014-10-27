@@ -1,6 +1,8 @@
 # Editors
 .idea
 subilme.*
+gr.txt
+src.zip
 
 # manifest
 src/manifest.json
