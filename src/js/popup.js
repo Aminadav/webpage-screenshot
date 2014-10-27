@@ -43,14 +43,18 @@ var popup = {
 
   bindSelectionBar: function(){
     $('.show_toolbar').on('change',function(){
-      localStorage['show_toolbar']=this.checked ? 'yes' : 'no';
-      popup.notifyTabsForStorageUpdate();
-      popup.showSelectionBarStatus();
+        localStorage['show_toolbar']=this.checked ? 'yes' : 'no';
+      premissions.checkPermissions(function () {
+        popup.notifyTabsForStorageUpdate();
+        popup.showSelectionBarStatus();
+      })
     })
     $('.show_selectionbar').on('change',function(){
       localStorage['show_selectionbar']=this.checked ? 'yes' : 'no';
+      premissions.checkPermissions(function () {
       popup.notifyTabsForStorageUpdate();
       popup.showSelectionBarStatus();
+      })
     })
     $('#sb_opacity').on('change',function (){
       localStorage['sb_opacity']=$(this).val();
@@ -102,11 +106,18 @@ var popup = {
       }
       if (url.indexOf('file:') == 0) {
         var scriptNotLoaded = setTimeout(popup.disableScrollSupport, 500);
-        chrome.runtime.sendMessage(t.id, {
+        chrome.tabs.sendMessage(t.id, {
             type: 'checkExist'
           },
           function() {
-            clearTimeout(scriptNotLoaded)
+            if (chrome.runtime.lastError) {
+              $('#noall').html('Go to chrome://extensions, and check the box "Allow access to fle URLs"').css({cursor:'pointer',color:'blue',textDecoration:'underline'}).click(function(){
+                chrome.tabs.create({url:'chrome://extensions?id=ckibcdccnfeookdmbahgiakhnjcddpki'})
+              })
+            }
+            else{
+              clearTimeout(scriptNotLoaded)
+            }
           }
         );
       }
