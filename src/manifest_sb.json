@@ -1,6 +1,6 @@
 {
     "name": "SelectionBar",
-    "version": "3.1",
+    "version": "4.5",
 
     "manifest_version": 2,
     "description": "This extension add a powerful bar when you selecting text. Capture, Translate, Share, Highlight, and... ",
@@ -76,9 +76,9 @@
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.googleapis.com https://ad.yieldmanager.com https://cdn.extensionanalytics.com https://ssl.google-analytics.com; object-src 'self'",
     "default_locale": "en",
-    "permissions": [
-        "tts","notifications","activeTab","storage", "unlimitedStorage",
-        "webNavigation","desktopCapture", "webRequest", "tabs",
-        "pageCapture", "tabCapture","clipboardWrite","<all_urls>"
-    ]
+    "permissions": ["tts","notifications","activeTab","storage", "unlimitedStorage"],
+    "optional_permissions": [
+    "webNavigation","desktopCapture", "webRequest", "tabs",
+     "file://*/*", "http://*/*", "https://*/*", "pageCapture", "tabCapture","clipboardWrite","<all_urls>"
+     ]
 }
