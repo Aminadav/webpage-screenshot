@@ -77,24 +77,24 @@ var api = {
       api.stop = false;
       switch (data.data) {
         case 'captureVisible':
-          premissions.checkPermissions(function () {
+          // premissions.checkPermissions({origins:['http://*/*']},function () {
             screenshot.captureVisible({
               callback: callback,
               runCallback: data.runCallback,
               keepIt: data.keepIt,
               cropData: data.cropData
             });
-          });
+          // });
           break;
         case 'captureAll':
-          premissions.checkPermissions(function () {
+          // premissions.checkPermissions(function () {
             screenshot.captureAll({
               callback: callback,
               runCallback: data.runCallback,
               keepIt: data.keepIt,
               cropData: data.cropData
             });
-          });
+          // });
           break;
         case 'captureRegion':
           screenshot.captureRegion();

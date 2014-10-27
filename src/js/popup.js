@@ -44,14 +44,14 @@ var popup = {
   bindSelectionBar: function(){
     $('.show_toolbar').on('change',function(){
         localStorage['show_toolbar']=this.checked ? 'yes' : 'no';
-      premissions.checkPermissions(function () {
+      premissions.checkPermissions({origins:['http://*/*']},function () {
         popup.notifyTabsForStorageUpdate();
         popup.showSelectionBarStatus();
       })
     })
     $('.show_selectionbar').on('change',function(){
       localStorage['show_selectionbar']=this.checked ? 'yes' : 'no';
-      premissions.checkPermissions(function () {
+      premissions.checkPermissions({origins:['http://*/*']},function () {
       popup.notifyTabsForStorageUpdate();
       popup.showSelectionBarStatus();
       })
@@ -112,7 +112,9 @@ var popup = {
           function() {
             if (chrome.runtime.lastError) {
               $('#noall').html('Go to chrome://extensions, and check the box "Allow access to fle URLs"').css({cursor:'pointer',color:'blue',textDecoration:'underline'}).click(function(){
-                chrome.tabs.create({url:'chrome://extensions?id=ckibcdccnfeookdmbahgiakhnjcddpki'})
+                premissions.checkPermissions({origins:['<all_urls>']},function(a){
+                  chrome.tabs.create({url:'chrome://extensions?id=ckibcdccnfeookdmbahgiakhnjcddpki'})
+                })
               })
             }
             else{
@@ -165,21 +167,21 @@ var popup = {
     }
   },
   captureVisible: function () {
-    premissions.checkPermissions(function () {
+    premissions.checkPermissions({origins:['http://*/*']},function () {
       popup.sendMessage({
         data: 'captureVisible'
       });
     });
   },
   captureAll: function () {
-    premissions.checkPermissions(function () {
+    premissions.checkPermissions({origins:['http://*/*']},function () {
       popup.sendMessage({
         data: 'captureAll'
       });
     });
   },
   captureRegion: function () {
-    premissions.checkPermissions(function () {
+    premissions.checkPermissions({origins:['http://*/*']},function () {
       popup.sendMessage({
         data: 'captureRegion'
       });
@@ -193,21 +195,21 @@ var popup = {
     });
   },
   captureDesktop: function () {
-    premissions.checkPermissions(function () {
+    premissions.checkPermissions({permissions:['desktopCapture']},function () {
       popup.sendMessage({
         data: 'captureDesktop'
       });
     });
   },
   captureClipboard: function () {
-    premissions.checkPermissions(function () {
+    premissions.checkPermissions({origins:['http://*/*']},function () {
       popup.sendMessage({
         data: 'captureClipboard'
       });
     });
   },
   editContent: function () {
-    premissions.checkPermissions(function () {
+    premissions.checkPermissions({origins:['http://*/*']},function () {
       popup.sendMessage({
         data: 'editContent'
       });
