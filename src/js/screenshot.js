@@ -151,8 +151,10 @@ var screenshot = {
     }
     if (!mess && chrome.runtime.lastError) {
       console.warn(chrome.runtime.lastError);
-      return ;
+      mess={left:0,top:0,finish:true}
+      // return ;
     }
+    if(mess.top==null) {mess.top=0;mess.left=0}
     if (mess && mess.description) {
       screenshot.description = mess.description
     }
