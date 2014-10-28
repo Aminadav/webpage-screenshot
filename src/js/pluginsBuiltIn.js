@@ -73,7 +73,7 @@ var defaultPlugins = [
 			name: 'gmail',
 			key: 'gmail',
 			dataType: 'image',
-      editorDefault: true,
+      // editorDefault: true,
 			url: "https://mail.google.com/mail/?view=cm&tf=0&fs=1&body=%s" + encodeURIComponent(' Captured by http://bit.ly/cF6sYP')
   },
   {
