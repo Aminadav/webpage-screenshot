@@ -6,7 +6,7 @@ var premissions = {
       if (contains) {
         cb();
       } else {
-        premissions.requestPermissions(permissions,cb);
+        premissions.requestPermissions(cb);
       }
     });
   },
