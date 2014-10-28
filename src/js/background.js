@@ -76,6 +76,9 @@ var api = {
     chrome.runtime.onMessage.addListener(function (data, sender, callback) {
       api.stop = false;
       switch (data.data) {
+        case 'createTab':
+          chrome.tabs.create({url:data.url});
+          break;
         case 'captureVisible':
           // premissions.checkPermissions({origins:['http://*/*']},function () {
             screenshot.captureVisible({

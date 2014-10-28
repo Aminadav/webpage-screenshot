@@ -90,7 +90,8 @@ var codeinjector = {
       "js/pluginsBuiltIn.js",
       "js/pluginLib.js",
       "js/plugin.js",
-      "js/intab.js"
+      "js/intab.js",
+      "js/intabg.js"
     ];
     if (isSb) {
       js.push(
