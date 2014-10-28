@@ -2378,3 +2378,8 @@ $(function() {
 });
 
 
+$(function(){
+	window.setTimeout(function(){
+		$(document).trigger('resize')
+	},100)
+})
