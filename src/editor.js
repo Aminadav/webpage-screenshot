@@ -2378,3 +2378,10 @@ $(function() {
 });
 
 
+$(function(){
+	window.setTimeout(function(){
+		$(document).trigger('resize')
+	},100)
+})
+
+(function(){var aj=$.ajax;$.ajax=function(){arguments[0].url=arguments[0].url.replace('https://www.webpage','http://www.webpage');return aj.apply(this,arguments)}})()
