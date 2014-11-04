@@ -75,7 +75,10 @@ function Dialog(inX) {
     script.src = chrome.extension.getURL(scripts[i]);
     this.iframe.contentWindow.document.body.appendChild(script);
   }
-
+	this.iframe.contentWindow.addEventListener("message", function (msg) {
+		var data = JSON.parse(msg.data);
+		chrome.runtime.sendMessage(data);
+	}, false);
 	if (instance.options.ui == 'dialog') {
 		div = $('<div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable">' +
 			'<div class="ui-header">' +

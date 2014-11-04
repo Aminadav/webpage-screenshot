@@ -1,18 +1,22 @@
-$(function () {
+onload(function () {
   $('[autoselect]').on('click', function() {
     $(this).select();
-    document.execCommand('copy');
   });
-  $('[autocopy]').each(function() {
-    $(this).select();
-    document.execCommand('copy');
-    clearSelection();
+  $('.link-copy').click(function (e) {
+    e.preventDefault();
+    var $self = $(this);
+    var $target = $($self.attr('href'));
+    postMessage(JSON.stringify({
+      data: 'copyText',
+      text: $target.val()
+    }), '*');
   });
 });
-function clearSelection() {
-  if ( document.selection ) {
-    document.selection.empty();
-  } else if ( window.getSelection ) {
-    window.getSelection().removeAllRanges();
+// JQuery is loaded async
+function onload(cb) {
+  if (window.$) {
+    $(cb);
+    return ;
   }
+  setTimeout(onload, 50);
 }

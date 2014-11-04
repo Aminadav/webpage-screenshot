@@ -65,12 +65,14 @@ var api = {
     }
   },
   copyTextToClipboard: function (text) {
-    var copyFrom = $('<textarea/>');
-    copyFrom.text(text);
-    $('body').append(copyFrom);
-    copyFrom.select();
-    document.execCommand('copy', true);
-    copyFrom.remove();
+    premissions.checkPermissions({permissions: ['clipboardWrite']}, function () {
+      var copyFrom = $('<textarea/>');
+      copyFrom.text(text);
+      $('body').append(copyFrom);
+      copyFrom.select();
+      document.execCommand('copy', true);
+      copyFrom.remove();
+    });
   },
   listenMessages: function () {
     chrome.runtime.onMessage.addListener(function (data, sender, callback) {
@@ -80,24 +82,20 @@ var api = {
           chrome.tabs.create({url:data.url});
           break;
         case 'captureVisible':
-          // premissions.checkPermissions({origins:['http://*/*']},function () {
-            screenshot.captureVisible({
-              callback: callback,
-              runCallback: data.runCallback,
-              keepIt: data.keepIt,
-              cropData: data.cropData
-            });
-          // });
+          screenshot.captureVisible({
+            callback: callback,
+            runCallback: data.runCallback,
+            keepIt: data.keepIt,
+            cropData: data.cropData
+          });
           break;
         case 'captureAll':
-          // premissions.checkPermissions(function () {
-            screenshot.captureAll({
-              callback: callback,
-              runCallback: data.runCallback,
-              keepIt: data.keepIt,
-              cropData: data.cropData
-            });
-          // });
+          screenshot.captureAll({
+            callback: callback,
+            runCallback: data.runCallback,
+            keepIt: data.keepIt,
+            cropData: data.cropData
+          });
           break;
         case 'captureRegion':
           screenshot.captureRegion();
