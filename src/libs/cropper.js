@@ -381,9 +381,10 @@ function load_cropper_without_selection(rect) {
 		request: function(callback) {
 			removeClip();
 			chrome.runtime.sendMessage({
-				data: 'captureVisible',
+				data: 'captureAll',
 				runCallback: true,
 				keepIt: true,
+				showScrollBar: true,
 				cropData: {
 					x1: x1,
 					x2: x2,

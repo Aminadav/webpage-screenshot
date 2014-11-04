@@ -198,7 +198,8 @@ var cropData;
           y1: 0,
           y2: 32765,
           scrollTop: document.body.scrollTop,
-          scrollLeft: document.body.scrollLeft
+          scrollLeft: document.body.scrollLeft,
+          showScrollBar: true
         };
         if (mess.noScroll) {
           defaults.x1 = window.scrollX;
@@ -206,6 +207,7 @@ var cropData;
           defaults.x2 = window.innerWidth + defaults.x1;
           defaults.y2 = window.innerHeight + defaults.y1;
         }
+
         cropData = $.extend(defaults, mess.cropData);
         // for(var key in cropData) {cropData[key]=cropData[key] * zoomLevel()  }
       }
@@ -221,7 +223,9 @@ var cropData;
           console.log('cropData',cropData)
           page.hideSb();
           if (!mess.noScroll) {
-            page.enableScrollbar(false);
+            if (!cropData.showScrollBar) {
+              page.enableScrollbar(false);
+            }
             page.enableFixedPosition(false, cropData);
           }
           try {

@@ -9,6 +9,7 @@ var screenshot = {
     screenshot.runCallback = data.runCallback;
     screenshot.keepIt = data.keepIt;
     screenshot.cropData = data.cropData;
+    screenshot.showScrollBar = true;
     screenshot.startWithoutScroll();
   },
 
@@ -17,6 +18,7 @@ var screenshot = {
     screenshot.runCallback = data.runCallback;
     screenshot.keepIt = data.keepIt;
     screenshot.cropData = data.cropData;
+    screenshot.showScrollBar = !!data.showScrollBar;
     screenshot.startWithScroll();
   },
 
@@ -41,6 +43,7 @@ var screenshot = {
   runCallback: false,
   keepIt: false,
   cropData: null,
+  showScrollBar: false,
 
   executeOnPermission_array: [],
   webcam: null,
@@ -97,7 +100,7 @@ var screenshot = {
     screenshot.load(screenshot.startWithoutScroll_continue);
   },
   startWithoutScroll_continue: function () {
-    screenshot.addScreen(true);
+    screenshot.addScreen();
   },
   startWithScroll: function () {
     localStorage['captureWithScroll']++;
@@ -105,7 +108,7 @@ var screenshot = {
 
   },
   startWithScroll_continue: function () {
-    screenshot.addScreen();
+    screenshot.addScreen(true);
   },
   webcamfn: function () {
     chrome.tabs.create({url: 'videocap.html'})
@@ -136,13 +139,14 @@ var screenshot = {
         })
       })
   },
-  addScreen: function (noScroll) {
+  addScreen: function (scroll) {
     if (api.stop) return;
     chrome.tabs.sendMessage(screenshot.thisTabId, {
       cropData: screenshot.cropData,
       type: 'takeCapture',
       start: true,
-      noScroll: noScroll
+      noScroll: !scroll,
+      showScrollBar: screenshot.showScrollBar
     }, screenshot.ans);
   },
   ans: function (mess, b, c) {
