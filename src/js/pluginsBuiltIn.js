@@ -109,6 +109,7 @@ var defaultPlugins = [
 					$input.animate({"margin-right": '0'});
 					$input.click(function () {
 						$input.select();
+						$input.addClass('copied');
 						chrome.runtime.sendMessage({
 							data: 'copyText',
 							text: shareUrl

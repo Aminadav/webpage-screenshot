@@ -536,6 +536,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     outline: none;
     background: url(../images/clipboard-paste.png) no-repeat 218px center #fff;
     cursor: pointer;
+	-webkit-filter: grayscale(1);
+	-webkit-transition: -webkit-filter .3s ease-out;
+}
+.buttons .url-share.copied {
+	-webkit-filter: grayscale(0);
 }
 .buttons .elements-group {
     float: left;
