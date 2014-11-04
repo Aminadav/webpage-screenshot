@@ -5,28 +5,18 @@ var defaultPlugins = [
 		dataType: 'image',
     // editorDefault: true,
 		onclick: function(scope) {
-			String.prototype.twoDigits=function () {return this.replace(/^(.)$/,'0$1')}			
-      scope.image_base64(function(dataUrl){
-				function dataURItoBlob (dataURI) {
-					var binary = atob(dataURI);
-					var array = [];
-					for(var i = 0; i < binary.length; i++) {
-						array.push(binary.charCodeAt(i));
-					}
-					return new Blob([new Uint8Array(array)], {type: 'image/png'})
-				}
-				var x=dataURItoBlob(dataUrl);
-				var url=URL.createObjectURL(x)
-				var filename;
-				filename=scope.page_title || scope.page_url;
-				filename=filename.replace(/[%&\(\)\\\/\:\*\?\"\<\>\|\/\]]/g,' ');
-				//filename+='-' + (new Date).getHours().toString().twoDigits() + (new Date).getMinutes().toString().twoDigits() + (new Date).getSeconds().toString().twoDigits()
-				// filename+=localStorage['pngjpg']=='png' ? '.png' : '.jpg';
-				filename+= '.png' ;
-				var evt = document.createEvent("MouseEvents");evt.initMouseEvent("click", true, true, window,0, 0, 0, 0, 0, false, true, false, false, 0, null);
-				var a=$('<a></a>').appendTo(document.body);
-				a.attr({'href':url,'download':filename})[0].dispatchEvent(evt)
-			})
+			String.prototype.twoDigits=function () {return this.replace(/^(.)$/,'0$1')};
+			var x = scope.image_blob();
+			var url=URL.createObjectURL(x);
+			var filename;
+			filename=scope.page_title || scope.page_url;
+			filename=filename.replace(/[%&\(\)\\\/\:\*\?\"\<\>\|\/\]]/g,' ');
+			//filename+='-' + (new Date).getHours().toString().twoDigits() + (new Date).getMinutes().toString().twoDigits() + (new Date).getSeconds().toString().twoDigits()
+			// filename+=localStorage['pngjpg']=='png' ? '.png' : '.jpg';
+			filename+= '.png' ;
+			var evt = document.createEvent("MouseEvents");evt.initMouseEvent("click", true, true, window,0, 0, 0, 0, 0, false, true, false, false, 0, null);
+			var a=$('<a></a>').appendTo(document.body);
+			a.attr({'href':url,'download':filename})[0].dispatchEvent(evt)
 		}
 	},
 
@@ -76,98 +66,76 @@ var defaultPlugins = [
       // editorDefault: true,
 			url: "https://mail.google.com/mail/?view=cm&tf=0&fs=1&body=%s" + encodeURIComponent(' Captured by http://bit.ly/cF6sYP')
   },
-  {
-    name: 'Save online',
-    key: 'uploady',
-    dataType: 'image',
-    editorDefault: true,
-    onclick: function (scope) {
-      var $button = $(scope.event.delegateTarget);
-      if ($button.hasClass('loading')) {
-          return ;
-      }
-      $button.prop('disabled');
-      $button.addClass('loading');
-      String.prototype.twoDigits = function () {
-        return this.replace(/^(.)$/, '0$1')
-      };
-      scope.image_base64(function (dataUrl) {
-        var dataURItoBlob = function (dataURI) {
-          var binary = atob(dataURI);
-          var array = [];
-          for (var i = 0; i < binary.length; i++) {
-            array.push(binary.charCodeAt(i));
-          }
-          return new Blob([new Uint8Array(array)], {type: 'image/png'})
-        };
-        var blob = dataURItoBlob(dataUrl);
-        var filename;
-        filename = scope.page_title || scope.page_url;
-        filename = filename.replace(/[%&\(\)\\\/\:\*\?\"\<\>\|\/\]]/g, ' ');
-        filename += '.png';
-
-				chrome.runtime.sendMessage({
-					data: 'upload',
-					filename: filename,
-					objectURL: URL.createObjectURL(blob)
-				}, function (data) {
-					complete();
-					if (!data) {
-						return ;
+	{
+		name: 'Save online',
+		key: 'uploady',
+		dataType: 'image',
+		editorDefault: true,
+		onclick: function (scope) {
+			var $button = $(scope.event.delegateTarget);
+			if ($button.hasClass('loading')) {
+				return;
+			}
+			$button.prop('disabled');
+			$button.addClass('loading');
+			String.prototype.twoDigits = function () {
+				return this.replace(/^(.)$/, '0$1')
+			};
+			var blob = scope.image_blob();
+			var filename;
+			filename = scope.page_title || scope.page_url;
+			filename = filename.replace(/[%&\(\)\\\/\:\*\?\"\<\>\|\/\]]/g, ' ');
+			filename += '.png';
+			chrome.runtime.sendMessage({
+				data: 'upload',
+				filename: filename,
+				objectURL: URL.createObjectURL(blob)
+			}, function (data) {
+				$button.addClass('done');
+				$button.removeClass('loading');
+				$button.prop('disabled', false);
+				if (!data) {
+					return;
+				}
+				var file = data.files.pop();
+				var shareUrl = file.share_url;
+				if ($button.hasClass('expand-url')) {
+					var $input = $button.siblings('.url-share');
+					if (!$input.length) {
+						$input = $("<input class='url-share' readonly type='text'/>");
+						$button.after($input);
 					}
-					var file = data.files.pop();
-					var shareUrl = file.share_url;
-					if ($button.hasClass('expand-url')) {
-						var $input = $button.siblings('.url-share');
-						if (!$input.length) {
-							$input = $("<input class='url-share' readonly type='text'/>");
-							$button.after($input);
-						}
-						$input.val(shareUrl);
-						$input.animate({"margin-right": '0'});
+					$input.val(shareUrl);
+					$input.animate({"margin-right": '0'});
+					$input.click(function () {
 						$input.select();
-						document.execCommand('copy');
-						clearSelection();
-						$input.click(function () {
-							$input.select();
-							document.execCommand('copy');
+						chrome.runtime.sendMessage({
+							data: 'copyText',
+							text: shareUrl
 						});
-						return ;
-					}
-					var x = new Dialog({
-						html:
-						'<textarea autoselect autocopy class="input-block">' + shareUrl +
-						'</textarea>' +
-						'<a href="' + shareUrl + '" class="link-go" target="_blank">Go</a>' +
-						'<br/> ' +
-						'<textarea autoselect class="input-block"><a href="' +
-						shareUrl + '">' + scope.page_title.replace(/[\"&<>]/g, function (a) { return chr[a]; }) +
-						'</a></textarea>',
-						title: 'Screenshot is in your clipboard. Go ahead, share it!',
-						ui: 'dialog'
 					});
-					x.show();
-					chrome.runtime.sendMessage({
-						'data': 'copyText',
-						'text': shareUrl
-					});
+					return;
+				}
+				var x = new Dialog({
+					html: '<textarea autoselect class="input-block" id="share_url">' + shareUrl +
+					'</textarea>' +
+					//'<a href="' + shareUrl + '" class="button link-go" target="_blank"><i></i></a>' +
+					'<a href="#share_url" class="button link-copy" target="_blank"><i></i> Copy</a>' +
+					'<br/> ' +
+					'<textarea autoselect class="input-block" id="share_html"><a href="' +
+					shareUrl + '">' + scope.page_title.replace(/[\"&<>]/g, function (a) {
+						return chr[a];
+					}) +
+					'</a></textarea>' +
+					'<a href="#share_html" class="button link-copy" target="_blank"><i></i> Copy</a>'
+					,
+					title: 'Screenshot is ready. Go ahead, share it!',
+					ui: 'dialog'
 				});
-       	function complete() {
-          $button.addClass('done');
-          $button.removeClass('loading');
-          $button.prop('disabled', false);
-       	}
-      });
-
-      function clearSelection() {
-        if (document.selection) {
-          document.selection.empty();
-        } else if (window.getSelection) {
-          window.getSelection().removeAllRanges();
-        }
-      }
-    }
-  },
+				x.show();
+			});
+		}
+	},
 		 {
 				name: 'drive',
 				key: "googledrive",
