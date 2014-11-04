@@ -1441,9 +1441,11 @@ function editor_obj()
 	$('.save-to-pdf').click(createPDF)
 	$('#thumbnail').click(createThumbnails)
 	$('#LineWidthPicker').mouseenter(function(){
-		$('.linePickerOverlay').slideDown();
-	})
-	$('#LineWidthPicker').mouseleave(function(){
+		var $overlay = $('.linePickerOverlay');
+		if (!$overlay.is(":visible")) {
+			$overlay.slideDown();
+		}
+	}).mouseleave(function(){
 		$('.linePickerOverlay').slideUp();
 	});
 
