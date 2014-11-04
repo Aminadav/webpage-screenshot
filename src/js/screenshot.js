@@ -10,6 +10,7 @@ var screenshot = {
     screenshot.keepIt = data.keepIt;
     screenshot.cropData = data.cropData;
     screenshot.showScrollBar = true;
+    screenshot.disableHeaderAndFooter = data.disableHeaderAndFooter;
     screenshot.startWithoutScroll();
   },
 
@@ -18,7 +19,8 @@ var screenshot = {
     screenshot.runCallback = data.runCallback;
     screenshot.keepIt = data.keepIt;
     screenshot.cropData = data.cropData;
-    screenshot.showScrollBar = !!data.showScrollBar;
+    screenshot.showScrollBar = data.showScrollBar;
+    screenshot.disableHeaderAndFooter = data.disableHeaderAndFooter;
     screenshot.startWithScroll();
   },
 
@@ -44,6 +46,7 @@ var screenshot = {
   keepIt: false,
   cropData: null,
   showScrollBar: false,
+  disableHeaderAndFooter: false,
 
   executeOnPermission_array: [],
   webcam: null,
@@ -212,12 +215,11 @@ var screenshot = {
 
 
     screenshot.canvas = document.createElement('canvas');
-    if (screenshot.runCallback) {
+    if (screenshot.runCallback || screenshot.disableHeaderAndFooter) {
       //No header on Selection bar images
       theHeader = '';
       theFotter = '';
-    }
-    else {
+    } else {
       //Normal from popup to editor
       // loadEditor();
       // editorDocument=editor.window.document;

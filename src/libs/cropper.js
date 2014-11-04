@@ -337,7 +337,9 @@ function load_cropper_without_selection(rect) {
 	$('button.open', $toolbar).on('click', function() {
 		removeClip();
 		chrome.runtime.sendMessage({
-			data: 'captureVisible',
+			data: 'captureAll',
+			showScrollBar: true,
+			disableHeaderAndFooter: true,
 			cropData: {
 				x1: x1,
 				x2: x2,
@@ -385,6 +387,7 @@ function load_cropper_without_selection(rect) {
 				runCallback: true,
 				keepIt: true,
 				showScrollBar: true,
+				disableHeaderAndFooter: true,
 				cropData: {
 					x1: x1,
 					x2: x2,

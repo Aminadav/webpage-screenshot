@@ -82,20 +82,14 @@ var api = {
           chrome.tabs.create({url:data.url});
           break;
         case 'captureVisible':
-          screenshot.captureVisible({
-            callback: callback,
-            runCallback: data.runCallback,
-            keepIt: data.keepIt,
-            cropData: data.cropData
-          });
+          screenshot.captureVisible($.extend({}, data, {
+            callback: callback
+          }));
           break;
         case 'captureAll':
-          screenshot.captureAll({
-            callback: callback,
-            runCallback: data.runCallback,
-            keepIt: data.keepIt,
-            cropData: data.cropData
-          });
+          screenshot.captureAll($.extend({}, data, {
+            callback: callback
+          }));
           break;
         case 'captureRegion':
           screenshot.captureRegion();
@@ -116,7 +110,7 @@ var api = {
           api.stop = true;
           break;
         case 'ana':
-          _gaq.push(data.array)
+          _gaq.push(data.array);
           break;
         case 'copyText':
           api.copyTextToClipboard(data.text);
