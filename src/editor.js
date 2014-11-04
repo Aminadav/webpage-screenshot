@@ -2239,6 +2239,15 @@ $(function(){
 		})
 	});
 
+	$('.save-to-clipboard').on('click',function (e){
+		var x=staticPlugin.getPluginByKey('copy');
+		editor.createLastCanvas('toolbar', function (data){
+			x.run(data, e)
+		})
+	});
+
+	$('.save-to-thumbnail').on('click', createThumbnails);
+
 	$('.fbUpload').on('click',function (e){
 		var x=staticPlugin.getPluginByKey('framebench')
 		editor.createLastCanvas('toolbar',function (data){
@@ -2330,24 +2339,6 @@ if (location.hash == "#paste") {
     });
   })(jQuery);
 }
-
-
-showcopywindow = function() {
-    editor.createLastCanvas();
-    dataUrl = $("canvas").last()[0].toDataURL();
-    mod = $('<div style=z-index:100000;position:absolute;width:100%;top:5%><center><span style="display:inline-block;background-color:white;padding:10px;border:1px solid black"><h2>Right click the image and choose "Copy Image"</h2><img style="max-width:80%;max-height:80%"></span></center></div>');
-    $("img", mod).attr("src", dataUrl);
-    mod.appendTo(document.body);
-    window.setTimeout(function() {
-        $(document).one("click", function() {
-            mod.remove()
-        })
-    }, 0)
-};
-$(document).on('click','.save-to-clipboard', showcopywindow)
-$(document).on('click','.save-to-thumbnail', createThumbnails)
-
-;
 $(function() {
     if (location.hash == "#capture")
     {
