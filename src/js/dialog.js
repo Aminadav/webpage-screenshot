@@ -1,4 +1,4 @@
-onload(function () {
+$load(function () {
   $('[autoselect]').on('click', function() {
     $(this).select();
   });
@@ -13,10 +13,10 @@ onload(function () {
   });
 });
 // JQuery is loaded async
-function onload(cb) {
+function $load(cb) {
   if (window.$) {
     $(cb);
     return ;
   }
-  setTimeout(onload, 50);
+  setTimeout($load.bind(this, cb), 50);
 }

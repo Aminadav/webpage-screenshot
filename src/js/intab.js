@@ -220,7 +220,6 @@ var cropData;
         if (mess.start) {
           dectect_zoom();
           page.setVars(cropData);
-          console.log('cropData',cropData)
           page.hideSb();
           if (!mess.noScroll) {
             if (!cropData.showScrollBar) {
@@ -258,7 +257,6 @@ var cropData;
           if (window.onfinish)
             window.onfinish()
         }
-        console.log('4',ans)
         callback(ans);
       }
       if (mess.type == 'finish') {
