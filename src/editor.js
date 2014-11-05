@@ -803,16 +803,22 @@ function editor_obj()
 //		id=inX.ctx.createImageData(inX.canvas.width,inX.canvas.height);
 		id=inX.ctx.getImageData(0,0,inX.canvas.width,inX.canvas.height);
 		pix=id.data;
-		for(var i=0;i<inX.data.points.length;i++)
-			{
+
+		var rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(inX.data.color);
+		var colors = [
+			parseInt(rgb[1], 16),
+			parseInt(rgb[2], 16),
+			parseInt(rgb[3], 16)
+		];
+		for(var i=0;i<inX.data.points.length;i++) {
 			thisPoint= (inX.data.points[i].y-inX.data.canvasOffset.y-1)* inX.canvas.width*4;
 			thisPoint+=(inX.data.points[i].x-inX.data.canvasOffset.x)*4;
 
-			pix[thisPoint]=parseInt(inX.data.color.slice(4,-1).split(',')[0]);
-			pix[thisPoint+1]=parseInt(inX.data.color.slice(4,-1).split(',')[1]);
-			pix[thisPoint+2]=parseInt(inX.data.color.slice(4,-1).split(',')[2]);
+			pix[thisPoint]=colors[0];
+			pix[thisPoint+1]=colors[1];
+			pix[thisPoint+2]=colors[2];
 			pix[thisPoint+3]=255;
-			};
+		}
 		inX.ctx.putImageData	(id,0,0);
 		updateImgFromCanvas();
 		};
@@ -2375,6 +2381,12 @@ $(function(){
 	window.setTimeout(function(){
 		$(document).trigger('resize')
 	},100)
-})
+});
 
-(function(){var aj=$.ajax;$.ajax=function(){arguments[0].url=arguments[0].url.replace('https://www.webpage','http://www.webpage');return aj.apply(this,arguments)}})()
+(function() {
+	var aj = $.ajax;
+	$.ajax = function () {
+		arguments[0].url = arguments[0].url.replace('https://www.webpage', 'http://www.webpage');
+		return aj.apply(this, arguments)
+	};
+})();
