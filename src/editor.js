@@ -798,11 +798,10 @@ function editor_obj()
 		tool[tool.current].draw({canvas:canvas,ctx:c,data:currentLevel});
 		};
 	tool.spray.draw=function (inX)
-		{
-
-//		id=inX.ctx.createImageData(inX.canvas.width,inX.canvas.height);
-		id=inX.ctx.getImageData(0,0,inX.canvas.width,inX.canvas.height);
-		pix=id.data;
+	{
+		var id=inX.ctx.getImageData(0,0,inX.canvas.width,inX.canvas.height);
+		var pix=id.data;
+		var thisPoint;
 
 		var rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(inX.data.color);
 		var colors = [
@@ -819,9 +818,9 @@ function editor_obj()
 			pix[thisPoint+2]=colors[2];
 			pix[thisPoint+3]=255;
 		}
-		inX.ctx.putImageData	(id,0,0);
+		inX.ctx.putImageData(id,0,0);
 		updateImgFromCanvas();
-		};
+	};
 	tool.spray.up=function (){tool.status='ready';};
 ////    Free
 	tool.free.up=function (){tool.status='ready';};
@@ -1091,8 +1090,8 @@ function editor_obj()
 		};
 
 	function updateImgFromCanvas(){		
-		var $i=$(canvas).data('img')
-		var $t=$(canvas)
+		var $i=$(canvas).data('img');
+		var $t=$(canvas);
 		$i.css({
 			'marginTop':$t.css('marginTop'),
 			'marginLeft':$t.css('marginLeft'),
@@ -1100,9 +1099,9 @@ function editor_obj()
 			'left': $t.css('left'),
 			'top': $t.css('top'),
 			'width': $t.css('width'),
-			'height': $t.css('height'),
-			})
-			$i.attr('src', canvas.toDataURL())
+			'height': $t.css('height')
+		});
+		$i.attr('src', canvas.toDataURL())
 	}
 
 	tool.rectangle.up=function () {tool.status='ready';};
