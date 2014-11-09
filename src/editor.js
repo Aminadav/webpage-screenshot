@@ -805,8 +805,8 @@ function editor_obj()
 		pix=id.data;
 		for(var i=0;i<inX.data.points.length;i++)
 			{
-			thisPoint= (inX.data.points[i].y-inX.data.canvasOffset.y-1)* inX.canvas.width*4;
-			thisPoint+=(inX.data.points[i].x-inX.data.canvasOffset.x)*4;
+			thisPoint= parseInt(inX.data.points[i].y-inX.data.canvasOffset.y-1)* inX.canvas.width*4;
+			thisPoint+=parseInt(inX.data.points[i].x-inX.data.canvasOffset.x)*4;
 
 			pix[thisPoint]=parseInt(inX.data.color.slice(4,-1).split(',')[0]);
 			pix[thisPoint+1]=parseInt(inX.data.color.slice(4,-1).split(',')[1]);
