@@ -810,8 +810,8 @@ function editor_obj()
 			parseInt(rgb[3], 16)
 		];
 		for(var i=0;i<inX.data.points.length;i++) {
-			thisPoint= (inX.data.points[i].y-inX.data.canvasOffset.y-1)* inX.canvas.width*4;
-			thisPoint+=(inX.data.points[i].x-inX.data.canvasOffset.x)*4;
+			thisPoint= parseInt(inX.data.points[i].y-inX.data.canvasOffset.y-1)* inX.canvas.width*4;
+			thisPoint+=parseInt(inX.data.points[i].x-inX.data.canvasOffset.x)*4;
 
 			pix[thisPoint]=colors[0];
 			pix[thisPoint+1]=colors[1];
