@@ -6,6 +6,40 @@ body {
 a {
     cursor:pointer;
 }
+
+@media (max-width: 1410px) {
+	.buttons .url-share {
+		width: 140px !important;
+		background-position-x: 115px!important;
+	}
+	.editor-toolbar {
+		padding-right: 0!important;
+		padding-left: 0!important;
+	}
+}
+@media (max-width: 1300px) {
+	.editor-toolbar .donation span {
+		text-indent: -9999px;
+		padding: 0 16px!important;
+	}
+	.editor-toolbar button.save-to-url,
+	.editor-toolbar button.save {
+		text-indent: -9999px;
+		font-size: 0;
+	}
+	.editor-toolbar button.save-to-url .icon,
+	.editor-toolbar button.save .icon {
+		margin-right: 0!important;
+	}
+}
+@media (max-width: 1100px) {
+	.buttons {
+		margin-left: 0!important;
+	}
+	.editor-toolbar .tools {
+		margin-left: 2px!important;
+	}
+}
 #working {
     position: fixed;
     top: 0;
@@ -30,7 +64,7 @@ a {
 	display: block;
 	position: absolute;
 	top: -7px;
-	right: 10px;
+	right: 65px;
 	width: 14px;
 	height: 7px;
 }
@@ -216,6 +250,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 #page-editor {
     background: #eaeaea;
+	min-width: 930px;
 }
 #header {
     position: fixed;
@@ -301,7 +336,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 .editor-toolbar .donation-drop {
     position: absolute;
-    right: 7px;
+    right: -55px;
     top: 41px;
     background: #fff;
     box-shadow: 0 2px 2px rgba(0,0,0,0.15);
@@ -659,6 +694,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	border-radius: 4px;
 	padding: 5px 5px 2px 2px;
 	width: 315px;
+}
+.more-plugins-drop .arrow-drop {
+	right: 5px;
 }
 
 .buttons .more-plugins-drop button {
