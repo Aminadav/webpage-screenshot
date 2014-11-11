@@ -40,6 +40,12 @@ a {
 		margin-left: 2px!important;
 	}
 }
+@media (max-width: 1000px) {
+	.buttons .url-share {
+		width: 80px !important;
+		background-position-x: 55px!important;
+	}
+}
 #working {
     position: fixed;
     top: 0;
