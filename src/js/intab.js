@@ -130,32 +130,42 @@ var cropData;
         }
       }
     },
-    enableFixedPosition: function (enableFlag, cropData) {
-      if (enableFixedPosition || enableFlag) {
-        enableFixedPosition = false;
-        for (var i = 0, l = this.fixedElements_.length; i < l; ++i) {
-          this.fixedElements_[i].style.position = "fixed";
-        }
-      } else {
-        enableFixedPosition = true;
-        this.fixedElements_ = [];
-        var nodeIterator = document.createNodeIterator(
-          document.documentElement,
-          NodeFilter.SHOW_ELEMENT,
-          null,
-          false
+    restoreFixedElements: function () {
+      if (!enableFixedPosition) {
+        return ;
+      }
+      for (var i = 0, l = this.fixedElements_.length; i < l; ++i) {
+        this.fixedElements_[i].style.setProperty(
+          "position", this.fixedElements_[i].style._position
         );
-        var currentNode;
-        while (currentNode = nodeIterator.nextNode()) {
-          var nodeComputedStyle = document.defaultView.getComputedStyle(currentNode, "");
-          // Skip nodes which don't have computeStyle or are invisible.
-          if (!nodeComputedStyle)
-            return;
-          var nodePosition = nodeComputedStyle.getPropertyValue("position");
-          if (nodePosition == "fixed") {
+      }
+      this.fixedElements_ = [];
+      enableFixedPosition = false;
+    },
+    processFixedElements: function () {
+      if (!enableFixedPosition) {
+        this.fixedElements_ = [];
+      }
+      enableFixedPosition = true;
+      var nodeIterator = document.createNodeIterator(
+        document.documentElement,
+        NodeFilter.SHOW_ELEMENT,
+        null,
+        false
+      );
+      var currentNode;
+      while (currentNode = nodeIterator.nextNode()) {
+        var nodeComputedStyle = document.defaultView.getComputedStyle(currentNode, "");
+        // Skip nodes which don't have computeStyle or are invisible.
+        if (!nodeComputedStyle)
+          return;
+        var nodePosition = nodeComputedStyle.getPropertyValue("position");
+        if (nodePosition == "fixed") {
+          if (this.fixedElements_.indexOf(currentNode) < 0) {
             this.fixedElements_.push(currentNode);
-            currentNode.style.position = "absolute";
           }
+          currentNode.style._position = currentNode.style.getPropertyValue('position');
+          currentNode.style.setProperty("position", "absolute", "important");
         }
       }
     },
@@ -201,7 +211,7 @@ var cropData;
           scrollLeft: document.body.scrollLeft,
           showScrollBar: true
         };
-        if (mess.noScroll) {
+        if (!mess.scroll) {
           defaults.x1 = window.scrollX;
           defaults.y1 = window.scrollY;
           defaults.x2 = window.innerWidth + defaults.x1;
@@ -214,18 +224,15 @@ var cropData;
       if (mess.type == 'takeCapture') {
         var ans = {};
         for (var i = 0; i < document.getElementsByTagName('meta').length; i++) {
-          a = document.getElementsByTagName('meta')[i];
+          var a = document.getElementsByTagName('meta')[i];
           if ((a.getAttribute('name') && a.getAttribute('name').toLowerCase() == 'description')) ans.description = a.getAttribute('content')
         }
         if (mess.start) {
           dectect_zoom();
           page.setVars(cropData);
           page.hideSb();
-          if (!mess.noScroll) {
-            if (!cropData.showScrollBar) {
-              page.enableScrollbar(false);
-            }
-            page.enableFixedPosition(false, cropData);
+          if (mess.scroll && !cropData.showScrollBar) {
+            page.enableScrollbar(false);
           }
           try {
             document.getElementById('presence').style.display = 'none';
@@ -239,6 +246,9 @@ var cropData;
           }
         }
         page.scrollToCurrent();
+        if (mess.scroll) {
+          page.processFixedElements();
+        }
         if (page.iframe) {
           ans.top = page.iframe.contentdocumentbody().scrollTop - (cropData ? cropData.y1 * zoomLevel() : 0);
           ans.left = page.iframe.contentdocumentbody().scrollLeft - (cropData ? cropData.x1 * zoomLevel() : 0);
@@ -247,7 +257,8 @@ var cropData;
           ans.top = parseInt(documentbody().scrollTop * zoomLevel() - cropData.y1 * zoomLevel(), 10)
           ans.left = parseInt(documentbody().scrollLeft * zoomLevel() - cropData.x1 * zoomLevel(), 10)
         }
-        ans.finish = mess.noScroll || !page.computeNextScreen();
+        ans.finish = !mess.scroll || !page.computeNextScreen();
+        console.log(mess, ans)
         if (ans.finish) {
           ans.width = parseInt((cropData.x2 - cropData.x1), 10) * zoomLevel();
           ans.height = parseInt((cropData.y2 - cropData.y1), 10) * zoomLevel();
@@ -261,7 +272,7 @@ var cropData;
       }
       if (mess.type == 'finish') {
         page.enableScrollbar(true);
-        page.enableFixedPosition(true, mess.cropData);
+        page.restoreFixedElements();
         page.preparePage('after');
         page.showSb();
         page.restoreScrollPos();

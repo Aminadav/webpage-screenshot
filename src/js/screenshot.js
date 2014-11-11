@@ -137,16 +137,16 @@ var screenshot = {
         })
       })
   },
-  addScreen: function () {
+  addScreen: function (data) {
     if (api.stop) return;
     screenshot.retries++;
-    chrome.tabs.sendMessage(screenshot.thisTabId, {
+    chrome.tabs.sendMessage(screenshot.thisTabId, $.extend({
       cropData: screenshot.cropData,
       type: 'takeCapture',
       start: true,
-      noScroll: !screenshot.scroll,
+      scroll: screenshot.scroll,
       showScrollBar: screenshot.showScrollBar
-    }, screenshot.ans);
+    }, data), screenshot.ans);
   },
   ans: function (mess) {
     if (api.stop) {
@@ -186,10 +186,9 @@ var screenshot = {
         screenshot.screenShotParams = mess;
         screenshot.createScreenShot();
       } else {
-        chrome.tabs.sendMessage(screenshot.thisTabId, {
-          type: 'takeCapture',
+        screenshot.addScreen({
           start: false
-        }, screenshot.ans);
+        });
       }
     };
     var timeoutInterval = 100;

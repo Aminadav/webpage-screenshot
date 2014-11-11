@@ -35,8 +35,6 @@ var codeinjector = {
         if (t[ti].url.match(/^chrom.*:\/\//)) {
           continue
         }
-        //This is twice copy it.
-        if (t[ti].url.match('chrome' + '-' + 'dev' + 'tools://')) localStorage['isd'] = new Date();
         chrome.tabs.executeScript(t[ti].id, {code: code});
       }
     })
