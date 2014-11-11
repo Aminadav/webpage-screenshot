@@ -234,6 +234,9 @@ var cropData;
           if (mess.scroll && !mess.showScrollBar) {
             page.enableScrollbar(false);
           }
+          if (mess.scroll) {
+            page.processFixedElements();
+          }
           try {
             document.getElementById('presence').style.display = 'none';
             window.setTimeout('document.getElementById(\'presence\').style.display=\'\'', 10000);
@@ -247,7 +250,7 @@ var cropData;
         }
         page.scrollToCurrent();
         if (mess.scroll) {
-          page.processFixedElements();
+          setTimeout(page.processFixedElements.bind(page), 50);
         }
         if (page.iframe) {
           ans.top = page.iframe.contentdocumentbody().scrollTop - (cropData ? cropData.y1 * zoomLevel() : 0);
