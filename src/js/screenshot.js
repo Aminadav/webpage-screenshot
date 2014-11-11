@@ -11,7 +11,10 @@ var screenshot = {
     screenshot.cropData = data.cropData;
     screenshot.showScrollBar = true;
     screenshot.disableHeaderAndFooter = data.disableHeaderAndFooter;
-    screenshot.startWithoutScroll();
+    screenshot.retries = 0;
+    screenshot.scroll = false;
+    localStorage['captureWithoutScroll']++;
+    screenshot.load(screenshot.addScreen);
   },
 
   captureAll: function (data) {
@@ -21,7 +24,10 @@ var screenshot = {
     screenshot.cropData = data.cropData;
     screenshot.showScrollBar = data.showScrollBar;
     screenshot.disableHeaderAndFooter = data.disableHeaderAndFooter;
-    screenshot.startWithScroll();
+    screenshot.retries = 0;
+    screenshot.scroll = true;
+    localStorage['captureWithScroll']++;
+    screenshot.load(screenshot.addScreen);
   },
 
   captureDesktop:function(){
@@ -33,6 +39,7 @@ var screenshot = {
       chrome.tabs.executeScript(screenshot.thisTabId, {code:'load_cropper_without_selection()'})
     });
   },
+
   editContent: function () {
     screenshot.tryGetUrl(function () {
       chrome.tabs.executeScript(screenshot.thisTabId, {allFrames: true, code: 'document.designMode="on"'}, function () {
@@ -45,6 +52,7 @@ var screenshot = {
   runCallback: false,
   keepIt: false,
   cropData: null,
+  retries: 0,
   showScrollBar: false,
   disableHeaderAndFooter: false,
 
@@ -54,6 +62,7 @@ var screenshot = {
   screenShotParams: null,
   screens: [],
   lastImg: '',
+  thisTab: null,
   thisTabId: '',
   thisTabTitle: '',
   url: '',
@@ -69,7 +78,8 @@ var screenshot = {
     // x=setTimeout(function() {callback(screenshot.url)},200);
     // chrome.permissions.contains({permissions:['tabs']},function(a){if(a){
     chrome.tabs.query({active: true, currentWindow: true}, function (w) {
-      w = w[0]
+      w = w[0];
+      screenshot.thisTab = w;
       screenshot.thisTabId = w.id;
       screenshot.thisTabTitle = w.title;
       screenshot.url = w.url;
@@ -91,28 +101,13 @@ var screenshot = {
       api.callPopup({type: 'working'});
       callback = function () {
         window.setTimeout(realCallback, (parseInt(localStorage['delay'], 10) || 0) * 1000)
-      }
+      };
       if (!localStorage['captureCount']) localStorage['captureCount'] = 0;
       callback();
     })
   },
 
 
-  startWithoutScroll: function (e) {
-    localStorage['captureWithoutScroll']++;
-    screenshot.load(screenshot.startWithoutScroll_continue);
-  },
-  startWithoutScroll_continue: function () {
-    screenshot.addScreen();
-  },
-  startWithScroll: function () {
-    localStorage['captureWithScroll']++;
-    screenshot.load(screenshot.startWithScroll_continue);
-
-  },
-  startWithScroll_continue: function () {
-    screenshot.addScreen(true);
-  },
   webcamfn: function () {
     chrome.tabs.create({url: 'videocap.html'})
   },
@@ -142,24 +137,34 @@ var screenshot = {
         })
       })
   },
-  addScreen: function (scroll) {
+  addScreen: function () {
     if (api.stop) return;
+    screenshot.retries++;
     chrome.tabs.sendMessage(screenshot.thisTabId, {
       cropData: screenshot.cropData,
       type: 'takeCapture',
       start: true,
-      noScroll: !scroll,
+      noScroll: !screenshot.scroll,
       showScrollBar: screenshot.showScrollBar
     }, screenshot.ans);
   },
-  ans: function (mess, b, c) {
+  ans: function (mess) {
     if (api.stop) {
       return ;
     }
     if (!mess && chrome.runtime.lastError) {
       console.warn(chrome.runtime.lastError);
-      mess={left:0,top:0,finish:true}
-      // return ;
+      if (screenshot.retries > 1) {
+        api.callPopup({type: 'message', message: 'Sorry, we can not take a full screenshot of this webpage. This might be because it is not fully loaded. Please report this issue.'});
+      } else {
+        codeinjector.executeOnTab(
+          screenshot.thisTabId,
+          screenshot.thisTab,
+          true,
+          screenshot.addScreen
+        );
+      }
+      return ;
     }
     if(mess.top==null) {mess.top=0;mess.left=0}
     if (mess && mess.description) {
@@ -264,7 +269,6 @@ var screenshot = {
         /////////////////////////////
         // םיצבקה לכ תא ונמייס //
         /////////////////////////////
-        console.log(i, screenshot.screens.length - 1)
         if (i == screenshot.screens.length - 1) {
           ctx.font = 'arial 20px';
           if (theFotter) {

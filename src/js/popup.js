@@ -9,7 +9,7 @@ var popup = {
     $('.capture-desktop').click(popup.captureDesktop);
     $('.capture-clipboard').click(popup.captureClipboard);
     $('.edit-content').click(popup.editContent);
-    $('#working').click(function () {
+    $('#working, #message').click(function () {
       $(this).fadeOut();
     });
     $('.ver').text(extension.version);
@@ -158,9 +158,14 @@ var popup = {
    * @param data
    */
   exec: function (data) {
+    $('#working').fadeOut();
+    $('#message').fadeOut();
     switch (data.type) {
       case 'working':
         $('#working').fadeIn();
+        break;
+      case 'message':
+        $('#message').fadeIn().find('.message-container').text(data.message);
         break;
       default:
         console.warn('Invalid message', data);
