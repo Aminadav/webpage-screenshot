@@ -17,6 +17,7 @@ var hideTheScrollBars;
 var enableFixedPosition = false;
 var cropData;
 (function () {
+
   var page = {
     isWidthScroll: false,
     isHeightScroll: false,
@@ -208,8 +209,7 @@ var cropData;
           y1: 0,
           y2: 32765,
           scrollTop: document.body.scrollTop,
-          scrollLeft: document.body.scrollLeft,
-          showScrollBar: true
+          scrollLeft: document.body.scrollLeft
         };
         if (!mess.scroll) {
           defaults.x1 = window.scrollX;
@@ -231,7 +231,7 @@ var cropData;
           dectect_zoom();
           page.setVars(cropData);
           page.hideSb();
-          if (mess.scroll && !cropData.showScrollBar) {
+          if (mess.scroll && !mess.showScrollBar) {
             page.enableScrollbar(false);
           }
           try {
@@ -258,7 +258,6 @@ var cropData;
           ans.left = parseInt(documentbody().scrollLeft * zoomLevel() - cropData.x1 * zoomLevel(), 10)
         }
         ans.finish = !mess.scroll || !page.computeNextScreen();
-        console.log(mess, ans)
         if (ans.finish) {
           ans.width = parseInt((cropData.x2 - cropData.x1), 10) * zoomLevel();
           ans.height = parseInt((cropData.y2 - cropData.y1), 10) * zoomLevel();
