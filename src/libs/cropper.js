@@ -340,6 +340,7 @@ function load_cropper_without_selection(rect) {
 			data: 'captureAll',
 			showScrollBar: true,
 			disableHeaderAndFooter: true,
+			processFixedElements: false,
 			cropData: {
 				x1: x1,
 				x2: x2,
@@ -388,6 +389,7 @@ function load_cropper_without_selection(rect) {
 				keepIt: true,
 				showScrollBar: true,
 				disableHeaderAndFooter: true,
+				processFixedElements: false,
 				cropData: {
 					x1: x1,
 					x2: x2,

@@ -5,27 +5,33 @@ var screenshot = {
   },
 
   captureVisible: function (data) {
-    screenshot.callback = data.callback;
-    screenshot.runCallback = data.runCallback;
-    screenshot.keepIt = data.keepIt;
-    screenshot.cropData = data.cropData;
-    screenshot.showScrollBar = true;
-    screenshot.disableHeaderAndFooter = data.disableHeaderAndFooter;
-    screenshot.retries = 0;
-    screenshot.scroll = false;
+    $.extend(screenshot, {
+      callback: null,
+      runCallback: false,
+      keepIt: false,
+      scroll: false,
+      cropData: null,
+      retries: 0,
+      showScrollBar: true,
+      disableHeaderAndFooter: false,
+      processFixedElements: false
+    }, data);
     localStorage['captureWithoutScroll']++;
     screenshot.load(screenshot.addScreen);
   },
 
   captureAll: function (data) {
-    screenshot.callback = data.callback;
-    screenshot.runCallback = data.runCallback;
-    screenshot.keepIt = data.keepIt;
-    screenshot.cropData = data.cropData;
-    screenshot.showScrollBar = data.showScrollBar;
-    screenshot.disableHeaderAndFooter = data.disableHeaderAndFooter;
-    screenshot.retries = 0;
-    screenshot.scroll = true;
+    $.extend(screenshot, {
+      callback: null,
+      runCallback: false,
+      keepIt: false,
+      scroll: true,
+      cropData: null,
+      retries: 0,
+      showScrollBar: false,
+      disableHeaderAndFooter: false,
+      processFixedElements: true
+    }, data);
     localStorage['captureWithScroll']++;
     screenshot.load(screenshot.addScreen);
   },
@@ -51,10 +57,12 @@ var screenshot = {
   callback: null,
   runCallback: false,
   keepIt: false,
+  scroll: false,
   cropData: null,
   retries: 0,
   showScrollBar: false,
   disableHeaderAndFooter: false,
+  processFixedElements: false,
 
   executeOnPermission_array: [],
   webcam: null,
@@ -145,7 +153,8 @@ var screenshot = {
       type: 'takeCapture',
       start: true,
       scroll: screenshot.scroll,
-      showScrollBar: screenshot.showScrollBar
+      showScrollBar: screenshot.showScrollBar,
+      processFixedElements: screenshot.processFixedElements
     }, data), screenshot.ans);
   },
   ans: function (mess) {

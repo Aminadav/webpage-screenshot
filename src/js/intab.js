@@ -234,7 +234,7 @@ var cropData;
           if (mess.scroll && !mess.showScrollBar) {
             page.enableScrollbar(false);
           }
-          if (mess.scroll) {
+          if (mess.scroll && mess.processFixedElements) {
             page.processFixedElements();
           }
           try {
@@ -249,7 +249,7 @@ var cropData;
           }
         }
         page.scrollToCurrent();
-        if (mess.scroll) {
+        if (mess.scroll && mess.processFixedElements) {
           setTimeout(page.processFixedElements.bind(page), 50);
         }
         if (page.iframe) {
