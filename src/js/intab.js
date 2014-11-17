@@ -137,8 +137,13 @@ var cropData;
       }
       for (var i = 0, l = this.fixedElements_.length; i < l; ++i) {
         this.fixedElements_[i].style.setProperty(
-          "position", this.fixedElements_[i].style_position
+          "position", null
         );
+        if (this.fixedElements_[i].style_position) {
+          this.fixedElements_[i].style.setProperty(
+            "position", this.fixedElements_[i].style_position
+          );
+        }
       }
       this.fixedElements_ = [];
       enableFixedPosition = false;
