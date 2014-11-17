@@ -564,8 +564,8 @@ function editor_obj()
 
 		$('#text_helper')
 		.css({'z-index':10000,
-			left:-clip.rx1+rx1, //+$canvasData.offset().left,
-			top:-clip.ry1+ry1, //+$canvasData.offset().top,
+			left:-clip.rx1+rx1-8, //+$canvasData.offset().left,
+			top:-clip.ry1+ry1-8, //+$canvasData.offset().top,
 			height:clip.ry2-startY
 			,width:clip.rx2-startX
 		})
@@ -622,7 +622,7 @@ function editor_obj()
 			{
 			enlargeCanvas(inX.canvas,inX.data.x,inX.data.y,10000,10000);
 			inX.canvas.width=check.width
-			inX.canvas.height=check.height
+			inX.canvas.height=check.height+10
 			}
 
 		inX.ctx.textBaseline='top';
@@ -810,8 +810,8 @@ function editor_obj()
 			parseInt(rgb[3], 16)
 		];
 		for(var i=0;i<inX.data.points.length;i++) {
-			thisPoint= parseInt(inX.data.points[i].y-inX.data.canvasOffset.y-1)* inX.canvas.width*4;
-			thisPoint+=parseInt(inX.data.points[i].x-inX.data.canvasOffset.x)*4;
+			thisPoint= parseInt(inX.data.points[i].y-inX.data.canvasOffset.y-10)* inX.canvas.width*4;
+			thisPoint+=parseInt(inX.data.points[i].x-inX.data.canvasOffset.x-10)*4;
 
 			pix[thisPoint]=colors[0];
 			pix[thisPoint+1]=colors[1];
@@ -1028,7 +1028,7 @@ function editor_obj()
 		e.x-=baseRectDim/2
 		e.y-=baseRectDim/2
 		currentLevel.type='rectangle';
-		currentLevel.start={x:e.x,	y:e.y};
+		currentLevel.start={x:e.x+15,	y:e.y+15};
 		currentLevel.end={x:e.x+baseRectDim,	y:e.y+baseRectDim};
 		tool.rectangle.move({x:e.x+baseRectDim,y:e.y+baseRectDim});
 		
@@ -1115,7 +1115,7 @@ function editor_obj()
 		currentLevel.type='full';
 		e.x-=baseRectDim/2
 		e.y-=baseRectDim/2
-		currentLevel.start={x:e.x,	y:e.y};
+		currentLevel.start={x:e.x+15,	y:e.y+15};
 		currentLevel.end={x:e.x+baseRectDim,	y:e.y+baseRectDim};
 		tool.full.move({x:e.x+baseRectDim,y:e.y+baseRectDim});
 		}
@@ -1132,7 +1132,7 @@ function editor_obj()
 		newLevel();
 		createCanvas();
 		currentLevel.type='star';
-		currentLevel.start={x:e.x-baseStarDim,	y:e.y-baseStarDim};
+		currentLevel.start={x:e.x-baseStarDim+15,	y:e.y-baseStarDim+15};
 		currentLevel.end={x:e.x+baseStarDim,	y:e.y+baseStarDim};
 		tool.star.move(e);
 		};
@@ -1375,7 +1375,7 @@ function editor_obj()
 					left:canvasWidth>maxWidth ? 0 : (maxWidth/2)-(canvasWidth/2) ,
 					width:canvasWidth>maxWidth ? maxWidth : canvasWidth,
 					height:height,
-					'overflow-x' : canvasWidth<maxWidth ?'hidden' : 'auto',
+					'overflow-x' : canvasWidth+16<maxWidth ?'hidden' : 'auto',
 					'overflow-Y' : canvasHeight<maxHeight ?'hidden' : 'auto',
           'top': '50%',
           'margin-top': ($('#header').height()/2 - height/2) + 'px'
