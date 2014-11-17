@@ -16,8 +16,6 @@ function documentbody() {
 var hideTheScrollBars;
 var enableFixedPosition = false;
 var cropData;
-(function () {
-
   var page = {
     isWidthScroll: false,
     isHeightScroll: false,
@@ -32,7 +30,6 @@ var cropData;
     currentY: 0,
     scrollBarWidth: 0,
     iframe: null,
-    fixedElements_: [],
     elm: null,
     setVars: function (cropData) {
       if (cropData.y2 > document.height) cropData.y2 = document.height;
@@ -131,63 +128,44 @@ var cropData;
         }
       }
     },
-    restoreFixedElements: function () {
-      if (!enableFixedPosition) {
-        return ;
-      }
-
-      var body = documentbody();
-      body.style.setProperty(
-        "position", null
-      );
-      if (body.style_position) {
-        body.style.setProperty(
-          "position", body.style_position
-        );
-      }
-
-      for (var i = 0, l = this.fixedElements_.length; i < l; ++i) {
-        this.fixedElements_[i].style.setProperty(
-          "position", null
-        );
-        if (this.fixedElements_[i].style_position) {
-          this.fixedElements_[i].style.setProperty(
-            "position", this.fixedElements_[i].style_position
+    fixed_element_check:function(){
+        //Hide fixed element
+        //Add there visibility to custom tag
+        var nodeIterator = document.createNodeIterator(
+            document.documentElement,
+            NodeFilter.SHOW_ELEMENT,
+            null,
+            false
           );
-        }
-      }
-      this.fixedElements_ = [];
-      enableFixedPosition = false;
-    },
-    processFixedElements: function () {
-      if (!enableFixedPosition) {
-        this.fixedElements_ = [];
-        var body = documentbody();
-        body.style_position = body.style.getPropertyValue("position");
-        body.style.setProperty("position", "relative", "important");
-      }
-      enableFixedPosition = true;
-      var nodeIterator = document.createNodeIterator(
-        document.documentElement,
-        NodeFilter.SHOW_ELEMENT,
-        null,
-        false
-      );
-      var currentNode;
-      while (currentNode = nodeIterator.nextNode()) {
-        var nodeComputedStyle = document.defaultView.getComputedStyle(currentNode, "");
-        // Skip nodes which don't have computeStyle or are invisible.
-        if (!nodeComputedStyle)
-          return;
-        var nodePosition = nodeComputedStyle.getPropertyValue("position");
-        if (nodePosition == "fixed") {
-          if (this.fixedElements_.indexOf(currentNode) < 0) {
-            this.fixedElements_.push(currentNode);
-            currentNode.style_position = currentNode.style.getPropertyValue("position");
+    var currentNode;
+          while (currentNode = nodeIterator.nextNode()) {
+            var nodeComputedStyle = document.defaultView.getComputedStyle(currentNode, "");
+            // Skip nodes which don't have computeStyle or are invisible.
+            if (!nodeComputedStyle)
+              return;
+            var nodePosition = nodeComputedStyle.getPropertyValue("position");
+            if (nodePosition == "fixed") {
+                if ($(currentNode).position().top < $(window).height()/2)
+                    //show on Top
+                    currentNode.setAttribute('fixed_show','top')
+                else{
+                    //show on bottom
+                    currentNode.setAttribute('fixed_show','bottom')
+                }
+            }
           }
-          currentNode.style.setProperty("position", "absolute", "important");
-        }
-      }
+    },
+    hide_all_fixed_element:function(){
+        $('[fixed_show]:visible').attr('was_visible',true).hide();
+    },
+    show_all_fixed_element:function(){
+        $('[was_visible]').show().attr('was_visible',null);
+    },
+    hide_fixed_element:function(inPosition /* =top/bottom */){
+       $('[fixed_show=' + inPosition + ']:visible').attr('was_visible',true).hide(); 
+    },
+    show_fixed_element:function(inPosition /* =top/bottom */){
+       $('[fixed_show=' + inPosition + '][was_visible]').attr('was_visible',null).show(); 
     },
 
     hideSb: function () {
@@ -249,15 +227,13 @@ var cropData;
           var a = document.getElementsByTagName('meta')[i];
           if ((a.getAttribute('name') && a.getAttribute('name').toLowerCase() == 'description')) ans.description = a.getAttribute('content')
         }
+      debugger
         if (mess.start) {
           dectect_zoom();
           page.setVars(cropData);
           page.hideSb();
           if (mess.scroll && !mess.showScrollBar) {
             page.enableScrollbar(false);
-          }
-          if (mess.scroll && mess.processFixedElements) {
-            page.processFixedElements();
           }
           try {
             document.getElementById('presence').style.display = 'none';
@@ -272,7 +248,7 @@ var cropData;
         }
         page.scrollToCurrent();
         if (mess.scroll && mess.processFixedElements) {
-          setTimeout(page.processFixedElements.bind(page), 50);
+          // setTimeout(page.processFixedElements.bind(page), 50);
         }
         if (page.iframe) {
           ans.top = page.iframe.contentdocumentbody().scrollTop - (cropData ? cropData.y1 * zoomLevel() : 0);
@@ -292,6 +268,22 @@ var cropData;
           if (window.onfinish)
             window.onfinish()
         }
+
+        if (mess.scroll && mess.processFixedElements) {
+          if(mess.start){
+            page.fixed_element_check();
+            page.hide_fixed_element('bottom')
+          }
+          else{
+            page.hide_fixed_element('top')
+          }
+          if(ans.finish){
+            page.show_fixed_element('bottom')
+            setTimeout(page.show_fixed_element.bind(null,'top'),1500)
+          }
+        }
+        // if(!mess.start) page.hide_fixed_element('top');
+        // if(!ans.finish) page.hide_fixed_element('bottom');
         callback(ans);
       }
       if (mess.type == 'finish') {
@@ -339,7 +331,6 @@ var cropData;
   chrome.runtime.sendMessage({
     data: 'isEnableShortCuts'
   }, page.bindEvents);
-})();
 
 var f = function () {
   if (
