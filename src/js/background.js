@@ -12,6 +12,7 @@ var api = {
       delay: 0,
       rnd: Math.random(),
       options: hex_md5((new Date).toString()) + hex_md5( Math.random().toString()),
+      speed:400,
       shortcut_full: 90,
       shortcut_visible: 88,
       shortcut_region: 82,

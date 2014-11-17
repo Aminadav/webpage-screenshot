@@ -200,7 +200,7 @@ var screenshot = {
         });
       }
     };
-    var timeoutInterval = 200;
+    var timeoutInterval = localStorage.speed;
     setTimeout(function () {
       chrome.windows.update(screenshot.thisWindowId, {focused: true}, function () {
         chrome.tabs.update(screenshot.thisTabId, {active: true}, function () {
