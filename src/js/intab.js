@@ -236,8 +236,11 @@ var cropData;
           defaults.x2 = window.innerWidth + defaults.x1;
           defaults.y2 = window.innerHeight + defaults.y1;
         }
-
         cropData = $.extend(defaults, mess.cropData);
+
+        maxDimensionForCanvas=Math.pow(2,15)-100
+        if(cropData.y2-cropData.y1>maxDimensionForCanvas) cropData.y2=cropData.y1+maxDimensionForCanvas
+        if(cropData.x2-cropData.x1>maxDimensionForCanvas) cropData.x2=cropData.x1+maxDimensionForCanvas
         // for(var key in cropData) {cropData[key]=cropData[key] * zoomLevel()  }
       }
       if (mess.type == 'takeCapture') {
