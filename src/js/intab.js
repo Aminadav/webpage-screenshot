@@ -194,6 +194,20 @@ var cropData;
 
 
     onRequest: function (mess, sender, callback) {
+      console.log(0,mess.start)
+      debugger
+      if(mess.start &&mess.scroll && mess.processFixedElements && !mess.alread_process_fixed_element){
+        document.body.scrollTop=400
+        var arg=arguments
+        window.setTimeout(function(){
+          debugger
+          page.fixed_element_check();
+          mess.alread_process_fixed_element=true
+          page.onRequest.apply(null,arg)
+        },200)
+        return true;
+      }
+      console.log(1,mess.start)
       if (mess.type == 'checkExist') {
         callback();
         return;
@@ -227,7 +241,6 @@ var cropData;
           var a = document.getElementsByTagName('meta')[i];
           if ((a.getAttribute('name') && a.getAttribute('name').toLowerCase() == 'description')) ans.description = a.getAttribute('content')
         }
-      debugger
         if (mess.start) {
           dectect_zoom();
           page.setVars(cropData);
@@ -269,9 +282,9 @@ var cropData;
             window.onfinish()
         }
 
+debugger
         if (mess.scroll && mess.processFixedElements) {
           if(mess.start){
-            page.fixed_element_check();
             page.hide_fixed_element('bottom')
           }
           else{
