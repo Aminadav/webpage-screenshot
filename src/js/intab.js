@@ -32,6 +32,8 @@ var cropData;
     currentY: 0,
     scrollBarWidth: 0,
     iframe: null,
+    fixedElements_: [],
+    elm: null,
     setVars: function (cropData) {
       if (cropData.y2 > document.height) cropData.y2 = document.height;
       if (cropData.x2 > document.width) cropData.x2 = document.width;
@@ -93,8 +95,6 @@ var cropData;
     checkHeightScroll: function () {
       return (documentbody().clientHeight < documentbody().scrollHeight);
     },
-    fixedElements_: [],
-    elm: null,
     preparePage: function (inZman) {
       if (document.location.hostname == 'www.f' + 'ace' + 'book.com') {
         if (!page.elm) {
@@ -137,7 +137,7 @@ var cropData;
       }
       for (var i = 0, l = this.fixedElements_.length; i < l; ++i) {
         this.fixedElements_[i].style.setProperty(
-          "position", this.fixedElements_[i].style._position
+          "position", this.fixedElements_[i].style_position
         );
       }
       this.fixedElements_ = [];
@@ -165,7 +165,7 @@ var cropData;
           if (this.fixedElements_.indexOf(currentNode) < 0) {
             this.fixedElements_.push(currentNode);
           }
-          currentNode.style._position = currentNode.style.getPropertyValue('position');
+          currentNode.style_position = currentNode.style.getPropertyValue('position');
           currentNode.style.setProperty("position", "absolute", "important");
         }
       }
