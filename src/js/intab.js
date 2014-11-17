@@ -195,12 +195,14 @@ var cropData;
 
     onRequest: function (mess, sender, callback) {
       console.log(0,mess.start)
-      debugger
+      if(mess.start && !mess.alread_process_fixed_element){
+        debugger
+        page.saveScrollPos();
+      }
       if(mess.start &&mess.scroll && mess.processFixedElements && !mess.alread_process_fixed_element){
         document.body.scrollTop=400
         var arg=arguments
         window.setTimeout(function(){
-          debugger
           page.fixed_element_check();
           mess.alread_process_fixed_element=true
           page.onRequest.apply(null,arg)
@@ -213,7 +215,6 @@ var cropData;
         return;
       }
       if (mess.start) {
-        page.saveScrollPos();
         var defaults = {
           x1: 0,
           x2: 32768,
@@ -282,7 +283,6 @@ var cropData;
             window.onfinish()
         }
 
-debugger
         if (mess.scroll && mess.processFixedElements) {
           if(mess.start){
             page.hide_fixed_element('bottom')
@@ -301,9 +301,9 @@ debugger
       }
       if (mess.type == 'finish') {
         page.enableScrollbar(true);
-        page.restoreFixedElements();
         page.preparePage('after');
         page.showSb();
+        debugger
         page.restoreScrollPos();
       }
     },
