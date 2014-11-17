@@ -145,15 +145,21 @@ var cropData;
               return;
             var nodePosition = nodeComputedStyle.getPropertyValue("position");
             if (nodePosition == "fixed") {
-                if ($(currentNode).position().top < $(window).height()/2)
+                if ($(currentNode).position().top < $(window).height()/2){
                     //show on Top
                     currentNode.setAttribute('fixed_show','top')
+                    if(document.body.scrollHeight<document.body.scrollTop*2)
+                    currentNode.style.cssText+='position:absolute!important';
+                  }
                 else{
                     //show on bottom
                     currentNode.setAttribute('fixed_show','bottom')
                 }
             }
           }
+    },
+    fixed_element_restore:function(){
+      $('[fixed_show=top]').each(function(){ this.style.cssText+='position:fixed!important' })
     },
     hide_all_fixed_element:function(){
         $('[fixed_show]:visible').attr('was_visible',true).hide();
@@ -292,7 +298,10 @@ var cropData;
           }
           if(ans.finish){
             page.show_fixed_element('bottom')
+            if(document.body.scrollTop< $(window).height())
+                page.show_fixed_element('top');
             setTimeout(page.show_fixed_element.bind(null,'top'),1500)
+            setTimeout(page.fixed_element_restore.bind(null,'top'),2000)
           }
         }
         // if(!mess.start) page.hide_fixed_element('top');
@@ -303,7 +312,6 @@ var cropData;
         page.enableScrollbar(true);
         page.preparePage('after');
         page.showSb();
-        debugger
         page.restoreScrollPos();
       }
     },
