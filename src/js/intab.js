@@ -148,7 +148,7 @@ var cropData;
                 if ($(currentNode).position().top < $(window).height()/2){
                     //show on Top
                     currentNode.setAttribute('fixed_show','top')
-                    if(document.body.scrollHeight<document.body.scrollTop*2)
+                    if(document.body.scrollHeight<$(window).height()*2)
                     currentNode.style.cssText+='position:absolute!important';
                   }
                 else{
@@ -202,7 +202,6 @@ var cropData;
     onRequest: function (mess, sender, callback) {
       console.log(0,mess.start)
       if(mess.start && !mess.alread_process_fixed_element){
-        debugger
         page.saveScrollPos();
       }
       if(mess.start &&mess.scroll && mess.processFixedElements && !mess.alread_process_fixed_element){
