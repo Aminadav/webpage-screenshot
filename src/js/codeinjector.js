@@ -42,6 +42,7 @@ var codeinjector = {
 
   executeOnTab: function (tid, tab, force, cb) {
     if (tab.url.match(/^chrom.*:\/\//)) {
+      setTimeout(cb, 0);	
       return;
     }
     var code = codeinjector.getCode();

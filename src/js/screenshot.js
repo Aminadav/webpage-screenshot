@@ -162,9 +162,11 @@ var screenshot = {
       return ;
     }
     if (!mess && chrome.runtime.lastError) {
-      console.warn(chrome.runtime.lastError);
-      if (screenshot.retries > 1) {
+      if (screenshot.retries > 1 && screenshot.scroll) {
         api.callPopup({type: 'message', message: 'Sorry, we can not take a full screenshot of this webpage. This might be because it is not fully loaded. Please report this issue.'});
+        return ;
+      } else if (screenshot.retries > 1) {
+        mess = {left:0,top:0,finish:true};
       } else {
         codeinjector.executeOnTab(
           screenshot.thisTabId,
@@ -172,8 +174,8 @@ var screenshot = {
           true,
           screenshot.addScreen
         );
+        return ;
       }
-      return ;
     }
     if(mess.top==null) {mess.top=0;mess.left=0}
     if (mess && mess.description) {
