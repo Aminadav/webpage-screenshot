@@ -131,6 +131,12 @@ var cropData;
     fixed_element_check:function(){
         //Hide fixed element
         //Add there visibility to custom tag
+        //
+        if( document.defaultView.getComputedStyle(document.body)['background-attachment']=='fixed' ){
+          document.body.was_fixed=true
+          document.body.style.cssText+=';background-attachment:initial!important;'
+        }
+
         var nodeIterator = document.createNodeIterator(
             document.documentElement,
             NodeFilter.SHOW_ELEMENT,
@@ -149,7 +155,7 @@ var cropData;
                     //show on Top
                     currentNode.setAttribute('fixed_show','top')
                     if(document.body.scrollHeight<$(window).height()*2)
-                    currentNode.style.cssText+='position:absolute!important';
+                    currentNode.style.cssText+=';position:absolute!important;';
                   }
                 else{
                     //show on bottom
@@ -160,6 +166,7 @@ var cropData;
     },
     fixed_element_restore:function(){
       $('[fixed_show=top]').each(function(){ this.style.cssText+='position:fixed!important' })
+      if(document.body.was_fixed) document.body.style.cssText+=';background-attachment:fixed!important;'
     },
     hide_all_fixed_element:function(){
         $('[fixed_show]:visible').attr('was_visible',true).hide();
