@@ -5,6 +5,7 @@
  * Should not have a scrollbar once captured
  * Should work with alt+x shortcut
  * Should have header and footer
+ * Should work while page is in loading state (Hard to reproduce, but some pages are never loaded. Sometimes it happens with https://news.google.com/)
  * chrome://extensions/
  * file:///.../file.png - should display error "Go to chrome://extensions, and check the box "Allow access to file URLs", but should work without this as well.
 
