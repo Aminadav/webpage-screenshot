@@ -207,7 +207,6 @@ var cropData;
 
 
     onRequest: function (mess, sender, callback) {
-      console.log(0,mess.start)
       if(mess.start && !mess.alread_process_fixed_element){
         page.saveScrollPos();
       }
@@ -221,7 +220,6 @@ var cropData;
         },200)
         return true;
       }
-      console.log(1,mess.start)
       if (mess.type == 'checkExist') {
         callback();
         return;
