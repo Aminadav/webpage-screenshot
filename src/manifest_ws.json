@@ -1,6 +1,6 @@
 {
     "name": "__MSG_name__",
-    "version": "13.11",
+    "version": "14.4",
 
     "commands": {
         "visible_screenshot": {
@@ -90,9 +90,9 @@
     ],
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.googleapis.com https://cdn.extensionanalytics.com https://ssl.google-analytics.com; object-src 'self'",
     "default_locale": "en",
-    "permissions": ["tts","notifications","activeTab","storage", "unlimitedStorage"],
+    "permissions": ["tts","notifications","activeTab","storage", "unlimitedStorage", "webRequest"],
     "optional_permissions": [
-    "webNavigation","desktopCapture", "webRequest", "tabs",
-     "file://*/*", "http://*/*", "https://*/*", "pageCapture", "tabCapture","clipboardWrite","<all_urls>"
+    "desktopCapture", "tabs",
+     "file://*/*", "http://*/*", "https://*/*", "pageCapture", "tabCapture","webNavigation","clipboardWrite","<all_urls>"
      ]
 }
