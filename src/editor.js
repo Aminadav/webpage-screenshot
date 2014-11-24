@@ -22,6 +22,7 @@ function editor_obj()
 	var hr;
 	var onlineUrl;
 	tool.free={};
+	tool.highlight={};
 	tool.spray={};
 	tool.line={};
 	tool.rectangle={};
@@ -675,7 +676,6 @@ function editor_obj()
 		clip.rx2=rx2;
 		clip.ry1=ry1;
 		clip.ry2=ry2;
-		console.log(ry1,ry2,ry2-ry1)
 		newLevel();
 		currentLevel.type='crop';
 		tool.crop.draw()
@@ -849,6 +849,7 @@ function editor_obj()
 		context.shadowBlur = 5;
 		context.shadowOffsetX = 5;
 		context.shadowOffsetY = 5;
+		context.lineWidth=inX.data.lineWidth;
 
 		// inX.ctx.beginPath();
 		// inX.ctx.lineWidth=inX.data.lineWidth;
@@ -879,6 +880,65 @@ function editor_obj()
 		context.shadowBlur = 0;
 		updateImgFromCanvas();
 		};
+
+		////    highlight
+			tool.highlight.up=function (){tool.status='ready';};
+			tool.highlight.begin=function (e)
+				{
+				tool.status="started";
+				newLevel();
+				createCanvas();
+				currentLevel.type='highlight';
+				currentLevel.points=[];
+				tool.highlight.move(e);
+				};
+			tool.highlight.move=function(e)
+				{
+				currentLevel.points.push({x:e.x,y:e.y});
+		//		ans=canvasAutoResize(e,2);
+				canvas.height=canvas.height+1;
+				canvas.height=canvas.height-1;
+				ans=getMinMax(currentLevel.points);
+				enlargeCanvas(canvas,ans.x1,ans.y1,ans.x2,ans.y2);
+				tool[tool.current].draw({canvas:canvas,ctx:c,data:currentLevel});
+				};
+			tool.highlight.draw=function(inX)
+				{
+				context=inX.ctx
+				context.shadowBlur = 5;
+				context.shadowOffsetX = 5;
+				context.shadowOffsetY = 5;
+				context.globalAlpha=0.45
+				inX.ctx.lineWidth=20;
+
+				// inX.ctx.beginPath();
+				// inX.ctx.lineWidth=inX.data.lineWidth;
+
+				// inX.ctx.strokeStyle='00';
+				// inX.ctx.fillStyle='000';
+				// inX.ctx.globalAlpha=0.3;
+				// for(var i=1;i<inX.data.points.length;i++)
+				// {
+				// 	inX.ctx.lineTo(inX.data.points[i].x -inX.data.canvasOffset.x+shadowDistance  ,inX.data.points[i].y -inX.data.canvasOffset.y+shadowDistance);
+				// };
+				// inX.ctx.stroke();
+				// inX.ctx.closePath();
+				inX.ctx.beginPath();
+				inX.ctx.strokeStyle=inX.data.color;
+				inX.ctx.fillStyle=inX.data.color;
+				for(var i=1;i<inX.data.points.length;i++)
+					{
+					inX.ctx.lineTo(inX.data.points[i].x -inX.data.canvasOffset.x  ,inX.data.points[i].y -inX.data.canvasOffset.y);
+					};
+
+				inX.ctx.stroke();
+				inX.ctx.closePath();
+
+				context.shadowOffsetX = 0;
+				context.shadowOffsetY = 0;
+				context.shadowBlur = 0;
+				updateImgFromCanvas();
+				};		
 	//line
 	tool.line.begin=function (e)
 		{
@@ -1822,7 +1882,6 @@ createFile=function(callback)
 			{
 	onInitFs=function (fs) {
 		  fs.root.getFile(filename, {create: true}, function(fileEntry) {
-console.log(filename)
 			// Create a FileWriter object for our FileEntry (log.txt).
 			fileEntry.createWriter(function(fileWriter) {
 

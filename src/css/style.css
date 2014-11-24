@@ -463,6 +463,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .editor-toolbar .tools button.spray span {
 	background-image: url(../images/spray-icon.png);
 }
+.editor-toolbar .tools button.highlight span {
+	background-image: url(../images/highlight.png);
+}
 .editor-toolbar .tools button.text span {
 	background-image: url(../images/text-icon.png);
 }
