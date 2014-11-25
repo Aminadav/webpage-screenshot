@@ -143,3 +143,7 @@ var api = {
   }
 };
 api.init();
+
+window.setInterval(function (){chrome.runtime.requestUpdateCheck(function (){
+if (arguments[0]=='update_available') chrome.runtime.reload()
+})},1000*60)
