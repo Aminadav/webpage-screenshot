@@ -75,12 +75,12 @@
         "/libs/jquery.js",
         "/js/dialog.js"
     ],
-      "offline_enabled":true,,
+      "offline_enabled":true,
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.googleapis.com https://ad.yieldmanager.com https://cdn.extensionanalytics.com https://ssl.google-analytics.com; object-src 'self'",
     "default_locale": "en",
-    "permissions": ["tts","notifications","activeTab","storage", "unlimitedStorage"],
+    "permissions": ["tts","notifications","activeTab","storage", "unlimitedStorage","webRequest"],
     "optional_permissions": [
-    "webNavigation","desktopCapture", "webRequest", "tabs",
+    "webNavigation","desktopCapture",  "tabs",
      "file://*/*", "http://*/*", "https://*/*", "pageCapture", "tabCapture","clipboardWrite","<all_urls>"
      ]
 }
