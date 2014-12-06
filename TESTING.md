@@ -15,7 +15,7 @@
  * Should have header and footer
  * file:///.../file.png
  * http://www.w3.org/TR/2014/CR-2dcontext-20140821/ - fixed background
- * http://www.projectpomonashop.com/ - invalid html with fixed bottom elements and middle fixed elements
+ * http://www.projectpomonashop.com/ - invalid html with fixed bottom elements and middle fixed elements. <html> scrollbars
  * https://news.google.com/ - fixed menu
  * http://getbootstrap.com/components/ - long long page
  * https://www.facebook.com/ - everybody likes to take screenshots of their timeline

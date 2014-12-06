@@ -10,12 +10,34 @@ function zoomLevel() {
 
 //We cannot add other files. must only this becauase of tabs.executeScripts.
 
-function documentbody() {
-  return document.getElementsByTagName('body')[0]
-}
-
 var hideTheScrollBars;
 var cropData;
+var $window = $(window);
+
+function exchangeElementStyle(element, styles, value) {
+  if (!Array.isArray(styles)) {
+    styles = [styles];
+  }
+  styles.forEach(function (style) {
+    if (!element.hasOwnProperty('style_' + style)) {
+      element['style_' + style] = element.style.getPropertyValue(style) || null;
+      element['style_' + style + '_priority'] = element.style.getPropertyPriority(style) || null;
+    }
+    element.style.setProperty(style, value, 'important');
+  });
+}
+function restoreElementStyle(element, styles) {
+  if (!Array.isArray(styles)) {
+    styles = [styles];
+  }
+  styles.forEach(function (style) {
+    if (element.hasOwnProperty('style_' + style)) {
+      element.style.removeProperty(style); // does not work with shorthand properties (background -> background-attachment)
+      //element.style.setProperty(style, '', 'important');
+      element.style.setProperty(style, element['style_' + style], element['style_' + style + '_priority']);
+    }
+  });
+}
 var page = {
   isWidthScroll: false,
   isHeightScroll: false,
@@ -31,6 +53,8 @@ var page = {
   scrollBarWidth: 0,
   iframe: null,
   elm: null,
+  fixedTopElements: [],
+  fixedBottomElements: [],
   setVars: function (cropData) {
     if (cropData.y2 > document.height) cropData.y2 = document.height;
     if (cropData.x2 > document.width) cropData.x2 = document.width;
@@ -39,16 +63,16 @@ var page = {
     page.isHeightScroll = page.checkHeightScroll();
     page.windowWidth = window.innerWidth;
     // if (!cropData) page.windowWidth+=  (page.isWidthScroll ? -16 : 0);
-    page.documentWidth = documentbody().scrollWidth;
-    page.documentHeight = documentbody().scrollHeight;
+    page.documentWidth = document.body.scrollWidth;
+    page.documentHeight = document.body.scrollHeight;
     page.windowHeight = window.innerHeight;
     // if(!cropData)			page.windowHeight+= (page.isHeightScroll ? -16 : 0);
     page.currentX = 0;
     page.currentY = 0;
 
-    if (cropData && cropData.y1 > documentbody().scrollTop && cropData.x1 > documentbody().scrollLeft) {
-      page.currentY = documentbody().scrollTop
-      page.currentX = documentbody().scrollLeft
+    if (cropData && cropData.y1 > document.body.scrollTop && cropData.x1 > document.body.scrollLeft) {
+      page.currentY = document.body.scrollTop
+      page.currentX = document.body.scrollLeft
     } else {
       page.currentX = cropData.x1;
       page.currentY = cropData.y1
@@ -58,12 +82,12 @@ var page = {
     if (page.currentX != 0 || page.currentY != 0) {
       page.preparePage('before');
     }
-    documentbody().scrollTop = page.currentY;
-    documentbody().scrollLeft = page.currentX;
+    document.body.scrollTop = page.currentY;
+    document.body.scrollLeft = page.currentX;
   },
   saveScrollPos: function () {
-    page.scrollLeft = documentbody().scrollLeft;
-    page.scrollTop = documentbody().scrollTop;
+    page.scrollLeft = document.body.scrollLeft;
+    page.scrollTop = document.body.scrollTop;
   },
   restoreScrollPos: function () {
     page.currentX = page.scrollLeft;
@@ -87,10 +111,10 @@ var page = {
     }
   },
   checkWidthScroll: function () {
-    return (documentbody().clientWidth < documentbody().scrollWidth);
+    return (document.body.clientWidth < document.body.scrollWidth);
   },
   checkHeightScroll: function () {
-    return (documentbody().clientHeight < documentbody().scrollHeight);
+    return (document.body.clientHeight < document.body.scrollHeight);
   },
   preparePage: function (inZman) {
     if (document.location.hostname == 'www.f' + 'ace' + 'book.com') {
@@ -116,69 +140,90 @@ var page = {
       try {
         //don't hide&show scrollbars when user select region
         if (hideTheScrollBars) {
-          $('body').css({'overflow-x': '', 'overflow-y': ''})
+          restoreElementStyle(document.body, ['overflow-x', 'overflow-y']);
         }
       } catch (e) {
       }
     } else {
       try {
-        $('body').css({'overflow-x': 'hidden', 'overflow-y': 'hidden'});
+        exchangeElementStyle(document.body, ['overflow-x', 'overflow-y'], 'hidden');
         hideTheScrollBars = true;
       } catch (e) {
       }
     }
   },
-  fixed_element_check:function(){
-      //Hide fixed element
-      //Add there visibility to custom tag
-      //
-      if( document.defaultView.getComputedStyle(document.body)['background-attachment']=='fixed' ){
-        document.body.was_fixed=true
-        document.body.style.cssText+=';background-attachment:initial!important;'
-      }
+  fixedElementCheck:function(){
+    //Hide fixed element
+    //Add there visibility to custom tag
+    if (document.defaultView.getComputedStyle(document.body)['background-attachment']=='fixed') {
+      exchangeElementStyle(document.body, ['background-attachment'], 'initial');
+    }
 
-      var nodeIterator = document.createNodeIterator(
-          document.documentElement,
-          NodeFilter.SHOW_ELEMENT,
-          null,
-          false
-        );
-  var currentNode;
-        while (currentNode = nodeIterator.nextNode()) {
-          var nodeComputedStyle = document.defaultView.getComputedStyle(currentNode, "");
-          // Skip nodes which don't have computeStyle or are invisible.
-          if (!nodeComputedStyle)
-            return;
-          var nodePosition = nodeComputedStyle.getPropertyValue("position");
-          if (nodePosition == "fixed") {
-              if ($(currentNode).position().top < $(window).height()/2){
-                  //show on Top
-                  currentNode.setAttribute('fixed_show','top')
-                  if(document.body.scrollHeight<$(window).height()*2)
-                  currentNode.style.cssText+=';position:absolute!important;';
-                }
-              else{
-                  //show on bottom
-                  currentNode.setAttribute('fixed_show','bottom')
-              }
+    var nodeIterator = document.createNodeIterator(
+      document.documentElement,
+      NodeFilter.SHOW_ELEMENT,
+      null,
+      false
+    );
+    var currentNode;
+    var windowHeight = $window.height();
+    while (currentNode = nodeIterator.nextNode()) {
+      var nodeComputedStyle = document.defaultView.getComputedStyle(currentNode, "");
+      // Skip nodes which don't have computeStyle or are invisible.
+      if (!nodeComputedStyle) {
+        return;
+      }
+      var nodePosition = nodeComputedStyle.getPropertyValue("position");
+      if (nodePosition == "fixed") {
+        if ($(currentNode).position().top < windowHeight/2){
+          //show on Top
+          if (page.fixedTopElements.indexOf(currentNode) < 0) {
+            page.fixedTopElements.push(currentNode);
+          }
+          if (document.body.scrollHeight < windowHeight*2) {
+            exchangeElementStyle(currentNode, ['position'], 'absolute');
+          }
+        } else {
+          //show on bottom
+          if (page.fixedBottomElements.indexOf(currentNode) < 0) {
+            page.fixedBottomElements.push(currentNode);
           }
         }
+      }
+    }
   },
-  fixed_element_restore:function(){
-    $('[fixed_show=top]').each(function(){ this.style.cssText+='position:fixed!important' })
-    if(document.body.was_fixed) document.body.style.cssText+=';background-attachment:fixed!important;'
+  fixedElementRestore:function() {
+    page.fixedTopElements.forEach(function (element) {
+      restoreElementStyle(element, ['display', 'position']);
+    });
+    page.fixedBottomElements.forEach(function (element) {
+      restoreElementStyle(element, ['display', 'position']);
+    });
+    restoreElementStyle(document.body, ['background-attachment']);
+    page.fixedTopElements.length = 0;
+    page.fixedBottomElements.length = 0;
   },
-  hide_all_fixed_element:function(){
-      $('[fixed_show]:visible').attr('was_visible',true).hide();
+  hideFixedElement:function(inPosition) {
+    var elements;
+    if (inPosition == 'top') {
+      elements = page.fixedTopElements;
+    } else {
+      elements = page.fixedBottomElements;
+    }
+    elements.forEach(function (element) {
+      exchangeElementStyle(element, ['display'], 'none');
+    });
   },
-  show_all_fixed_element:function(){
-      $('[was_visible]').show().attr('was_visible',null);
-  },
-  hide_fixed_element:function(inPosition /* =top/bottom */){
-     $('[fixed_show=' + inPosition + ']:visible').attr('was_visible',true).hide();
-  },
-  show_fixed_element:function(inPosition /* =top/bottom */){
-     $('[fixed_show=' + inPosition + '][was_visible]').attr('was_visible',null).show();
+  showFixedElement:function(inPosition /* =top/bottom */) {
+    var elements;
+    if (inPosition == 'top') {
+      elements = page.fixedTopElements;
+    } else {
+      elements = page.fixedBottomElements;
+    }
+    elements.forEach(function (element) {
+      restoreElementStyle(element, ['display']);
+    });
   },
 
   hideSb: function () {
@@ -190,7 +235,7 @@ var page = {
   },
 
   checkPageIsOnlyEmbedElement: function () {
-    var bodyNode = documentbody().children;
+    var bodyNode = document.body.children;
     var isOnlyEmbed = false;
     for (var i = 0; i < bodyNode.length; i++) {
       var tagName = bodyNode[i].tagName;
@@ -207,24 +252,12 @@ var page = {
 
 
   onRequest: function (mess, sender, callback) {
-    if(mess.start && !mess.alread_process_fixed_element){
-      page.saveScrollPos();
-    }
-    if(mess.start &&mess.scroll && mess.processFixedElements && !mess.alread_process_fixed_element){
-      document.body.scrollTop=400
-      var arg=arguments
-      window.setTimeout(function(){
-        page.fixed_element_check();
-        mess.alread_process_fixed_element=true
-        page.onRequest.apply(null,arg)
-      },200)
-      return true;
-    }
     if (mess.type == 'checkExist') {
       callback();
       return;
     }
     if (mess.start) {
+      page.saveScrollPos();
       var defaults = {
         x1: 0,
         x2: 32768,
@@ -241,7 +274,7 @@ var page = {
       }
       cropData = $.extend(defaults, mess.cropData);
 
-      maxDimensionForCanvas=Math.pow(2,15)-100
+      maxDimensionForCanvas=Math.pow(2,15)-100;
       if(cropData.y2-cropData.y1>maxDimensionForCanvas) cropData.y2=cropData.y1+maxDimensionForCanvas
       if(cropData.x2-cropData.x1>maxDimensionForCanvas) cropData.x2=cropData.x1+maxDimensionForCanvas
       // for(var key in cropData) {cropData[key]=cropData[key] * zoomLevel()  }
@@ -269,18 +302,33 @@ var page = {
           window.setTimeout('document.getElementById(\'navi-bar\').style.display=\'\'', 10000);
         } catch (e) {
         }
+
+        page.fixedElementCheck();
       }
+
       page.scrollToCurrent();
       if (mess.scroll && mess.processFixedElements) {
-        // setTimeout(page.processFixedElements.bind(page), 50);
+        setTimeout(function () {
+          page.fixedElementCheck();
+          if (mess.start) {
+            page.hideFixedElement('bottom')
+          } else {
+            page.hideFixedElement('top')
+          }
+          if (ans.finish){
+            page.showFixedElement('bottom');
+            if (document.body.scrollTop < $window.height()) {
+              page.showFixedElement('top');
+            }
+          }
+        }, 50);
       }
       if (page.iframe) {
         ans.top = page.iframe.contentdocumentbody().scrollTop - (cropData ? cropData.y1 * zoomLevel() : 0);
         ans.left = page.iframe.contentdocumentbody().scrollLeft - (cropData ? cropData.x1 * zoomLevel() : 0);
-        ;
       } else {
-        ans.top = parseInt(documentbody().scrollTop * zoomLevel() - cropData.y1 * zoomLevel(), 10)
-        ans.left = parseInt(documentbody().scrollLeft * zoomLevel() - cropData.x1 * zoomLevel(), 10)
+        ans.top = parseInt(document.body.scrollTop * zoomLevel() - cropData.y1 * zoomLevel(), 10);
+        ans.left = parseInt(document.body.scrollLeft * zoomLevel() - cropData.x1 * zoomLevel(), 10);
       }
       ans.finish = !mess.scroll || !page.computeNextScreen();
       if (ans.finish) {
@@ -293,23 +341,6 @@ var page = {
           window.onfinish()
       }
 
-      if (mess.scroll && mess.processFixedElements) {
-        if(mess.start){
-          page.hide_fixed_element('bottom')
-        }
-        else{
-          page.hide_fixed_element('top')
-        }
-        if(ans.finish){
-          page.show_fixed_element('bottom')
-          if(document.body.scrollTop< $(window).height())
-              page.show_fixed_element('top');
-          setTimeout(page.show_fixed_element.bind(null,'top'),1500)
-          setTimeout(page.fixed_element_restore.bind(null,'top'),2000)
-        }
-      }
-      // if(!mess.start) page.hide_fixed_element('top');
-      // if(!ans.finish) page.hide_fixed_element('bottom');
       callback(ans);
     }
     if (mess.type == 'finish') {
@@ -317,6 +348,7 @@ var page = {
       page.preparePage('after');
       page.showSb();
       page.restoreScrollPos();
+      setTimeout(page.fixedElementRestore, 1000);
     }
   },
   docKeyDown: function (e) {
@@ -334,9 +366,7 @@ var page = {
     }
     // ESC key
     if (e.keyCode == 27) {
-      if (hideTheScrollBars) {
-        $('body').css({'overflow-x': '', 'overflow-y': ''})
-      }
+      page.enableScrollbar(true);
       chrome.runtime.sendMessage({
         data: 'stopNow'
       })
