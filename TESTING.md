@@ -20,6 +20,7 @@
  * http://getbootstrap.com/components/ - long long page
  * https://www.facebook.com/ - everybody likes to take screenshots of their timeline
  * https://www.uploady.com/ - edge case, then body size is slightly bigger than the windows size (approx 13 folders)
+ * http://www.samsung.com/in/consumer/memory-storage/ssd/ssd-840-pro/MZ-7PD512BW - js header
 
 ## Capture region
  * Should scroll if region is bigger than the page
