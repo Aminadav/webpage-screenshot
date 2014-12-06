@@ -256,6 +256,7 @@ var page = {
       callback();
       return;
     }
+    console.log(mess)
     if (mess.start) {
       page.saveScrollPos();
       var defaults = {
@@ -303,7 +304,9 @@ var page = {
         } catch (e) {
         }
 
-        page.fixedElementCheck();
+        if (mess.scroll && mess.processFixedElements) {
+          page.fixedElementCheck();
+        }
       }
 
       page.scrollToCurrent();
