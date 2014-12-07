@@ -256,7 +256,6 @@ var page = {
       callback();
       return;
     }
-    console.log(mess)
     if (mess.start) {
       page.saveScrollPos();
       var defaults = {
