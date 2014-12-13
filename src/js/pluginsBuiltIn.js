@@ -117,6 +117,9 @@ var defaultPlugins = [
 					});
 					return;
 				}
+				var title = scope.page_title.replace(/[\"&<>]/g, function (a) {
+					return chr[a];
+				});
 				var x = new Dialog({
 					html: '<textarea autoselect class="input-block" id="share_url">' + shareUrl +
 					'</textarea>' +
@@ -124,11 +127,14 @@ var defaultPlugins = [
 					'<a href="#share_url" class="button link-copy" target="_blank"><i></i> Copy</a>' +
 					'<br/> ' +
 					'<textarea autoselect class="input-block" id="share_html"><a href="' +
-					shareUrl + '">' + scope.page_title.replace(/[\"&<>]/g, function (a) {
-						return chr[a];
-					}) +
+					shareUrl + '">' + title +
 					'</a></textarea>' +
-					'<a href="#share_html" class="button link-copy" target="_blank"><i></i> Copy</a>'
+					'<a href="#share_html" class="button link-copy" target="_blank"><i></i> Copy</a>' +
+					'<br/> ' +
+					'<textarea autoselect class="input-block" id="share_md">[' + title +
+					'](' +
+					shareUrl + ')</textarea>' +
+					'<a href="#share_md" class="button link-copy" target="_blank"><i></i> Copy</a>'
 					,
 					title: 'Screenshot is ready. Go ahead, share it!',
 					ui: 'dialog'
