@@ -2,7 +2,7 @@ $load(function () {
   $('[autoselect]').on('click', function() {
     $(this).select();
   });
-  $('.link-copy').click(function (e) {
+  var $linkCopy = $('.link-copy').click(function (e) {
     e.preventDefault();
     var $self = $(this);
     var $target = $($self.attr('href'));
@@ -10,6 +10,8 @@ $load(function () {
       data: 'copyText',
       text: $target.val()
     }), '*');
+    $linkCopy.removeClass('copy-success');
+    $self.addClass('copy-success')
   });
 });
 // JQuery is loaded async

@@ -2321,6 +2321,16 @@ $(function(){
 		});
 	});
 
+	document.addEventListener("keydown", function(e) {
+		if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+			e.preventDefault();
+			var x=staticPlugin.getPluginByKey('uploady');
+			editor.createLastCanvas('toolbar', function (data){
+				x.run(data, e)
+			});
+		}
+	}, false);
+
 	if(lj_get('settings','framebench_button')=='yes') {
 		// $('#toolbarContainer').hide();
 		// $('.share').hide()

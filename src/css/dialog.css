@@ -57,6 +57,9 @@ body {
     float: left;
     margin-left: -10px;
 }
+.link-copy.copy-success i {
+    background-image: url(../images/ok-16.png);
+}
 .ui-dialog {
     background-color: #fff;
     box-shadow: 0 2px 2px rgba(0,0,0,0.15);
