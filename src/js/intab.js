@@ -226,6 +226,14 @@ var page = {
     });
   },
 
+  restore: function () {
+    page.enableScrollbar(true);
+    page.preparePage('after');
+    page.showSb();
+    page.restoreScrollPos();
+    setTimeout(page.fixedElementRestore, 1000);
+  },
+
   hideSb: function () {
     $('.ws_toolbar_top').hide();
   },
@@ -346,11 +354,7 @@ var page = {
       callback(ans);
     }
     if (mess.type == 'finish') {
-      page.enableScrollbar(true);
-      page.preparePage('after');
-      page.showSb();
-      page.restoreScrollPos();
-      setTimeout(page.fixedElementRestore, 1000);
+      page.restore();
     }
   },
   docKeyDown: function (e) {
@@ -368,7 +372,7 @@ var page = {
     }
     // ESC key
     if (e.keyCode == 27) {
-      page.enableScrollbar(true);
+      page.restore();
       chrome.runtime.sendMessage({
         data: 'stopNow'
       })
