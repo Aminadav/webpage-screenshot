@@ -7,6 +7,14 @@ a {
     cursor:pointer;
 }
 
+@media (max-width: 1600px) {
+	.editor-toolbar button.save,
+	.editor-toolbar button.view {
+		text-indent: -9999px;
+		font-size: 0;
+		margin-right: 0!important;
+	}
+}
 @media (max-width: 1410px) {
 	.buttons .url-share {
 		width: 140px !important;
@@ -38,6 +46,10 @@ a {
 	}
 	.editor-toolbar .tools {
 		margin-left: 2px!important;
+	}
+	.editor-toolbar .tools button,
+	.editor-toolbar .tools button span {
+		width: 26px!important;
 	}
 }
 @media (max-width: 1000px) {
@@ -181,6 +193,9 @@ a {
 }
 .window_nav ul li .icon7 {
 	background: url(../images/icon7.png) no-repeat center;
+}
+.window_nav ul li .icon-eye {
+	background: url(../images/icon-eye.png) no-repeat center;
 }
 .window_translate {
 	padding: 10px 10px;
@@ -604,6 +619,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .buttons .url-share.copied {
 	-webkit-filter: grayscale(0);
 }
+.buttons .view {
+	background: #a8a8a8;
+}
 .buttons .elements-group {
     float: left;
     margin-left: 4px;
@@ -639,6 +657,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 .buttons button.save .icon {
 	background-image: url(../images/save.png);
+	margin-right: 5px;
+}
+.buttons button.view .icon {
+	background-image: url(../images/eye.png);
 	margin-right: 5px;
 }
 .buttons button.online .icon {

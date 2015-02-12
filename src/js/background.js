@@ -123,12 +123,15 @@ var api = {
           localStorage[data.key] = data.val;
           break;
         case 'upload':
-          data.callback = callback;
-          data.fail = callback;
           objectUrlToBlob(data.objectURL, function (blob) {
             data.blob = blob;
-            uploady.upload(data);
+            uploady.init().then(function () {
+              return uploady.upload(data);
+            }).then(callback, callback);
           });
+          break;
+        case 'connectUploady':
+          uploady.init().then(uploady.connectUser).then(callback);
           break;
         case 'isEnableShortCuts':
           if (localStorage['enableshortcuts']=='yes')	{

@@ -148,7 +148,8 @@ var defaultPlugins = [
 				key: "googledrive",
 				dataType: 'image',
 				onclick: function(scope) {
-					start = function() {
+					function start() {
+						var googleAuth = this;
 						googleAuth.authorize(function() {
 							var meta = {
 								"title": scope.page_title + '.png',
@@ -189,7 +190,7 @@ var defaultPlugins = [
 
 						});
 					}
-					googleAuth = new OAuth2('google', {
+					new OAuth2('google', {
 						client_id: '545443912834-j7vdfe6gar81lu14oatf33tgtlcbi5gq.apps.googleusercontent.com',
 						client_secret: '213pVJTRShuSGESsRO92G1qV',
 						api_scope: 'https://www.googleapis.com/auth/drive.install https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/urlshortener https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
