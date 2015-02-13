@@ -183,19 +183,17 @@ var uploady = function ($, settings) {
     });
   }
   function moveFolder(parent_folder) {
-    var data = new FormData();
-    data.append('id', folderId);
-    data.append('parent_id', parent_folder);
     return $.ajax({
       type: "PUT",
       url: settings.apiUrl + 'folders',
       headers: {
         'Authorization': 'Bearer ' + getAccessToken()
       },
-      processData: false,
-      contentType: false,
       dataType: 'json',
-      data: data
+      data: {
+        id: folderId,
+        parent_id: parent_folder
+      }
     }).then(handleResponse, handleApiError);
   }
   function upload(file) {

@@ -8,11 +8,12 @@ var settings = {
     origins: ["<all_urls>"]
   },
   uploady: {
-    uploadUrl: 'http://content.dev.uploady.com/v1/api/upload',
-    tokenUrl: 'http://dev.uploady.com/oauth2/token',
-    apiUrl: 'http://dev.uploady.com/v1/api/',
-    myfilesUrl: 'http://dev.uploady.com/#!/myfiles/',
-    clientId: 'jxLI4kIB8ZjYZ2lE',
-    clientAccessToken: 'jxLI4kIB8ZjYZ2lE-xQfOunT7L3ck445TejocR2TDztPg_OhWBI_622eS'
+    uploadUrl: 'https://content.uploady.com/v1/api/upload',
+    tokenUrl: 'https://www.uploady.com/oauth2/token',
+    authUrl: 'https://www.uploady.com/oauth2/auth',
+    apiUrl: 'https://www.uploady.com/v1/api/',
+    myfilesUrl: 'https://www.uploady.com/#!/myfiles/',
+    clientId: 'apB9TcxUyC~fQFT5',
+    clientAccessToken: 'apB9TcxUyC~fQFT5-h_PufPnrF_1BSRv7InYS8EjBfrMxwFfEwALZEkC7'
   }
 };

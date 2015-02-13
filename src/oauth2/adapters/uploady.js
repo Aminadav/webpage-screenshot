@@ -1,6 +1,6 @@
 OAuth2.adapter('uploady', {
   authorizationCodeURL: function(config) {
-    return ('http://dev.uploady.com/oauth2/auth?' +
+    return (settings.uploady.authUrl + '?' +
       'client_id={{CLIENT_ID}}&' +
       'redirect_uri={{REDIRECT_URI}}&' +
       'scope={{API_SCOPE}}&' +
