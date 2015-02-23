@@ -1,6 +1,5 @@
 $(function () {
   if ($('body.uploady-init').length) {
-    console.log('WA');
     uploady.init().then(updateUI);
   }
   $('.uploady-connect').click(connect);
@@ -53,7 +52,7 @@ $(function () {
       }
       if (confirm(message)) {
         uploady.disconnectUser();
-        updateUI();
+        uploady.init().then(updateUI);
       }
     });
   }

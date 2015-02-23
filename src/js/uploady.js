@@ -7,16 +7,23 @@ var uploady = function ($, settings) {
 
   return {
     init: init,
-    upload: upload,
+    upload: wrapInit(upload),
     isConnected: isConnected,
     isTemporary: isTemporary,
     getExpirationDate: getTemporaryAccountExpirationDate,
-    connectUser: connectUser,
+    connectUser: wrapInit(connectUser),
     disconnectUser: disconnectUser,
     getUser: getUser,
     getFolderUrl: getFolderUrl
   };
 
+  function wrapInit(cb) {
+    return function () {
+      return init().then(cb.bind.apply(cb, [null].concat(
+        Array.prototype.slice.call(arguments)
+      )));
+    };
+  }
   function init() {
     readLocalStorage();
     if (!oauth) {
@@ -95,7 +102,7 @@ var uploady = function ($, settings) {
   }
   function disconnectUser() {
     oauth && oauth.clear();
-    localStorage.uploady = '';
+    clearLocalStorage();
   }
   function initOAuth() {
     var d = $.Deferred();
@@ -155,6 +162,10 @@ var uploady = function ($, settings) {
       return data;
     });
   }
+  function clearLocalStorage() {
+    localStorage.uploady = '';
+    readLocalStorage();
+  }
   function setToken(data) {
     token = {
       access_token: data.access_token,
@@ -197,11 +208,6 @@ var uploady = function ($, settings) {
     }).then(handleResponse, handleApiError);
   }
   function upload(file) {
-    if (isTemporary() && isTemporaryAccountExpired()) {
-      return refreshTemporaryAccessToken().then(function () {
-        return upload(file);
-      });
-    }
     var data = new FormData();
     data.append('file', file.blob, file.filename);
     data.append('share_link_enabled', true);
