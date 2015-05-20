@@ -1,6 +1,6 @@
 ## Webpage Screeenshot
 
-## Features:
+## Features
  * Capture visible page.
  * Capture all page.
  * Capture region of the screen (Many users like to crop BEFORE they taking the screenshot)
