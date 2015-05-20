@@ -28,7 +28,7 @@
  * Undo/Redo
  * Border
  * Color
- * 
+
 ## Sharing Features
  * FrameBench
  * Uploady
