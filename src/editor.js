@@ -1,4 +1,4 @@
-_gaq.push(['_trackPageview']);
+﻿_gaq.push(['_trackPageview']);
 
 String.prototype.twoDigits=function () {return this.replace(/^(.)$/,'0$1')}
 var canvasToDataURL;
@@ -798,6 +798,20 @@ function editor_obj()
 		tool[tool.current].draw({canvas:canvas,ctx:c,data:currentLevel});
 		};
 	tool.spray.draw=function (inX)
+		{
+
+//		id=inX.ctx.createImageData(inX.canvas.width,inX.canvas.height);
+		id=inX.ctx.getImageData(0,0,inX.canvas.width,inX.canvas.height);
+		pix=id.data;
+		for(var i=0;i<inX.data.points.length;i++)
+			{
+			thisPoint= parseInt(inX.data.points[i].y-inX.data.canvasOffset.y-1)* inX.canvas.width*4;
+			thisPoint+=parseInt(inX.data.points[i].x-inX.data.canvasOffset.x)*4;
+
+			pix[thisPoint]=parseInt(inX.data.color.slice(4,-1).split(',')[0]);
+			pix[thisPoint+1]=parseInt(inX.data.color.slice(4,-1).split(',')[1]);
+			pix[thisPoint+2]=parseInt(inX.data.color.slice(4,-1).split(',')[2]);
+=======
 	{
 		var id=inX.ctx.getImageData(0,0,inX.canvas.width,inX.canvas.height);
 		var pix=id.data;

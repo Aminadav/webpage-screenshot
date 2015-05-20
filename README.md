@@ -1,29 +1,6 @@
-## Website Screenshot
+## Webpage Screeenshot
 
-## How to setup
-
-Install node and then:
-
-    npm install gulp
-    npm install gulp-rename
-
-Grunt tasks:
-
- * Switch to selection bar extension:
-
-    gulp switch-sb
-
- * Switch to website screenshot extension:
-
-    gulp switch-ws
-
- *	switch-sb.bat and switch-ws.bat files are shortcuts to gulp commands.
-
-## Manually setup:
-
- *	Rename manifest_ws or manifest_sb to manifest.json.
-
-## Popup features:
+## Features
  * Capture visible page.
  * Capture all page.
  * Capture region of the screen (Many users like to crop BEFORE they taking the screenshot)
@@ -33,10 +10,52 @@ Grunt tasks:
  * Settings link.
  * Bug report link.
  * Paste from clipboard.
+ * Take screenshot after inteval
+ * Change speed of taking screenshot
 
 ## Editor features
+ * Spray
+ * Line
+ * Curve
+ * Highlight
+ * Text
+ * Square
+ * Circle
+ * Arrow
+ * Star
+ * Home
+ * Crop
+ * Undo/Redo
+ * Border
+ * Color
 
-There are two toolbars:
- 1. Editor toolbar: Crop, highlight, line, spray, and so on.
- 2. Plugins toolbar (evernote, gmail, facebook, etc'...)
-    Big buttons, for specific toolbar options (save, print, PDF, clipboard, upload to the cloud)
+## Sharing Features
+ * FrameBench
+ * Uploady
+ * Google Drive
+ * Gmail
+ * Create as PDF
+ * Copy to Clipbaord
+ * Save to disk
+ * Send to printer
+ * Dropbox
+ * Facebook
+ * Evernote
+ * Wordpress
+ * Send by email
+ * Google Reverse image search
+ * Tinyey
+ * VK
+ * Twitter
+ * Outlook
+ * Blogger
+ * Pinterest
+ * QR Code
+ * Del.icio.us
+ * Digg
+ * Reddit
+ 
+## Cooming soon (Roadmap)
+ * Sharing to WhatsApp
+ * Schedule screenshot
+ * Auto Screenshot
