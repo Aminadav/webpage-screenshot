@@ -1,4 +1,4 @@
-## OpenScreeenshot
+## Webpage Screeenshot
 
 ## Features:
  * Capture visible page.
