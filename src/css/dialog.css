@@ -11,25 +11,61 @@ body {
     font-size: 12px;
 }
 .input-block {
-    width: 100%;
+    width: calc(100% - 80px);
+    float: left;
+    margin: 5px 0 10px;
+    height: 30px;
+}
+.button {
+    float: left;
+    margin: 5px 0 10px 5px;
+    height: 30px;
+    border: 1px #dbdbdb solid;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.4);
+    background: #ffffff;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #ededed));
+    background: -webkit-linear-gradient(top, #ffffff 0%, #ededed 100%);
+    background: linear-gradient(to bottom, #ffffff 0%, #ededed 100%);
+    display: block;
+    line-height: 30px;
+    color: #333333;
+    padding: 0 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+.button:hover {
+    background: rgba(0,0,0,0.05);
+}
+.button:active {
+    background: rgba(0,0,0,0.1);
 }
 .link-go {
-    position: absolute;
-    background: url(../images/link-go.png) center;
+    padding: 0;
+}
+.link-go i {
     display: block;
-    width: 16px;
-    height: 16px;
-    margin-top: -33px;
-    right: 25px;
-    text-indent: -9999px;
-    font-size: 0;
+    background: url(../images/link-go.png) center no-repeat;
+    width: 30px;
+    height: 30px;
+}
+.link-copy i {
+    display: block;
+    background: url(../images/clipboard-paste.png) center no-repeat;
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-left: -10px;
+}
+.link-copy.copy-success i {
+    background-image: url(../images/ok-16.png);
 }
 .ui-dialog {
     background-color: #fff;
     box-shadow: 0 2px 2px rgba(0,0,0,0.15);
     border: 1px #aaaaab solid;
     border-radius: 4px;
-    margin: 0 2px 2px 0px;
+    margin: 0 2px 2px 0;
     position: relative;
     height: 100%;
 }
@@ -72,10 +108,6 @@ body {
 .ui-header {
     padding: 10px;
 }
-textarea {
-    margin: 5px 0 10px;
-}
-
 @media print {
     .onlyDisplay {
         display: none

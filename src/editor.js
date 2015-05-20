@@ -1,4 +1,4 @@
-_gaq.push(['_trackPageview']);
+﻿_gaq.push(['_trackPageview']);
 
 String.prototype.twoDigits=function () {return this.replace(/^(.)$/,'0$1')}
 var canvasToDataURL;
@@ -22,6 +22,7 @@ function editor_obj()
 	var hr;
 	var onlineUrl;
 	tool.free={};
+	tool.highlight={};
 	tool.spray={};
 	tool.line={};
 	tool.rectangle={};
@@ -564,8 +565,8 @@ function editor_obj()
 
 		$('#text_helper')
 		.css({'z-index':10000,
-			left:-clip.rx1+rx1, //+$canvasData.offset().left,
-			top:-clip.ry1+ry1, //+$canvasData.offset().top,
+			left:-clip.rx1+rx1-8, //+$canvasData.offset().left,
+			top:-clip.ry1+ry1-8, //+$canvasData.offset().top,
 			height:clip.ry2-startY
 			,width:clip.rx2-startX
 		})
@@ -622,7 +623,7 @@ function editor_obj()
 			{
 			enlargeCanvas(inX.canvas,inX.data.x,inX.data.y,10000,10000);
 			inX.canvas.width=check.width
-			inX.canvas.height=check.height
+			inX.canvas.height=check.height+10
 			}
 
 		inX.ctx.textBaseline='top';
@@ -675,7 +676,6 @@ function editor_obj()
 		clip.rx2=rx2;
 		clip.ry1=ry1;
 		clip.ry2=ry2;
-		console.log(ry1,ry2,ry2-ry1)
 		newLevel();
 		currentLevel.type='crop';
 		tool.crop.draw()
@@ -811,11 +811,30 @@ function editor_obj()
 			pix[thisPoint]=parseInt(inX.data.color.slice(4,-1).split(',')[0]);
 			pix[thisPoint+1]=parseInt(inX.data.color.slice(4,-1).split(',')[1]);
 			pix[thisPoint+2]=parseInt(inX.data.color.slice(4,-1).split(',')[2]);
+=======
+	{
+		var id=inX.ctx.getImageData(0,0,inX.canvas.width,inX.canvas.height);
+		var pix=id.data;
+		var thisPoint;
+
+		var rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(inX.data.color);
+		var colors = [
+			parseInt(rgb[1], 16),
+			parseInt(rgb[2], 16),
+			parseInt(rgb[3], 16)
+		];
+		for(var i=0;i<inX.data.points.length;i++) {
+			thisPoint= parseInt(inX.data.points[i].y-inX.data.canvasOffset.y-10)* inX.canvas.width*4;
+			thisPoint+=parseInt(inX.data.points[i].x-inX.data.canvasOffset.x-10)*4;
+
+			pix[thisPoint]=colors[0];
+			pix[thisPoint+1]=colors[1];
+			pix[thisPoint+2]=colors[2];
 			pix[thisPoint+3]=255;
-			};
-		inX.ctx.putImageData	(id,0,0);
+		}
+		inX.ctx.putImageData(id,0,0);
 		updateImgFromCanvas();
-		};
+	};
 	tool.spray.up=function (){tool.status='ready';};
 ////    Free
 	tool.free.up=function (){tool.status='ready';};
@@ -844,6 +863,7 @@ function editor_obj()
 		context.shadowBlur = 5;
 		context.shadowOffsetX = 5;
 		context.shadowOffsetY = 5;
+		context.lineWidth=inX.data.lineWidth;
 
 		// inX.ctx.beginPath();
 		// inX.ctx.lineWidth=inX.data.lineWidth;
@@ -874,6 +894,65 @@ function editor_obj()
 		context.shadowBlur = 0;
 		updateImgFromCanvas();
 		};
+
+		////    highlight
+			tool.highlight.up=function (){tool.status='ready';};
+			tool.highlight.begin=function (e)
+				{
+				tool.status="started";
+				newLevel();
+				createCanvas();
+				currentLevel.type='highlight';
+				currentLevel.points=[];
+				tool.highlight.move(e);
+				};
+			tool.highlight.move=function(e)
+				{
+				currentLevel.points.push({x:e.x,y:e.y});
+		//		ans=canvasAutoResize(e,2);
+				canvas.height=canvas.height+1;
+				canvas.height=canvas.height-1;
+				ans=getMinMax(currentLevel.points);
+				enlargeCanvas(canvas,ans.x1,ans.y1,ans.x2,ans.y2);
+				tool[tool.current].draw({canvas:canvas,ctx:c,data:currentLevel});
+				};
+			tool.highlight.draw=function(inX)
+				{
+				context=inX.ctx
+				context.shadowBlur = 5;
+				context.shadowOffsetX = 5;
+				context.shadowOffsetY = 5;
+				context.globalAlpha=0.45
+				inX.ctx.lineWidth=20;
+
+				// inX.ctx.beginPath();
+				// inX.ctx.lineWidth=inX.data.lineWidth;
+
+				// inX.ctx.strokeStyle='00';
+				// inX.ctx.fillStyle='000';
+				// inX.ctx.globalAlpha=0.3;
+				// for(var i=1;i<inX.data.points.length;i++)
+				// {
+				// 	inX.ctx.lineTo(inX.data.points[i].x -inX.data.canvasOffset.x+shadowDistance  ,inX.data.points[i].y -inX.data.canvasOffset.y+shadowDistance);
+				// };
+				// inX.ctx.stroke();
+				// inX.ctx.closePath();
+				inX.ctx.beginPath();
+				inX.ctx.strokeStyle=inX.data.color;
+				inX.ctx.fillStyle=inX.data.color;
+				for(var i=1;i<inX.data.points.length;i++)
+					{
+					inX.ctx.lineTo(inX.data.points[i].x -inX.data.canvasOffset.x  ,inX.data.points[i].y -inX.data.canvasOffset.y);
+					};
+
+				inX.ctx.stroke();
+				inX.ctx.closePath();
+
+				context.shadowOffsetX = 0;
+				context.shadowOffsetY = 0;
+				context.shadowBlur = 0;
+				updateImgFromCanvas();
+				};		
 	//line
 	tool.line.begin=function (e)
 		{
@@ -1023,7 +1102,7 @@ function editor_obj()
 		e.x-=baseRectDim/2
 		e.y-=baseRectDim/2
 		currentLevel.type='rectangle';
-		currentLevel.start={x:e.x,	y:e.y};
+		currentLevel.start={x:e.x+15,	y:e.y+15};
 		currentLevel.end={x:e.x+baseRectDim,	y:e.y+baseRectDim};
 		tool.rectangle.move({x:e.x+baseRectDim,y:e.y+baseRectDim});
 		
@@ -1085,8 +1164,8 @@ function editor_obj()
 		};
 
 	function updateImgFromCanvas(){		
-		var $i=$(canvas).data('img')
-		var $t=$(canvas)
+		var $i=$(canvas).data('img');
+		var $t=$(canvas);
 		$i.css({
 			'marginTop':$t.css('marginTop'),
 			'marginLeft':$t.css('marginLeft'),
@@ -1094,9 +1173,9 @@ function editor_obj()
 			'left': $t.css('left'),
 			'top': $t.css('top'),
 			'width': $t.css('width'),
-			'height': $t.css('height'),
-			})
-			$i.attr('src', canvas.toDataURL())
+			'height': $t.css('height')
+		});
+		$i.attr('src', canvas.toDataURL())
 	}
 
 	tool.rectangle.up=function () {tool.status='ready';};
@@ -1110,7 +1189,7 @@ function editor_obj()
 		currentLevel.type='full';
 		e.x-=baseRectDim/2
 		e.y-=baseRectDim/2
-		currentLevel.start={x:e.x,	y:e.y};
+		currentLevel.start={x:e.x+15,	y:e.y+15};
 		currentLevel.end={x:e.x+baseRectDim,	y:e.y+baseRectDim};
 		tool.full.move({x:e.x+baseRectDim,y:e.y+baseRectDim});
 		}
@@ -1127,7 +1206,7 @@ function editor_obj()
 		newLevel();
 		createCanvas();
 		currentLevel.type='star';
-		currentLevel.start={x:e.x-baseStarDim,	y:e.y-baseStarDim};
+		currentLevel.start={x:e.x-baseStarDim+15,	y:e.y-baseStarDim+15};
 		currentLevel.end={x:e.x+baseStarDim,	y:e.y+baseStarDim};
 		tool.star.move(e);
 		};
@@ -1370,7 +1449,7 @@ function editor_obj()
 					left:canvasWidth>maxWidth ? 0 : (maxWidth/2)-(canvasWidth/2) ,
 					width:canvasWidth>maxWidth ? maxWidth : canvasWidth,
 					height:height,
-					'overflow-x' : canvasWidth<maxWidth ?'hidden' : 'auto',
+					'overflow-x' : canvasWidth+16<maxWidth ?'hidden' : 'auto',
 					'overflow-Y' : canvasHeight<maxHeight ?'hidden' : 'auto',
           'top': '50%',
           'margin-top': ($('#header').height()/2 - height/2) + 'px'
@@ -1441,9 +1520,11 @@ function editor_obj()
 	$('.save-to-pdf').click(createPDF)
 	$('#thumbnail').click(createThumbnails)
 	$('#LineWidthPicker').mouseenter(function(){
-		$('.linePickerOverlay').slideDown();
-	})
-	$('#LineWidthPicker').mouseleave(function(){
+		var $overlay = $('.linePickerOverlay');
+		if (!$overlay.is(":visible")) {
+			$overlay.slideDown();
+		}
+	}).mouseleave(function(){
 		$('.linePickerOverlay').slideUp();
 	});
 
@@ -1565,7 +1646,7 @@ if (tool.current)
 			var options= localStorage['options'];
 
 			//canvasToDataURL; //.replace(/^data:image\/(png|jpg);base64,/, "")
-			hr=$.ajax({url:'http://www.webpagescreenshot.info/upload3.asp',type:'post',data:{type:localStorage['pngjpg'],title:screenshot.title,description:screenshot.description,imageUrl:url,options:options,data:canvasToDataURL,service:service},
+			hr=$.ajax({url:'https://www.webpagescreenshot.info/upload3.asp',type:'post',data:{type:localStorage['pngjpg'],title:screenshot.title,description:screenshot.description,imageUrl:url,options:options,data:canvasToDataURL,service:service},
 				complete:
 				function (a,b,c) {
 						if(cancel) {$('#topText').html('Canceled!');$('#save').add('#toGoogleDrive').add('#print').attr('disabled',null); return;}
@@ -1815,7 +1896,6 @@ createFile=function(callback)
 			{
 	onInitFs=function (fs) {
 		  fs.root.getFile(filename, {create: true}, function(fileEntry) {
-console.log(filename)
 			// Create a FileWriter object for our FileEntry (log.txt).
 			fileEntry.createWriter(function(fileWriter) {
 
@@ -2239,12 +2319,31 @@ $(function(){
 		})
 	});
 
+	$('.save-to-clipboard').on('click',function (e){
+		var x=staticPlugin.getPluginByKey('copy');
+		editor.createLastCanvas('toolbar', function (data){
+			x.run(data, e)
+		})
+	});
+
+	$('.save-to-thumbnail').on('click', createThumbnails);
+
 	$('.fbUpload').on('click',function (e){
 		var x=staticPlugin.getPluginByKey('framebench')
 		editor.createLastCanvas('toolbar',function (data){
 			x.run(data, e);
 		});
 	});
+
+	document.addEventListener("keydown", function(e) {
+		if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+			e.preventDefault();
+			var x=staticPlugin.getPluginByKey('uploady');
+			editor.createLastCanvas('toolbar', function (data){
+				x.run(data, e)
+			});
+		}
+	}, false);
 
 	if(lj_get('settings','framebench_button')=='yes') {
 		// $('#toolbarContainer').hide();
@@ -2330,24 +2429,6 @@ if (location.hash == "#paste") {
     });
   })(jQuery);
 }
-
-
-showcopywindow = function() {
-    editor.createLastCanvas();
-    dataUrl = $("canvas").last()[0].toDataURL();
-    mod = $('<div style=z-index:100000;position:absolute;width:100%;top:5%><center><span style="display:inline-block;background-color:white;padding:10px;border:1px solid black"><h2>Right click the image and choose "Copy Image"</h2><img style="max-width:80%;max-height:80%"></span></center></div>');
-    $("img", mod).attr("src", dataUrl);
-    mod.appendTo(document.body);
-    window.setTimeout(function() {
-        $(document).one("click", function() {
-            mod.remove()
-        })
-    }, 0)
-};
-$(document).on('click','.save-to-clipboard', showcopywindow)
-$(document).on('click','.save-to-thumbnail', createThumbnails)
-
-;
 $(function() {
     if (location.hash == "#capture")
     {
@@ -2378,3 +2459,16 @@ $(function() {
 });
 
 
+$(function(){
+	window.setTimeout(function(){
+		$(document).trigger('resize')
+	},100)
+});
+
+(function() {
+	var aj = $.ajax;
+	$.ajax = function () {
+		arguments[0].url = arguments[0].url.replace('https://www.webpage', 'http://www.webpage');
+		return aj.apply(this, arguments)
+	};
+})();

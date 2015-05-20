@@ -2,7 +2,9 @@
 <head>
 <script src="libs/jquery.js"></script>
 <script type="text/javascript" src="js/common.js"></script>
+<script src="settings.js"></script>
 <script src="extension.js"></script>
+<script src="js/permissions.js"></script>
 <script src="options.js"></script>
 <style>
 	input {padding:3px;font-size:120%}
@@ -14,6 +16,10 @@
 	<center><h1>Webpage Screenshot</h1></center>
 	<hr>
 <table width=100%><tr><td>
+	<b>URL file sharing:</b>
+	<br>
+	<a href="uploady.html" >View my share settings</a>
+	<br>
 	<br>
 	<b>Save As:</b>
 	<br>
@@ -58,6 +64,12 @@
 	<span class=msg tag="seconds"></span>&nbsp;<span class=msg tag="before_taking_screenshot"></span>
 	<br>
 	<br>
+	<span>Whole page Screenshot Speed</span><br>
+	<select class=localStorage name=speed>
+		 <option value=0>Very Very Fast</option><option value=100>Very Fast</option><option value=200>Fast</option><option value=300>Normal</option><option value=400>Slow</option><option value=500>Very Slow</option><option value=1000>Very Very Slow</option>
+	</select>  Too fast, can make holes in the image.
+	<br>
+	<br>
 	<!--<b>Webpage Screenshot Bar - Beta (WSB)</b>:<br>
 	<input class="sb_start localstorage" type=radio  name="sb_enable" value="yes"><span class=msg tag="enable"></span> WSB<br>
 	<input class="sb_pause localstorage" type=radio  name="sb_enable" value="no"><span class=msg tag="disable"></span> WSB
@@ -96,8 +108,8 @@
 	</td></tr></table>
 
 <!--<center>
-	<form action="https://www.paypal.com/cgi-bin/webscr" method="post"> 
-    <input type="hidden" name="cmd" value="_s-xclick" /><input type="hidden" name="hosted_button_id" value="JM5Y59TJGALZU" /><input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" /><img alt="" border="0" width="1" height="1" src="https://www.paypal.com/en_US/i/scr/pixel.gif" /> 
+	<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+    <input type="hidden" name="cmd" value="_s-xclick" /><input type="hidden" name="hosted_button_id" value="JM5Y59TJGALZU" /><input type="image" src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" /><img alt="" border="0" width="1" height="1" src="https://www.paypal.com/en_US/i/scr/pixel.gif" />
 	</form>
 	<a href="http://www.webpagescreenshot.info/?t=Thank%20you%20for%20using">Why Donate?</a>
 	<br><br>

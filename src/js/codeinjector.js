@@ -1,6 +1,5 @@
 var codeinjector = {
   cache: null,
-  lastRunOnTab: {},
 
   init: function () {
     api.executeIfPermission(function () {
@@ -17,39 +16,14 @@ var codeinjector = {
     chrome.tabs.onUpdated.addListener(function (tid, status, tab) {
       if (status.status == 'complete') {
         api.executeIfPermission(function () {
-          codeinjector.executeOnTabUpdate(tid, status, tab)
+          codeinjector.executeOnTab(tid, tab)
         });
       }
     });
   },
 
-  executeCodeOnTabId: function (url, tid, code, cb) {
-    //if (codeinjector.lastRunOnTab[tid] &&
-    //  (new Date()) - codeinjector.lastRunOnTab[tid].time < 1000 &&
-    //  codeinjector.lastRunOnTab[tid].url == cleanHash(url)
-    //) {
-    //  return;
-    //}
-    codeinjector.lastRunOnTab[tid] = {'time': new Date(), 'url': cleanHash(url)};
-    chrome.tabs.executeScript(tid, {code: code}, cb);
-    function cleanHash(url) {
-      return url.replace(/(.*)#.*/, '$1')
-    }
-  },
-
-  executeCodeOnAllTabs: function (mission, callback) {
-    mission = mission || '';
-    if (!callback) {
-      callback = function () {
-      };
-    }
-    var realCallback = callback;
-    callback = function () {
-      realCallback()
-    };
-    if (!mission) {
-      mission = 'init';
-    }
+  executeCodeOnAllTabs: function (mission) {
+    mission = mission || 'init';
     var code;
     if (mission == 'init') {
       code = codeinjector.getCode();
@@ -61,22 +35,25 @@ var codeinjector = {
         if (t[ti].url.match(/^chrom.*:\/\//)) {
           continue
         }
-        //This is twice copy it.
-        if (t[ti].url.match('chrome' + '-' + 'dev' + 'tools://')) localStorage['isd'] = new Date();
-        codeinjector.executeCodeOnTabId(t[ti].url, t[ti].id, code)
+        chrome.tabs.executeScript(t[ti].id, {code: code});
       }
     })
   },
 
-  executeOnTabUpdate: function (tid, status, tab) {
+  executeOnTab: function (tid, tab, force, cb) {
     if (tab.url.match(/^chrom.*:\/\//)) {
+      setTimeout(cb, 0);	
       return;
     }
     var code = codeinjector.getCode();
     if (tab.url.match('www.webpagescreenshot.info')) {
       code += $.ajax({url: 'js/inmysite.js', async: false}).responseText + ';'
     }
-    codeinjector.executeCodeOnTabId(tab.url, tid, code);
+    var opts = {code: code};
+    if (force) {
+      opts.runAt = 'document_start';
+    }
+    chrome.tabs.executeScript(tid, opts, cb);
   },
 
   getCode: function () {
@@ -90,7 +67,8 @@ var codeinjector = {
       "js/pluginsBuiltIn.js",
       "js/pluginLib.js",
       "js/plugin.js",
-      "js/intab.js"
+      "js/intab.js",
+      "js/intabg.js"
     ];
     if (isSb) {
       js.push(

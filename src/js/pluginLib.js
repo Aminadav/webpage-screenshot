@@ -69,13 +69,10 @@ function Dialog(inX) {
 	this.iframe.contentDocument.body.appendChild(div);
 	//this.iframe.contentDocument.body.style.cssText="background-color: white;border: 1px solid rgba(0, 0, 0, 0.28);padding: 10px;"
 
-  var scripts = ['libs/jquery.js', 'js/dialog.js'];
-  for (var i=0; i< scripts.length; i++) {
-    var script = this.iframe.contentWindow.document.createElement("script");
-    script.src = chrome.extension.getURL(scripts[i]);
-    this.iframe.contentWindow.document.body.appendChild(script);
-  }
-
+	this.iframe.contentWindow.addEventListener("message", function (msg) {
+		var data = JSON.parse(msg.data);
+		chrome.runtime.sendMessage(data);
+	}, false);
 	if (instance.options.ui == 'dialog') {
 		div = $('<div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable">' +
 			'<div class="ui-header">' +
@@ -117,6 +114,15 @@ function Dialog(inX) {
 	} else {
 		content.append(instance.options.element)
 	}
+
+	var scripts = ['libs/jquery.js', 'js/dialog.js'];
+	for (var i=0; i< scripts.length; i++) {
+		var script = this.iframe.contentWindow.document.createElement("script");
+		script.src = chrome.extension.getURL(scripts[i]);
+		this.iframe.contentWindow.document.body.appendChild(script);
+	}
+
+
 	this.iframe.style.display=''
 	this.iframe.style.visibility='hidden'
 	this.show = function() {

@@ -14,9 +14,15 @@
   <script type="text/javascript" src="js/permissions.js"></script>
   <script type="text/javascript" src="js/translate.js"></script>
   <script type="text/javascript" src="js/popup.js"></script>
+  <script src="oauth2/oauth2.js"></script>
+  <script src="js/uploady.js"></script>
+  <script src="uploady.js"></script>
 </head>
 <body class="popup-box">
 <div id="working" style="display: none"></div>
+<div id="message" style="display: none">
+  <div class="message-container"></div>
+</div>
 <div class="window_header">
   <h2><a href="http://www.webpagescreenshot.info" target="_blank">Webpage Screenshot</a></h2>
 
@@ -44,6 +50,8 @@
     </li>
     <li><a class="edit-content"><span class="icon icon3"></span> <span
         tr="editcontent">Edit content</span></a></li>
+    <li><a class="uploady-view-screenshots-or-redirect"><span class="icon icon-eye"></span>
+      <span tr="viewscreenshots">View my screenshots</span></a></li>
   </ul>
 </div>
 <div class="window_message" style="display: none" id="noall" tr="noall"></div>

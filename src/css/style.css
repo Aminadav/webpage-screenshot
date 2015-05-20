@@ -6,6 +6,58 @@ body {
 a {
     cursor:pointer;
 }
+
+@media (max-width: 1600px) {
+	.editor-toolbar button.save,
+	.editor-toolbar button.view {
+		text-indent: -9999px;
+		font-size: 0;
+		margin-right: 0!important;
+	}
+}
+@media (max-width: 1410px) {
+	.buttons .url-share {
+		width: 140px !important;
+		background-position-x: 115px!important;
+	}
+	.editor-toolbar {
+		padding-right: 0!important;
+		padding-left: 0!important;
+	}
+}
+@media (max-width: 1300px) {
+	.editor-toolbar .donation span {
+		text-indent: -9999px;
+		padding: 0 16px!important;
+	}
+	.editor-toolbar button.save-to-url,
+	.editor-toolbar button.save {
+		text-indent: -9999px;
+		font-size: 0;
+	}
+	.editor-toolbar button.save-to-url .icon,
+	.editor-toolbar button.save .icon {
+		margin-right: 0!important;
+	}
+}
+@media (max-width: 1100px) {
+	.buttons {
+		margin-left: 0!important;
+	}
+	.editor-toolbar .tools {
+		margin-left: 2px!important;
+	}
+	.editor-toolbar .tools button,
+	.editor-toolbar .tools button span {
+		width: 26px!important;
+	}
+}
+@media (max-width: 1000px) {
+	.buttons .url-share {
+		width: 80px !important;
+		background-position-x: 55px!important;
+	}
+}
 #working {
     position: fixed;
     top: 0;
@@ -14,6 +66,24 @@ a {
     right: 0;
     background: rgba(255,255,255,0.7) url(../images/ajax-working-loader.gif) center no-repeat;
     z-index: 100;
+}
+#message {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+	display: table;
+	width: 100%;
+	height: 100%;
+	background: rgba(255,255,255,0.8);
+}
+#message .message-container {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	color: red;
 }
 .popup-box {
 	background: #fff;
@@ -30,7 +100,7 @@ a {
 	display: block;
 	position: absolute;
 	top: -7px;
-	right: 10px;
+	right: 65px;
 	width: 14px;
 	height: 7px;
 }
@@ -124,6 +194,9 @@ a {
 .window_nav ul li .icon7 {
 	background: url(../images/icon7.png) no-repeat center;
 }
+.window_nav ul li .icon-eye {
+	background: url(../images/icon-eye.png) no-repeat center;
+}
 .window_translate {
 	padding: 10px 10px;
 	font-size: 13px;
@@ -216,6 +289,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 #page-editor {
     background: #eaeaea;
+	min-width: 930px;
 }
 #header {
     position: fixed;
@@ -301,7 +375,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 .editor-toolbar .donation-drop {
     position: absolute;
-    right: 7px;
+    right: -55px;
     top: 41px;
     background: #fff;
     box-shadow: 0 2px 2px rgba(0,0,0,0.15);
@@ -351,13 +425,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	border-radius: 3px;
 	box-shadow: 0 1px 0 rgba(255,255,255,0.4);
 	background: #ffffff;
-	background: -moz-linear-gradient(top, #ffffff 0%, #ededed 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #ededed));
 	background: -webkit-linear-gradient(top, #ffffff 0%, #ededed 100%);
-	background: -o-linear-gradient(top, #ffffff 0%, #ededed 100%);
-	background: -ms-linear-gradient(top, #ffffff 0%, #ededed 100%);
 	background: linear-gradient(to bottom, #ffffff 0%, #ededed 100%);
- filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=0 );
 }
 .editor-toolbar .tools button {
 	display: block;
@@ -407,6 +477,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 .editor-toolbar .tools button.spray span {
 	background-image: url(../images/spray-icon.png);
+}
+.editor-toolbar .tools button.highlight span {
+	background-image: url(../images/highlight.png);
 }
 .editor-toolbar .tools button.text span {
 	background-image: url(../images/text-icon.png);
@@ -540,6 +613,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
     outline: none;
     background: url(../images/clipboard-paste.png) no-repeat 218px center #fff;
     cursor: pointer;
+	-webkit-filter: grayscale(1);
+	-webkit-transition: -webkit-filter .3s ease-out;
+}
+.buttons .url-share.copied {
+	-webkit-filter: grayscale(0);
+}
+.buttons .view {
+	background: #a8a8a8;
 }
 .buttons .elements-group {
     float: left;
@@ -576,6 +657,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 .buttons button.save .icon {
 	background-image: url(../images/save.png);
+	margin-right: 5px;
+}
+.buttons button.view .icon {
+	background-image: url(../images/eye.png);
 	margin-right: 5px;
 }
 .buttons button.online .icon {
@@ -658,6 +743,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	border-radius: 4px;
 	padding: 5px 5px 2px 2px;
 	width: 315px;
+}
+.more-plugins-drop .arrow-drop {
+	right: 5px;
 }
 
 .buttons .more-plugins-drop button {

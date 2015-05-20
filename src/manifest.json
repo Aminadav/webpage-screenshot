@@ -1,6 +1,6 @@
 {
     "name": "__MSG_name__",
-    "version": "13.11",
+    "version": "14.5",
 
     "commands": {
         "visible_screenshot": {
@@ -34,6 +34,7 @@
         "/images/copy.png",
         "/images/ajax-20.png",
         "/images/clipboard-paste.png",
+        "/images/ok-16.png",
 
         "/images/blogger.png",
         "/images/email.png",
@@ -60,6 +61,7 @@
         "/images/share.png",
         "/images/tumblr.png",
         "/images/uploady.png",
+        "/images/eye.png",
 
 
 
@@ -88,11 +90,12 @@
         "/libs/jquery.js",
         "/js/dialog.js"
     ],
+    "offline_enabled":true,
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.googleapis.com https://cdn.extensionanalytics.com https://ssl.google-analytics.com; object-src 'self'",
     "default_locale": "en",
-    "permissions": ["tts","notifications","activeTab","storage", "unlimitedStorage"],
+    "permissions": ["tts","notifications","activeTab","storage", "unlimitedStorage", "webRequest"],
     "optional_permissions": [
-    "webNavigation","desktopCapture", "webRequest", "tabs",
-     "file://*/*", "http://*/*", "https://*/*", "pageCapture", "tabCapture","clipboardWrite","<all_urls>"
+    "desktopCapture", "tabs",
+     "file://*/*", "http://*/*", "https://*/*", "pageCapture", "tabCapture","webNavigation","clipboardWrite","<all_urls>"
      ]
 }

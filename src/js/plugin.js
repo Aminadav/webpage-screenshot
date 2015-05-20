@@ -127,7 +127,7 @@ var sizes = {
                         // console.log(mm = data)
                         // console.log(extStorageGet('options'))
                         $.ajax({
-                            url: 'http://www.webpagescreenshot.info/upload3.asp',
+                            url: 'https://www.webpagescreenshot.info/upload3.asp',
                             // url: 'http://www.webpagescreenshot.info/upload3.asp',
                             type: 'post',
                             data: {
@@ -152,13 +152,25 @@ var sizes = {
                                 callback(imageURL);
                             }
                         })
-                    }
+                    };
                     data.image_base64 = function(callback) {
                         var toData = this.image_data()
                         var ans = toData.slice(toData.indexOf(',') + 1);
                         if (callback) callback(ans);
                         return ans;
-                    }
+                    };
+
+                    var dataURItoBlob = function (dataURI) {
+                        var binary = atob(dataURI);
+                        var array = [];
+                        for (var i = 0; i < binary.length; i++) {
+                            array.push(binary.charCodeAt(i));
+                        }
+                        return new Blob([new Uint8Array(array)], {type: 'image/png'})
+                    };
+                    data.image_blob = function () {
+                        return dataURItoBlob(data.image_base64());
+                    };
                     if (Array.isArray(inVar) || inVar.jquery)
                         inVar = inVar[0]
                     if (typeof inVar == 'string' && inVar.slice(0, 4) == 'data') {

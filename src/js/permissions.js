@@ -1,6 +1,8 @@
 var premissions = {
-  checkPermissions: function (cb) {
-    chrome.permissions.contains(settings.permissions, function (contains) {
+  checkPermissions: function (permissions,cb) {
+    // Optional paramets permissions to check
+    if(!cb) {cb=permissions; permissions=settings.permissions}
+    chrome.permissions.contains(permissions, function (contains) {
       if (contains) {
         cb();
       } else {
@@ -8,8 +10,10 @@ var premissions = {
       }
     });
   },
-  requestPermissions: function (cb) {
-    chrome.permissions.request(settings.permissions, function (granted) {
+  requestPermissions: function (permissions,cb) {
+    // Optional paramets permissions to request
+    if(!cb) {cb=permissions; permissions=settings.permissions}
+    chrome.permissions.request(permissions, function (granted) {
       if (granted) {
         cb();
       } else {

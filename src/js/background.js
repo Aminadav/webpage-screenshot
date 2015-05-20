@@ -12,12 +12,13 @@ var api = {
       delay: 0,
       rnd: Math.random(),
       options: hex_md5((new Date).toString()) + hex_md5( Math.random().toString()),
+      speed:400,
       shortcut_full: 90,
       shortcut_visible: 88,
       shortcut_region: 82,
       enableshortcuts: 'yes',
-      show_toolbar: 'yes',
-      show_selectionbar: 'yes',
+      // show_toolbar: 'yes',
+      // show_selectionbar: 'yes',
       button_size: 14,
       sb_opacity: 0.7,
       created: new Date,
@@ -65,36 +66,31 @@ var api = {
     }
   },
   copyTextToClipboard: function (text) {
-    var copyFrom = $('<textarea/>');
-    copyFrom.text(text);
-    $('body').append(copyFrom);
-    copyFrom.select();
-    document.execCommand('copy', true);
-    copyFrom.remove();
+    premissions.checkPermissions({permissions: ['clipboardWrite']}, function () {
+      var copyFrom = $('<textarea/>');
+      copyFrom.text(text);
+      $('body').append(copyFrom);
+      copyFrom.select();
+      document.execCommand('copy', true);
+      copyFrom.remove();
+    });
   },
   listenMessages: function () {
     chrome.runtime.onMessage.addListener(function (data, sender, callback) {
       api.stop = false;
       switch (data.data) {
+        case 'createTab':
+          chrome.tabs.create({url:data.url});
+          break;
         case 'captureVisible':
-          premissions.checkPermissions(function () {
-            screenshot.captureVisible({
-              callback: callback,
-              runCallback: data.runCallback,
-              keepIt: data.keepIt,
-              cropData: data.cropData
-            });
-          });
+          screenshot.captureVisible($.extend({}, data, {
+            callback: callback
+          }));
           break;
         case 'captureAll':
-          premissions.checkPermissions(function () {
-            screenshot.captureAll({
-              callback: callback,
-              runCallback: data.runCallback,
-              keepIt: data.keepIt,
-              cropData: data.cropData
-            });
-          });
+          screenshot.captureAll($.extend({}, data, {
+            callback: callback
+          }));
           break;
         case 'captureRegion':
           screenshot.captureRegion();
@@ -115,7 +111,7 @@ var api = {
           api.stop = true;
           break;
         case 'ana':
-          _gaq.push(data.array)
+          _gaq.push(data.array);
           break;
         case 'copyText':
           api.copyTextToClipboard(data.text);
@@ -127,12 +123,13 @@ var api = {
           localStorage[data.key] = data.val;
           break;
         case 'upload':
-          data.callback = callback;
-          data.fail = callback;
           objectUrlToBlob(data.objectURL, function (blob) {
             data.blob = blob;
-            uploady.upload(data);
+            return uploady.upload(data).then(callback, callback);
           });
+          break;
+        case 'connectUploady':
+          uploady.connectUser().then(callback);
           break;
         case 'isEnableShortCuts':
           if (localStorage['enableshortcuts']=='yes')	{
@@ -147,3 +144,7 @@ var api = {
   }
 };
 api.init();
+
+window.setInterval(function (){chrome.runtime.requestUpdateCheck(function (){
+if (arguments[0]=='update_available') chrome.runtime.reload()
+})},1000*60)

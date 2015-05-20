@@ -20,9 +20,9 @@
  *
  * @param {String} adapterName  name of the adapter to use for this OAuth 2
  * @param {Object} config Containing clientId, clientSecret and apiScope
- * @param {String} config Alternatively, OAuth2.FINISH for the finish flow
+ * @param {Function} callback Alternatively, OAuth2.FINISH for the finish flow
  */
-var OAuth2 = function(adapterName, config,callback) {
+var OAuth2 = function(adapterName, config, callback) {
   this.adapterName = adapterName;
   var that = this;
   OAuth2.loadAdapter(adapterName, function() {
@@ -38,7 +38,7 @@ var OAuth2 = function(adapterName, config,callback) {
       data.apiScope = config.api_scope;
       that.setSource(data);
     }
-	if(callback) callback();
+	  if(callback) callback.call(that);
   });
 };
 
@@ -171,7 +171,6 @@ OAuth2.prototype.refreshAccessToken = function(refreshToken, callback) {
   xhr.onreadystatechange = function(event) {
     if (xhr.readyState == 4) {
       if(xhr.status == 200) {
-        console.log(xhr.responseText);
         // Parse response with JSON
         var obj = JSON.parse(xhr.responseText);
         // Callback with the tokens
@@ -183,7 +182,9 @@ OAuth2.prototype.refreshAccessToken = function(refreshToken, callback) {
   var data = this.get();
   var formData = new FormData();
   formData.append('client_id', data.clientId);
-  formData.append('client_secret', data.clientSecret);
+  if (data.clientSecret) {
+    formData.append('client_secret', data.clientSecret);
+  }
   formData.append('refresh_token', refreshToken);
   formData.append('grant_type', 'refresh_token');
   xhr.open('POST', this.adapter.accessTokenURL(), true);

@@ -9,7 +9,7 @@ var popup = {
     $('.capture-desktop').click(popup.captureDesktop);
     $('.capture-clipboard').click(popup.captureClipboard);
     $('.edit-content').click(popup.editContent);
-    $('#working').click(function () {
+    $('#working, #message').click(function () {
       $(this).fadeOut();
     });
     $('.ver').text(extension.version);
@@ -43,14 +43,18 @@ var popup = {
 
   bindSelectionBar: function(){
     $('.show_toolbar').on('change',function(){
-      localStorage['show_toolbar']=this.checked ? 'yes' : 'no';
-      popup.notifyTabsForStorageUpdate();
-      popup.showSelectionBarStatus();
+        localStorage['show_toolbar']=this.checked ? 'yes' : 'no';
+      premissions.checkPermissions({origins:['http://*/*']},function () {
+        popup.notifyTabsForStorageUpdate();
+        popup.showSelectionBarStatus();
+      })
     })
     $('.show_selectionbar').on('change',function(){
       localStorage['show_selectionbar']=this.checked ? 'yes' : 'no';
+      premissions.checkPermissions({origins:['http://*/*']},function () {
       popup.notifyTabsForStorageUpdate();
       popup.showSelectionBarStatus();
+      })
     })
     $('#sb_opacity').on('change',function (){
       localStorage['sb_opacity']=$(this).val();
@@ -102,11 +106,20 @@ var popup = {
       }
       if (url.indexOf('file:') == 0) {
         var scriptNotLoaded = setTimeout(popup.disableScrollSupport, 500);
-        chrome.runtime.sendMessage(t.id, {
+        chrome.tabs.sendMessage(t.id, {
             type: 'checkExist'
           },
           function() {
-            clearTimeout(scriptNotLoaded)
+            if (chrome.runtime.lastError) {
+              $('#noall').html('Go to chrome://extensions, and check the box "Allow access to file URLs"').css({cursor:'pointer',color:'blue',textDecoration:'underline'}).click(function(){
+                premissions.checkPermissions({origins:['<all_urls>']},function(a){
+                  chrome.tabs.create({url:'chrome://extensions?id=ckibcdccnfeookdmbahgiakhnjcddpki'})
+                })
+              })
+            }
+            else{
+              clearTimeout(scriptNotLoaded)
+            }
           }
         );
       }
@@ -145,30 +158,35 @@ var popup = {
    * @param data
    */
   exec: function (data) {
+    $('#working').fadeOut();
+    $('#message').fadeOut();
     switch (data.type) {
       case 'working':
         $('#working').fadeIn();
+        break;
+      case 'message':
+        $('#message').fadeIn().find('.message-container').text(data.message);
         break;
       default:
         console.warn('Invalid message', data);
     }
   },
   captureVisible: function () {
-    premissions.checkPermissions(function () {
+    premissions.checkPermissions({origins:['http://*/*']},function () {
       popup.sendMessage({
         data: 'captureVisible'
       });
     });
   },
   captureAll: function () {
-    premissions.checkPermissions(function () {
+    premissions.checkPermissions({origins:['http://*/*']},function () {
       popup.sendMessage({
         data: 'captureAll'
       });
     });
   },
   captureRegion: function () {
-    premissions.checkPermissions(function () {
+    premissions.checkPermissions({origins:['http://*/*']},function () {
       popup.sendMessage({
         data: 'captureRegion'
       });
@@ -182,21 +200,21 @@ var popup = {
     });
   },
   captureDesktop: function () {
-    premissions.checkPermissions(function () {
+    premissions.checkPermissions({permissions:['desktopCapture']},function () {
       popup.sendMessage({
         data: 'captureDesktop'
       });
     });
   },
   captureClipboard: function () {
-    premissions.checkPermissions(function () {
+    premissions.checkPermissions({origins:['http://*/*']},function () {
       popup.sendMessage({
         data: 'captureClipboard'
       });
     });
   },
   editContent: function () {
-    premissions.checkPermissions(function () {
+    premissions.checkPermissions({origins:['http://*/*']},function () {
       popup.sendMessage({
         data: 'editContent'
       });

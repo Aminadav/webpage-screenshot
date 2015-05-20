@@ -1,6 +1,6 @@
 {
     "name": "SelectionBar",
-    "version": "3.1",
+    "version": "4.9",
 
     "manifest_version": 2,
     "description": "This extension add a powerful bar when you selecting text. Capture, Translate, Share, Highlight, and... ",
@@ -46,6 +46,7 @@
         "/images/share.png",
         "/images/tumblr.png",
         "/images/uploady.png",
+        "/images/eye.png",
 
 
 
@@ -63,6 +64,8 @@
         "/images/save.png",
         "/images/copy-text.png",
         "/images/link-go.png",
+        "/images/clipboard-paste.png",
+        "/images/ok-16.png",
 
         "/images/fast.png",
         "/images/pitch.png",
@@ -74,11 +77,12 @@
         "/libs/jquery.js",
         "/js/dialog.js"
     ],
+      "offline_enabled":true,
     "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.googleapis.com https://ad.yieldmanager.com https://cdn.extensionanalytics.com https://ssl.google-analytics.com; object-src 'self'",
     "default_locale": "en",
-    "permissions": [
-        "tts","notifications","activeTab","storage", "unlimitedStorage",
-        "webNavigation","desktopCapture", "webRequest", "tabs",
-        "pageCapture", "tabCapture","clipboardWrite","<all_urls>"
-    ]
+    "permissions": ["tts","notifications","activeTab","storage", "unlimitedStorage","webRequest"],
+    "optional_permissions": [
+    "webNavigation","desktopCapture",  "tabs",
+     "file://*/*", "http://*/*", "https://*/*", "pageCapture", "tabCapture","clipboardWrite","<all_urls>"
+     ]
 }
