@@ -14,6 +14,15 @@
  * Editor toolbar 
 
  ![toolbar](https://raw.githubusercontent.com/AminaG/Webpage-Screenshot/master/screenshots/toolbar.png)
+ * Editor image manipulaction
+
+ ![toolbar](https://raw.githubusercontent.com/AminaG/Webpage-Screenshot/master/screenshots/toolbar2.png)
+ * Example of Google News screenshot
+
+ ![toolbar](https://raw.githubusercontent.com/AminaG/Webpage-Screenshot/master/screenshots/google-news-example.png)
+ * Example of Facebook screenshot
+
+ ![toolbar](https://raw.githubusercontent.com/AminaG/Webpage-Screenshot/master/screenshots/facebook-example.png)
 
 ## Installation
  1. Download build/chrome-extension.crx
