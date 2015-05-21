@@ -3,7 +3,7 @@ var defaultPlugins = [
 		name: 'Save To Disk',
 		key: 'save',
 		dataType: 'image',
-    // editorDefault: true,
+    editorDefault: true,
 		onclick: function(scope) {
 			String.prototype.twoDigits=function () {return this.replace(/^(.)$/,'0$1')};
 			var x = scope.image_blob();
@@ -24,13 +24,14 @@ var defaultPlugins = [
   name: 'Share with Webpage Screenshot',
   key: 'webpagescreenshot',
   dataType: 'image',
+  editorDefault:true,
   url: '%s'
   },
   {
 		name: 'Print',
 		key: 'print',
 		dataType: 'image',
-    // editorDefault: true,
+    editorDefault: true,
 		onclick: function(scope) {
 			var image = scope.image_base64()
 			var x = new Dialog({
@@ -44,7 +45,7 @@ var defaultPlugins = [
 	name:'Copy',
 	key:'copy',
 	dataType:'image',
-	// editorDefault:true,
+	editorDefault:true,
 	onclick:function(scope){
 		var image=scope.image_base64()
 		mod = $('<div style=z-index:100000;position:fixed;width:100%;top:5%><center><span style="display:inline-block;background-color:white;padding:10px;border:1px solid black"><h2>Right click the image and choose "Copy Image"</h2><img style="max-width:80%;max-height:80%"></span></center></div>');
@@ -66,60 +67,60 @@ var defaultPlugins = [
       // editorDefault: true,
 			url: "https://mail.google.com/mail/?view=cm&tf=0&fs=1&body=%s" + encodeURIComponent(' Captured by http://bit.ly/cF6sYP')
   },
-		 {
-				name: 'drive',
-				key: "googledrive",
-				dataType: 'image',
-				onclick: function(scope) {
-					function start() {
-						var googleAuth = this;
-						googleAuth.authorize(function() {
-							var meta = {
-								"title": scope.page_title + '.png',
-								"mimeType": "image/png",
-								"description": 'Taken by Webpage Screenshot. http://www.webpagescreenshot.info'
-							};
-							var bound = 287032396531387;
-							var parts = [];
-							parts.push('--' + bound);
-							parts.push('Content-Type: application/json');
-							parts.push('');
-							parts.push(JSON.stringify(meta));
-							parts.push('--' + bound);
-							parts.push('Content-Type: image/png');
-							parts.push('Content-Transfer-Encoding: base64');
-							parts.push('');
-							parts.push(scope.image_base64());
-							parts.push('--' + bound + '--');
-							theParts = parts.join("\r\n");
-							$.ajax({
-								url: 'https://www.googleapis.com/upload/drive/v2/files?uploadType=multipart',
-								method: 'post',
-								headers: {
-									Authorization: 'OAuth ' + googleAuth.getAccessToken(),
-									"Content-Type": "multipart/mixed; boundary=" + bound
-								},
-								data: theParts
-							}).done(function(res) {
-								if (res.error) googleAuth.clear()
-								chrome.tabs.create({
-									url: res.alternateLink
-								});
-							}).fail(function() {
-								console.log('error')
-								googleAuth.clear();
-							})
+		 // {
+			// 	name: 'drive',
+			// 	key: "googledrive",
+			// 	dataType: 'image',
+			// 	onclick: function(scope) {
+			// 		function start() {
+			// 			var googleAuth = this;
+			// 			googleAuth.authorize(function() {
+			// 				var meta = {
+			// 					"title": scope.page_title + '.png',
+			// 					"mimeType": "image/png",
+			// 					"description": 'Taken by Webpage Screenshot. http://www.webpagescreenshot.info'
+			// 				};
+			// 				var bound = 287032396531387;
+			// 				var parts = [];
+			// 				parts.push('--' + bound);
+			// 				parts.push('Content-Type: application/json');
+			// 				parts.push('');
+			// 				parts.push(JSON.stringify(meta));
+			// 				parts.push('--' + bound);
+			// 				parts.push('Content-Type: image/png');
+			// 				parts.push('Content-Transfer-Encoding: base64');
+			// 				parts.push('');
+			// 				parts.push(scope.image_base64());
+			// 				parts.push('--' + bound + '--');
+			// 				theParts = parts.join("\r\n");
+			// 				$.ajax({
+			// 					url: 'https://www.googleapis.com/upload/drive/v2/files?uploadType=multipart',
+			// 					method: 'post',
+			// 					headers: {
+			// 						Authorization: 'OAuth ' + googleAuth.getAccessToken(),
+			// 						"Content-Type": "multipart/mixed; boundary=" + bound
+			// 					},
+			// 					data: theParts
+			// 				}).done(function(res) {
+			// 					if (res.error) googleAuth.clear()
+			// 					chrome.tabs.create({
+			// 						url: res.alternateLink
+			// 					});
+			// 				}).fail(function() {
+			// 					console.log('error')
+			// 					googleAuth.clear();
+			// 				})
 
 
-						});
-					}
-					new OAuth2('google', {
-						client_id: '545443912834-j7vdfe6gar81lu14oatf33tgtlcbi5gq.apps.googleusercontent.com',
-						client_secret: '213pVJTRShuSGESsRO92G1qV',
-						api_scope: 'https://www.googleapis.com/auth/drive.install https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/urlshortener https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
-					}, start);
-				}
-			},	
+			// 			});
+			// 		}
+			// 		new OAuth2('google', {
+			// 			client_id: '545443912834-j7vdfe6gar81lu14oatf33tgtlcbi5gq.apps.googleusercontent.com',
+			// 			client_secret: '213pVJTRShuSGESsRO92G1qV',
+			// 			api_scope: 'https://www.googleapis.com/auth/drive.install https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/urlshortener https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+			// 		}, start);
+			// 	}
+			// },	
 			
 
 		{

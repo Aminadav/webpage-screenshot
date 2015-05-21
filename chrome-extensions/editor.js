@@ -2205,7 +2205,7 @@ $(function(){
 		}
   });
 
-	$('.share').on('click',function (){
+	$('.share').on('click',function (e){
 		var x=staticPlugin.getPluginByKey('webpagescreenshot')
 		editor.createLastCanvas('toolbar',function (data){
 			x.run(data, e);

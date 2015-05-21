@@ -659,6 +659,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	background-image: url(../images/save.png);
 	margin-right: 5px;
 }
+.buttons button.share .icon {
+	background-image: url(../images/share.png);
+	margin-right: 5px;
+	background-size:cover;
+}
 .buttons button.view .icon {
 	background-image: url(../images/eye.png);
 	margin-right: 5px;
