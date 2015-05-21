@@ -59,3 +59,8 @@
  * Sharing to WhatsApp
  * Schedule screenshot
  * Auto Screenshot
+
+## Reviews (Chrome Web Store Reviews)
+ * I am a teacher and technology integration coach in my school district.  I also present at many conferences each year with EdTechTeam at the Google Summits.  I LOVE the Webpage Screenshot Chrome extension - especially the ability to edit content in the screenshot.  Teachers are so excited about this feature when I show it to them.
+ 
+ * Thank you very much, it's Awesome. The best screenshot app!
