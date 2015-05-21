@@ -66,83 +66,6 @@ var defaultPlugins = [
       // editorDefault: true,
 			url: "https://mail.google.com/mail/?view=cm&tf=0&fs=1&body=%s" + encodeURIComponent(' Captured by http://bit.ly/cF6sYP')
   },
-	{
-		name: 'Save online',
-		key: 'uploady',
-		dataType: 'image',
-		editorDefault: true,
-		onclick: function (scope) {
-			var $button = $(scope.event.delegateTarget);
-			if ($button.hasClass('loading')) {
-				return;
-			}
-			$button.prop('disabled');
-			$button.addClass('loading');
-			String.prototype.twoDigits = function () {
-				return this.replace(/^(.)$/, '0$1')
-			};
-			var blob = scope.image_blob();
-			var filename;
-			filename = scope.page_title || scope.page_url;
-			filename = filename.replace(/[%&\(\)\\\/\:\*\?\"\<\>\|\/\]]/g, ' ');
-			filename += '.png';
-			chrome.runtime.sendMessage({
-				data: 'upload',
-				filename: filename,
-				objectURL: URL.createObjectURL(blob)
-			}, function (data) {
-				$button.addClass('done');
-				$button.removeClass('loading');
-				$button.prop('disabled', false);
-				if (!data) {
-					return;
-				}
-				var file = data.files.pop();
-				var shareUrl = file.share_url;
-				if ($button.hasClass('expand-url')) {
-					var $input = $button.siblings('.url-share');
-					if (!$input.length) {
-						$input = $("<input class='url-share' readonly type='text'/>");
-						$button.after($input);
-					}
-					$input.val(shareUrl);
-					$input.animate({"margin-right": '0'});
-					$input.click(function () {
-						$input.select();
-						$input.addClass('copied');
-						chrome.runtime.sendMessage({
-							data: 'copyText',
-							text: shareUrl
-						});
-					});
-					return;
-				}
-				var title = scope.page_title.replace(/[\"&<>]/g, function (a) {
-					return chr[a];
-				});
-				var x = new Dialog({
-					html: '<textarea autoselect class="input-block" id="share_url">' + shareUrl +
-					'</textarea>' +
-					//'<a href="' + shareUrl + '" class="button link-go" target="_blank"><i></i></a>' +
-					'<a href="#share_url" class="button link-copy" target="_blank"><i></i> Copy</a>' +
-					'<br/> ' +
-					'<textarea autoselect class="input-block" id="share_html"><a href="' +
-					shareUrl + '">' + title +
-					'</a></textarea>' +
-					'<a href="#share_html" class="button link-copy" target="_blank"><i></i> Copy</a>' +
-					'<br/> ' +
-					'<textarea autoselect class="input-block" id="share_md">[' + title +
-					'](' +
-					shareUrl + ')</textarea>' +
-					'<a href="#share_md" class="button link-copy" target="_blank"><i></i> Copy</a>'
-					,
-					title: 'Screenshot is ready. Go ahead, share it!',
-					ui: 'dialog'
-				});
-				x.show();
-			});
-		}
-	},
 		 {
 				name: 'drive',
 				key: "googledrive",
@@ -154,7 +77,7 @@ var defaultPlugins = [
 							var meta = {
 								"title": scope.page_title + '.png',
 								"mimeType": "image/png",
-								"description": 'Taken by Webpage Screenshot. https://www.webpagescreenshot.info'
+								"description": 'Taken by Webpage Screenshot. http://www.webpagescreenshot.info'
 							};
 							var bound = 287032396531387;
 							var parts = [];
@@ -206,7 +129,7 @@ var defaultPlugins = [
 			dataType:'image',
 			onclick:function (scope){
 				scope.image_url(function (url){
-					window.open('https://www.webpagescreenshot.info/dropboxChooser.php?url=' +encodeURIComponent ( url.replace(/img/,'i3') )
+					window.open('http://www.webpagescreenshot.info/dropboxChooser.php?url=' +encodeURIComponent ( url.replace(/img/,'i3') )
 						+ '&filename=' + encodeURIComponent( scope.page_title)
 						 ,'dp','width=300,height=300')
 				})
@@ -293,7 +216,7 @@ var defaultPlugins = [
 				subject = $('[name=subject]', html).val();
 				scope.image_url(function(url) {
 					$.ajax({
-						url: 'https://www.webpagescreenshot.info/sendByEmail.php',
+						url: 'http://www.webpagescreenshot.info/sendByEmail.php',
 						data: {
 							to: to,
 							subject: subject,
