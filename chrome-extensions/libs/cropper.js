@@ -362,7 +362,7 @@ function load_cropper_without_selection(rect) {
 	// })
 
 	$('button.share', $toolbar).on('click', function() {
-		$('[plugin-key=uploady]').trigger($.Event({
+		$('[plugin-key=webpagescreenshot]').trigger($.Event({
 			type: 'click'
 		}));
 	});

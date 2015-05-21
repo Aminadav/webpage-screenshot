@@ -125,11 +125,11 @@ var api = {
         case 'upload':
           objectUrlToBlob(data.objectURL, function (blob) {
             data.blob = blob;
-            return uploady.upload(data).then(callback, callback);
+            // return uploady.upload(data).then(callback, callback);
           });
           break;
         case 'connectUploady':
-          uploady.connectUser().then(callback);
+          // uploady.connectUser().then(callback);
           break;
         case 'isEnableShortCuts':
           if (localStorage['enableshortcuts']=='yes')	{
