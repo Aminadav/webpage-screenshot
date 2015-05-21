@@ -13,6 +13,7 @@
   <script src="js/pluginLib.js"></script>
   <script src="js/plugin.js"></script>
   <script src="js/pluginsBuiltIn.js"></script>
+  <script src="oauth2/oauth2.js"></script>
 
   <script src="extension.js"></script>
   <script src="js/pdf.js"></script>
@@ -21,7 +22,7 @@
 </head>
 <body id="page-editor">
 <div id="header">
-  <div class="editor-toolbar" id="toolbar">
+  <div class="editor-toolbar" id="toolbar" style=height:100px>
     <a href="https://www.webpagescreenshot.info" target="_blank" class="logo">
       <img src="images/icon48.png" alt="Webpage Screenshot" />
     </a>
@@ -73,16 +74,15 @@
       </div>
     </div>
     <div class="buttons">
+      <button title="Share" class="share" style="text-indent: initial;font-size:inherit"><span class="icon"></span> Share</button>
       <button title="Save Local" class="save"><span class="icon"></span> Save local</button>
       <button title="Save to PDF" class="pdf save-to-pdf"><span class="icon"></span></button>
       <button title="Copy" class="copy save-to-clipboard"><span class="icon"></span></button>
       <button title="Thumbnail" class="thumbnail save-to-thumbnail"><span class="icon"></span></button>
       <button title="Print" class="print save-to-printer"><span class="icon"></span></button>
-      <button class="more-plugins">More</button>
-      <div class="more-plugins-drop" style="display: none;">
-        <div class="arrow-drop"></div>
-        <div id="toolbarContainer"></div>
-      </div>
+      <div id="toolbarContainer" style="  clear: both;
+  margin-top: 34px;
+  width: 310px;"></div>
     </div>
   </div>
 </div>
