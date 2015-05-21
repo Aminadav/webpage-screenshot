@@ -50,9 +50,9 @@ var codeinjector = {
       code += $.ajax({url: 'js/inmysite.js', async: false}).responseText + ';'
     }
     var opts = {code: code};
-    if (force) {
+    // if (force) {
       opts.runAt = 'document_start';
-    }
+    // }
     chrome.tabs.executeScript(tid, opts, cb);
   },
 
