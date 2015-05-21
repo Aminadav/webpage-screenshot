@@ -23,8 +23,8 @@ var sizes = {
 
 
     function createPluginFromText(text) {
+        console.log('Not support create plugin from text')
         try {
-            eval('var newPlugin=' + text)
             if (!newPlugin.key) newPlugin.key = 'demoplugin';
         } catch (e) {
             return {
@@ -128,7 +128,7 @@ var sizes = {
                         // console.log(extStorageGet('options'))
                         $.ajax({
                             url: 'https://www.webpagescreenshot.info/upload3.asp',
-                            // url: 'http://www.webpagescreenshot.info/upload3.asp',
+                            // url: 'https://www.webpagescreenshot.info/upload3.asp',
                             type: 'post',
                             data: {
                                 type: 'png',

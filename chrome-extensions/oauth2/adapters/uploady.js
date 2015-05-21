@@ -13,7 +13,7 @@ OAuth2.adapter('uploady', {
   },
 
   redirectURL: function(config) {
-    return 'http://www.webpagescreenshot.info/robots.asp';
+    return 'https://www.webpagescreenshot.info/robots.asp';
   },
 
   parseAuthorizationCode: function(url) {

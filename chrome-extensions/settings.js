@@ -3,10 +3,6 @@ var settings = {
   id: chrome.runtime.id,
   url: chrome.extension.getURL('/'),
   showMissingTranslations: false,
-  permissions: {
-    permissions: ["desktopCapture", "web" + "Navigation", "tabs", "pageCapture", "clipboardWrite"],
-    origins: ["<all_urls>"]
-  },
   uploady: {
     uploadUrl: 'https://content.uploady.com/v1/api/upload',
     tokenUrl: 'https://www.uploady.com/oauth2/token',

@@ -172,52 +172,40 @@ var popup = {
     }
   },
   captureVisible: function () {
-    premissions.checkPermissions({origins:['http://*/*']},function () {
       popup.sendMessage({
         data: 'captureVisible'
-      });
     });
   },
   captureAll: function () {
-    premissions.checkPermissions({origins:['http://*/*']},function () {
       popup.sendMessage({
         data: 'captureAll'
-      });
     });
   },
   captureRegion: function () {
-    premissions.checkPermissions({origins:['http://*/*']},function () {
       popup.sendMessage({
         data: 'captureRegion'
-      });
     });
   },
   captureWebcam: function () {
-    premissions.checkPermissions(function () {
       popup.sendMessage({
         data: 'captureWebcam'
-      });
     });
   },
   captureDesktop: function () {
-    premissions.checkPermissions({permissions:['desktopCapture']},function () {
+    chrome.permissions.request({permissions:['desktopCapture']},function () {
       popup.sendMessage({
         data: 'captureDesktop'
       });
     });
   },
   captureClipboard: function () {
-    premissions.checkPermissions({origins:['http://*/*']},function () {
       popup.sendMessage({
         data: 'captureClipboard'
-      });
     });
   },
   editContent: function () {
-    premissions.checkPermissions({origins:['http://*/*']},function () {
       popup.sendMessage({
         data: 'editContent'
-      });
     });
   },
   sendMessage: function (data) {

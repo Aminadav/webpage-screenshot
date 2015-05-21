@@ -12,7 +12,7 @@
     },
 
 
-    "homepage_url": "http://www.webpagescreenshot.info",
+    "homepage_url": "https://www.webpagescreenshot.info",
     "manifest_version": 2,
     "description": "__MSG_description__",
     "icons": {
@@ -91,11 +91,7 @@
         "/js/dialog.js"
     ],
     "offline_enabled":true,
-    "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.googleapis.com https://cdn.extensionanalytics.com https://ssl.google-analytics.com; object-src 'self'",
     "default_locale": "en",
-    "permissions": ["tts","notifications","activeTab","storage", "unlimitedStorage", "webRequest"],
-    "optional_permissions": [
-    "desktopCapture", "tabs",
-     "file://*/*", "http://*/*", "https://*/*", "pageCapture", "tabCapture","webNavigation","clipboardWrite","<all_urls>"
-     ]
+    "permissions": ["activeTab","clipboardWrite"],
+    "optional_permissions": ["desktopCapture", "tabs" ]
 }

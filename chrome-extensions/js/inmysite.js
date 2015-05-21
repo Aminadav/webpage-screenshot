@@ -15,11 +15,11 @@ document.addEventListener('getOptions',function (e){
 /*
 
 	"content_scripts": [{
-		"matches": ["http://www.webpagescreenshot.info/*", "https://www.webpagescreenshot.info/*"],
+		"matches": ["https://www.webpagescreenshot.info/*", "https://www.webpagescreenshot.info/*"],
 		"js": ["inmysite.js"],
 		"run_at": "document_start"
 	}, {
-		"matches": ["http://www.webpagescreenshot.info/robots*.asp*"],
+		"matches": ["https://www.webpagescreenshot.info/robots*.asp*"],
 		"js": ["oauth2/oauth2_inject.js"],
 		"run_at": "document_start"
 	}],

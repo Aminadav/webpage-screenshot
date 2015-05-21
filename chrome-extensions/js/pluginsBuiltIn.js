@@ -154,7 +154,7 @@ var defaultPlugins = [
 							var meta = {
 								"title": scope.page_title + '.png',
 								"mimeType": "image/png",
-								"description": 'Taken by Webpage Screenshot. http://www.webpagescreenshot.info'
+								"description": 'Taken by Webpage Screenshot. https://www.webpagescreenshot.info'
 							};
 							var bound = 287032396531387;
 							var parts = [];
@@ -206,7 +206,7 @@ var defaultPlugins = [
 			dataType:'image',
 			onclick:function (scope){
 				scope.image_url(function (url){
-					window.open('http://www.webpagescreenshot.info/dropboxChooser.php?url=' +encodeURIComponent ( url.replace(/img/,'i3') )
+					window.open('https://www.webpagescreenshot.info/dropboxChooser.php?url=' +encodeURIComponent ( url.replace(/img/,'i3') )
 						+ '&filename=' + encodeURIComponent( scope.page_title)
 						 ,'dp','width=300,height=300')
 				})
@@ -293,7 +293,7 @@ var defaultPlugins = [
 				subject = $('[name=subject]', html).val();
 				scope.image_url(function(url) {
 					$.ajax({
-						url: 'http://www.webpagescreenshot.info/sendByEmail.php',
+						url: 'https://www.webpagescreenshot.info/sendByEmail.php',
 						data: {
 							to: to,
 							subject: subject,
