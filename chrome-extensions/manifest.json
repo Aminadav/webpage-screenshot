@@ -93,5 +93,5 @@
     "offline_enabled":true,
     "default_locale": "en",
     "permissions": ["activeTab","clipboardWrite"],
-    "optional_permissions": ["desktopCapture", "tabs" ]
+    "optional_permissions": ["desktopCapture" ]
 }
