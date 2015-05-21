@@ -111,7 +111,6 @@ var api = {
           api.stop = true;
           break;
         case 'ana':
-          _gaq.push(data.array);
           break;
         case 'copyText':
           api.copyTextToClipboard(data.text);
