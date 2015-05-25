@@ -4,7 +4,9 @@ This extension is able to capture 100% of both the vertical and horizontal conte
 It is very easy to save the captured file onto your computer or print it / or share it to any social network.
 
 You can host and share unlimited images forever for free.
-
+## Online Demo
+ 1. Go to http:/www.webpagescreenshot.info
+ 2. Click "Try it now"
 
 ---
 ## Screenshots
