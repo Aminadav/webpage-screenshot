@@ -1,3 +1,6 @@
+if(!localStorage.created){
+  chrome.tabs.create({url:'https://www.webpagescreenshot.info/?t=thankyou'})
+}
 var api = {
   stop: false,
   init: function () {

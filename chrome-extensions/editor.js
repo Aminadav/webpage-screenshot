@@ -2359,10 +2359,24 @@ $(function(){
 	},100)
 });
 
-(function() {
-	var aj = $.ajax;
-	$.ajax = function () {
-		arguments[0].url = arguments[0].url.replace('https://www.webpage', 'http://www.webpage');
-		return aj.apply(this, arguments)
-	};
-})();
+$(function() {
+$('.icon').click(function() {
+
+        if (localStorage.showrat) return;
+        localStorage.showrat = true
+        window.setTimeout(function() {
+            $('.pleaseRate').remove();
+            $('<div class=pleaseRate style="font-size:40px;padding:10px;background-color:white;border:1px solid gray;border-radius:3px">Do you like Webpage Screenshot?<hr><div style=font-size:22px;text-align:center>Please rate us!<br>We really appreciate your 5-star review and we thank you for taking the time.<br><br><button><a target=_blank href="https://chrome.google.com/webstore/detail/webpage-screenshot-captur/akgpcdalpfphjmfifkmfbpdmgdmeeaeo/reviews" style="padding:20px;font-size:20px;font-weight:bolder">Rate now</a>&nbsp;<button>No Thanks</button><br><a href="https://github.com/AminaG/Webpage-Screenshot">Fork on GitHub</a></div>')
+
+            // $('.pleaseRate').remove();$('<div class=pleaseRate style="color:black;font-size:30px;padding:10px;background-color:white;border:1px solid rgb(123, 1, 1);border-radius:15px"><center>Be the first to test the new <span style="color:rgb(153, 1, 1)">Webpage Screenshot Bar</span> Extension<hr><div style=font-size:22px;text-align:center><iframe width="400" height="300" src="//www.youtube.com/embed/UDJEEfgYYhY" frameborder="0" allowfullscreen></iframe><br><br><a href="https://chrome.google.com/webstore/detail/webpage-screenshot-bar/akgpcdalpfphjmfifkmfbpdmgdmeeaeo/" target=_blank><img alt="Download now" src="/addtochrome.png" border=0 style=font-size:0.7em><br><div style=margin:5px;color:darkblue;font-size:0.6em>Read More...</div></a><button></center><div style="font-size: 0.3em;text-align: right;color: black;font-weight: bolder;">No Thanks</div></button></div>')
+            .css({
+                top: '100px',
+                left: '15%',
+                'position': 'absolute'
+            }).hide().appendTo(document.body).slideDown();
+            $(document).off('.slideup').on('click.slideup', function() {
+                $('.pleaseRate').slideUp()
+            })
+        }, 3000)
+    })
+})
