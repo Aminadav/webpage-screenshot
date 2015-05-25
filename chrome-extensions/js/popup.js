@@ -12,11 +12,7 @@ var popup = {
     });
     $('.ver').text(extension.version);
     popup.checkSupport();
-    
-    if(is=='sb'){
-      popup.showSelectionBarStatus()
-      popup.bindSelectionBar()
-    }
+        
   },
 
   showSelectionBarStatus:function(){

@@ -84,17 +84,6 @@ var sizes = {
                     var thisKey = this.toolbar.namespace + '_' + this.key + '_run'
                     if (!extStorageGet(thisKey)) extStorageSet(thisKey, 0);
                     extStorageSet(thisKey, parseInt(extStorageGet(thisKey), 10) + 1)
-                    if (chrome.runtime) {
-                        chrome.runtime.sendMessage({
-                            data: 'ana',
-                            array: ['_setCustomVar', 'pluginClicks', extStorageGet(thisKey), 1]
-                        });
-                        chrome.runtime.sendMessage({
-                            data: 'ana',
-                            array: ['_trackEvent', 'pluginRun', this.name /*,e.url*/ ]
-                        });
-                    }
-
                 }
 
                 for (var key in sb) {

@@ -70,13 +70,6 @@ var codeinjector = {
       "js/intab.js",
       "js/intabg.js"
     ];
-    if (isSb) {
-      js.push(
-        "libs/rangy.js",
-        "js/sb.js",
-        "js/plugins_sb.js"
-      );
-    }
 
     var code = '';
     code += 'var settings = ' + JSON.stringify(settings) + ';';

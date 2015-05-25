@@ -1,7 +1,10 @@
 ﻿String.prototype.twoDigits=function () {return this.replace(/^(.)$/,'0$1')}
 var canvasToDataURL;
-if (extension.online) {
+if (window.extension && extension.online) {
 	var screenshot = chrome.extension.getBackgroundPage().screenshot;
+}
+else{
+	screenshot={canvas:true}
 }
 var shadowDistance=5;
 var imageURL,imageId;
@@ -517,7 +520,10 @@ function editor_obj()
 						// })
 						editor.reloadCanvas();
 					}
+					try{
 					img.src=screenshot.canvas.toDataURL()
+						}
+						catch(sdfsdf) {return}
 					screenshot.callback=null
 					delete screenshot.callback
 					screenshot.canvas.width=screenshot.canvas.height=1
@@ -2178,7 +2184,6 @@ $(function(){
 		url:'reddit.com/submit?url=?%s',
 		dataType:'image'
 	});
-
 	staticPlugin=new Toolbar({
 		'plugins':plugins_to_show,
 		'element': document.getElementById('toolbarContainer'),
@@ -2190,7 +2195,7 @@ $(function(){
 		doNotRenderDefaults: true,
 		whiteIcons: true,
 		button_size: 20,
-		'icon_base':'/images/',
+		'icon_base':'images/',
 		'position':'static',
 		'type':'image',
 		'theme': true,
@@ -2252,13 +2257,6 @@ $(function(){
 		}
 	}, false);
 });
-
-$(function (){
-	 $('#sharediv').share({
-        networks: ['facebook','pinterest','googleplus','twitter','linkedin','tumblr','in1','email','stumbleupon','digg'],
-urlToShare:'chrome.google.com/webstore/detail/webpage-screenshot/ckibcdccnfeookdmbahgiakhnjcddpki/'   
- });
-})
 
 if (location.hash == "#paste") {
   (function (e) {

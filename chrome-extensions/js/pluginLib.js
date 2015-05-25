@@ -64,7 +64,7 @@ function Dialog(inX) {
 	// 	showProgress: false,
 	// 	async: false
 	// }).responseText  + '</style>' //.replace(/images\//g, 'http://code.jquery.com/ui/1.9.2/themes/dark-hive/images/') + ' ody {color:white;}' 
-	div.innerHTML = '<link href="' + chrome.extension.getURL('/css/dialog.css') +
+	div.innerHTML = '<link href="' + (chrome.extension && chrome.extension.getURL('/css') || 'css') + '/dialog.css' +
 	'" rel="stylesheet"/>';
 	this.iframe.contentDocument.body.appendChild(div);
 	//this.iframe.contentDocument.body.style.cssText="background-color: white;border: 1px solid rgba(0, 0, 0, 0.28);padding: 10px;"
@@ -118,7 +118,7 @@ function Dialog(inX) {
 	var scripts = ['libs/jquery.js', 'js/dialog.js'];
 	for (var i=0; i< scripts.length; i++) {
 		var script = this.iframe.contentWindow.document.createElement("script");
-		script.src = chrome.extension.getURL(scripts[i]);
+		script.src = chrome.extension && chrome.extension.getURL(scripts[i]) || scripts[i];
 		this.iframe.contentWindow.document.body.appendChild(script);
 	}
 
