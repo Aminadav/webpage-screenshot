@@ -5,7 +5,7 @@ It is very easy to save the captured file onto your computer or print it / or sh
 
 You can host and share unlimited images forever for free.
 ## Online Demo
- 1. Go to http:/www.webpagescreenshot.info
+ 1. Go to https://www.webpagescreenshot.info
  2. Click "Try it now"
 
 ---
