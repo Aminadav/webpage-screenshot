@@ -129,4 +129,4 @@ taking the screenshot)
 
 
 Sponsored by:
-https://remarketing.io>Remarketing
+[Remarketing](https://remarketing.io)
