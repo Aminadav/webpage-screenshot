@@ -126,3 +126,7 @@ taking the screenshot)
  * http://techie-buzz.com/browsers/webpage-screenshot-google-chrome-extension.html 
  * http://www.ynet.co.il/articles/0,7340,L-4257486,00.html
  * Any many many more...
+
+
+Sponsored by:<br>
+<a href=https://remarketing.io>Remarketing.io</a>
