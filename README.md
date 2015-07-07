@@ -128,5 +128,5 @@ taking the screenshot)
  * Any many many more...
 
 
-Sponsored by:<br>
-<a href=https://remarketing.io>Remarketing.io</a>
+Sponsored by:
+https://remarketing.io>Remarketing
