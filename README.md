@@ -1,4 +1,4 @@
-#![Icon](https://raw.githubusercontent.com/AminaG/Webpage-Screenshot/master/chrome-extensions/images/icon48.png) Webpage Screeenshot
+#![Icon](https://raw.githubusercontent.com/AminaG/Webpage-Screenshot/master/chrome-extensions/images/icon48.png) Webpage Screenshot
 
 This extension is able to capture 100% of both the vertical and horizontal content appearing on any webpage on the Internet. 
 It is very easy to save the captured file onto your computer or print it / or share it to any social network.
