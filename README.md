@@ -51,7 +51,7 @@ You can host and share unlimited images forever for free.
  * Capture visible page.
  * Capture all page.
  * Capture region of the screen (Many users like to crop BEFORE they 
-taking the screenshot)
+take the screenshot)
  * Webcam capture.
  * Desktop Capture. (Capture any window)
  * Edit content.
@@ -103,7 +103,7 @@ taking the screenshot)
  * Digg
  * Reddit
  
-## Cooming soon (Roadmap)
+## Coming soon (Roadmap)
  * Sharing to WhatsApp
  * Schedule screenshot
  * Auto Screenshot
