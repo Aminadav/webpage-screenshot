@@ -22,7 +22,7 @@ You can host and share unlimited images forever for free.
  * Editor toolbar 
 
  ![toolbar](https://raw.githubusercontent.com/AminaG/Webpage-Screenshot/master/screenshots/toolbar.png)
- * Editor image manipulaction
+ * Editor image manipulation
 
  ![toolbar](https://raw.githubusercontent.com/AminaG/Webpage-Screenshot/master/screenshots/toolbar2.png)
  * Example of Google News screenshot
@@ -58,7 +58,7 @@ take the screenshot)
  * Settings link.
  * Bug report link.
  * Paste from clipboard.
- * Take screenshot after inteval
+ * Take screenshot after interval
  * Change speed of taking screenshot
 
 ## Editor features
