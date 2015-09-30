@@ -1,3 +1,13 @@
+
+Sorry, about my english. My developing skills are better than English :)
+
+This project is monitored and I am watching and accepting pulling request.
+
+You are welcome to fork the project, fix and add new features. (even small fixes are welcome). If it working, I will merge and publish it.
+
+Thank you :)
+
+
 #![Icon](https://raw.githubusercontent.com/AminaG/Webpage-Screenshot/master/chrome-extensions/images/icon48.png) Webpage Screenshot
 
 This extension is able to capture 100% of both the vertical and horizontal content appearing on any webpage on the Internet. 
