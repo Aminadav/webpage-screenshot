@@ -1,10 +1,9 @@
 {
-	"new":{"message":"NEW"},
+"new":{"message":"NEW"},
 "name": {"message": "Open Screenshot" },
-"name_sb": {"message": "SelectionBar" },
 "dir": {"message": "ltr" },
 "settings": {"message": "settings" },
-"description": {"message": "The most powerful and freeware app for capture entire page, Save & Edit & Annotate & Print & Share" },
+"description": {"message": "Open source extension for talking screenshot, Save & Edit & Annotate & Print & Share" },
 "preview" : {"message":"Preview:"},
 "imagesize" : {"message":"Image Size:"},
 "openimage" : {"message": "Click here to open the image"},
@@ -44,15 +43,5 @@
 "must_reload_tabs":{"message" :"Must reload every page, before take effects"},
 "on_this_page":{"message" :"on this page"},
 "enable":{"message" :"Enable"},
-"disable":{"message" :"Disable"},
-"selectionbar_help":{"message":"You are testing a new extension \"SelectionBar\";.
-
-This is a new tool, to help you do thing quickly.
-
-We are working on this extension daily, so if you find any issue, don't disable it, <a target=_blank href=https://docs.google.com/forms/d/1ITSsWIETYMygUEfVcBJZ4-GkUfM16GCXJQ6hlINXxQc/viewform>please fill this form</a>, and we will fix it ASAP (less than 12 hours).
-
-Do you have a great idea to SelectionBar?  <a target=_blank href=https://docs.google.com/forms/d/1ITSsWIETYMygUEfVcBJZ4-GkUfM16GCXJQ6hlINXxQc/viewform>Tell us! </a>
-To Disable SelectionBar on this page, click on the extension icon.
-"
-}
+"disable":{"message" :"Disable"}
 }
