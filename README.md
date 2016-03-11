@@ -1,13 +1,7 @@
-
-Sorry, about my english. My developing skills are better than English :)
-This project is monitored and I am watching and accepting pulling request.
-
 You are welcome to fork & star the project, fix and add new features. (even small fixes are welcome). If it working, I will merge and publish it.
 
-Thank you :)
-
-
 Open Screenshot
+--
 
 This extension is able to capture 100% of both the vertical and horizontal content appearing on any webpage on the Internet. 
 It is very easy to save the captured file onto your computer or print it / or share it to any social network.
