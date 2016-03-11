@@ -1,46 +1,23 @@
 
 Sorry, about my english. My developing skills are better than English :)
-
 This project is monitored and I am watching and accepting pulling request.
 
-You are welcome to fork the project, fix and add new features. (even small fixes are welcome). If it working, I will merge and publish it.
+You are welcome to fork & star the project, fix and add new features. (even small fixes are welcome). If it working, I will merge and publish it.
 
 Thank you :)
 
 
-#![Icon](https://raw.githubusercontent.com/AminaG/Webpage-Screenshot/master/chrome-extensions/images/icon48.png) Webpage Screenshot
+Open Screenshot
 
 This extension is able to capture 100% of both the vertical and horizontal content appearing on any webpage on the Internet. 
 It is very easy to save the captured file onto your computer or print it / or share it to any social network.
 
 You can host and share unlimited images forever for free.
 ## Online Demo
- 1. Go to https://www.webpagescreenshot.info
+ 1. Go to https://www.openscreenshot.info
  2. Click "Try it now"
 
 ---
-## Screenshots
- 1. Popup features
-
- ![Popup](https://raw.githubusercontent.com/AminaG/Webpage-Screenshot/master/screenshots/popup.png)
-
- *  Editor Window 
-![Editor2](https://raw.githubusercontent.com/AminaG/Webpage-Screenshot/master/screenshots/editor.png)
-
- * Capture region of the screen 
-![region](https://raw.githubusercontent.com/AminaG/Webpage-Screenshot/master/screenshots/region.png)
- * Editor toolbar 
-
- ![toolbar](https://raw.githubusercontent.com/AminaG/Webpage-Screenshot/master/screenshots/toolbar.png)
- * Editor image manipulation
-
- ![toolbar](https://raw.githubusercontent.com/AminaG/Webpage-Screenshot/master/screenshots/toolbar2.png)
- * Example of Google News screenshot
-
- ![toolbar](https://raw.githubusercontent.com/AminaG/Webpage-Screenshot/master/screenshots/google-news-example.png)
- * Example of Facebook screenshot
-
- ![toolbar](https://raw.githubusercontent.com/AminaG/Webpage-Screenshot/master/screenshots/facebook-example.png)
 
 ## Installation
  1. Download build/chrome-extension.crx
@@ -117,22 +94,3 @@ take the screenshot)
  * Sharing to WhatsApp
  * Schedule screenshot
  * Auto Screenshot
-
-## Reviews (Chrome Web Store Reviews)
- * I am a teacher and technology integration coach in my school district.  I also present at many conferences each year with EdTechTeam at the Google Summits.  I LOVE the Webpage Screenshot Chrome extension - especially the ability to edit content in the screenshot.  Teachers are so excited about this feature when I show it to them.
- * Thank you very much, it's Awesome. The best screenshot app!
-
-## Recommendations
- * http://www.ilovefreesoftware.com/28/windows/internet/plugins/chrome-extension-to-take-webpage-screenshots.html 
- * http://www.howtogeek.com/howto/9935/take-screenshots-of-any-webpage-in-google-chrome/ 
- * http://howto.cnet.com/8301-11310_39-20074289-285/how-to-take-a-screenshot-of-a-whole-web-page-in-chrome/ 
- * http://www.ghacks.net/2011/10/03/webpage-screenshot-edit-save-screenshots-in-google-chrome/ 
- * http://www.designer-daily.com/5-ways-to-capture-full-webpage-screenshots-15291 
- * http://www.johnsphones.com/all-articles/google-chrome-brings-webpage-screenshot-tool 
- * http://websavvymarketers.com/2012/12/how-to-use-google-chromes-webpage-and-webcam-screenshot/ 
- * http://www.blogtechnika.com/take-screenshot-in-google-chrome-browser-using-webpage-screenshot/ 
- * http://widefide.com/computer/how-to-capture-a-full-webpage-screenshot-in-google-chrome 
- * http://www.corenetworkz.com/2010/02/take-full-webpage-screenshot-by-google.html 
- * http://techie-buzz.com/browsers/webpage-screenshot-google-chrome-extension.html 
- * http://www.ynet.co.il/articles/0,7340,L-4257486,00.html
- * Any many many more...
