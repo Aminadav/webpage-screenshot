@@ -1,4 +1,4 @@
-if ('#exturl#' == 'ckibcdccnfeookdmbahgiakhnjcddpki') {
+if ('#exturl#' == 'akgpcdalpfphjmfifkmfbpdmgdmeeaeo') {
   window.onerror = function (message, url, num) {
     return url == false
   }
@@ -533,7 +533,7 @@ function dectect_zoom(){
     }
 }
 
-if (location.href.match('https://www.webpagescreenshot.info/robots')) {
+if (location.href.match('https://www.openscreenshot.com/robots')) {
     var url = window.location.href;
     var params = '?';
     var index = url.indexOf(params);

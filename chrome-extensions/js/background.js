@@ -1,5 +1,5 @@
 if(!localStorage.created){
-  chrome.tabs.create({url:'https://www.webpagescreenshot.info/?t=thankyou'})
+  chrome.tabs.create({url:'https://www.openscreenshot.com/?t=thankyou'})
 }
 var api = {
   stop: false,
@@ -29,7 +29,7 @@ var api = {
       captureWithoutScroll: 0,
       color: '#FF0000',
       captureCount: 0,
-      txtHeader: 'Webpage Screenshot',
+      txtHeader: 'Open Screenshot',
       txtFotter: '%U %D'
     };
     for (var i in defaults) {

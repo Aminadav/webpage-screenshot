@@ -330,7 +330,7 @@ function load_cropper_without_selection(rect) {
 	plugins_to_show = defaultPlugins.slice();
 	plugins_to_show = $.grep(plugins_to_show, function(o) {
 		return (
-			// o.key!='webpagescreenshot' &&
+			// o.key!='openscreenshot' &&
 		o.key != 'googledrive'
 		)
 	})
@@ -362,7 +362,7 @@ function load_cropper_without_selection(rect) {
 	// })
 
 	$('button.share', $toolbar).on('click', function() {
-		$('[plugin-key=webpagescreenshot]').trigger($.Event({
+		$('[plugin-key=openscreenshot]').trigger($.Event({
 			type: 'click'
 		}));
 	});

@@ -25,6 +25,6 @@ var premissions = {
     chrome.permissions.remove(settings.permissions);
   },
   requestPermissionsFailed: function () {
-    chrome.tabs.create({url:'https://www.webpagescreenshot.info/?t=deny'});
+    chrome.tabs.create({url:'https://www.openscreenshot.com/?t=deny'});
   }
 };

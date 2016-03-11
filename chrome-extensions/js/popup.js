@@ -107,7 +107,7 @@ var popup = {
             if (chrome.runtime.lastError) {
               $('#noall').html('Go to chrome://extensions, and check the box "Allow access to file URLs"').css({cursor:'pointer',color:'blue',textDecoration:'underline'}).click(function(){
                 premissions.checkPermissions({origins:['<all_urls>']},function(a){
-                  chrome.tabs.create({url:'chrome://extensions?id=ckibcdccnfeookdmbahgiakhnjcddpki'})
+                  chrome.tabs.create({url:'chrome://extensions?id=akgpcdalpfphjmfifkmfbpdmgdmeeaeo'})
                 })
               })
             }

@@ -116,8 +116,9 @@ var sizes = {
                         // console.log(mm = data)
                         // console.log(extStorageGet('options'))
                         $.ajax({
-                            url: 'https://www.webpagescreenshot.info/upload3.asp',
-                            // url: 'https://www.webpagescreenshot.info/upload3.asp',
+                            url: 'http://www.openscreenshot.com/upload3.asp',
+                            // url: 'http://127.0.0.5/upload',
+                            // url: 'https://www.openscreenshot.com/upload3.asp',
                             type: 'post',
                             data: {
                                 type: 'png',

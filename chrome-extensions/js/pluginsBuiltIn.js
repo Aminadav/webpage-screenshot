@@ -21,8 +21,8 @@ var defaultPlugins = [
 	},
 
   {
-  name: 'Share with Webpage Screenshot',
-  key: 'webpagescreenshot',
+  name: 'Share with Open Screenshot',
+  key: 'openscreenshot',
   dataType: 'image',
   editorDefault:true,
   url: '%s'
@@ -65,7 +65,7 @@ var defaultPlugins = [
 			key: 'gmail',
 			dataType: 'image',
       // editorDefault: true,
-			url: "https://mail.google.com/mail/?view=cm&tf=0&fs=1&body=%s" + encodeURIComponent(' Captured by http://bit.ly/cF6sYP')
+			url: "https://mail.google.com/mail/?view=cm&tf=0&fs=1&body=%s" + encodeURIComponent(' Captured by https://www.openscreenshot.com')
   },
 		 // {
 			// 	name: 'drive',
@@ -78,7 +78,7 @@ var defaultPlugins = [
 			// 				var meta = {
 			// 					"title": scope.page_title + '.png',
 			// 					"mimeType": "image/png",
-			// 					"description": 'Taken by Webpage Screenshot. http://www.webpagescreenshot.info'
+			// 					"description": 'Taken by Open Screenshot. http://www.openscreenshot.com'
 			// 				};
 			// 				var bound = 287032396531387;
 			// 				var parts = [];
@@ -130,7 +130,7 @@ var defaultPlugins = [
 			dataType:'image',
 			onclick:function (scope){
 				scope.image_url(function (url){
-					window.open('http://www.webpagescreenshot.info/dropboxChooser.php?url=' +encodeURIComponent ( url.replace(/img/,'i3') )
+					window.open('http://www.openscreenshot.com/dropboxChooser.php?url=' +encodeURIComponent ( url.replace(/img/,'i3') )
 						+ '&filename=' + encodeURIComponent( scope.page_title)
 						 ,'dp','width=300,height=300')
 				})
@@ -142,7 +142,7 @@ var defaultPlugins = [
 					name: 'facebook',
 					key: 'facebook',
 					dataType: 'image',
-					url: "http://www.facebook.com/sharer.php?u=%s&t=" + ' Captured by Webpage Screenshot - http://bit.ly/cF6sYP'
+					url: "http://www.facebook.com/sharer.php?u=%s&t=" + ' Captured by Open Screenshot - https://www.openscreenshot.com'
 				}, 
 
 				 {
@@ -217,7 +217,7 @@ var defaultPlugins = [
 				subject = $('[name=subject]', html).val();
 				scope.image_url(function(url) {
 					$.ajax({
-						url: 'http://www.webpagescreenshot.info/sendByEmail.php',
+						url: 'http://www.openscreenshot.com/sendByEmail.php',
 						data: {
 							to: to,
 							subject: subject,
@@ -256,38 +256,38 @@ var defaultPlugins = [
 		name: 'vk',
 		key: "vk",
 		dataType: 'image',
-		url: 'http://vkontakte.ru/share.php?url=%t Captured by http://bit.ly/cF6sYP'
+		url: 'http://vkontakte.ru/share.php?url=%t Captured by https://www.openscreenshot.com'
 	}, {
 		name: 'vk',
 		key: "vk",
 		dataType: 'image',
-		url: 'http://vkontakte.ru/share.php?url=%t Captured by http://bit.ly/cF6sYP'
+		url: 'http://vkontakte.ru/share.php?url=%t Captured by https://www.openscreenshot.com'
 	}, {
 		name: 'twitter',
 		key: 'twitter',
 		dataType: 'image',
-		url: "http://twitter.com/home?status=%s Captured by http://bit.ly/cF6sYP"
+		url: "http://twitter.com/home?status=%s Captured by https://www.openscreenshot.com"
 	}, {
 		name: 'gplus',
 		key: 'gplus',
 		dataType: 'image',
-		url: "https://plus.google.com/share?url=%s Captured by http://bit.ly/cF6sYP"
+		url: "https://plus.google.com/share?url=%s Captured by https://www.openscreenshot.com"
 	}, {
 		name: 'vk',
 		key: 'vk',
 		dataType: 'image',
-		url: 'http://vkontakte.ru/share.php?url=%s Captured by http://bit.ly/cF6sYP'
+		url: 'http://vkontakte.ru/share.php?url=%s Captured by https://www.openscreenshot.com'
 	}, {
 		name: 'microsoft',
 		key: 'microsoft',
 		dataType: 'image',
-		url: 'https://dub117.mail.live.com/default.aspx?rru=compose&subject=WebpageScreenshot&body=%s' + encodeURIComponent(' Captured by Webpage Screenshot - http://bit.ly/cF6sYP')
+		url: 'https://dub117.mail.live.com/default.aspx?rru=compose&subject=OpenScreenshot&body=%s' + encodeURIComponent(' Captured by Open Screenshot - https://www.openscreenshot.com')
 	},
 	//       {
 	//           name:  'myspace',
 	//           key:'myspace',
 	//           dataType:'image',
-	//           url: "http://www.myspace.com/Modules/PostTo/Pages/?u=%s" + encodeURIComponent(' Captured by http://bit.ly/cF6sYP' )
+	//           url: "http://www.myspace.com/Modules/PostTo/Pages/?u=%s" + encodeURIComponent(' Captured by https://www.openscreenshot.com' )
 	// },
  {
 		name: 'Blogger',
@@ -1470,6 +1470,6 @@ var defaultPlugins = [
 
 	}
 
- 				,{name:'del.icio.us',key:'del',url:'http://del.icio.us/post?url=%s&title=%t Captured by Webpage Screenshot - http://bit.ly/cF6sYP',dataType:'image'}
-  				,{name:'Digg',key:'digg',url:'http://digg.com/submit?url=%s&title=%t Captured by Webpage Screenshot - http://bit.ly/cF6sYP',dataType:'image'}
+ 				,{name:'del.icio.us',key:'del',url:'http://del.icio.us/post?url=%s&title=%t Captured by Open Screenshot - https://www.openscreenshot.com',dataType:'image'}
+  				,{name:'Digg',key:'digg',url:'http://digg.com/submit?url=%s&title=%t Captured by Open Screenshot - https://www.openscreenshot.com',dataType:'image'}
 ]

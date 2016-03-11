@@ -14,7 +14,7 @@ It is very easy to save the captured file onto your computer or print it / or sh
 
 You can host and share unlimited images forever for free.
 ## Online Demo
- 1. Go to https://www.openscreenshot.info
+ 1. Go to https://www.openscreenshot.com
  2. Click "Try it now"
 
 ---

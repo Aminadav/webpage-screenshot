@@ -12,7 +12,7 @@
     },
 
 
-    "homepage_url": "https://www.webpagescreenshot.info",
+    "homepage_url": "https://www.openscreenshot.com",
     "manifest_version": 2,
     "description": "__MSG_description__",
     "icons": {
@@ -25,7 +25,7 @@
     "default_locale": "en",
     "browser_action": {
         "default_icon": "images/browseraction.png",
-        "default_title": "Webpage Screenshot",
+        "default_title": "Open Screenshot",
         "default_popup": "popup.html"
     },
     "options_page": "options.html",
@@ -54,7 +54,7 @@
         "/images/translate.png",
         "/images/twitter.png",
         "/images/vk.png",
-        "/images/webpagescreenshot.png",
+        "/images/openscreenshot.png",
         "/images/wordpress.png",
         "/images/crop.png",
         "/images/speak.png",

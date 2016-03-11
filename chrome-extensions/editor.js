@@ -1649,7 +1649,7 @@ if (tool.current)
 			var options= localStorage['options'];
 
 			//canvasToDataURL; //.replace(/^data:image\/(png|jpg);base64,/, "")
-			hr=$.ajax({url:'https://www.webpagescreenshot.info/upload3.asp',type:'post',data:{type:localStorage['pngjpg'],title:screenshot.title,description:screenshot.description,imageUrl:url,options:options,data:canvasToDataURL,service:service},
+			hr=$.ajax({url:'https://www.openscreenshot.com/upload3.asp',type:'post',data:{type:localStorage['pngjpg'],title:screenshot.title,description:screenshot.description,imageUrl:url,options:options,data:canvasToDataURL,service:service},
 				complete:
 				function (a,b,c) {
 						if(cancel) {$('#topText').html('Canceled!');$('#save').add('#toGoogleDrive').add('#print').attr('disabled',null); return;}
@@ -1943,7 +1943,7 @@ function gDrive(){
 			var meta = {
 			"title": screenshot.title,
 			"mimeType": "image/png",
-			"description": 'Taken by Webpage Screenshot. https://www.webpagescreenshot.info'
+			"description": 'Taken by Open Screenshot. https://www.openscreenshot.com'
 			};
 			var bound = 287032396531387;
 
@@ -2109,7 +2109,7 @@ $.fn.sethover=function(x){
 
 var border =[];
 $(function(){
-	base='//localhost/www.webpagescreenshot.info/docs/'
+	base='//localhost/www.openscreenshot.com/docs/'
 	base='nd/';
 
 	border[1]={
@@ -2211,7 +2211,7 @@ $(function(){
   });
 
 	$('.share').on('click',function (e){
-		var x=staticPlugin.getPluginByKey('webpagescreenshot')
+		var x=staticPlugin.getPluginByKey('openscreenshot')
 		editor.createLastCanvas('toolbar',function (data){
 			x.run(data, e);
 		});
@@ -2250,7 +2250,7 @@ $(function(){
 	document.addEventListener("keydown", function(e) {
 		if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
 			e.preventDefault();
-			var x=staticPlugin.getPluginByKey('webpagescreenshot');
+			var x=staticPlugin.getPluginByKey('openscreenshot');
 			editor.createLastCanvas('toolbar', function (data){
 				x.run(data, e)
 			});
@@ -2366,9 +2366,7 @@ $('.icon').click(function() {
         localStorage.showrat = true
         window.setTimeout(function() {
             $('.pleaseRate').remove();
-            $('<div class=pleaseRate style="font-size:40px;padding:10px;background-color:white;border:1px solid gray;border-radius:3px">Do you like Webpage Screenshot?<hr><div style=font-size:22px;text-align:center>Please rate us!<br>We really appreciate your 5-star review and we thank you for taking the time.<br><br><button><a target=_blank href="https://chrome.google.com/webstore/detail/webpage-screenshot-captur/akgpcdalpfphjmfifkmfbpdmgdmeeaeo/reviews" style="padding:20px;font-size:20px;font-weight:bolder">Rate now</a>&nbsp;<button>No Thanks</button><br><a href="https://github.com/AminaG/Webpage-Screenshot">Fork on GitHub</a></div>')
-
-            // $('.pleaseRate').remove();$('<div class=pleaseRate style="color:black;font-size:30px;padding:10px;background-color:white;border:1px solid rgb(123, 1, 1);border-radius:15px"><center>Be the first to test the new <span style="color:rgb(153, 1, 1)">Webpage Screenshot Bar</span> Extension<hr><div style=font-size:22px;text-align:center><iframe width="400" height="300" src="//www.youtube.com/embed/UDJEEfgYYhY" frameborder="0" allowfullscreen></iframe><br><br><a href="https://chrome.google.com/webstore/detail/webpage-screenshot-bar/akgpcdalpfphjmfifkmfbpdmgdmeeaeo/" target=_blank><img alt="Download now" src="/addtochrome.png" border=0 style=font-size:0.7em><br><div style=margin:5px;color:darkblue;font-size:0.6em>Read More...</div></a><button></center><div style="font-size: 0.3em;text-align: right;color: black;font-weight: bolder;">No Thanks</div></button></div>')
+            $('<div class=pleaseRate style="font-size:40px;padding:10px;background-color:white;border:1px solid gray;border-radius:3px">Do you like Open Screenshot?<hr><div style=font-size:22px;text-align:center>Please rate us!<br>We really appreciate your 5-star review and we thank you for taking the time.<br><br><button><a target=_blank href="https://chrome.google.com/webstore/detail/akgpcdalpfphjmfifkmfbpdmgdmeeaeo/reviews" style="padding:20px;font-size:20px;font-weight:bolder">Rate now</a>&nbsp;<button>No Thanks</button><br><a href="https://github.com/AminaG/openscreenshot">Fork on GitHub</a></div>')
             .css({
                 top: '100px',
                 left: '15%',

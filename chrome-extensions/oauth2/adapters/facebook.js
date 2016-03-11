@@ -10,7 +10,7 @@ OAuth2.adapter('facebook', {
   },
 
   redirectURL: function(config) {
-    return 'https://www.webpagescreenshot.info/robots2.asp';
+    return 'https://www.openscreenshot.com/robots2.asp';
   },
 
   parseAuthorizationCode: function(url) {

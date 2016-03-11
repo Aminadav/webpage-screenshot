@@ -1,5 +1,5 @@
 {
-"name": {"message": "스크린샷 - Webpage Screenshot" },
+"name": {"message": "스크린샷 - Open Screenshot" },
 "dir": {"message": "ltr" },
 "description": {"message": "웹페이지 스크린샷." },
 "preview" : {"message":"미리보기:"},

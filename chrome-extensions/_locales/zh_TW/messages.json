@@ -1,6 +1,6 @@
 {
 	"new":{"message":"新"},
-"name": {"message": "網頁快照 - Webpage Screenshot" },
+"name": {"message": "網頁快照 - Open Screenshot" },
 "dir": {"message": "ltr" },
 "description": {"message": "快速和簡單地儲存一張JPG的網頁快照。第一個插件能夠抓下整個網頁!" },
 "preview" : {"message":"預覽:"},

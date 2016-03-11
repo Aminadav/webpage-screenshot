@@ -1,6 +1,6 @@
 {
 	"new":{"message":"新"},
-"name": {"message": "webページショット - Webpage Screenshot" },
+"name": {"message": "webページショット - Open Screenshot" },
 "dir": {"message": "rtl" },
 "description": {"message": "どのようなwebページでも素早くシンプルな操作でJPEGファイルに保存できます。webページを丸ごとキャプチャ出来る初めての拡張機能です。" },
 "preview" : {"message":"プレビュー"},

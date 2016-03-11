@@ -1,5 +1,5 @@
 {
-"name": {"message": " 网页截图 - Webpage Screenshot" },
+"name": {"message": " 网页截图 - Open Screenshot" },
 "dir": {"message": "ltr" },
 "description": {"message": "方便快捷地截取整个网页，并保存为图像。这是第一个可以截取整个页面的扩展。" },
 "preview" : {"message":"预览："},

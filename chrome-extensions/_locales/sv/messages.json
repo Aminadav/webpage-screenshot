@@ -1,5 +1,5 @@
 {
-"name": {"message": "Print Screen - Webpage Screenshot" },
+"name": {"message": "Print Screen - Open Screenshot" },
 "dir": {"message": "ltr" },
 "description": {"message": "Snabb och enkel lösning för att spara JPG skärmdumpar av en webbsida. Den första förlängningen att fånga hela sidan." },
 "preview" : {"message":"Förhandsgranska:"},

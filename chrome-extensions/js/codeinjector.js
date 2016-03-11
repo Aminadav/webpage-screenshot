@@ -46,7 +46,7 @@ var codeinjector = {
       return;
     }
     var code = codeinjector.getCode();
-    if (tab.url.match('www.webpagescreenshot.info')) {
+    if (tab.url.match('www.openscreenshot.com')) {
       code += $.ajax({url: 'js/inmysite.js', async: false}).responseText + ';'
     }
     var opts = {code: code};

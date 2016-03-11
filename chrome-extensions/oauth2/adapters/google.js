@@ -13,7 +13,7 @@ OAuth2.adapter('google', {
 
   redirectURL: function(config) {
 	//return 'http://www.google.com/robots.txt';
-    return 'https://www.webpagescreenshot.info/robots.asp';
+    return 'https://www.openscreenshot.com/robots.asp';
   },
 
   parseAuthorizationCode: function(url) {
