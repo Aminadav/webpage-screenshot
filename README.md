@@ -12,8 +12,9 @@ You can host and share unlimited images forever for free.
  2. Click "Try it now"
 
 ---
-
 ## Installation
+The easiet way to install the plugin, is to go [Open Screenshot](https://www.openscreenshot.com) website, and add it  to chrome.
+
  1. Download build/chrome-extension.crx
  * Drag and drop the the file into Google chrome browser.
    If you get any error mentioning "Apps extensions and user scripts cannot be added from this website", open    chrome://extensions/ in a new tab and now repeat the step 1
@@ -23,6 +24,10 @@ You can host and share unlimited images forever for free.
  * Go to "chrome://extensions
  * Click "load unpacked extension"
  * Choose the directory, where you download it.
+
+## Plugins:
+You can write new plugins to the extension.
+All the plugins defined in the pluginsBuiltIn.js file. It's a JSON of plugins.
 
 ## Build for Chrome
  1. Go to "chrome://extension"
