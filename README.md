@@ -28,6 +28,7 @@ The easiet way to install the plugin, is to go [Open Screenshot](https://www.ope
 ## Plugins:
 You can write new plugins to the extension.
 All the plugins defined in the pluginsBuiltIn.js file. It's a JSON of plugins.
+Pull requests are more than welcome
 
 ## Build for Chrome
  1. Go to "chrome://extension"
