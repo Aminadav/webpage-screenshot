@@ -1,29 +1,47 @@
-You are welcome to fork & star the project, fix and add new features. (even small fixes are welcome). If it working, I will merge and publish it.
+FORK & STAR dieses Projekt!
+
+Du bist herzlich willkommen und eingeladen zu flicken [was uns sorgt](https://github.com/AminaG/OpenScreenshot/issues) oder neue Fähigkeiten hinzuzufügen; auch kleine Reparaturen sind willkommen.
+
+Wenn es funktioniert, wird es vereint und veröffentlicht.
+
 
 Open Screenshot
 --
 
-This extension is able to capture 100% of both the vertical and horizontal content appearing on any webpage on the Internet. 
-It is very easy to save the captured file onto your computer or print it / or share it to any social network.
+Diese Erweiterung ist fähig den Inhalt zu erfassen (zu 100%, im vertikalen als auch horizontalen), wie er präsentiert ist auf jeder WebSeite im Internet. 
+Es ist sehr einfach den erfassten Inhalt zu nutzen, durch speichern in eine Datei auf dem Computer, durch direktes ausdrucken oder auch teilen in jedem sozialen Netzwerk .
 
-You can host and share unlimited images forever for free.
+Du kannst unbegrenzt viele Bilder für immer kostenfrei vorhalten und teilen.
 ## Online Demo
- 1. Go to https://www.openscreenshot.com
- 2. Click "Try it now"
+ 1. Gehe zu https://www.openscreenshot.com
+ 2. Klicke "Try it now" ( "Versuche es jetzt" )
 
 ---
-## Installation
-The easiet way to install the plugin, is to go [Open Screenshot](https://www.openscreenshot.com) website, and add it  to chrome.
 
- 1. Download build/chrome-extension.crx
- * Drag and drop the the file into Google chrome browser.
-   If you get any error mentioning "Apps extensions and user scripts cannot be added from this website", open    chrome://extensions/ in a new tab and now repeat the step 1
+## Installation
+Der einfachste Weg das PlugIn zu installieren, ist sich auf die [Open Screenshot](https://www.openscreenshot.com) -WebSite zu begeben, und es zu deinem Chrome Browser über die Schaltfläche "Add to your chrome" hinzuzufügen.
+
+Ein anderer Weg ist 'Open Screenshot' manuell von der [GitHub-Seite des Projekts](https://github.com/AminaG/OpenScreenshot) zu installieren:
+
+ 1. Download:
+  .. durch Klicken der "Download Zip"-Schaltfläche oder auf [diese Verknüpfung](https://github.com/AminaG/OpenScreenshot/archive/master.zip)
+ 2. Extrahieren:
+  .. durch entpacken der heruntergeladenen "master.zip"
+ 3. Erweitere Chrome:
+  .. durch wechseln zu "chrome://extensions/" in einem neuen Tab
+ 4. Ermögliche Entwickler-Modus:
+  .. durch markieren des Kästchens "Entwicklermodus" in der oberen rechten oberst der Seite
+ 5. Importieren:
+  .. durch Klicken der Schaltfläche "Entpackte Erweiterung laden"; nun wähle den "chrome-extensions"-Ordner innerhalb des gerade zuvor entpackten Archivs.
  
-## Install on Chrome (For development)
- 1. Download chrome-extension directory
- * Go to "chrome://extensions
- * Click "load unpacked extension"
- * Choose the directory, where you download it.
+## Install on Chrome (for developers)
+ 1. Klonen:
+  .. durch wechseln in den Entwickler-Zweig und herunterladen des Zip-Archivs
+  oder
+  .. durch Klonen des Repositoriums lokal via eines GitHub-Klienten und wechseln zum Entwickler-Zweig
+  oder
+  .. durch Klonen des Repositoriums in einer KommandoZeile und wechseln zum Entwickler-Zweig
+ 2. Importieren des "chrome-extensions"-Ordner als "Entpackte Erweiterung" wie beschrieben in den Schritten oberhalb zur manuellen Installation von "Open Screenshot".
 
 ## Plugins:
 You can write new plugins to the extension.
