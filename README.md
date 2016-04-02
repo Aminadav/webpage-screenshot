@@ -11,6 +11,16 @@ You can host and share unlimited images forever for free.
  1. Go to https://www.openscreenshot.com
  2. Click "Try it now"
 
+
+How to Contribute?
+--
+
+- File an issue in the repository, using the bug tracker, describing the contribution you'd like to make. This will help us to get you started on the right foot.
+- Fork the project in your account and create a new branch: your-great-feature.
+- Commit your changes in that branch.
+- Open a pull request, and reference the initial issue in the pull request message.
+
+
 ---
 ## Installation
 The easiet way to install the plugin, is to go [Open Screenshot](https://www.openscreenshot.com) website, and add it  to chrome.
