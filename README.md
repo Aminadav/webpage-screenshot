@@ -1,6 +1,4 @@
-You are welcome to fork & star the project, fix and add new features. (even small fixes are welcome). If it working, I will merge and publish it.
-
-Open Screenshot
+Webpage Screenshot
 --
 
 This extension is able to capture 100% of both the vertical and horizontal content appearing on any webpage on the Internet. 
@@ -11,6 +9,9 @@ You can host and share unlimited images forever for free.
  1. Go to https://www.openscreenshot.com
  2. Click "Try it now"
 
+## Email list
+If do you want to be updated when a version uploaded or do you want to be involved 
+[Please fill in this form](https://docs.google.com/forms/d/e/1FAIpQLSc-_9Ca6W0hYq2J9S-ro7GvB2olQGQ8FtGKLUxDb7vrhLZojA/viewform)
 
 How to Contribute?
 --
