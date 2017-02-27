@@ -48,8 +48,7 @@ Pull requests are more than welcome
 ## Features
  * Capture visible page.
  * Capture all page.
- * Capture region of the screen (Many users like to crop BEFORE they 
-take the screenshot)
+ * Capture region of the screen (Many users like to crop BEFORE they take the screenshot)
  * Webcam capture.
  * Desktop Capture. (Capture any window)
  * Edit content.
@@ -100,6 +99,9 @@ take the screenshot)
  * Del.icio.us
  * Digg
  * Reddit
+## video demonstration of usage
+ * https://youtu.be/t4TNFpikiMg
+ 
  
 ## Coming soon (Roadmap)
  * Sharing to WhatsApp
