@@ -7,6 +7,7 @@ var popup = {
     $('.capture-desktop').click(popup.captureDesktop);
     $('.capture-clipboard').click(popup.captureClipboard);
     $('.edit-content').click(popup.editContent);
+    $('.settings').click(() => {chrome.runtime.openOptionsPage();});
     $('#working, #message').click(function () {
       $(this).fadeOut();
     });
