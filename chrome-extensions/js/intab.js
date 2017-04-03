@@ -302,12 +302,12 @@ var page = {
         }
         try {
           document.getElementById('presence').style.display = 'none';
-          window.setTimeout('document.getElementById(\'presence\').style.display=\'\'', 10000);
+          window.setTimeout(() => {document.getElementById('presence').style.display=''}, 10000);
         } catch (e) {
         }
         try {
           document.getElementById('navi-bar').style.display = 'none';
-          window.setTimeout('document.getElementById(\'navi-bar\').style.display=\'\'', 10000);
+          window.setTimeout(() => {document.getElementById('navi-bar').style.display=''}, 10000);
         } catch (e) {
         }
 
