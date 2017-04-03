@@ -22,17 +22,19 @@ var popup = {
     $('.show_selectionbar_on_this_domain')[localStorage['show_selectionbar']=='yes' ? 'show' : 'hide']()
     $('#sb_opacity').val(localStorage.sb_opacity)
     $('#button_size').val(localStorage.button_size)
-    chrome.tabs.getSelected(function(t) {
-      var url=t.url;
-      var thisDomain = cleanUp(url)
-      var toolbar_disabledURLs = localStorage['toolbar_disableURLs'] || '{}'
-      var toolbar_disabledURLs = JSON.parse(toolbar_disabledURLs) || {};
-      var selectionbar_disabledURLs = localStorage['selectionbar_disableURLs'] || '{}'
-      var selectionbar_disabledURLs = JSON.parse(selectionbar_disabledURLs) || {};
+    chrome.tabs.query({active: true})
+      .then(
+        (t) => {
+          var thisDomain = cleanUp(t.url)
+          var toolbar_disabledURLs = localStorage['toolbar_disableURLs'] || '{}'
+          var toolbar_disabledURLs = JSON.parse(toolbar_disabledURLs) || {};
+          var selectionbar_disabledURLs = localStorage['selectionbar_disableURLs'] || '{}'
+          var selectionbar_disabledURLs = JSON.parse(selectionbar_disabledURLs) || {};
 
-      $('.show_toolbar_on_this_domain').attr('checked', toolbar_disabledURLs[thisDomain] != 'disabled')
-      $('.show_selectionbar_on_this_domain').attr('checked', selectionbar_disabledURLs[thisDomain] != 'disabled')
-    });
+          $('.show_toolbar_on_this_domain').attr('checked', toolbar_disabledURLs[thisDomain] != 'disabled')
+          $('.show_selectionbar_on_this_domain').attr('checked', selectionbar_disabledURLs[thisDomain] != 'disabled')
+        }
+      );
   },
 
   bindSelectionBar: function(){
@@ -93,31 +95,34 @@ var popup = {
   },
 
   checkSupport: function () {
-    chrome.tabs.getSelected(function(t) {
-      var url=t.url;
-      if (url.indexOf('chrome://') >= 0 || url.indexOf('chrome-extension:') >= 0 || url.indexOf('https://chrome.google.com') >= 0) {
-        popup.disableScrollSupport();
-      }
-      if (url.indexOf('file:') == 0) {
-        var scriptNotLoaded = setTimeout(popup.disableScrollSupport, 500);
-        chrome.tabs.sendMessage(t.id, {
-            type: 'checkExist'
-          },
-          function() {
-            if (chrome.runtime.lastError) {
-              $('#noall').html('Go to chrome://extensions, and check the box "Allow access to file URLs"').css({cursor:'pointer',color:'blue',textDecoration:'underline'}).click(function(){
-                premissions.checkPermissions({origins:['<all_urls>']},function(a){
-                  chrome.tabs.create({url:'chrome://extensions?id=akgpcdalpfphjmfifkmfbpdmgdmeeaeo'})
-                })
-              })
-            }
-            else{
-              clearTimeout(scriptNotLoaded)
-            }
+    chrome.tabs.query({active: true})
+      .then(
+        function(t) {
+          var url=t.url;
+          if (url.indexOf('chrome://') >= 0 || url.indexOf('chrome-extension:') >= 0 || url.indexOf('https://chrome.google.com') >= 0) {
+            popup.disableScrollSupport();
           }
-        );
-      }
-    });
+          if (url.indexOf('file:') == 0) {
+            var scriptNotLoaded = setTimeout(popup.disableScrollSupport, 500);
+            chrome.tabs.sendMessage(t.id, {
+                type: 'checkExist'
+              },
+              function() {
+                if (chrome.runtime.lastError) {
+                  $('#noall').html('Go to chrome://extensions, and check the box "Allow access to file URLs"').css({cursor:'pointer',color:'blue',textDecoration:'underline'}).click(function(){
+                    premissions.checkPermissions({origins:['<all_urls>']},function(a){
+                      chrome.tabs.create({url:'chrome://extensions?id=akgpcdalpfphjmfifkmfbpdmgdmeeaeo'})
+                    })
+                  })
+                }
+                else{
+                  clearTimeout(scriptNotLoaded)
+                }
+              }
+            );
+          }
+        }
+      );
   },
 
   disableScrollSupport: function () {
