@@ -80,10 +80,7 @@ function createPDF(){
 			// //width/height on canvas
 			,image.width, image.height-thisHeight
 			)
-
-		x=canvas.toDataURL('image/jpeg',1)
-		
-		doc.addImage(x, 'JPEG', margin/2, margin/2,canvas.width*aspect,canvas.height*aspect);
+		doc.addImage(canvas, 'JPEG', margin / 2, margin / 2, canvas.width * aspect, canvas.height * aspect);
 		// doc.addImage(x, 'JPEG', 0, 0,pageWidth,pageHeight);
 		thisHeight+=canvas.height
 	}
