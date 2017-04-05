@@ -1,0 +1,95 @@
+{
+    "name": "__MSG_name__",
+    "version": "24.0",
+
+    "commands": {
+        "visible_screenshot": {
+            "description": "visible screenshot"
+        },
+        "entire_page_screenshot": {
+            "description": "Entire Page Screenshot"
+        }
+    },
+
+
+    "homepage_url": "https://www.openscreenshot.com",
+    "manifest_version": 2,
+    "description": "__MSG_description__",
+    "icons": {
+        "48": "images/icon48.png",
+        "128": "images/icon128.png"
+    },
+    "background": {
+        "page": "background.html"
+    },
+    "default_locale": "en",
+    "browser_action": {
+        "default_icon": "images/browseraction.png",
+        "default_title": "Screenshot Extension",
+        "default_popup": "popup.html"
+    },
+    "options_page": "options.html",
+    "web_accessible_resources": [
+        "/images/googleimages.png",
+        "/images/copy.png",
+        "/images/ajax-20.png",
+        "/images/clipboard-paste.png",
+        "/images/ok-16.png",
+
+        "/images/blogger.png",
+        "/images/email.png",
+        "/images/evernote.png",
+        "/images/facebook.png",
+        "/images/gmail.png",
+        "/images/googledrive.png",
+        "/images/gplus.png",
+        "/images/microsoft.png",
+        "/images/myspace.png",
+        "/images/newwindow.png",
+        "/images/pinterest.png",
+        "/images/print.png",
+        "/images/qrcode.png",
+        "/images/search.png",
+        "/images/tineye.png",
+        "/images/translate.png",
+        "/images/twitter.png",
+        "/images/vk.png",
+        "/images/openscreenshot.png",
+        "/images/wordpress.png",
+        "/images/crop.png",
+        "/images/speak.png",
+        "/images/share.png",
+        "/images/tumblr.png",
+        "/images/eye.png",
+
+
+
+        "/images/highlight.png",
+        "/images/enlarge.png",
+        "/images/ensmall.png",
+        "/images/erase.png",
+        "/images/edittext.png",
+        "/images/help.png",
+        "/images/left.png",
+        "/images/right.png",
+        "/images/del.png",
+        "/images/digg.png",
+        "/images/dropbox.png",
+        "/images/save.png",
+        "/images/copy-text.png",
+        "/images/link-go.png",
+
+        "/images/fast.png",
+        "/images/pitch.png",
+        "/css/pagestyles.css",
+        "/css/dialog.css",
+
+        "/libs/gapi.js",
+        "/libs/jquery.js",
+        "/js/dialog.js"
+    ],
+    "offline_enabled":true,
+    "default_locale": "en",
+    "permissions": ["activeTab","clipboardWrite"],
+    "optional_permissions": ["desktopCapture" ]
+}

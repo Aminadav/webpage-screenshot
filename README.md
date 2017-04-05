@@ -24,7 +24,7 @@ How to Contribute?
 
 ---
 ## Installation
-The easiet way to install the plugin, is to go [Open Screenshot](https://www.openscreenshot.com) website, and add it  to chrome.
+The easiet way to install the plugin, is to go [Screenshot Extension](https://www.openscreenshot.com) website, and add it  to chrome.
 
  1. Download build/chrome-extension.crx
  * Drag and drop the the file into Google chrome browser.
@@ -102,12 +102,10 @@ Pull requests are more than welcome
 ## video demonstration of usage
  * https://youtu.be/t4TNFpikiMg
  
- 
-## Coming soon (Roadmap)
- * Sharing to WhatsApp
- * Schedule screenshot
- * Auto Screenshot
+## Follow Me & Community
+For updates, pleae follow me
 
+* https://twitter.com/aminadavg
 
 ## License
 
