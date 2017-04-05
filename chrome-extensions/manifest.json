@@ -28,7 +28,9 @@
         "default_title": "Open Screenshot",
         "default_popup": "popup.html"
     },
-    "options_page": "options.html",
+    "options_ui": {
+        "page": "options.html"
+    },
     "web_accessible_resources": [
         "/images/googleimages.png",
         "/images/copy.png",
