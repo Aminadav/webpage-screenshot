@@ -88,7 +88,7 @@ Pull requests are more than welcome :)
  * Evernote
  * Wordpress
  * Send by email
- * Google Reverse image search
+ * Google reverse image search
  * Tineye (Also reverse image search)
  * VK
  * Twitter
@@ -105,8 +105,8 @@ Pull requests are more than welcome :)
  
  
 ## Coming soon (Roadmap)
- * Sharing to WhatsApp
- * Schedule screenshot
+ * Share to WhatsApp
+ * Schedule a screenshot
  * Auto Screenshot
  * ?
  
