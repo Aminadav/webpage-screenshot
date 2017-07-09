@@ -22,65 +22,17 @@
     "background": {
         "page": "background.html"
     },
-    "default_locale": "en",
     "browser_action": {
         "default_icon": "images/browseraction.png",
         "default_title": "Open Screenshot",
         "default_popup": "popup.html"
     },
-    "options_page": "options.html",
+    "options_ui": {
+        "page": "options.html"
+    },
     "web_accessible_resources": [
-        "/images/googleimages.png",
-        "/images/copy.png",
-        "/images/ajax-20.png",
-        "/images/clipboard-paste.png",
-        "/images/ok-16.png",
+        "/images/*.png",
 
-        "/images/blogger.png",
-        "/images/email.png",
-        "/images/evernote.png",
-        "/images/facebook.png",
-        "/images/gmail.png",
-        "/images/googledrive.png",
-        "/images/gplus.png",
-        "/images/microsoft.png",
-        "/images/myspace.png",
-        "/images/newwindow.png",
-        "/images/pinterest.png",
-        "/images/print.png",
-        "/images/qrcode.png",
-        "/images/search.png",
-        "/images/tineye.png",
-        "/images/translate.png",
-        "/images/twitter.png",
-        "/images/vk.png",
-        "/images/openscreenshot.png",
-        "/images/wordpress.png",
-        "/images/crop.png",
-        "/images/speak.png",
-        "/images/share.png",
-        "/images/tumblr.png",
-        "/images/eye.png",
-
-
-
-        "/images/highlight.png",
-        "/images/enlarge.png",
-        "/images/ensmall.png",
-        "/images/erase.png",
-        "/images/edittext.png",
-        "/images/help.png",
-        "/images/left.png",
-        "/images/right.png",
-        "/images/del.png",
-        "/images/digg.png",
-        "/images/dropbox.png",
-        "/images/save.png",
-        "/images/copy-text.png",
-        "/images/link-go.png",
-
-        "/images/fast.png",
-        "/images/pitch.png",
         "/css/pagestyles.css",
         "/css/dialog.css",
 

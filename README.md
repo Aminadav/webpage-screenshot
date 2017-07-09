@@ -1,6 +1,4 @@
-You are welcome to fork & star the project, fix and add new features. (even small fixes are welcome). If it working, I will merge and publish it.
-
-Open Screenshot
+Webpage Screenshot
 --
 
 This extension is able to capture 100% of both the vertical and horizontal content appearing on any webpage on the Internet. 
@@ -11,6 +9,9 @@ You can host and share unlimited images forever for free.
  1. Go to https://www.openscreenshot.com
  2. Click "Try it now"
 
+## Email list
+If do you want to be updated when a version uploaded or do you want to be involved 
+[Please fill in this form](https://docs.google.com/forms/d/e/1FAIpQLSc-_9Ca6W0hYq2J9S-ro7GvB2olQGQ8FtGKLUxDb7vrhLZojA/viewform)
 
 How to Contribute?
 --
@@ -47,8 +48,7 @@ Pull requests are more than welcome
 ## Features
  * Capture visible page.
  * Capture all page.
- * Capture region of the screen (Many users like to crop BEFORE they 
-take the screenshot)
+ * Capture region of the screen (Many users like to crop BEFORE they take the screenshot)
  * Webcam capture.
  * Desktop Capture. (Capture any window)
  * Edit content.
@@ -99,8 +99,20 @@ take the screenshot)
  * Del.icio.us
  * Digg
  * Reddit
+## video demonstration of usage
+ * https://youtu.be/t4TNFpikiMg
+ 
  
 ## Coming soon (Roadmap)
  * Sharing to WhatsApp
  * Schedule screenshot
  * Auto Screenshot
+
+
+## License
+
+ISC License Copyright (c) 2016, Aminadav Glickshtein
+
+Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
