@@ -24,11 +24,7 @@ How to Contribute?
 
 ---
 ## Installation
-<<<<<<< HEAD
-The easiet way to install the plugin, is to go [Screenshot Extension](https://www.openscreenshot.com) website, and add it  to chrome.
-=======
-The easiet way to install the plugin, is going to the [Open Screenshot](https://www.openscreenshot.com) website, and then add it to chrome.
->>>>>>> 47615965562f36f211550b20c8889d767fd8d6aa
+The easiet way to install the plugin, is going to the[Screenshot Extension](https://www.openscreenshot.com) website, and then add it to chrome.
 
  1. Download build/chrome-extension.crx
  * Drag and drop the the file into Google chrome browser.
