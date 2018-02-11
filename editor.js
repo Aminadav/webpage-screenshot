@@ -2171,19 +2171,6 @@ function addBorderToDiv(e){
 $(function(){
 	var plugins_to_show=defaultPlugins.slice();
 
-	plugins_to_show.push({
-		name:'FrameBench',
-		key:'framebench',
-		url:'https://app.framebench.com/add-file?link={image_url}',
-		dataType:'image'
-	})
-
-	plugins_to_show.push({
-		name:'Reddit',
-		key:'reddit',
-		url:'reddit.com/submit?url=?%s',
-		dataType:'image'
-	});
 	staticPlugin=new Toolbar({
 		'plugins':plugins_to_show,
 		'element': document.getElementById('toolbarContainer'),

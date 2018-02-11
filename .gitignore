@@ -4,6 +4,7 @@ subilme.*
 gr.txt
 src.zip
 nv.*
+.vscode
 
 # manifest
 src/manifest.json

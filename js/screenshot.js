@@ -225,8 +225,8 @@ var screenshot = {
     function replacim(inText) {
       return inText.replace(/%U/gi, screenshot.url).replace(/%D/gi, (new Date));
     }
-    theHeader = replacim(localStorage['txtHeader']);
-    theFotter = replacim(localStorage['txtFotter']);
+    theHeader = '' || replacim(localStorage['txtHeader']);
+    theFotter = '' || replacim(localStorage['txtFotter']);
 
 
     screenshot.canvas = document.createElement('canvas');
