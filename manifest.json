@@ -1,6 +1,6 @@
 {
     "name": "__MSG_name__",
-    "version": "27.0",
+    "version": "28.0",
 
     "commands": {
         "visible_screenshot": {
