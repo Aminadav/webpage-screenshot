@@ -1521,7 +1521,7 @@ function editor_obj()
 		$('.linePickerOverlay').slideUp();
 	});
 	$('.save-to-pdf').click(createPDF)
-	$('#thumbnail').click(createThumbnails)
+	// $('#thumbnail').click(createThumbnails)
 	$('#LineWidthPicker').mouseenter(function(){
 		var $overlay = $('.linePickerOverlay');
 		if (!$overlay.is(":visible")) {
@@ -1997,13 +1997,13 @@ function gDrive(){
 		});
 	}
 
-	$('#topText').html
-			('Authorize');
-	googleAuth = new OAuth2('google', {
-	  client_id: '545443912834-j7vdfe6gar81lu14oatf33tgtlcbi5gq.apps.googleusercontent.com',
-	  client_secret: '213pVJTRShuSGESsRO92G1qV',
-	  api_scope: 'https://www.googleapis.com/auth/drive.install https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/urlshortener https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
-	},start);
+	// $('#topText').html
+	// 		('Authorize');
+	// googleAuth = new OAuth2('google', {
+	//   client_id: '545443912834-j7vdfe6gar81lu14oatf33tgtlcbi5gq.apps.googleusercontent.com',
+	//   client_secret: '213pVJTRShuSGESsRO92G1qV',
+	//   api_scope: 'https://www.googleapis.com/auth/drive.install https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/urlshortener https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email'
+	// },start);
 }
 
 //Hover Menu
@@ -2225,7 +2225,7 @@ $(function(){
 		})
 	});
 
-	$('.save-to-thumbnail').on('click', createThumbnails);
+	// $('.save-to-thumbnail').on('click', createThumbnails);
 
 	$('.fbUpload').on('click',function (e){
 		var x=staticPlugin.getPluginByKey('framebench')

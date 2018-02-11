@@ -27,9 +27,6 @@
         "default_title": "Screenshot Extension",
         "default_popup": "popup.html"
     },
-    "options_ui": {
-        "page": "options.html"
-    },
     "web_accessible_resources": [
         "/images/*.png",
 

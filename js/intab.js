@@ -70,8 +70,8 @@ var page = {
     page.currentX = 0;
     page.currentY = 0;
 
-    if (cropData && cropData.y1 > document.body.scrollTop && cropData.x1 > document.body.scrollLeft) {
-      page.currentY = document.body.scrollTop
+    if (cropData && cropData.y1 > $(window).scrollTop() && cropData.x1 > document.body.scrollLeft) {
+      page.currentY = $(window).scrollTop()
       page.currentX = document.body.scrollLeft
     } else {
       page.currentX = cropData.x1;
@@ -82,12 +82,12 @@ var page = {
     if (page.currentX != 0 || page.currentY != 0) {
       page.preparePage('before');
     }
-    document.body.scrollTop = page.currentY;
-    document.body.scrollLeft = page.currentX;
+    $(window).scrollTop(page.currentY);
+    $(window).scrollLeft(page.currentX);
   },
   saveScrollPos: function () {
-    page.scrollLeft = document.body.scrollLeft;
-    page.scrollTop = document.body.scrollTop;
+    page.scrollLeft =$(window).scrollLeft();
+    page.scrollTop = $(window).scrollTop();
   },
   restoreScrollPos: function () {
     page.currentX = page.scrollLeft;
@@ -229,18 +229,10 @@ var page = {
   restore: function () {
     page.enableScrollbar(true);
     page.preparePage('after');
-    page.showSb();
     page.restoreScrollPos();
     setTimeout(page.fixedElementRestore, 1000);
   },
 
-  hideSb: function () {
-    $('.ws_toolbar_top').hide();
-  },
-
-  showSb: function () {
-    $('.ws_toolbar_top').show();
-  },
 
   checkPageIsOnlyEmbedElement: function () {
     var bodyNode = document.body.children;
@@ -271,7 +263,7 @@ var page = {
         x2: 32768,
         y1: 0,
         y2: 32765,
-        scrollTop: document.body.scrollTop,
+        scrollTop: $(window).scrollTop(),
         scrollLeft: document.body.scrollLeft
       };
       if (!mess.scroll) {
@@ -296,7 +288,6 @@ var page = {
       if (mess.start) {
         dectect_zoom();
         page.setVars(cropData);
-        page.hideSb();
         if (mess.scroll && !mess.showScrollBar) {
           page.enableScrollbar(false);
         }
@@ -327,19 +318,17 @@ var page = {
           }
           if (ans.finish){
             page.showFixedElement('bottom');
-            if (document.body.scrollTop < $window.height()) {
+            if ($(window).scrollTop() < $window.height()) {
               page.showFixedElement('top');
             }
           }
         }, 50);
       }
-      if (page.iframe) {
-        ans.top = page.iframe.contentdocumentbody().scrollTop - (cropData ? cropData.y1 * zoomLevel() : 0);
-        ans.left = page.iframe.contentdocumentbody().scrollLeft - (cropData ? cropData.x1 * zoomLevel() : 0);
-      } else {
-        ans.top = parseInt(document.body.scrollTop * zoomLevel() - cropData.y1 * zoomLevel(), 10);
-        ans.left = parseInt(document.body.scrollLeft * zoomLevel() - cropData.x1 * zoomLevel(), 10);
-      }
+      var scrollTop=$(window).scrollTop()
+
+      ans.top = parseInt($(window).scrollTop() * zoomLevel() - cropData.y1 * zoomLevel(), 10);
+      ans.left = parseInt(document.body.scrollLeft * zoomLevel() - cropData.x1 * zoomLevel(), 10);
+
       ans.finish = !mess.scroll || !page.computeNextScreen();
       if (ans.finish) {
         ans.width = parseInt((cropData.x2 - cropData.x1), 10) * zoomLevel();
@@ -414,10 +403,6 @@ var f = function () {
 
 $(f);
 
-function sb_start() {
-}
-function sb_pause() {
-}
 
 function loadjQuery(){
   
@@ -533,17 +518,3 @@ function dectect_zoom(){
     }
 }
 
-if (location.href.match('https://www.openscreenshot.com/robots')) {
-    var url = window.location.href;
-    var params = '?';
-    var index = url.indexOf(params);
-    if (index > -1) {
-        params = url.substring(index);
-    }
-    params += '&from=' + encodeURIComponent(url);
-    var redirect = chrome.extension.getURL('oauth2/oauth2.html') + params;
-    chrome.runtime.sendMessage({
-        data: 'createTab',
-        url: redirect
-    });
-}

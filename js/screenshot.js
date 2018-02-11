@@ -125,6 +125,7 @@ var screenshot = {
       },
       function () {
         chrome.tabs.query({active: true, currentWindow: true}, function (a) {
+          a=a[0]
           chrome.pageCapture.saveAsMHTML({tabId: a.id}, function (data) {
             screenshot.tryGetUrl(function (filename) {
               filename = screenshot.title;
@@ -177,11 +178,18 @@ var screenshot = {
         return ;
       }
     }
-    if(mess.top==null) {mess.top=0;mess.left=0}
+    if(mess.top==null) {
+      mess.top=0;
+      mess.left=0
+    }
     if (mess && mess.description) {
       screenshot.description = mess.description
     }
-    var upCrop = 0, leftCrop = 0;
+    console.log('cropData')
+    console.log(screenshot.cropData)
+    console.log(mess)
+    var upCrop = 0
+    var leftCrop = 0;
     if (screenshot.cropData) {
       upCrop = screenshot.cropData.x1
       upCrop = screenshot.cropData.x1
@@ -191,8 +199,9 @@ var screenshot = {
         console.error(chrome.runtime.lastError);
       }
       if (api.stop) return ;
-      if ((mess.top || parseInt(mess.top) == 0 ))
+      if ((mess.top || parseInt(mess.top) == 0 )) {
         screenshot.screens.push({left: parseInt(mess.left), top: parseInt(mess.top), data: data});
+      }
       if (mess.finish) {
         screenshot.screenShotParams = mess;
         screenshot.createScreenShot();
@@ -225,8 +234,8 @@ var screenshot = {
     function replacim(inText) {
       return inText.replace(/%U/gi, screenshot.url).replace(/%D/gi, (new Date));
     }
-    theHeader = '' || replacim(localStorage['txtHeader']);
-    theFotter = '' || replacim(localStorage['txtFotter']);
+    theHeader = '' //|| replacim(localStorage['txtHeader']);
+    theFotter = '' //|| replacim(localStorage['txtFotter']);
 
 
     screenshot.canvas = document.createElement('canvas');
@@ -280,25 +289,6 @@ var screenshot = {
         // םיצבקה לכ תא ונמייס //
         /////////////////////////////
         if (i == screenshot.screens.length - 1) {
-          ctx.font = 'arial 20px';
-          if (theFotter) {
-            ctx.textBaseline = 'bottom';
-            ctx.fillText(theFotter, 10, screenshot.canvas.height, screenshot.canvas.width - 20);
-          }
-          if (theHeader) {
-            ctx.textBaseline = 'up';
-            ctx.fillText(theHeader, 10, 10, screenshot.canvas.width - 20);
-          }
-          if (screenshot.resizeBack) {
-            chrome.windows.getCurrent(function (wnd) {
-              chrome.windows.update(wnd.id, {
-                width: screenshot.currentWidth,
-                height: screenshot.currentHeight
-              });
-            });
-          }
-          ctx = null
-
           if (screenshot.runCallback) {
             screenshot.callback(screenshot.canvas.toDataURL());
             screenshot.callback = null;
@@ -311,25 +301,11 @@ var screenshot = {
               delete screenshot.canvas
             }
 
-            //TODO: Remove Canvas
           } else {
-
-            //*Fix for long pages. only when editor live.
-            //
-            //Copied to editor.html
-
 
             chrome.tabs.create({url: chrome.extension.getURL('editor.html') + '#last'});
 
-
             delete screenshot.callback;
-            // var imgFix=editorDocument.getElementById('imgFixForLong')
-            // imgFix.setAttribute('work',screenshot.canvas.height);
-            // // if (screenshot.canvas.height>32765){
-            // imgFix.src= screenshot.canvas.toDataURL();
-            // imgFix.setAttribute('width',screenshot.canvas.width)
-            // imgFix.setAttribute('height',screenshot.canvas.height)
-
 
             editorDocument = null;
             editor = null
@@ -349,29 +325,5 @@ var screenshot = {
     }
     if (api.stop) return
     loadImage(0);
-  },
-  sbPause: function () {
-    localStorage['sb_enable'] = 'no'
-    executeCodeOnAllTabs('sb_pause()')
-  },
-  sbStart: function () {
-    localStorage['sb_enable'] = 'yes'
-    executeCodeOnAllTabs('sb_start()')
-  },
-  sbPauseOnUrl: function (url) {
-    disabledURLs = localStorage['sb_disableURLs'] || '{}'
-    disabledURLs = JSON.parse(disabledURLs);
-    disabledURLs[url] = 'disabled'
-    localStorage['sb_disableURLs'] = JSON.stringify(disabledURLs);
-    executeCodeOnAllTabs('var fdsrkldsf=null;')
-  },
-  sbStartOnUrl: function (url) {
-    disabledURLs = localStorage['sb_disableURLs'] || '{}'
-    disabledURLs = JSON.parse(disabledURLs);
-    delete disabledURLs[url]
-    localStorage['sb_disableURLs'] = JSON.stringify(disabledURLs);
-    executeCodeOnAllTabs('var fdsrkldsf=null;')
-  }
-
-
+  }, 
 };

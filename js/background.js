@@ -29,8 +29,8 @@ var api = {
       captureWithoutScroll: 0,
       color: '#FF0000',
       captureCount: 0,
-      txtHeader: 'Screenshot Extension',
-      txtFotter: '%U %D'
+      txtHeader: '', //Screenshot Extension',
+      txtFotter: '' //%U %D'
     };
     for (var i in defaults) {
       if (defaults.hasOwnProperty(i) && !localStorage.hasOwnProperty(i)) {
@@ -90,7 +90,7 @@ var api = {
             callback: callback
           }));
           break;
-        case 'captureAll':
+        case 'captureAll':        
           screenshot.captureAll($.extend({}, data, {
             callback: callback
           }));
@@ -112,8 +112,6 @@ var api = {
           break;
         case 'stopNow':
           api.stop = true;
-          break;
-        case 'ana':
           break;
         case 'copyText':
           api.copyTextToClipboard(data.text);

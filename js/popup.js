@@ -16,89 +16,14 @@ var popup = {
         
   },
 
-  showSelectionBarStatus:function(){
-    $('.show_toolbar').attr('checked',localStorage['show_toolbar']=='yes')
-    $('.show_toolbar_on_this_domain')[localStorage['show_toolbar']=='yes' ? 'show' : 'hide']()
-    $('.show_selectionbar').attr('checked',localStorage['show_selectionbar']=='yes')
-    $('.show_selectionbar_on_this_domain')[localStorage['show_selectionbar']=='yes' ? 'show' : 'hide']()
-    $('#sb_opacity').val(localStorage.sb_opacity)
-    $('#button_size').val(localStorage.button_size)
-    chrome.tabs.query({active: true})
-      .then(
-        (t) => {
-          var thisDomain = cleanUp(t.url)
-          var toolbar_disabledURLs = localStorage['toolbar_disableURLs'] || '{}'
-          var toolbar_disabledURLs = JSON.parse(toolbar_disabledURLs) || {};
-          var selectionbar_disabledURLs = localStorage['selectionbar_disableURLs'] || '{}'
-          var selectionbar_disabledURLs = JSON.parse(selectionbar_disabledURLs) || {};
-
-          $('.show_toolbar_on_this_domain').attr('checked', toolbar_disabledURLs[thisDomain] != 'disabled')
-          $('.show_selectionbar_on_this_domain').attr('checked', selectionbar_disabledURLs[thisDomain] != 'disabled')
-        }
-      );
-  },
-
-  bindSelectionBar: function(){
-    $('.show_toolbar').on('change',function(){
-        localStorage['show_toolbar']=this.checked ? 'yes' : 'no';
-      premissions.checkPermissions({origins:['http://*/*']},function () {
-        popup.notifyTabsForStorageUpdate();
-        popup.showSelectionBarStatus();
-      })
-    })
-    $('.show_selectionbar').on('change',function(){
-      localStorage['show_selectionbar']=this.checked ? 'yes' : 'no';
-      premissions.checkPermissions({origins:['http://*/*']},function () {
-      popup.notifyTabsForStorageUpdate();
-      popup.showSelectionBarStatus();
-      })
-    })
-    $('#sb_opacity').on('change',function (){
-      localStorage['sb_opacity']=$(this).val();
-      popup.notifyTabsForStorageUpdate();
-    });
-    $('#button_size').on('change',function (){
-      localStorage['button_size'] = $(this).val();
-      popup.notifyTabsForStorageUpdate();
-    });
-    $('input.show_toolbar_on_this_domain').on('change',function() {
-      var toolbar_disabledURLs = JSON.parse(localStorage['toolbar_disableURLs'] || '{}') || {};
-      var enabled = this.checked;
-      chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
-        var url = cleanUp(tabs[0].url);
-        if (enabled) {
-          delete toolbar_disabledURLs[url];
-        } else {
-          toolbar_disabledURLs[url] = 'disabled';
-        }
-        localStorage['toolbar_disableURLs'] = JSON.stringify(toolbar_disabledURLs);
-        popup.notifyTabsForStorageUpdate();
-      });
-    });
-    $('input.show_selectionbar_on_this_domain').on('change', function() {
-      var disabledURLs = JSON.parse(localStorage['selectionbar_disableURLs'] || '{}') || {};
-      var enabled = this.checked;
-      chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
-        var url = cleanUp(tabs[0].url);
-        if (enabled) {
-          delete disabledURLs[url];
-        } else {
-          disabledURLs[url] = 'disabled';
-        }
-        localStorage['selectionbar_disableURLs'] = JSON.stringify(disabledURLs);
-        popup.notifyTabsForStorageUpdate();
-      });
-    });
-  },
-
   notifyTabsForStorageUpdate: function () {
     chrome.extension.getBackgroundPage().codeinjector.executeCodeOnAllTabs('extStorageUpdate()');
   },
 
   checkSupport: function () {
-    chrome.tabs.query({active: true})
-      .then(
+    chrome.tabs.query({active: true,currentWindow:true},
         function(t) {
+          t=t[0]
           var url=t.url;
           if (url.indexOf('chrome://') >= 0 || url.indexOf('chrome-extension:') >= 0 || url.indexOf('https://chrome.google.com') >= 0) {
             popup.disableScrollSupport();

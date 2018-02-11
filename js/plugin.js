@@ -218,9 +218,6 @@ var sizes = {
     //This object will autocopy to each plugin/
 sb = {
     applyClass: function(inClass) {
-        loadRangy();
-        var classApplier = rangy.createCssClassApplier(inClass, true);
-        classApplier.applyToSelection();
     },
     createTabWithParams: function(url, s, moreData) {
         //Scope: plugin
