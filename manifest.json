@@ -1,6 +1,6 @@
 {
     "name": "__MSG_name__",
-    "version": "28.0",
+    "version": "29.0.0",
 
     "commands": {
         "visible_screenshot": {
@@ -39,6 +39,6 @@
     ],
     "offline_enabled":true,
     "default_locale": "en",
-    "permissions": ["activeTab","clipboardWrite"],
+    "permissions": ["activeTab"],
     "optional_permissions": ["desktopCapture" ]
 }
