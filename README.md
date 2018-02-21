@@ -108,6 +108,12 @@ For updates, pleae follow me
 
 * https://twitter.com/aminadavg
 
+## Donation
+
+- BTC: 1JAPW5i4pedtYcJBV11DTvkqeQLB1zdg9s
+- BCH: 1JAPW5i4pedtYcJBV11DTvkqeQLB1zdg9s
+- ETH: 0x6beff51042Bc864fCE10a7C38969635E3AE90aB5
+
 ## License
 
 ISC License Copyright (c) 2017, Aminadav Glickshtein
