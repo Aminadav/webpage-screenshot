@@ -45,6 +45,11 @@ Pull requests are more than welcome :)
  1. Go to "chrome://extension"
  * Click "Pack extension..."
 
+## Testing
+
+We're going to use [BrowserStack](https://www.browserstack.com) for testing the extension.
+It's an awesome tool for manual and autmated tests.
+
 ## Features
  * Capture visible page.
  * Capture all page.
