@@ -1,6 +1,6 @@
 {
     "name": "__MSG_name__",
-    "version": "29.0.0",
+    "version": "1.0.0",
 
     "commands": {
         "visible_screenshot": {
@@ -12,18 +12,18 @@
     },
 
 
-    "homepage_url": "https://www.openscreenshot.com",
+    "homepage_url": "https://github.com/sergei97k/1click-screenshot/",
     "manifest_version": 2,
     "description": "__MSG_description__",
     "icons": {
-        "48": "images/icon48.png",
-        "128": "images/icon128.png"
+        "48": "images/photo-camera-32.png",
+        "128": "images/photo-camera-128.png"
     },
     "background": {
         "page": "background.html"
     },
     "browser_action": {
-        "default_icon": "images/browseraction.png",
+        "default_icon": "images/photo-camera-128.png",
         "default_title": "Screenshot Extension",
         "default_popup": "popup.html"
     },

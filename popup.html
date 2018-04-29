@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head lang="en">
   <meta charset="UTF-8">
   <title>Website Screenshot</title>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet'
-        type='text/css'>
-  <link href="css/style.css" rel="stylesheet"/>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href="css/style.css" rel="stylesheet" />
   <script type="text/javascript" src="libs/jquery.js"></script>
   <script type="text/javascript" src="js/common.js"></script>
   <script type="text/javascript" src="settings.js"></script>
@@ -13,61 +13,70 @@
   <script type="text/javascript" src="js/translate.js"></script>
   <script type="text/javascript" src="js/popup.js"></script>
 </head>
-<body class="popup-box">
-<div id="working" style="display: none"></div>
-<div id="message" style="display: none">
-  <div class="message-container"></div>
-</div>
-<div class="window_header">
-  <h2><a href="https://www.openscreenshot.com" target="_blank">Screenshot Extension</a></h2>
 
-  <p><a href="https://www.openscreenshot.com" target="_blank">www.openscreenshot.com</a></p>
-</div>
-<div class="window_nav">
-  <ul>
-    <li>
-      <a class="capture-visible">
-        <span class="icon icon1"></span> <span tr="visiblescreenshot">Visible screenshot</span>
-      </a>
-    </li>
-    <li>
-      <a class="capture-all">
-        <span class="icon icon2"></span> <span tr="allpage">All page screenshot</span>
-      </a>
-    </li>
-    <li><a class="capture-region"><span class="icon icon6"></span> <span tr="captureregion">Capture region of the screen</span></a>
-    </li>
-    <li><a class="capture-webcam" target=_new href="https://www.openscreenshot.com/webcam.php"><span class="icon icon4"></span> <span tr="capturewebcam">Webcam capture</span></a>
-    </li>
-    <li><a class="capture-desktop"><span class="icon icon5"></span> <span tr="capturedesktop">Desktop Capture</span></a>
-    </li>
-    <li><a class="capture-clipboard" href="/editor.html#paste" target=_new><span  class="icon icon7"></span> <span tr="captureclipboard">Paste from clipboard</span></a>
-    </li>
-    <li><a class="edit-content"><span class="icon icon3"></span> <span
-        tr="editcontent">Edit content</span></a></li>
-  </ul>
-</div>
-<div class="window_message" style="display: none" id="noall" tr="noall"></div>
-<!-- <div class="window_translate" style="display: none">
+<body class="popup-box">
+  <div id="working" style="display: none"></div>
+  <div id="message" style="display: none">
+    <div class="message-container"></div>
+  </div>
+  <div class="window_header">
+    <h2>Screenshot Extension</h2>
+  </div>
+  <div class="window_nav">
+    <ul>
+      <li>
+        <a class="capture-visible">
+          <span class="icon icon1"></span>
+          <span tr="visiblescreenshot">Visible screenshot</span>
+        </a>
+      </li>
+      <li>
+        <a class="capture-all">
+          <span class="icon icon2"></span>
+          <span tr="allpage">All page screenshot</span>
+        </a>
+      </li>
+      <!-- <li>
+        <a class="capture-region">
+          <span class="icon icon6"></span>
+          <span tr="captureregion">Capture region of the screen</span>
+        </a>
+      </li> -->
+      <!-- <li>
+        <a class="capture-webcam" target=_new href="https://www.openscreenshot.com/webcam.php">
+          <span class="icon icon4"></span>
+          <span tr="capturewebcam">Webcam capture</span>
+        </a>
+      </li>
+      <li>
+        <a class="capture-desktop">
+          <span class="icon icon5"></span>
+          <span tr="capturedesktop">Desktop Capture</span>
+        </a>
+      </li>
+      <li>
+        <a class="capture-clipboard" href="/editor.html#paste" target=_new>
+          <span class="icon icon7"></span>
+          <span tr="captureclipboard">Paste from clipboard</span>
+        </a>
+      </li>
+      <li>
+        <a class="edit-content">
+          <span class="icon icon3"></span>
+          <span tr="editcontent">Edit content</span>
+        </a>
+      </li> -->
+    </ul>
+  </div>
+  <div class="window_message" style="display: none" id="noall" tr="noall"></div>
+  <!-- <div class="window_translate" style="display: none">
   Translate to:
 </div> -->
-<div class="window_footer">
-  <div class="window_footer_left">
-    <!-- <iframe src="https://ghbtns.com/github-btn.html?user=aminag&repo=openscreenshot&type=fork&count=true&size=large" frameborder="0" scrolling="0" width="158px" height="30px"></iframe><br> -->
-    <a href="https://www.openscreenshot.com" target="_blank">Visit web site</a>
-    <a href="https://github.com/AminaG/OpenScreenshot/issues/new" target="_blank" tr="filebug">Report bug</a>
-    <br/>
-    <span class="muted">
-      Version: <span class="ver"></span> |
-      <!-- <a href="https://www.openscreenshot.com/?t=changelog" target="_blank">change log (4/03/2016)</a> -->
-    </span>
+  <div class="window_footer">
+    <div class="window_footer_left">
+      <a href="https://github.com/sergei97k/1click-screenshot/" target="_blank">GitHub repository</a>
+    </div>
   </div>
-  <div class="window_footer_btns">
-    <a href="https://chrome.google.com/webstore/detail/akgpcdalpfphjmfifkmfbpdmgdmeeaeo/reviews" class="btn rate" target="_blank"><span tr="rate5star">Rate 5 star</span></a>
-    <a href="#" class="btn settings">
-      <span tr="settings">Settings</span>
-    </a>
-  </div>
-</div>
 </body>
+
 </html>

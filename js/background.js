@@ -1,12 +1,12 @@
 if(!localStorage.created){
-  chrome.tabs.create({url:'https://www.openscreenshot.com/?t=thankyou'})
+  // chrome.tabs.create({url:'https://www.openscreenshot.com/?t=thankyou'})
   localStorage.ver=extension.manifest.version
   localStorage.skip28update=true
 }
 if (!localStorage.skip28update) {  
   function a(){
     chrome.browserAction.setPopup({popup:'popup.html'})
-    chrome.tabs.create({url:'https://www.openscreenshot.com/?t=thankyou'})
+    // chrome.tabs.create({url:'https://www.openscreenshot.com/?t=thankyou'})
     chrome.browserAction.onClicked.removeListener(a)
     chrome.browserAction.setBadgeText({
     text:'',
