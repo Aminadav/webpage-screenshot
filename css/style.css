@@ -368,6 +368,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	float: left;
 	margin-right: 15px;
 }
+.editor-toolbar .logo img {
+	width: 48px;
+}
 .editor-toolbar .donation-bar {
     position: relative;
     float: left;
