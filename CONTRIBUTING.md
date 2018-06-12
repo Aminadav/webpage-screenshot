@@ -12,7 +12,7 @@ Thank you to all the people who have already contributed to 1ce!
 
 Thank you to all our backers! [[Become a backer](https://opencollective.com/1ce#backer)]
 
-<a href="https://opencollective.com/1ce#backers" target="_blank"><img src="https://opencollective.com/1ce/backers.svg?width=890"></a>
+<a href="https://opencollective.com/1ce#backers" target="_blank"><img src="https://opencollective.com/1ce/backers.svg?width=891"></a>
 
 ### Sponsors
 
