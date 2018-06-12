@@ -26,6 +26,7 @@ How to Contribute?
 - Fork the project in your account and create a new branch: your-new-feature.
 - Commit your changes within that branch.
 - Open a pull request, and reference the initial issue in the pull request message.
+- Donate small amount of money. <a href="https://www.patreon.com/bePatron?u=5449508" data-patreon-widget-type="become-patron-button">Become a Patron!</a>
 
 
 ---
@@ -113,19 +114,7 @@ It's an awesome tool for manual and autmated tests.
  
 ### Financial contributions
 
-We also welcome financial contributions in full transparency on our [open collective](https://opencollective.com/1ce).
-+Anyone can file an expense. If the expense makes sense for the development of the community, it will be "merged" in the ledger of our open collective by the core contributors and the person who filed the expense will be reimbursed. 
-
-### Contributors
-
-Thank you to all the people who have already contributed to 1ce!
-<a href="graphs/contributors"><img src="https://opencollective.com/1ce/contributors.svg?width=890" /></a>
-
-### Bakers
-
-Thank you to all our backers! [[Become a backer](https://opencollective.com/1ce#backer)]
-
-<a href="https://opencollective.com/1ce#backers" target="_blank"><img src="https://opencollective.com/1ce/backers.svg?width=890"></a>
+<a href="https://www.patreon.com/bePatron?u=5449508" data-patreon-widget-type="become-patron-button">Become a Patron!</a>
 
 ### Sponsors
 
