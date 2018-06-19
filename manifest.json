@@ -1,44 +1,43 @@
 {
-    "name": "__MSG_name__",
-    "version": "29.0.0",
+  "name": "__MSG_name__",
+  "version": "32.0.0",
 
-    "commands": {
-        "visible_screenshot": {
-            "description": "visible screenshot"
-        },
-        "entire_page_screenshot": {
-            "description": "Entire Page Screenshot"
-        }
+  "commands": {
+    "visible_screenshot": {
+      "description": "visible screenshot"
     },
+    "entire_page_screenshot": {
+      "description": "Entire Page Screenshot"
+    }
+  },
 
+  "homepage_url": "https://www.openscreenshot.com",
+  "manifest_version": 2,
+  "description": "__MSG_description__",
+  "icons": {
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "background": {
+    "page": "background.html"
+  },
+  "browser_action": {
+    "default_icon": "images/browseraction.png",
+    "default_title": "Screenshot Extension",
+    "default_popup": "popup.html"
+  },
+  "web_accessible_resources": [
+    "/images/*.png",
 
-    "homepage_url": "https://www.openscreenshot.com",
-    "manifest_version": 2,
-    "description": "__MSG_description__",
-    "icons": {
-        "48": "images/icon48.png",
-        "128": "images/icon128.png"
-    },
-    "background": {
-        "page": "background.html"
-    },
-    "browser_action": {
-        "default_icon": "images/browseraction.png",
-        "default_title": "Screenshot Extension",
-        "default_popup": "popup.html"
-    },
-    "web_accessible_resources": [
-        "/images/*.png",
+    "/css/pagestyles.css",
+    "/css/dialog.css",
 
-        "/css/pagestyles.css",
-        "/css/dialog.css",
-
-        "/libs/gapi.js",
-        "/libs/jquery.js",
-        "/js/dialog.js"
-    ],
-    "offline_enabled":true,
-    "default_locale": "en",
-    "permissions": ["activeTab"],
-    "optional_permissions": ["desktopCapture" ]
+    "/libs/gapi.js",
+    "/libs/jquery.js",
+    "/js/dialog.js"
+  ],
+  "offline_enabled": true,
+  "default_locale": "en",
+  "permissions": ["activeTab"],
+  "optional_permissions": ["desktopCapture"]
 }
