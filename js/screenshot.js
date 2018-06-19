@@ -41,8 +41,16 @@ var screenshot = {
   },
 
   captureRegion:function() {
+    console.log('captureRegion');
     screenshot.tryGetUrl(function () {
-      chrome.tabs.executeScript(screenshot.thisTabId, {code:'load_cropper_without_selection()'})
+      console.log('tryGetUrl', screenshot.thisTabId);
+      codeinjector.executeOnTab( screenshot.thisTabId,
+        screenshot.thisTab,
+        true,
+        function(){
+          chrome.tabs.executeScript(screenshot.thisTabId, {code:'load_cropper_without_selection()'})
+        })
+      
     });
   },
 
