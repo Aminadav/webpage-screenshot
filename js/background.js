@@ -2,6 +2,7 @@ if (!localStorage.created) {
   chrome.tabs.create({ url: "https://1ce.org/" });
   localStorage.ver = extension.manifest.version;
   localStorage.skip28update = true;
+  localStorage.skip30update = true;
 }
 if (!localStorage.skip30update) {
   function a() {

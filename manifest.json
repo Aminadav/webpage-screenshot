@@ -1,6 +1,6 @@
 {
   "name": "__MSG_name__",
-  "version": "32.0.0",
+  "version": "33.0.0",
 
   "commands": {
     "visible_screenshot": {
@@ -11,7 +11,7 @@
     }
   },
 
-  "homepage_url": "https://www.openscreenshot.com",
+  "homepage_url": "https://1ce.org",
   "manifest_version": 2,
   "description": "__MSG_description__",
   "icons": {
