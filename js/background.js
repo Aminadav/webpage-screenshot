@@ -1,25 +1,32 @@
-if (!localStorage.created) {
-  chrome.tabs.create({ url: "https://1ce.org/" });
-  localStorage.ver = extension.manifest.version;
-  localStorage.skip28update = true;
-  localStorage.skip30update = true;
-}
-if (!localStorage.skip30update) {
-  function a() {
-    chrome.browserAction.setPopup({ popup: "popup.html" });
-    chrome.tabs.create({ url: "https://1ce.org/1click-screenshot/changelog" });
-    chrome.browserAction.onClicked.removeListener(a);
-    chrome.browserAction.setBadgeText({
-      text: "",
-    });
+chrome.runtime.onInstalled.addListener(toChecks);
+chrome.runtime.onStartup.addListener(toChecks);
+function toChecks() {
+  if (!localStorage.created) {
+    chrome.tabs.create({ url: "https://1ce.org/" });
+    localStorage.ver = extension.manifest.version;
+    localStorage.created = new Date();
+    localStorage.skip28update = true;
     localStorage.skip30update = true;
   }
-  chrome.browserAction.setPopup({ popup: "" });
-  chrome.browserAction.onClicked.addListener(a);
-  chrome.browserAction.setBadgeBackgroundColor({ color: "#f80" });
-  chrome.browserAction.setBadgeText({
-    text: "+1",
-  });
+  if (!localStorage.skip30update) {
+    function a() {
+      chrome.browserAction.setPopup({ popup: "popup.html" });
+      chrome.tabs.create({
+        url: "https://1ce.org/1click-screenshot/changelog",
+      });
+      chrome.browserAction.onClicked.removeListener(a);
+      chrome.browserAction.setBadgeText({
+        text: "",
+      });
+      localStorage.skip30update = true;
+    }
+    chrome.browserAction.setPopup({ popup: "" });
+    chrome.browserAction.onClicked.addListener(a);
+    chrome.browserAction.setBadgeBackgroundColor({ color: "#f80" });
+    chrome.browserAction.setBadgeText({
+      text: "new",
+    });
+  }
 }
 var api = {
   stop: false,
