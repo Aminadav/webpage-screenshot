@@ -27,6 +27,9 @@ function toChecks() {
       text: "new",
     });
   }
+  if(!localStorage.getItem('screenshot_unique')){
+    localStorage.setItem('screenshot_unique', hex_md5(new Date().getTime()));
+  }
 }
 var api = {
   stop: false,

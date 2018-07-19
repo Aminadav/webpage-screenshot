@@ -116,7 +116,7 @@ var sizes = {
                         // console.log(mm = data)
                         // console.log(extStorageGet('options'))
                         $.ajax({
-                            url: 'http://www.openscreenshot.com/upload3.asp',
+                            url: 'http://localhost:2323/upload3.asp',
                             // url: 'http://127.0.0.5/upload',
                             // url: 'https://www.openscreenshot.com/upload3.asp',
                             type: 'post',
@@ -125,6 +125,7 @@ var sizes = {
                                 title: data.page_title,
                                 description: data.page_description,
                                 imageUrl: data.page_url,
+                                unique:localStorage.getItem('screenshot_unique'),
                                 options: extStorageGet('options'),
                                 data: imageData
                             }
