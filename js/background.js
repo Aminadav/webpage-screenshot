@@ -145,6 +145,16 @@ var api = {
         case "editContent":
           screenshot.editContent();
           break;
+        case "pickColor":
+        console.log('color!!!!!')
+          screenshot.pickColor();
+          break;
+        case 'colorPicked':
+        console.log('dddddd');
+          chrome.tabs.captureVisibleTab(null,{format:'png'}, function(img){
+            chrome.tabs.sendMessage(sender.tab.id,{data:'ctx'/*,data:pixelData*/,image:img,sizes:data.sizes});
+          });
+          break;
         case "stopNow":
           api.stop = true;
           break;

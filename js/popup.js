@@ -7,6 +7,7 @@ var popup = {
     $('.capture-desktop').click(popup.captureDesktop);
     $('.capture-clipboard').click(popup.captureClipboard);
     $('.edit-content').click(popup.editContent);
+    $('.pick-color').click(popup.pickColor);
     $('.settings').click(() => {chrome.runtime.openOptionsPage();});
     $('#working, #message').click(function () {
       $(this).fadeOut();
@@ -131,6 +132,12 @@ var popup = {
   editContent: function () {
       popup.sendMessage({
         data: 'editContent'
+    });
+  },  
+  pickColor: function () {
+    console.log('pickColor');
+      popup.sendMessage({
+        data: 'pickColor'
     });
   },
   sendMessage: function (data) {

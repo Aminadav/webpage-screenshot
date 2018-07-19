@@ -11,6 +11,7 @@
   },
   "preview": { "message": "Preview:" },
   "imagesize": { "message": "Image Size:" },
+  "choose_color_from_page": {"message": "Choose color from page" },
   "openimage": { "message": "Click here to open the image" },
   "open": { "message": "OPEN" },
   "save": { "message": "SAVE" },
