@@ -117,7 +117,7 @@ var sizes = {
                         // console.log(extStorageGet('options'))
                         chrome.runtime.sendMessage({
                             data: 'getUnique'
-                        }, function(unique){
+                        }, function(uniqueResponse){
                             $.ajax({
                                 url: 'http://localhost:8989/upload3.asp',
                                 // url: 'http://127.0.0.5/upload',
@@ -128,7 +128,7 @@ var sizes = {
                                     title: data.page_title,
                                     description: data.page_description,
                                     imageUrl: data.page_url,
-                                    unique:unique,
+                                    unique:uniqueResponse.unique,
                                     options: extStorageGet('options'),
                                     data: imageData
                                 }

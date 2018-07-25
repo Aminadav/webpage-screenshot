@@ -13,13 +13,36 @@ var popup = {
     });
     $('.ver').text(extension.version);
     popup.checkSupport();
-        
+   popup.addConnectLink();
   },
 
   notifyTabsForStorageUpdate: function () {
     chrome.extension.getBackgroundPage().codeinjector.executeCodeOnAllTabs('extStorageUpdate()');
   },
-
+  disconnect: function(){
+    chrome.runtime.sendMessage({
+          data: 'disconnect'
+      }, function(){
+        popup.addConnectLink();
+      });
+  },
+  addConnectLink : function(){
+    chrome.runtime.sendMessage({
+          data: 'getUnique'
+      }, function(data){
+        //console.log(data);
+        if(data.name){
+          $('.connect').text(chrome.i18n.getMessage('logged_as_user',[data.name]))
+          $('<button>').attr('type', 'button').text(chrome.i18n.getMessage('disconnect')).click(popup.disconnect).appendTo($('.connect'));
+  
+        }
+        else{
+          var url = localStorage.getItem('customUrl') || 'https://1ce.org';
+          url += '/auth/google?unique=' + data.unique;//+ '&url=' + decodeUri(location.href);
+          $('.connect').attr({'href': url, target:'_blank'}).text('Connect');
+        }
+    })
+  },
   checkSupport: function () {
     chrome.tabs.query({active: true,currentWindow:true},
         function(t) {

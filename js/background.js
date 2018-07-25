@@ -76,6 +76,49 @@ var api = {
       }
     });
   },
+  getUserData :function(callback){
+    var unique = localStorage.getItem('screenshot_unique'),
+        name = localStorage.getItem('screenshot_name');
+    if(!name ){
+      var url = localStorage.getItem('customUrl') || 'https://1ce.org';
+        url += '/howami';
+      $.ajax({
+          type: "GET",
+          url: url,
+          // The key needs to match your method's input parameter (case-sensitive).
+          headers: {
+            'user-id-unique' : unique
+          },
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: function(data){
+            //console.log('data');
+            var res = {
+              unique : unique
+            }
+            if(data && data.name){
+              localStorage.setItem('screenshot_name', data.name);
+              res.name = name;
+            }
+            else{
+              res.name = '';
+            }
+            callback(res);
+          },
+          error: function(errMsg) {
+              callback({
+                unique : unique
+              });
+          }
+        });
+      }
+      else{
+        callback({
+                unique : unique,
+                name : name
+              });
+      }
+  },
   isEnableURL: function(url) {
     if (localStorage["sb_enable"] != "yes") return false;
     url = cleanUp(url);
@@ -174,8 +217,17 @@ var api = {
             callback();
           }
           break;
+        case "disconnect":
+          api.getUserData(function(data){
+            localStorage.removeItem('screenshot_name');
+            callback();
+          });
+          break;
         case "getUnique":
-          callback(localStorage.getItem('screenshot_unique'));
+          api.getUserData(function(data){
+            console.log('data', data)
+            callback(data);
+          });
           break;
         default:
           console.warn("Invalid message", data);

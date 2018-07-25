@@ -63,6 +63,8 @@
     "message": "Must reload all pages, before it will take effect"
   },
   "on_this_page": { "message": "on this page." },
+  "logged_as_user" : { "message": "Logged as $1" },
+  "disconnect" : { "message": "Disconnect" },
   "enable": { "message": "Enable" },
   "disable": { "message": "Disable" }
 }

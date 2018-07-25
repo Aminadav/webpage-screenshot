@@ -30,5 +30,7 @@
 "loadcapturescript" : {"message" : "מפעיל סקריפט ללכידת התמונה"},
 "cannotscroll" : {"message" : "לא ניתן לגלול את הדף<br/><br/>נסה לסגור ולפתוח את הכרטיסייה מחדש"},
 "takingcapture" : {"message" : "לוקח תמונה מסך"},
+"logged_as_user" : { "message": "מחובר כ$1" },
+"disconnect" : { "message": "התנתק" },
 "createimage" : {"message" : " מחבר את התמונות..."}
 }
