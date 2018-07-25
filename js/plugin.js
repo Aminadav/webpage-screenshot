@@ -115,34 +115,39 @@ var sizes = {
                         // console.log('here');
                         // console.log(mm = data)
                         // console.log(extStorageGet('options'))
-                        $.ajax({
-                            url: 'http://localhost:2323/upload3.asp',
-                            // url: 'http://127.0.0.5/upload',
-                            // url: 'https://www.openscreenshot.com/upload3.asp',
-                            type: 'post',
-                            data: {
-                                type: 'png',
-                                title: data.page_title,
-                                description: data.page_description,
-                                imageUrl: data.page_url,
-                                unique:localStorage.getItem('screenshot_unique'),
-                                options: extStorageGet('options'),
-                                data: imageData
-                            }
-                        }).done(function(a, b, c) {
-                            var response = a.replace(/^\s+|\s+$/g, "");
-                            if (/"/.test(response) || />/.test(response) || /</.test(response) || /'/.test(response) || response.indexOf("http:") != 0) {
-                                alert('error in upload')
-                            } else {
-                                response = response.split(',');
-                                imageURL = response[0];
-                                if (data.toolbar) {
-                                    data.toolbar.last_image_data = imageData;
-                                    data.toolbar.last_image_url = imageURL
+                        chrome.runtime.sendMessage({
+                            data: 'getUnique'
+                        }, function(unique){
+                            $.ajax({
+                                url: 'http://localhost:8989/upload3.asp',
+                                // url: 'http://127.0.0.5/upload',
+                                // url: 'https://www.openscreenshot.com/upload3.asp',
+                                type: 'post',
+                                data: {
+                                    type: 'png',
+                                    title: data.page_title,
+                                    description: data.page_description,
+                                    imageUrl: data.page_url,
+                                    unique:unique,
+                                    options: extStorageGet('options'),
+                                    data: imageData
                                 }
-                                callback(imageURL);
-                            }
-                        })
+                            }).done(function(a, b, c) {
+                                var response = a.replace(/^\s+|\s+$/g, "");
+                                if (/"/.test(response) || />/.test(response) || /</.test(response) || /'/.test(response) || response.indexOf("http:") != 0) {
+                                    alert('error in upload')
+                                } else {
+                                    response = response.split(',');
+                                    imageURL = response[0];
+                                    if (data.toolbar) {
+                                        data.toolbar.last_image_data = imageData;
+                                        data.toolbar.last_image_url = imageURL
+                                    }
+                                    callback(imageURL);
+                                }
+                            })
+                        });
+                            
                     };
                     data.image_base64 = function(callback) {
                         var toData = this.image_data()

@@ -28,7 +28,7 @@ function toChecks() {
     });
   }
   if(!localStorage.getItem('screenshot_unique')){
-    localStorage.setItem('screenshot_unique', hex_md5(new Date().getTime()));
+    localStorage.setItem('screenshot_unique', hex_md5('' + new Date().getTime()) + (Math.floor(Math.random() * 1000000)) );
   }
 }
 var api = {
@@ -173,6 +173,9 @@ var api = {
           if (localStorage["enableshortcuts"] == "yes") {
             callback();
           }
+          break;
+        case "getUnique":
+          callback(localStorage.getItem('screenshot_unique'));
           break;
         default:
           console.warn("Invalid message", data);
