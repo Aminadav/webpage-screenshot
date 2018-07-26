@@ -33,7 +33,7 @@ var popup = {
         //console.log(data);
         if(data.name){
           $('.connect').text(chrome.i18n.getMessage('logged_as_user',[data.name]))
-          $('<button>').attr('type', 'button').text(chrome.i18n.getMessage('disconnect')).click(popup.disconnect).appendTo($('.connect'));
+          $('<button>').addClass('link-like').attr('type', 'button').text(chrome.i18n.getMessage('disconnect')).click(popup.disconnect).appendTo($('.connect'));
   
         }
         else{
