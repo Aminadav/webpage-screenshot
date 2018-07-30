@@ -63,8 +63,11 @@ var screenshot = {
   },
   pickColor: function () {
     screenshot.tryGetUrl(function () {
-      chrome.tabs.insertCSS(screenshot.thisTabId, {file: "css/picker.css"});
-      chrome.tabs.executeScript(screenshot.thisTabId, {allFrames: true, file: 'js/color-picker.js'});
+      
+      chrome.tabs.executeScript(screenshot.thisTabId, {allFrames: true, file: 'js/color-picker.js'}, function(){
+        chrome.tabs.sendMessage(screenshot.thisTabId, {data:'addColorpickerCss',cssUrl : chrome.extension.getURL("css/picker.css")});
+
+      });
     });
   },
 
