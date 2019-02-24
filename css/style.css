@@ -7,6 +7,9 @@ a {
   cursor: pointer;
 }
 
+textarea {
+  outline: none;
+}
 .donate {
   vertical-align: top;
   display: inline-block;
@@ -224,6 +227,11 @@ a {
 }
 .window_nav ul li .icon-eye {
   background: url(../images/icon-eye.png) no-repeat center;
+}
+
+.brush-icon {
+  background: url(../images/brush.png) no-repeat center;
+  background-size: contain;
 }
 .window_translate {
   padding: 10px 10px;

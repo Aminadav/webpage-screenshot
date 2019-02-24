@@ -5,12 +5,13 @@ gr.txt
 src.zip
 nv.*
 .vscode
-
+dist
 # manifest
 src/manifest.json
 
 # Node
 node_modules
+
 
 
 

@@ -3,12 +3,12 @@ chrome.runtime.onStartup.addListener(toChecks);
 function toChecks() {
   if (!localStorage.created) {
     chrome.tabs.create({ url: "https://1ce.org/" });
-    localStorage.ver = extension.manifest.version;
+    localStorage.ver = chrome.runtime.getManifest();
     localStorage.created = new Date();
     localStorage.skip28update = true;
     localStorage.skip30update = true;
   }
-  if (!localStorage.skip30update) {
+  if (!localStorage.skip31update) {
     function a() {
       chrome.browserAction.setPopup({ popup: "popup.html" });
       chrome.tabs.create({
@@ -18,13 +18,13 @@ function toChecks() {
       chrome.browserAction.setBadgeText({
         text: "",
       });
-      localStorage.skip30update = true;
+      localStorage.skip31update = true;
     }
     chrome.browserAction.setPopup({ popup: "" });
     chrome.browserAction.onClicked.addListener(a);
-    chrome.browserAction.setBadgeBackgroundColor({ color: "#f80" });
+    chrome.browserAction.setBadgeBackgroundColor({ color: "#f00" });
     chrome.browserAction.setBadgeText({
-      text: "new",
+      text: "+1$",
     });
   }
 }

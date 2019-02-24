@@ -1,0 +1,22 @@
+{
+  "name": "superchrome",
+  "version": "1.0.0",
+  "description": "Open Source extension far beyond typical Screenshot Capturing: Save, Edit, Annotate, Print, and Share! This is a open-source extension for taking screenshots.  This extension is able to capture 100% of both the vertical and horizontal content appearing on any webpage on the Internet.  It is very easy to save the captured file onto your computer or print it / or share it to any social network.",
+  "main": "editor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1click-extensions/1click-webpage-screenshot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1click-extensions/1click-webpage-screenshot/issues"
+  },
+  "homepage": "https://github.com/1click-extensions/1click-webpage-screenshot#readme",
+  "dependencies": {
+    "@types/chrome": "0.0.81"
+  }
+}

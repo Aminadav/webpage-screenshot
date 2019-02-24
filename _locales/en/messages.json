@@ -1,13 +1,12 @@
 {
   "new": { "message": "NEW" },
   "name": {
-    "message": "1-Click Webpage Screenshot: The fastest!"
+    "message": "SuperChrome: Webpage Screenshot for Chrome™"
   },
   "dir": { "message": "ltr" },
   "settings": { "message": "settings" },
   "description": {
-    "message":
-      "The easiest, fastest and trustiest way to capture and share full pages. It's always Free, and open-source!"
+    "message": "The easiest, fastest and trustiest way to capture and share full pages. It's always Free, and open-source!"
   },
   "preview": { "message": "Preview:" },
   "imagesize": { "message": "Image Size:" },
@@ -32,19 +31,16 @@
   "visiblescreenshot": { "message": "Visible Screenshot" },
   "allpage": { "message": "Whole Page Screenshot" },
   "noall": {
-    "message":
-      "Cannot scroll on this page (extensions do not work on internal Chrome pages nor in the Chrome extensions gallery)."
+    "message": "Cannot scroll on this page (extensions do not work on internal Chrome pages nor in the Chrome extensions gallery)."
   },
   "likeresult": {
-    "message":
-      "Like it? Love it? Please write a nice comment and give OpenScreenshot 5 stars. Thank you for your support!"
+    "message": "Like it? Love it? Please write a nice comment and give OpenScreenshot 5 stars. Thank you for your support!"
   },
   "or": { "message": "or" },
   "filebug": { "message": "File a bug report." },
   "zoom": { "message": "Zoom" },
   "tosavemessage": {
-    "message":
-      "To save this image, right click on it and choose \"Save Image\"."
+    "message": "To save this image, right click on it and choose \"Save Image\"."
   },
   "loadcapturescript": { "message": "Loading OpenScreenshot Script..." },
   "cannotscroll": {
@@ -53,8 +49,7 @@
   "takingcapture": { "message": "Capturing Screenshot..." },
   "createimage": { "message": " Creating image file..." },
   "nolocal": {
-    "message":
-      "To capture entire screens from local files, you must first install a small plugin."
+    "message": "To capture entire screens from local files, you must first install a small plugin."
   },
   "screenshot_delay": { "message": "Screenshot Delay" },
   "seconds": { "message": "seconds" },
