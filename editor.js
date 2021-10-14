@@ -170,10 +170,16 @@ function editor_obj()
 		moreParams=moreParams || {}
 		if (imageChanged!=localStorage['pngjpg'])
 			{
+			var new_clip = {
+				rx1: Math.round(clip.rx1),
+				ry1: Math.round(clip.ry1),
+				width: Math.round(clip.rx2 - clip.rx1),
+				height: Math.round(clip.ry2 - clip.ry1)
+			};
 			//$('#done_preview canvas').remove();
 			var done=$('<canvas style=display:none; class=done></canvas>')[0];
-			done.width=clip.rx2-clip.rx1;
-			done.height=clip.ry2-clip.ry1;
+			done.width = new_clip.width;
+			done.height = new_clip.height;
 
 			if($('#border1').hasClass('on')){
 				done.width+=10;
@@ -185,7 +191,13 @@ function editor_obj()
 			// var id=canvasData.getContext('2d').getImageData(clip.rx1,clip.ry1,100,100);
 			// ctx.putImageData(id,0,0);
 
-			ctx.drawImage(   $('#imgFixForLong')[0],clip.rx1,clip.ry1,clip.rx2-clip.rx1, clip.ry2-clip.ry1 ,0,0,clip.rx2-clip.rx1, clip.ry2-clip.ry1 )
+			ctx.drawImage(
+				$('#imgFixForLong')[0],
+				new_clip.rx1, new_clip.ry1, 
+				new_clip.width, new_clip.height,
+				0, 0, 
+				new_clip.width, new_clip.height,
+			);
 
 			for(var i=0;i<=currentIndex;i++)
 				{
