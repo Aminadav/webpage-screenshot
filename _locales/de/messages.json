@@ -1,34 +1,68 @@
 {
-"name": {"message": "Webseiten-Screenshot - Screenshot Extension" },
-"dir": {"message": "ltr" },
-"description": {"message": "Schnelle und einfache Erweiterung um JPG-Screenshots von Webseiten zu erstellen. Lange Seiten können in einem Bild gespeichert ..." },
-"preview" : {"message":"Vorschau:"},
-"imagesize" : {"message":"Auflösung:"},
-"openimage" : {"message": "Hier klicken um das Bild zu öffnen"},
-"wait" : {"message" : "Bitte warten..."},
-"cancel" : {"message" : "Abbrechen"},
-"canceled" : {"message" : "Aufnahme abgebrochen!"},
-"noresize" : {"message" : "Keine Größenänderung"},
-"resize" : {"message" : "Ändere Größe auf:"},
-"width" : {"message" : "Breite"},
-"height" : {"message" : "Höhe"},
-"changeheaders" : {"message" : "Kopf- und Fußzeile ändern"},
-"header" : {"message" : "Kopfzeile"},
-"footer" : {"message" : "Fußzeile"},
-"url" : {"message" : "URL"},
-"date" : {"message" : "Datum"},
-"takecapture" : {"message" : "Bild jetzt aufnehmen"},
-"resizebefore" : {"message" : "Fenstergröße vor der Aufnahme ändern"},
-"visiblescreenshot" : {"message" : "Sichtbarer Screenshot"},
-"allpage" : {"message" : "Kompletter Screenshot"},
-"noall" : {"message" : "Kann Webseite nicht scrollen (Die Erweiterung funktioniert nicht in der Erweiterungsgallerie und auch nicht auf internen Chrome-Seiten)"},
-"likeresult" : {"message" : "Gefällt das Ergebnis? Sie können ein nettes Kommentar schreiben oder mit 5 Sternen bewerten"},
-"or" : {"message" : "oder"},
-"filebug" : {"message" : "einen Fehlerbericht senden"},
-"zoom" : {"message" : "Zoom"},
-"tosavemessage" : {"message" : "Um das Bild zu speichern, machen Sie einen Rechtsklick darauf und wählen Sie \"Bild speichern unter\""},
-"loadcapturescript" : {"message" : "Lade Aufnahmescript..."},
-"cannotscroll" : {"message" : "Kann Webseite nicht scrollen<br><br/>Versuchen Sie den Tab neu zu öffnen"},
-"takingcapture" : {"message" : "Aufnahme"},
-"createimage" : {"message" : "Erstelle das Bild..."}
-}
+    "new": { "message": "Neu" },
+    "name": {
+      "message": "1-Klick Webseiten Screenshot: Der schnellste!"
+    },
+    "dir": { "message": "ltr" },
+    "settings": { "message": "Einstellungen" },
+    "description": {
+      "message":
+        "Der einfachste, schnellste und vertrauenswürdigste Weg um volle Bildschirmaufnahmen zu erstellen und zu teilen. Immer kostenlos und Open Source!"
+    },
+    "preview": { "message": "Vorschau:" },
+    "imagesize": { "message": "Auflösung:" },
+    "openimage": { "message": "Hier klicken um das Bild zu öffnen" },
+    "open": { "message": "OPEN" },
+    "save": { "message": "SAVE" },
+    "share": { "message": "SHARE" },
+    "wait": { "message": "Bitte warten..." },
+    "cancel": { "message": "Abbrechen" },
+    "canceled": { "message": "Aufnahme abgebrochen!" },
+    "noresize": { "message": "Keine Größenänderung" },
+    "resize": { "message": "Ändere Größe auf:" },
+    "width": { "message": "Breite" },
+    "height": { "message": "Höhe" },
+    "changeheaders": { "message": "Kopf- und Fußzeile ändern" },
+    "header": { "message": "Kopfzeile" },
+    "footer": { "message": "Fußzeile" },
+    "url": { "message": "URL" },
+    "date": { "message": "Datum" },
+    "takecapture": { "message": "Bild jetzt aufnehmen" },
+    "resizebefore": { "message": "Fenstergröße vor der Aufnahme ändern" },
+    "visiblescreenshot": { "message": "Sichtbarer Screenshot" },
+    "allpage": { "message": "Kompletter Screenshot" },
+    "noall": {
+      "message":
+        "Kann Webseite nicht scrollen (Die Erweiterung funktioniert nicht in der Erweiterungsgallerie und auch nicht auf internen Chrome-Seiten)."
+    },
+    "likeresult": {
+      "message":
+        "Gefällt das Ergebnis? Sie können ein nettes Kommentar schreiben oder mit 5 Sternen bewerten"
+    },
+    "or": { "message": "oder" },
+    "filebug": { "message": "einen Fehlerbericht senden" },
+    "zoom": { "message": "Zoom" },
+    "tosavemessage": {
+      "message":
+        "Um das Bild zu speichern, machen Sie einen Rechtsklick darauf und wählen Sie \"Bild speichern unter\""
+    },
+    "loadcapturescript": { "message": "Lade Aufnahmescript..." },
+    "cannotscroll": {
+      "message": "Kann Webseite nicht scrollen<br><br/>Versuchen Sie den Tab neu zu öffnen"
+    },
+    "takingcapture": { "message": "Aufnahme" },
+    "createimage": { "message": "Erstelle das Bild..." },
+    "nolocal": {
+      "message":
+        "Um Bildschirmaufnahmen von lokalen Dateien anfertigen zu können muss erst ein kleines Plugin installiert werden."
+    },
+    "screenshot_delay": { "message": "Screenshot Verzögerung" },
+    "seconds": { "message": "Sekunden" },
+    "before_taking_screenshot": { "message": "vor dem Screenshot erstellen." },
+    "must_reload_tabs": {
+      "message": "Muss alle Seiten neu laden bevor die Einstellungen wirksam werden"
+    },
+    "on_this_page": { "message": "auf dieser Seite." },
+    "enable": { "message": "Aktivieren" },
+    "disable": { "message": "Deaktivieren" }
+  }
