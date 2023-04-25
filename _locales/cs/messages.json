@@ -1,34 +1,68 @@
 {
-"name": {"message": "Rozšíření pro webové stránky - WP Screenshot" },
-"dir": {"message": "ltr" },
-"description": {"message": "Rychlé a jednoduché pro uložení JPG snímků libovolné webové stránky.  První rozšíření, které snímá celou stránku." },
-"preview" : {"message":"Náhled:"},
-"imagesize" : {"message":"Velikost obrázku:"},
-"openimage" : {"message": "Klikněte zde pro otevření obrázku"},
-"wait" : {"message" : "čekejt"},
-"cancel" : {"message" : "zrušit"},
-"canceled" : {"message" : "Snímání bylo zrušeno!"},
-"noresize" : {"message" : "Neměnit velikost"},
-"resize" : {"message" : "Změnit velikost:"},
-"width" : {"message" : "šířka"},
-"height" : {"message" : "výška"},
-"changeheaders" : {"message" : "Změna záhlaví a zápatí"},
-"header" : {"message" : "Záhlaví"},
-"footer" : {"message" : "Zápatí"},
-"url" : {"message" : "URL"},
-"date" : {"message" : "Datum"},
-"takecapture" : {"message" : "Vytvořit snímek"},
-"resizebefore" : {"message" : "Změnit velikost okna před vytvořením snímku"},
-"visiblescreenshot" : {"message" : "Viditelná část"},
-"allpage" : {"message" : "Celá stránka"},
-"noall" : {"message" : "Nemůžete posouvat tuto stránku (Rozšíření nepracuje na interních stránkách prohlížeče Chrome a v galerii rozšíření prohlížeče Chrome"},
-"likeresult" : {"message" : "Líbí se vám výsledek? Můžete napsat pěkný komentář a ohodnotit pěti hvězdičkami"},
-"or" : {"message" : "nebo"},
-"filebug" : {"message" : "Můžete vyplnit hlášení o chybě"},
-"zoom" : {"message" : "Zoom"},
-"tosavemessage" : {"message" : "Pro uložení obrázku, klikněte na něj pravým tlačítkem myši a zvolte \"Uložit obrázek...\""},
-"loadcapturescript" : {"message" : "Načítám..."},
-"cannotscroll" : {"message" : "Nelze posouvat stránku<br><br/>Zkuste znovu otevřít tuto záložku"},
-"takingcapture" : {"message" : "Vytvořit snímek"},
-"createimage" : {"message" : " Vytvářím obrázek..."}
+  "new": { "message": "NOVÝ" },
+  "name": {
+    "message": "1-Click Webpage Screenshot: To nejrychlejší!"
+  },
+  "dir": { "message": "ltr" },
+  "settings": { "message": "nastavení" },
+  "description": {
+    "message":
+      "Nejjednoduší, nejrychlejší a nejdůvěryhodnější způsob pro zachycení a sdílení snímků celých stránek. Navždy zdarma a open source!"
+  },
+  "preview": { "message": "Náhled:" },
+  "imagesize": { "message": "Velikost obrázku:" },
+  "openimage": { "message": "Klikněte zde pro otevření obrázku" },
+  "open": { "message": "OTEVŘÍT" },
+  "save": { "message": "ULOŽIT" },
+  "share": { "message": "SDÍLET" },
+  "wait": { "message": "čekejte" },
+  "cancel": { "message": "zrušit" },
+  "canceled": { "message": "Pořizování snímku zrušeno." },
+  "noresize": { "message": "Neměnit velikost" },
+  "resize": { "message": "Změnit velikost: " },
+  "width": { "message": "šířka" },
+  "height": { "message": "výška" },
+  "changeheaders": { "message": "Změnit hlavičku a patičku" },
+  "header": { "message": "Hlavička" },
+  "footer": { "message": "Patička" },
+  "url": { "message": "URL" },
+  "date": { "message": "Datum" },
+  "takecapture": { "message": "Pořídit snímek obrazovky" },
+  "resizebefore": { "message": "Změnit velikost okna před pořízením snímku" },
+  "visiblescreenshot": { "message": "Viditelný snímek obrazovky" },
+  "allpage": { "message": "Snímek celé stránky" },
+  "noall": {
+    "message":
+      "Tuto stránku nelze posouvat (rozšíření nefungují na vnitřních stránkách ani v galerii rozšíření Chrome)."
+  },
+  "likeresult": {
+    "message":
+      "Líbí se Vám rozšíření? Prosím napiště pochvalný komentář a dejte 1-Click Webpage Screenshot 5 hvězdiček. Děkujeme za Vaši podoporu!"
+  },
+  "or": { "message": "nebo" },
+  "filebug": { "message": "Nahlásit chybu." },
+  "zoom": { "message": "Zoom" },
+  "tosavemessage": {
+    "message":
+      "Pro uložení tohoto obrázku klikněte pravým tlačítkem a vyberte \"Uložit obrázek\"."
+  },
+  "loadcapturescript": { "message": "Nahrávám skript 1-Click Webpage Screenshot..." },
+  "cannotscroll": {
+    "message": "Tuto stránku nelze posouvat.<br><br/>Zkuste záložku otevřít znovu."
+  },
+  "takingcapture": { "message": "Pořizuji snímek obrazovky..." },
+  "createimage": { "message": "Vytvářím soubor obrázku..." },
+  "nolocal": {
+    "message":
+      "Pro pořízená celé obrazovky musíte nejříve nainstalovat malý plugin."
+  },
+  "screenshot_delay": { "message": "Zpoždění pořízení snímku obrazovky" },
+  "seconds": { "message": "sekund" },
+  "before_taking_screenshot": { "message": "před pořízením snímku obrazovky." },
+  "must_reload_tabs": {
+    "message": "Musíte načíst znovu všechny stránky."
+  },
+  "on_this_page": { "message": "na této stránce." },
+  "enable": { "message": "Zapnout" },
+  "disable": { "message": "Vypnout" }
 }
