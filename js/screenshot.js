@@ -4,6 +4,12 @@ var screenshot = {
 
   },
 
+  captureCode: function (){
+    chrome.tabs.executeScript(screenshot.thisTabId, {code:'var code = document.documentElement.outerHTML; code'}, function(code){
+      screenshot.captureCodeTxt = code;
+    });
+  },
+
   captureVisible: function (data) {
     $.extend(screenshot, {
       callback: null,
@@ -310,7 +316,7 @@ var screenshot = {
             }
 
           } else {
-
+            screenshot.captureCode();
             chrome.tabs.create({url: chrome.extension.getURL('editor.html') + '#last'});
 
             delete screenshot.callback;
