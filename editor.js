@@ -2197,6 +2197,13 @@ $(function(){
 		}
   });
 
+	$('.archive').on('click',function (e){
+		editor.createLastCanvas('toolbar',function (data){
+			screenshot['image_data'] = data;
+			archivePage(screenshot);
+		})
+	});
+
 	$('.share').on('click',function (e){
 		var x=staticPlugin.getPluginByKey('openscreenshot')
 		editor.createLastCanvas('toolbar',function (data){
